@@ -1,0 +1,140 @@
+=== injection: WebTestBench_0054 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0054
+model:  claude-opus-5   max_turns: 150
+
+I'll start by invoking the skill.
+[tool] Skill
+I'll read the spec first, then explore the app.
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Read
+Spec and validator read. Now let me inspect the remaining data and start injecting.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Now the shared components (pass-through widening):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the shell — header tabs and the two tab layouts in `Index.tsx`:
+[tool] Edit
+[tool] Edit
+[tool] Read
+Now the two viewer placeholders:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the sort select (building options from the same source that renders them):
+[tool] Edit
+Now the document list collection itself:
+[tool] Edit
+[tool] Edit
+Now the list items and their per-item controls:
+[tool] Edit
+Now `DocumentViewer.tsx`:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the related-documents collection:
+[tool] Edit
+[tool] Edit
+Now `DocumentSection.tsx` — the section items and their two link renderings:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the Knowledge Graph screen:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Finally the toast and the 404 page:
+[tool] Edit
+[tool] Edit
+Now the validator and the project's own checks:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Now verifying what the linter can't see — runtime id uniqueness in the data:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Let me verify the rendered DOM at runtime (framer-motion/SVG pass-through, live id uniqueness):
+[tool] Bash
+[tool] Write
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Done. Injection complete and verified both statically and at runtime.
+
+## What I annotated
+
+The app is **TechSpecs KB** (Vite + React + Zustand, single route with three tabs). All 42 hint sites live in 10 source files:
+
+| Screen / component | Hints |
+|---|---|
+| **Shell** (`pages/Index.tsx`) | `nav.tabs` collection + 3 tab items with live `selected/unselected` state, favorites count badge, both "no document selected" placeholders |
+| **Documents & Favorites sidebar** (`DocumentList.tsx`) | filter region, search input, module filter chips (collection of 6 toggles), sort `select` with `data-semtag-options`, the document list collection + per-item title/module/favorite/meta |
+| **Document viewer** (`DocumentViewer.tsx`) | viewer region, back action, title/module/meta observables, favorite toggle, `document.sections` and `document.related` collections |
+| **Section accordion** (`DocumentSection.tsx`) | section items as toggles with `expanded/collapsed` state, cross-doc links in both the expanded and the locked-while-collapsed rendering |
+| **Knowledge graph** (`KnowledgeGraph.tsx`) | zoom in/out/reset actions, zoom-level observable, legend collection, `graph.nodes` collection with one navigation item per document node |
+| **Toast** / **404** | toast observable carrying `info\|warning\|error` + dismiss action; 404 message and home link |
+
+Shared components `FavoriteButton`, `ModuleBadge` and `EmptyState` were widened with `ComponentProps<'button'|'span'|'div'>` + `{...props}` so call sites pass hints through — the only non-attribute change, plus rendering the three sort `<option>`s from a `SORT_OPTIONS` constant so the trigger's `data-semtag-options` cannot drift from the menu.
+
+## Id namespaces
+
+`nav.tabs.*`, `documents.*` / `favorites.*` (the same `DocumentList` renders in two tabs, so the namespace is threaded from `showFavoritesOnly`), `document.*` for the viewer, `graph.*`, `app.toast.*`, `notfound.*`. State keys are shared across namespaces (`search.query`, `filters.sort`) so the agent connects the two instances.
+
+## Verification
+
+- Validator: **0 errors, 0 warnings, 0 info** over 42 hinted elements.
+- `tsc --noEmit` clean; `vite build` succeeds. `npm run lint` reports 3 errors + 8 warnings, **all pre-existing** in untouched shadcn boilerplate (`ui/command.tsx`, `ui/textarea.tsx`, `tailwind.config.ts`); of my files only a pre-existing `useMemo` dep warning in `DocumentList`.
+- Because the linter can't see the DOM, I drove the built app with Playwright: **zero duplicate ids on any screen**, every collection container really contains its items (`documents.list` → 76 item descendants, `graph.nodes` → 19), framer-motion and SVG elements do pass the attributes through, items are clickable by `data-semtag-id` alone, and live states update (`section: expanded/collapsed`, `zoom 100%→120%`, filter chip `auth:selected`, toast `warning`). I also confirmed all doc/section/link/related keys are unique in `data/documents.ts`.
+
+## Deliberately left unhinted
+
+- **Section body text and document descriptions** — several hundred characters each; they'd dominate every snapshot. The section toggle's `expanded/collapsed` state already tells the agent whether content is showing.
+- **Per-`<option>` ids on the sort select** — `data-semtag-options` on the trigger already lists `title|Title;date|Last Updated;module|Module`, so tagging the options too would be pure duplication on every snapshot.
+- Decorative items: app logo/title, graph edges, icons duplicating a labelled control, and the related-document module badges (the list and viewer badges already expose module).
+- The collapsed-state link copies are suffixed `.locked` rather than sharing the expanded ids, because framer-motion's exit animation makes both render simultaneously for ~300 ms.
+
+One side effect worth flagging: the project had no `node_modules`, so I ran `npm ci` (379 packages) to run the type-check/lint/build. `dist/` was removed afterwards.
+
+--- WebTestBench_0054: ok in 616.1s
+    turns=82 cost=$4.02508725 tool_calls=80 skill_invoked=True
+    hinted_elements=43 files=7 validator_errors=0 warnings=0

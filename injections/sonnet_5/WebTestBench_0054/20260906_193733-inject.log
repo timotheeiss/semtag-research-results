@@ -1,0 +1,125 @@
+=== injection: WebTestBench_0054 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0054
+model:  claude-sonnet-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Now let's look at the components that render the UI.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Good, dependencies installed. Now let's check the React types for `data-*` attribute support to confirm the prop-widening approach will type-check.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Edit
+Now the sidebar wrappers and placeholders:
+[tool] Read
+[tool] Edit
+[tool] Read
+[tool] Edit
+Index.tsx done. Now let's widen `ModuleBadge` and `FavoriteButton` to accept pass-through props.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the main `DocumentList.tsx` component:
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now `DocumentViewer.tsx`:
+[tool] Read
+[tool] Edit
+Now the Related Documents collection:
+[tool] Edit
+Now `KnowledgeGraph.tsx`:
+[tool] Read
+[tool] Edit
+[tool] Edit
+Now the SVG nodes collection:
+[tool] Read
+[tool] Edit
+[tool] Edit
+Now `Toast.tsx`:
+[tool] Edit
+Now `NotFound.tsx`:
+[tool] Edit
+All screens covered. Now let's run the linter/validator.
+[tool] Bash
+[tool] Bash
+No errors or warnings. Now let's manually double-check collection ancestry, runtime id uniqueness, and run the project's own checks.
+[tool] Bash
+Type-checking passes. Now lint and build:
+[tool] Bash
+[tool] Bash
+Confirmed: lint output is identical before and after my edits — the pre-existing errors/warnings are unrelated to this work. Now let's confirm the build succeeds.
+[tool] Bash
+[tool] Bash
+All as intended — only the DocumentViewer header ModuleBadge/FavoriteButton and the DocumentList item FavoriteButton carry hints; the related-doc ModuleBadge and list-item ModuleBadge are deliberately left unhinted. Now let's do a final grep across all files to review the complete set of injected attributes for a sanity pass.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Good — that's the full set. Everything checks out: 38 hinted elements, 0 validator errors/warnings, tsc/lint/build all clean (lint output identical to pre-existing baseline). Let's clean up the temp install artifacts note and give the final report.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+I've completed the semantic-hint injection for this WebTestBench app (a "TechSpecs KB" documentation/knowledge-base SPA with three view tabs: Documents, Knowledge Graph, and Favorites, plus a 404 page).
+
+## What I did
+
+1. Read the spec (`hint-design.md`) first, as required.
+2. Explored the app: `src/pages/Index.tsx` (tab shell), `DocumentList`, `DocumentViewer`, `DocumentSection`, `KnowledgeGraph`, `Toast`, `EmptyState`, `ModuleBadge`, `FavoriteButton`, `NotFound`.
+3. Widened three shared presentational components (`ModuleBadge`, `FavoriteButton`, `EmptyState`) with `ComponentProps<'span'|'button'|'div'>` + `{...props}` spread — the one code change the spec permits — so call sites can pass distinct `data-semtag-*` ids.
+4. Injected hints across every screen: header tab navigation, the Documents/Favorites master-detail views (search, module-filter toggles, sort select, document collection, favorite toggle), section expand/collapse + in-section link collections, the document viewer (back nav, module/favorite/date/version/title/description observables, related-docs collection), the Knowledge Graph (zoom controls, zoom-level observable, node collection), the toast notification, and the 404 page's return-home link.
+
+## Validation
+
+- `node .../validate-semtags.mjs src` → **38 hinted elements, 0 errors, 0 warnings**.
+- `npx tsc --noEmit` → clean.
+- `npm run lint` → same 3 pre-existing errors/8 warnings as before my changes, all in files I never touched (`ui/command.tsx`, `ui/textarea.tsx`, `tailwind.config.ts`, plus a pre-existing `useMemo` dep warning in `DocumentList.tsx` on a line I didn't modify).
+- `npm run build` → succeeds.
+- Manually confirmed every `role="collection"` container is a real DOM ancestor of its items, and that all template-literal ids (doc ids, section ids, module keys, graph node ids) are stable domain keys, unique at runtime.
+
+## Id namespaces introduced
+
+`nav.tab.*`, `documents.sidebar/list/filters/search/sort/filter.module.*/item.*`, `favorites.sidebar/list/...` (same shape, scoped separately), `document.viewer.*` (back, module, favorite, updated, version, title, description, related.item.*), `<docId>.section.<sectionId>` (+`.links.item.<targetDocId>`), `graph.panel/zoomIn/zoomOut/reset/zoomLevel/nodes.item.<docId>`, `app.toast(.dismiss)`, `notfound.home`.
+
+## Left unhinted (deliberate)
+
+- The graph legend (static, decorative, duplicates node colors already visible in the graph).
+- `ModuleBadge` inside document-list rows and related-doc cards — kept only on the viewer header, to avoid duplicating the same category label on every row for token economy (agents can already filter by module via the toggle group).
+- Section body text and "Content Sections"/"Related Documents" headings — static copy, not state to act on or read.
+
+No collections failed to fold — all four repeated structures (document list/favorites list, per-section links, related-docs grid, graph nodes) satisfy the container+`.item.<key>` rule with ≥2 items and real domain keys.
+
+--- WebTestBench_0054: ok in 673.2s
+    turns=74 cost=$4.673930499999999 tool_calls=72 skill_invoked=True
+    hinted_elements=38 files=7 validator_errors=0 warnings=0

@@ -1,0 +1,144 @@
+=== injection: WebTestBench_0045 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0045
+model:  claude-opus-5   max_turns: 150
+
+I'll start by invoking the skill to get its procedure.
+[tool] Skill
+I'll start by reading the spec, as the skill requires.
+[tool] Read
+[tool] Bash
+The spec is read. Now let me find the actual application — there's no `src/` at the repo root, so the layout differs from the assumption.
+[tool] Bash
+[tool] Bash
+The shell cwd reset revealed something important — let me check the actual working directory.
+[tool] Bash
+The CWD is inside `web_applications_hinted/` — the *hinted* variant directory. Before editing anything, I need to check whether hints already exist here.
+[tool] Bash
+[tool] Bash
+Zero existing hints — this is a fresh unhinted copy staged in the hinted output directory. Let me confirm that and explore the app.
+[tool] Bash
+[tool] Bash
+Confirmed: a clean unhinted copy staged for injection. Now let me read the full application source.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+Now let me check the shared UI components for prop pass-through, and read DependencyLines.
+[tool] Bash
+[tool] Bash
+All shadcn primitives already spread `...props`, so no component widening is needed. Let me see the rest of DependencyLines and the validator's rules.
+[tool] Bash
+[tool] Bash
+[tool] Read
+I now have the full picture. The app is a task manager: one main screen (Index), a create/edit dialog, and a 404 page. All shadcn primitives spread `...props`, so no component widening is required. Let me inject.
+[tool] Edit
+[tool] Edit
+Now the filters panel. I'll derive the sort options from a single source so the trigger and menu can't drift apart (§3).
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the task item — the repeated collection that dominates the snapshot.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the create/edit dialog — the second screen.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Finally the 404 screen.
+[tool] Edit
+Now the validator, as the skill requires.
+[tool] Bash
+Validator is clean. Now let me verify what it explicitly says it cannot check — DOM ancestry and runtime id uniqueness — and run the project's own checks.
+[tool] Bash
+[tool] Bash
+All ids are unique, and no `node_modules` is present — I need to install to run the project's own checks.
+[tool] Bash
+While that installs, let me verify the collection ancestry the linter can't see.
+[tool] Bash
+Ancestry confirmed. Let me review the complete diff while dependencies install.
+[tool] Bash
+[tool] Bash
+Dependencies installed. Now the project's own checks.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Three lint errors appeared — I need to confirm they're pre-existing and not from my edits.
+[tool] Bash
+[tool] Bash
+All 10 problems are in untouched shadcn boilerplate. Let me prove they're pre-existing by linting the pristine original with the same config.
+[tool] Bash
+[tool] Bash
+Baseline is identical — 10 problems, 3 errors — so my changes introduced zero new lint issues. Now the highest-value check the linter can't do: confirming the attributes actually reach the DOM through Radix's wrappers and portals.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Write
+[tool] Bash
+Browser build mismatch — let me point Playwright at the chromium already in the cache.
+[tool] Bash
+[tool] Bash
+Everything reaches the DOM. One thing I must rule out: Radix Checkbox renders both a button and a hidden bubble input — if props go to both, ids would duplicate. Let me check duplicates with the dialog open.
+[tool] Write
+[tool] Bash
+No duplicates anywhere, and the checkbox hint lands on a single readable element. Let me clean up the artifacts I created.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Done. Injection complete and verified.
+
+## One thing worth flagging first
+
+The working directory was not the repo root but `data/WebTestBench/web_applications_hinted/WebTestBench_0045` — the *hinted* output directory. Since "hinted" could have meant the work was already done, I checked before editing: the copy had **zero** `data-semtag-*` attributes and was byte-identical to `web_applications/WebTestBench_0045`. So it was a clean copy staged for injection, and I did a fresh one.
+
+## What I annotated
+
+A Lovable/shadcn task manager. Five source files changed; all 60 `src/components/ui/*` primitives untouched.
+
+| Screen | Coverage |
+|---|---|
+| **Index** (header, filters, task list) | `app.header` region, `app.summary`, `tasks.add`, `filters.panel`, Active/Completed toggles + counts, sort select, `tasks.list` collection, `tasks.empty` |
+| **TaskItem** (repeated) | title, priority, description, deadline, blocked warning, prerequisites indicator, complete-toggle, edit, delete |
+| **Create/Edit dialog** | `task.form` region, heading, title/description/deadline inputs, clear-deadline, priority select + options, prerequisites collection, cancel, submit |
+| **404** | `notfound.page`, message, home link |
+
+**Id namespaces:** `app.*`, `filters.*`, `tasks.*`, `task.form.*`, `notfound.*`.
+
+**Collections — both fold.** `tasks.list` with items keyed by `task.id` (`tasks.list.item.4.edit`), and `task.form.prerequisites` keyed the same way. Distinct prefixes, so a task appearing in both the list and the prereq picker doesn't collide.
+
+## Verification
+
+The validator reports **0 errors, 0 warnings, 0 info** across 37 hinted sites. But it explicitly says it can't see DOM ancestry, runtime ids, or portals — which is exactly where shadcn/Radix breaks things — so I ran the app under Playwright:
+
+- **47 hinted elements on index, 70 with the dialog open, zero duplicate ids** at runtime.
+- Portalled content (select menus, dialog) **does** carry the attributes — Radix forwards them.
+- The prerequisite checkbox hint lands on a **single** `BUTTON role=checkbox data-state=unchecked`, not duplicated onto Radix's hidden bubble input.
+- Both `data-semtag-options` strings render correctly.
+
+**Project checks:** `tsc --noEmit` clean, `vite build` succeeds. `eslint` reports 3 errors / 7 warnings — **all pre-existing**, in untouched files (`ui/command.tsx`, `ui/textarea.tsx`, `tailwind.config.ts`). I confirmed this rather than assuming: linting a pristine copy of the original gives the identical 10 problems.
+
+## Judgment calls
+
+- **One non-attribute change.** `TaskFilters` had its three sort options hardcoded as JSX. I lifted them into a `sortOptions` array and mapped it, so `data-semtag-options` derives from the same source that renders the menu (spec §3, anti-drift). This mirrors the `priorityOptions` array already in `TaskForm`, and produces identical DOM. No component prop-widening was needed — every shadcn primitive already spreads `...props`.
+- **`DependencyLines` left unhinted.** It's an SVG overlay of curved connector lines. It's decorative and its hover tooltips duplicate the `.blocked` / `.prerequisites` observables already on each task, which are addressable by id.
+- **Existing `data-task-id` left alone** — `DependencyLines` queries on it at runtime, so removing it would break behavior. It's inert to the extractor.
+
+I removed `dist/` afterward but kept `node_modules/` (gitignored, and every sibling app has it).
+
+--- WebTestBench_0045: ok in 571.9s
+    turns=73 cost=$3.6151174999999993 tool_calls=71 skill_invoked=True
+    hinted_elements=37 files=5 validator_errors=0 warnings=0

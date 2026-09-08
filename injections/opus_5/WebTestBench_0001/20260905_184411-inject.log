@@ -1,0 +1,164 @@
+=== injection: WebTestBench_0001 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0001
+model:  claude-opus-5   max_turns: 150
+
+I'll start by invoking the semtag-inject skill.
+[tool] Skill
+I'll start by reading the spec, as required.
+[tool] Read
+[tool] Bash
+[tool] Bash
+The working directory is actually a specific app. Let me explore it.
+[tool] Bash
+[tool] Bash
+Now let me read the app source files.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Now the pages.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Now let me read the validator to understand exactly what it checks.
+[tool] Read
+Now let me check which shared UI components pass through arbitrary props.
+[tool] Bash
+All shadcn components already spread props. Let me capture the baseline build/lint state before editing.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Baseline recorded: tsc clean, build clean, 3 pre-existing lint errors (`tailwind.config.ts`, `ui/command.tsx`, `ui/textarea.tsx`). Now injecting. First, the two custom presentational components that need prop pass-through.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now `ProductCard` — this is the key one. It renders in 8 different collections, so per §8 I thread a collection id in.
+[tool] Edit
+The `hint()` helper would hide attributes from the validator's parser. Let me rewrite ProductCard with explicit JSX attributes and a **required** `collectionId`, so TypeScript guarantees no half-formed hints.
+[tool] Edit
+Now the card body markup:
+[tool] Edit
+[tool] Edit
+Now `ProductGrid` — it needs to be the collection container wrapping its items.
+[tool] Edit
+Now the Header — I'll add stable domain keys to the `navLinks` array (note two links are both labelled "Home").
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the mobile drawer copies — per §8 these get `.mobile` suffixes with identical state:
+[tool] Edit
+Now the Footer — two small link collections:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now `ProductFilters` — the richest screen region. Per §3 I'll build `data-semtag-options` from the same arrays that render the options, so trigger and menu can't drift apart.
+[tool] Edit
+[tool] Edit
+Now the advanced filters panel (price slider, rating select, tag toggles, clear):
+[tool] Edit
+[tool] Edit
+Now the Index (home) page — it has four distinct collections, two of which can show the same product.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the category cards grid and the per-category product rows:
+[tool] Edit
+[tool] Edit
+Now ProductsPage and CategoryPage:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the ProductDetailPage:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the AdminPage — form plus the product management list:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the specs editor. Its rows have no stable domain key (they're removable, so index identity shifts), so per §7 I make it a **region** rather than a fake index-keyed collection:
+[tool] Edit
+[tool] Edit
+Now the admin product list — the last collection:
+[tool] Edit
+[tool] Edit
+Finally the 404 page:
+[tool] Edit
+Injection complete. Now running the bundled validator:
+[tool] Bash
+Validator is clean. Now the project's own checks:
+[tool] Bash
+tsc and build clean; lint is byte-identical to baseline. Note the CSS bundle hash is unchanged (`index-DvPoAJXK.css`), confirming zero styling impact.
+
+Now the part the linter explicitly cannot check — DOM ancestry and runtime id uniqueness. Let me verify against the real rendered DOM rather than by reading alone.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Now let me write a runtime extractor that mimics what the agent's snapshot extractor does, and check ancestry + uniqueness on every screen.
+[tool] Write
+[tool] Bash
+[tool] Bash
+All six screens pass: ids unique, every role valid (nothing landing in `other`), every `.item.` id resolving to a real collection ancestor. Let me also exercise the empty state and confirm behavior is unchanged.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+My edits are confined to 13 files in `src/`. The `WebTestBench_0002` deletions are outside my app — let me confirm they're pre-existing and not something I caused.
+[tool] Bash
+[tool] Bash
+Done. I followed the skill's procedure: read `references/hint-design.md` first, injected, ran the bundled validator, then verified what the validator explicitly says it cannot see.
+
+## What I annotated
+
+**App:** "CuratedPicks", a Vite/React/shadcn product-recommendation site (the real cwd was `data/WebTestBench/web_applications_hinted/WebTestBench_0001`, not the repo root).
+
+All 6 screens: **home**, **products**, **product detail**, **category**, **admin**, **404** — plus the shared `Header` (incl. mobile drawer), `Footer`, `ProductCard`, `ProductGrid`, `ProductFilters`, `CategoryBadge`, `RatingStars`. 13 files, 100 hinted elements.
+
+## Id namespaces
+
+`nav.*` / `search.*` / `footer.*` (shared chrome) · `home.hero|featured|categories|latest.<cat>` · `products.*` · `category.*` · `product.*` · `filters.*` · `admin.form.*` / `admin.products.*` · `error.*`
+
+## Collections — all 13 fold
+
+The key trap was `ProductCard`, rendered in **8** different collections. On the home page Sony/Peloton/Dyson each appear **twice** (featured *and* their category row), so per §8 I threaded a `collectionId` into `ProductCard`/`ProductGrid` and made it **required** — TypeScript now makes a half-formed item id impossible. Same for the desktop/mobile nav and search (`search.query` vs `search.query.mobile`, identical `state`), which genuinely coexist in the DOM when the drawer is open.
+
+Per §3 I extracted the sort/rating/category option lists into arrays used *both* to render the menu and to build `data-semtag-options`, so trigger and menu can't drift.
+
+## Verification
+
+- **Validator:** 0 errors, 0 warnings, 0 info.
+- **Project checks:** `tsc` clean, build clean, lint **identical to baseline** (3 pre-existing errors in `tailwind.config.ts`, `ui/command.tsx`, `ui/textarea.tsx` — those were already failing, I didn't touch them). The CSS bundle hash is unchanged, confirming zero styling impact.
+- **Runtime** (headless Chromium against the built app, since the linter can't resolve DOM ancestry): on every screen ids are unique page-wide, every role is valid — **nothing lands in `other`** — and every `.item.` id resolves to a real collection ancestor. Verified folding counts (e.g. `admin.products` 57, `products.grid` 45), the mobile-drawer-open state, and that search/sort/navigation still behave correctly through semtag selectors.
+
+## Deliberate gaps
+
+- **Admin specs editor** — the one collection I did *not* fold. Its rows are removable, so their only key is array position, which shifts on delete. §7 forbids index keys, so I made it a `region` with an `admin.form.specs.add` action rather than smuggle an index past the linter. The row inputs stay unhinted (still reachable via their placeholders).
+- **Unhinted by design:** decorative icons, layout wrappers, the card image link (duplicates the adjacent title link), and section headings. `product.review` is a `region` not an `observable` — that keeps a ~500-char review body out of every snapshot.
+- **Residual risk:** ids key off `product.slug` and slugified spec labels. If an admin creates two products with the same name, or one product with two identically-labelled specs, those ids would collide — that's a pre-existing data-model ambiguity in the app, not something the hints introduce.
+
+--- WebTestBench_0001: ok in 875.3s
+    turns=95 cost=$6.640508749999999 tool_calls=93 skill_invoked=True
+    hinted_elements=103 files=11 validator_errors=0 warnings=0

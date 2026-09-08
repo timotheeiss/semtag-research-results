@@ -1,0 +1,2075 @@
+# Transcript: /home/ubuntu/.claude/projects/-home-ubuntu-semantic-hints-project-WebTestBench-claude-code-cwd/c0743703-85cb-40c7-bb9a-c18c59db9274.jsonl
+# total tool calls: 137
+
+================================================================================
+[01] ToolSearch  input={"query": "select:mcp__playwright__browser_navigate,mcp__semantic_hints__semantic_snapshot,mcp__semantic_hints__semantic_observe,mcp__structured_results__record
+--------------------------------------------------------------------------------
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_navigate"}
+{"type": "tool_reference", "tool_name": "mcp__semantic_hints__semantic_snapshot"}
+{"type": "tool_reference", "tool_name": "mcp__semantic_hints__semantic_observe"}
+{"type": "tool_reference", "tool_name": "mcp__structured_results__record_result"}
+{"type": "tool_reference", "tool_name": "mcp__structured_results__get_result_progress"}
+
+================================================================================
+[02] ToolSearch  input={"query": "select:mcp__playwright__browser_click,mcp__playwright__browser_type,mcp__playwright__browser_fill_form,mcp__playwright__browser_select_option,mcp__pl
+--------------------------------------------------------------------------------
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_click"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_type"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_fill_form"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_select_option"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_evaluate"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_snapshot"}
+
+================================================================================
+[03] mcp__semantic_hints__semantic_snapshot  input={"url": "http://localhost:7089/"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7089/","screen":"home","action":[{"id":"header.submit-template","name":"Submit Template","action":"open-submit-template"}],"input":[{"id":"search.query","name":"Search templates by name, author, or field...","state":"search.query","controls":"templates.grid","value":""}],"select":[{"id":"filters.category","name":"All Categories","action":"filter-by-category","state":"filters.category","controls":"templates.grid","options":[{"value":"all","label":"All Categories"},{"value":"resume","label":"Resume"},{"value":"weekly-report","label":"Weekly Report"},{"value":"meeting-minutes","label":"Meeting Minutes"},{"value":"proposal","label":"Proposal"},{"value":"email","label":"Email"},{"value":"other","label":"Other"}],"value":"All Categories"},{"id":"filters.scenario","name":"All Scenarios","action":"filter-by-scenario","state":"filters.scenario","controls":"templates.grid","options":[{"value":"all","label":"All Scenarios"},{"value":"business","label":"Business"},{"value":"academic","label":"Academic"},{"value":"personal","label":"Personal"},{"value":"technical","label":"Technical"}],"value":"All Scenarios"},{"id":"filters.sort","name":"Most Popular","action":"sort-templates","state":"filters.sort","controls":"templates.grid","options":[{"value":"popularity","label":"Most Popular"},{"value":"newest","label":"Recently Updated"},{"value":"oldest","label":"Oldest First"},{"value":"alphabetical","label":"Alphabetical"}],"value":"Most Popular"}],"toggle":[{"id":"header.favorites","name":"Favorites","action":"toggle-favorites-filter","state":"off","controls":"templates.grid","value":"Favorites"}],"observable":[{"id":"filters.result-count","name":"Showing 6 of 6 templates","state":"filters.resultCount","value":"Showing 6 of 6 templates"}],"region":[{"id":"filters.panel","name":""}],"collections":[{"id":"templates.grid","idPattern":"templates.grid.item.{key}[.{control}]","item":{"role":"observable","state":"template.title"},"itemControls":{"favorite":{"role":"toggle","action":"toggle-favorite","state":"off","value":""},"popularity":{"role":"observable","state":"template.popularity"},"updated":{"role":"observable","state":"template.updatedAt"},"use":{"role":"action","name":"Use Template","action":"open-template-preview"}},"fields":["key","value","popularity.value","updated.value"],"items":[["1","Professional Resume","1,250 uses","Updated 2024-12-01"],["5","Professional Email","1,100 uses","Updated 2024-12-05"],["2","Weekly Status Report","890 uses","Updated 2024-11-28"],["3","Meeting Minutes","720 uses","Updated 2024-11-15"],["4","Project Proposal","560 uses","Updated 2024-10-20"],["6","Academic Research Summary","340 uses","Updated 2024-09-30"]]}]}
+
+================================================================================
+[04] browser_evaluate  input={"function": "() => Array.from(document.querySelectorAll(\"[data-semtag-id^='templates.grid.item.']\")).filter(e=>/item\\.\\d+$/.test(e.getAttribute('data-semta
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "id": "templates.grid.item.1",
+    "card": "Resume\nBusiness\nProfessional Resume\n\nA clean, modern resume template perfect for job applications in any industry.\n\nSarah Chen\n1,250 uses\nUpdated 2024-12-01\nUse Template"
+  },
+  {
+    "id": "templates.grid.item.5",
+    "card": "Email\nBusiness\nProfessional Email\n\nCraft professional emails for business communications.\n\nLisa Park\n1,100 uses\nUpdated 2024-12-05\nUse Template"
+  },
+  {
+    "id": "templates.grid.item.2",
+    "card": "Weekly Report\nBusiness\nWeekly Status Report\n\nKeep your team informed with this comprehensive weekly report template.\n\nMichael Torres\n890 uses\nUpdated 2024-11-28\nUse Template"
+  },
+  {
+    "id": "templates.grid.item.3",
+    "card": "Meeting Minutes\nBusiness\nMeeting Minutes\n\nDocument your meetings efficiently with clear action items and decisions.\n\nEmily Watson\n720 uses\nUpdated 2024-11-15\nUse Template"
+  },
+  {
+    "id": "templates.grid.item.4",
+    "card": "Proposal\nBusiness\nProject Proposal\n\nPresent your project ideas professionally with this structured proposal template.\n\nDavid Kim\n560 uses\nUpdated 2024-10-20\nUse Template"
+  },
+  {
+    "id": "templates.grid.item.6",
+    "card": "Other\nAcademic\nAcademic Research Summary\n\nSummarize your research findings in a structured academic format.\n\nDr. James Wilson\n340 uses\nUpdated 2024-09-30\nUse Template"
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\d+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>{const c=e.closest(\'*[class]\'); return {id:e.getAttribute(\'data-semtag-id\'), card:(e.parentElement.parentElement.parentElement.innerText||\'\').slice(0,400)}})');
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 2 warnings
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T02-20-03-509Z.log#L1-L3
+
+================================================================================
+[05] mcp__structured_results__record_result  input={"item_id": "FT-1", "verdict": "PASS", "evidence": "6 templates listed with author (Sarah Chen, Lisa Park, ...) and descriptions."}
+--------------------------------------------------------------------------------
+{"recorded": "FT-1", "verdict": "PASS", "recorded_count": 1, "total_count": 26, "missing_ids": ["FT-2", "FT-3", "FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "FT-12", "FT-13", "FT-28", "CS-14", "CS-16", "CS-17", "CS-19", "CS-27", "CS-29", "IX-20", "IX-21", "IX-22", "IX-24", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[06] mcp__structured_results__record_result  input={"item_id": "FT-7", "verdict": "PASS", "evidence": "Card 1: \"Resume / Business / Professional Resume / desc / Sarah Chen / 1,250 uses / Updated 2024-12-01\""}
+--------------------------------------------------------------------------------
+{"recorded": "FT-7", "verdict": "PASS", "recorded_count": 2, "total_count": 26, "missing_ids": ["FT-2", "FT-3", "FT-4", "FT-5", "FT-6", "FT-8", "FT-9", "FT-10", "FT-11", "FT-12", "FT-13", "FT-28", "CS-14", "CS-16", "CS-17", "CS-19", "CS-27", "CS-29", "IX-20", "IX-21", "IX-22", "IX-24", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[07] browser_click  input={"target": "[data-semtag-id='templates.grid.item.1.use']", "element": "Use Template on Professional Resume"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'templates.grid.item.1.use\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-20-10-450Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T02-20-03-509Z.log#L4
+
+================================================================================
+[08] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7089/","screen":"home","navigation":[{"id":"preview.tab.fill","name":"Fill Template","target":"preview.fill-form"},{"id":"preview.tab.result","name":"Preview Result","target":"preview.result"}],"action":[{"id":"header.submit-template","name":"Submit Template","action":"open-submit-template"},{"id":"preview.close","name":"","action":"close-preview"}],"input":[{"id":"search.query","name":"Search templates by name, author, or field...","state":"search.query","controls":"templates.grid","value":""}],"select":[{"id":"filters.category","name":"All Categories","action":"filter-by-category","state":"filters.category","controls":"templates.grid","options":[{"value":"all","label":"All Categories"},{"value":"resume","label":"Resume"},{"value":"weekly-report","label":"Weekly Report"},{"value":"meeting-minutes","label":"Meeting Minutes"},{"value":"proposal","label":"Proposal"},{"value":"email","label":"Email"},{"value":"other","label":"Other"}],"value":"All Categories"},{"id":"filters.scenario","name":"All Scenarios","action":"filter-by-scenario","state":"filters.scenario","controls":"templates.grid","options":[{"value":"all","label":"All Scenarios"},{"value":"business","label":"Business"},{"value":"academic","label":"Academic"},{"value":"personal","label":"Personal"},{"value":"technical","label":"Technical"}],"value":"All Scenarios"},{"id":"filters.sort","name":"Most Popular","action":"sort-templates","state":"filters.sort","controls":"templates.grid","options":[{"value":"popularity","label":"Most Popular"},{"value":"newest","label":"Recently Updated"},{"value":"oldest","label":"Oldest First"},{"value":"alphabetical","label":"Alphabetical"}],"value":"Most Popular"}],"toggle":[{"id":"header.favorites","name":"Favorites","action":"toggle-favorites-filter","state":"off","controls":"templates.grid","value":"Favorites"},{"id":"preview.favorite","name":"","action":"toggle-favorite","state":"off","value":""}],"observable":[{"id":"filters.result-count","name":"Showing 6 of 6 templates","state":"filters.resultCount","value":"Showing 6 of 6 templates"},{"id":"preview.title","name":"Professional Resume","state":"template.title","value":"Professional Resume"},{"id":"preview.missing-fields","name":"Required fields missing Please fill in: Full Name, Job Title, Email, Professional Summary, Company Name, Position, Start…","state":"preview.missingFields","value":"Required fields missing Please fill in: Full Name, Job Title, Email, Professional Summary, Company Name, Position, Start Date, Responsibilities, Degree, School, Graduation Year, Skills"}],"region":[{"id":"filters.panel","name":""},{"id":"preview.panel","name":"Professional Resume"}],"collections":[{"id":"templates.grid","idPattern":"templates.grid.item.{key}[.{control}]","item":{"role":"observable","state":"template.title"},"itemControls":{"favorite":{"role":"toggle","action":"toggle-favorite","state":"off","value":""},"popularity":{"role":"observable","state":"template.popularity"},"updated":{"role":"observable","state":"template.updatedAt"},"use":{"role":"action","name":"Use Template","action":"open-template-preview"}},"fields":["key","value","popularity.value","updated.value"],"items":[["1","Professional Resume","1,250 uses","Updated 2024-12-01"],["5","Professional Email","1,100 uses","Updated 2024-12-05"],["2","Weekly Status Report","890 uses","Updated 2024-11-28"],["3","Meeting Minutes","720 uses","Updated 2024-11-15"],["4","Project Proposal","560 uses","Updated 2024-10-20"],["6","Academic Research Summary","340 uses","Updated 2024-09-30"]]},{"id":"preview.fields","idPattern":"preview.fields.item.{key}[.{control}]","item":{"role":"input","value":""},"fields":["key","name","state"],"items":[["name","Full Name*","preview.field.name"],["title","Job Title*","preview.field.title"],["email","Email*","preview.field.email"],["phone","Phone","preview.field.phone"],["summary","Professional Summary*","preview.field.summary"],["company","Company Name*","preview.field.company"],["position","Position*","preview.field.position"],["startDate","Start Date*","preview.field.startDate"],["endDate","End Date","preview.field.endDate"],["responsibilities","Responsibilities*","preview.field.responsibilities"],["degree","Degree*","preview.field.degree"],["school","School*","preview.field.school"],["graduationYear","Graduation Year*","preview.field.graduationYear"],["skills","Skills*","preview.field.skills"]]}]}
+
+================================================================================
+[09] browser_click  input={"target": "[data-semtag-id='preview.tab.result']", "element": "Preview Result tab"}
+--------------------------------------------------------------------------------
+### Error
+TimeoutError: browserBackend.callTool: Timeout 5000ms exceeded.
+Call log:
+[2m  - waiting for locator('[data-semtag-id=\'preview.tab.result\']')[22m
+[2m    - locator resolved to <button disabled role="tab" type="button" tabindex="-1" data-disabled="" aria-selected="false" data-state="inactive" data-semtag-role="navigation" data-orientation="horizontal" data-radix-collection-item="" id="radix-:rp:-trigger-preview" data-semtag-id="preview.tab.result" data-semtag-target="preview.result" aria-controls="radix-:rp:-content-preview" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all data-[…>Preview Result</button>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    9 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m      - waiting 500ms[22m
+
+================================================================================
+[10] mcp__structured_results__record_result  input={"item_id": "FT-2", "verdict": "PASS", "evidence": "Clicking Use Template opened preview.panel \"Professional Resume\" with Fill Template form (14 fields) and d
+--------------------------------------------------------------------------------
+{"recorded": "FT-2", "verdict": "PASS", "recorded_count": 3, "total_count": 26, "missing_ids": ["FT-3", "FT-4", "FT-5", "FT-6", "FT-8", "FT-9", "FT-10", "FT-11", "FT-12", "FT-13", "FT-28", "CS-14", "CS-16", "CS-17", "CS-19", "CS-27", "CS-29", "IX-20", "IX-21", "IX-22", "IX-24", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[11] mcp__structured_results__record_result  input={"item_id": "IX-22", "verdict": "PASS", "evidence": "preview.missing-fields lists \"Please fill in: Full Name, Job Title, Email, ...\" and preview.tab.result bu
+--------------------------------------------------------------------------------
+{"recorded": "IX-22", "verdict": "PASS", "recorded_count": 4, "total_count": 26, "missing_ids": ["FT-3", "FT-4", "FT-5", "FT-6", "FT-8", "FT-9", "FT-10", "FT-11", "FT-12", "FT-13", "FT-28", "CS-14", "CS-16", "CS-17", "CS-19", "CS-27", "CS-29", "IX-20", "IX-21", "IX-24", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[12] browser_evaluate  input={"function": "() => Array.from(document.querySelectorAll(\"[data-semtag-id^='preview.fields.item.']\")).map(e=>({id:e.getAttribute('data-semtag-id'),tag:e.tagNa
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "id": "preview.fields.item.name",
+    "tag": "INPUT",
+    "type": "text",
+    "ph": "John Doe"
+  },
+  {
+    "id": "preview.fields.item.title",
+    "tag": "INPUT",
+    "type": "text",
+    "ph": "Software Engineer"
+  },
+  {
+    "id": "preview.fields.item.email",
+    "tag": "INPUT",
+    "type": "email",
+    "ph": "john@example.com"
+  },
+  {
+    "id": "preview.fields.item.phone",
+    "tag": "INPUT",
+    "type": "text",
+    "ph": "+1 234 567 8900"
+  },
+  {
+    "id": "preview.fields.item.summary",
+    "tag": "TEXTAREA",
+    "type": null,
+    "ph": "Experienced professional with..."
+  },
+  {
+    "id": "preview.fields.item.company",
+    "tag": "INPUT",
+    "type": "text",
+    "ph": "Tech Corp"
+  },
+  {
+    "id": "preview.fields.item.position",
+    "tag": "INPUT",
+    "type": "text",
+    "ph": "Senior Developer"
+  },
+  {
+    "id": "preview.fields.item.startDate",
+    "tag": "INPUT",
+    "type": "text",
+    "ph": "Jan 2020"
+  },
+  {
+    "id": "preview.fields.item.endDate",
+    "tag": "INPUT",
+    "type": "text",
+    "ph": "Present"
+  },
+  {
+    "id": "preview.fields.item.responsibilities",
+    "tag": "TEXTAREA",
+    "type": null,
+    "ph": "Led team of 5 engineers..."
+  },
+  {
+    "id": "preview.fields.item.degree",
+    "tag": "INPUT",
+    "type": "text",
+    "ph": "B.S. Computer Science"
+  },
+  {
+    "id": "preview.fields.item.school",
+    "tag": "INPUT",
+    "type": "text",
+    "ph": "MIT"
+  },
+  {
+    "id": "preview.fields.item.graduationYear",
+    "tag": "INPUT",
+    "type": "text",
+    "ph": "2018"
+  },
+  {
+    "id": "preview.fields.item.skills",
+    "tag": "TEXTAREA",
+    "type": null,
+    "ph": "JavaScript, React, Node.js"
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => Array.from(document.querySelectorAll("[data-semtag-id^=\'preview.fields.item.\']")).map(e=>({id:e.getAttribute(\'data-semtag-id\'),tag:e.tagName,type:e.getAttribute(\'type\'),ph:e.getAttribute(\'placeholder\')}))');
+```
+
+================================================================================
+[13] browser_fill_form  input={"fields": [{"target": "[data-semtag-id='preview.fields.item.name']", "name": "Full Name", "type": "textbox", "value": "Jane Doe"}, {"target": "[data-semtag-id=
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.fields.item.name\']').fill('Jane Doe');
+await page.locator('[data-semtag-id=\'preview.fields.item.title\']').fill('Product Manager');
+await page.locator('[data-semtag-id=\'preview.fields.item.email\']').fill('not-an-email');
+await page.locator('[data-semtag-id=\'preview.fields.item.phone\']').fill('+1 555 010 2020');
+await page.locator('[data-semtag-id=\'preview.fields.item.summary\']').fill('Seasoned PM with 8 years of experience.');
+await page.locator('[data-semtag-id=\'preview.fields.item.company\']').fill('Acme Corp');
+await page.locator('[data-semtag-id=\'preview.fields.item.position\']').fill('Senior PM');
+await page.locator('[data-semtag-id=\'preview.fields.item.startDate\']').fill('Jan 2019');
+await page.locator('[data-semtag-id=\'preview.fields.item.endDate\']').fill('Present');
+await page.locator('[data-semtag-id=\'preview.fields.item.responsibilities\']').fill('Led a team of 6 engineers and shipped 3 products.');
+await page.locator('[data-semtag-id=\'preview.fields.item.degree\']').fill('B.S. Computer Science');
+await page.locator('[data-semtag-id=\'preview.fields.item.school\']').fill('MIT');
+await page.locator('[data-semtag-id=\'preview.fields.item.graduationYear\']').fill('2016');
+await page.locator('[data-semtag-id=\'preview.fields.item.skills\']').fill('Roadmapping, Analytics, Leadership');
+```
+
+================================================================================
+[14] browser_evaluate  input={"function": "() => ({vals: Array.from(document.querySelectorAll(\"[data-semtag-id^='preview.fields.item.']\")).map(e=>e.getAttribute('data-semtag-id').split('.
+--------------------------------------------------------------------------------
+### Result
+{
+  "vals": [
+    "name=Jane Doe",
+    "title=Product Manager",
+    "email=not-an-email",
+    "phone=+1 555 010 2020",
+    "summary=Seasoned PM with 8 years of experience.",
+    "company=Acme Corp",
+    "position=Senior PM",
+    "startDate=Jan 2019",
+    "endDate=Present",
+    "responsibilities=Led a team of 6 engineers and shipped 3 products.",
+    "degree=B.S. Computer Science",
+    "school=MIT",
+    "graduationYear=2016",
+    "skills=Roadmapping, Analytics, Leadership"
+  ],
+  "resultTabDisabled": false,
+  "panelText": "Resume\nBusiness\nProfessional Resume\n\nA clean, modern resume template perfect for job applications in any industry.\n\nSarah Chen\n1,250 uses\nFill Template\nPreview Result\nFull Name\n*\nJob Title\n*\nEmail\n*\nPhone\nProfessional Summary\n*\nCompany Name\n*\nPosition\n*\nStart Date\n*\nEnd Date\nResponsibilities\n*\nDegree\n*\nSchool\n*\nGraduation Year\n*\nSkills\n*\nClose"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({vals: Array.from(document.querySelectorAll("[data-semtag-id^=\'preview.fields.item.\']")).map(e=>e.getAttribute(\'data-semtag-id\').split(\'.\').pop()+\'=\'+e.value), missing: document.querySelector("[data-semtag-id=\'preview.missing-fields\']")?.innerText, resultTabDisabled: document.querySelector("[data-semtag-id=\'preview.tab.result\']")?.disabled, panelText: document.querySelector("[data-semtag-id=\'preview.panel\']")?.innerText.slice(0,900)})');
+```
+
+================================================================================
+[15] browser_click  input={"target": "[data-semtag-id='preview.tab.result']", "element": "Preview Result tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.tab.result\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-20-46-133Z.yml)
+
+================================================================================
+[16] mcp__semantic_hints__semantic_snapshot  input={"scope": "preview.panel"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7089/","screen":"home","navigation":[{"id":"preview.tab.fill","name":"Fill Template","target":"preview.fill-form"},{"id":"preview.tab.result","name":"Preview Result","target":"preview.result"}],"action":[{"id":"preview.close","name":"","action":"close-preview"},{"id":"preview.copy","name":"Copy to Clipboard","action":"copy-result"}],"toggle":[{"id":"preview.favorite","name":"","action":"toggle-favorite","state":"off","value":""}],"observable":[{"id":"preview.title","name":"Professional Resume","state":"template.title","value":"Professional Resume"},{"id":"preview.result","name":"Jane Doe Product Manager | not-an-email | +1 555 010 2020 Professional Summary Seasoned PM with 8 years of experience. E…","state":"preview.generatedContent","value":"Jane Doe Product Manager | not-an-email | +1 555 010 2020 Professional Summary Seasoned PM with 8 years of experience. Experience Acme Corp — Senior PM Jan 2019 - Present Led a team of 6 engineers and…"}],"region":[{"id":"preview.panel","name":"Professional Resume"}]}
+
+================================================================================
+[17] mcp__structured_results__record_result  input={"item_id": "FT-3", "verdict": "PASS", "evidence": "All 14 resume fields accepted typed values (verified via DOM value read)."}
+--------------------------------------------------------------------------------
+{"recorded": "FT-3", "verdict": "PASS", "recorded_count": 5, "total_count": 26, "missing_ids": ["FT-4", "FT-5", "FT-6", "FT-8", "FT-9", "FT-10", "FT-11", "FT-12", "FT-13", "FT-28", "CS-14", "CS-16", "CS-17", "CS-19", "CS-27", "CS-29", "IX-20", "IX-21", "IX-24", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[18] mcp__structured_results__record_result  input={"item_id": "CS-14", "verdict": "FAIL", "issue": "Format validation not enforced for email field", "actual": "Email field (type=email, required) accepted \"not-
+--------------------------------------------------------------------------------
+{"recorded": "CS-14", "verdict": "FAIL", "recorded_count": 6, "total_count": 26, "missing_ids": ["FT-4", "FT-5", "FT-6", "FT-8", "FT-9", "FT-10", "FT-11", "FT-12", "FT-13", "FT-28", "CS-16", "CS-17", "CS-19", "CS-27", "CS-29", "IX-20", "IX-21", "IX-24", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[19] browser_click  input={"target": "[data-semtag-id='preview.tab.fill']", "element": "Fill Template tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.tab.fill\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-20-55-601Z.yml)
+
+================================================================================
+[20] browser_fill_form  input={"fields": [{"target": "[data-semtag-id='preview.fields.item.name']", "name": "Full Name", "type": "textbox", "value": "   "}, {"target": "[data-semtag-id='prev
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.fields.item.name\']').fill('   ');
+await page.locator('[data-semtag-id=\'preview.fields.item.email\']').fill('jane@example.com');
+```
+
+================================================================================
+[21] browser_evaluate  input={"function": "() => ({missing: document.querySelector(\"[data-semtag-id='preview.missing-fields']\")?.innerText, resultTabDisabled: document.querySelector(\"[da
+--------------------------------------------------------------------------------
+### Result
+{
+  "missing": "Required fields missing\n\nPlease fill in: Full Name",
+  "resultTabDisabled": true
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({missing: document.querySelector("[data-semtag-id=\'preview.missing-fields\']")?.innerText, resultTabDisabled: document.querySelector("[data-semtag-id=\'preview.tab.result\']")?.disabled})');
+```
+
+================================================================================
+[22] mcp__structured_results__record_result  input={"item_id": "CS-19", "verdict": "PASS", "evidence": "Setting Full Name to whitespace-only re-disabled Preview Result tab and showed \"Please fill in: Full Name\
+--------------------------------------------------------------------------------
+{"recorded": "CS-19", "verdict": "PASS", "recorded_count": 7, "total_count": 26, "missing_ids": ["FT-4", "FT-5", "FT-6", "FT-8", "FT-9", "FT-10", "FT-11", "FT-12", "FT-13", "FT-28", "CS-16", "CS-17", "CS-27", "CS-29", "IX-20", "IX-21", "IX-24", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[23] browser_type  input={"target": "[data-semtag-id='preview.fields.item.name']", "text": "# Jane **Doe** ---"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.fields.item.name\']').fill('# Jane **Doe** ---');
+```
+
+================================================================================
+[24] browser_evaluate  input={"function": "() => ({nameVal: document.querySelector(\"[data-semtag-id='preview.fields.item.name']\").value, warn: document.querySelector(\"[data-semtag-id='pr
+--------------------------------------------------------------------------------
+### Result
+{
+  "nameVal": "# Jane **Doe** ---",
+  "warn": "Resume\nBusiness\nProfessional Resume\n\nA clean, modern resume template perfect for job applications in any industry.\n\nSarah Chen\n1,250 uses\nFill Template\nPreview Result\nFull Name\n*\nJob Title\n*\nEmail\n*\nPhone\nProfessional Summary\n*\nCompany Name\n*\nPosition\n*\nStart Date\n*\nEnd Date\nResponsibilities\n*\nDegree\n*\nSchool\n*\nGraduation Year\n*\nSkills\n*\nClose",
+  "resultTabDisabled": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({nameVal: document.querySelector("[data-semtag-id=\'preview.fields.item.name\']").value, warn: document.querySelector("[data-semtag-id=\'preview.panel\']").innerText.slice(0,600), resultTabDisabled: document.querySelector("[data-semtag-id=\'preview.tab.result\']")?.disabled})');
+```
+
+================================================================================
+[25] browser_click  input={"target": "[data-semtag-id='preview.tab.result']", "element": "Preview Result tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.tab.result\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-21-17-749Z.yml)
+
+================================================================================
+[26] browser_evaluate  input={"function": "() => { const r=document.querySelector(\"[data-semtag-id='preview.result']\"); return {html:r.innerHTML.slice(0,1200), text:r.innerText.slice(0,60
+--------------------------------------------------------------------------------
+### Result
+{
+  "html": "<div class=\"prose prose-sm max-w-none dark:prose-invert\"><h1># Jane <strong>Doe</strong> ---</h1>\n<p><strong>Product Manager</strong> | jane@example.com | +1 555 010 2020</p>\n<hr>\n<h2>Professional Summary</h2>\n<p>Seasoned PM with 8 years of experience.</p>\n<h2>Experience</h2>\n<h3>Acme Corp — Senior PM</h3>\n<p><em>Jan 2019 - Present</em></p>\n<p>Led a team of 6 engineers and shipped 3 products.</p>\n<h2>Education</h2>\n<p><strong>B.S. Computer Science</strong> — MIT, 2016</p>\n<h2>Skills</h2>\n<p>Roadmapping, Analytics, Leadership</p></div>",
+  "text": "# Jane Doe ---\n\nProduct Manager | jane@example.com | +1 555 010 2020\n\nProfessional Summary\n\nSeasoned PM with 8 years of experience.\n\nExperience\nAcme Corp — Senior PM\n\nJan 2019 - Present\n\nLed a team of 6 engineers and shipped 3 products.\n\nEducation\n\nB.S. Computer Science — MIT, 2016\n\nSkills\n\nRoadmapping, Analytics, Leadership"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const r=document.querySelector("[data-semtag-id=\'preview.result\']"); return {html:r.innerHTML.slice(0,1200), text:r.innerText.slice(0,600)}; }');
+```
+
+================================================================================
+[27] mcp__structured_results__record_result  input={"item_id": "FT-4", "verdict": "PASS", "evidence": "With all required fields filled, Preview Result tab enabled and shows generated resume with entered values s
+--------------------------------------------------------------------------------
+{"recorded": "FT-4", "verdict": "PASS", "recorded_count": 8, "total_count": 26, "missing_ids": ["FT-5", "FT-6", "FT-8", "FT-9", "FT-10", "FT-11", "FT-12", "FT-13", "FT-28", "CS-16", "CS-17", "CS-27", "CS-29", "IX-20", "IX-21", "IX-24", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[28] mcp__structured_results__record_result  input={"item_id": "FT-8", "verdict": "PASS", "evidence": "Resume markdown preview rendered h1/h2/h3, <strong>, <em>, <hr>, paragraphs; no unresolved {{placeholders}}.
+--------------------------------------------------------------------------------
+{"recorded": "FT-8", "verdict": "PASS", "recorded_count": 9, "total_count": 26, "missing_ids": ["FT-5", "FT-6", "FT-9", "FT-10", "FT-11", "FT-12", "FT-13", "FT-28", "CS-16", "CS-17", "CS-27", "CS-29", "IX-20", "IX-21", "IX-24", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[29] mcp__structured_results__record_result  input={"item_id": "CS-17", "verdict": "FAIL", "issue": "Markdown-altering special characters in field values are not rejected or neutralized", "actual": "Full Name = 
+--------------------------------------------------------------------------------
+{"recorded": "CS-17", "verdict": "FAIL", "recorded_count": 10, "total_count": 26, "missing_ids": ["FT-5", "FT-6", "FT-9", "FT-10", "FT-11", "FT-12", "FT-13", "FT-28", "CS-16", "CS-27", "CS-29", "IX-20", "IX-21", "IX-24", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[30] browser_click  input={"target": "[data-semtag-id='preview.copy']", "element": "Copy to Clipboard button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.copy\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-21-35-715Z.yml)
+
+================================================================================
+[31] browser_evaluate  input={"function": "async () => { let clip=null; try{ clip = await navigator.clipboard.readText(); }catch(e){ clip='ERR:'+e.message; } return {copyBtn: document.query
+--------------------------------------------------------------------------------
+### Result
+{
+  "copyBtn": "Copy to Clipboard",
+  "body": [
+    "Copied to clipboard!"
+  ],
+  "clip": "# # Jane **Doe** ---\n\n**Product Manager** | jane@example.com | +1 555 010 2020\n\n---\n\n## Professional Summary\nSeasoned PM with 8 years of experience.\n\n## Experience\n### Acme Corp — Senior PM\n*Jan 2019 - Present*\n\nLed a team of 6 engineers and shipped 3 products.\n\n## Education\n**B.S. Computer Science*"
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => { let clip=null; try{ clip = await navigator.clipboard.readText(); }catch(e){ clip=\'ERR:\'+e.message; } return {copyBtn: document.querySelector("[data-semtag-id=\'preview.copy\']")?.innerText, body: document.body.innerText.match(/Copied[^\\n]*/g), clip: clip && clip.slice(0,300)}; }');
+```
+
+================================================================================
+[32] mcp__structured_results__record_result  input={"item_id": "FT-13", "verdict": "PASS", "evidence": "Clipboard contained the raw Markdown of the generated resume; toast \"Copied to clipboard!\" displayed."}
+--------------------------------------------------------------------------------
+{"recorded": "FT-13", "verdict": "PASS", "recorded_count": 11, "total_count": 26, "missing_ids": ["FT-5", "FT-6", "FT-9", "FT-10", "FT-11", "FT-12", "FT-28", "CS-16", "CS-27", "CS-29", "IX-20", "IX-21", "IX-24", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[33] browser_click  input={"target": "[data-semtag-id='preview.favorite']", "element": "Favorite toggle in preview"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.favorite\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-21-43-607Z.yml)
+
+================================================================================
+[34] browser_evaluate  input={"function": "() => ({prevFav: document.querySelector(\"[data-semtag-id='preview.favorite']\")?.getAttribute('data-semtag-state'), cardFav: document.querySelect
+--------------------------------------------------------------------------------
+### Result
+{
+  "prevFav": "on",
+  "cardFav": "on",
+  "favBtn": "Favorites\n1",
+  "favState": "off"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({prevFav: document.querySelector("[data-semtag-id=\'preview.favorite\']")?.getAttribute(\'data-semtag-state\'), cardFav: document.querySelector("[data-semtag-id=\'templates.grid.item.1.favorite\']")?.getAttribute(\'data-semtag-state\'), favBtn: document.querySelector("[data-semtag-id=\'header.favorites\']")?.innerText, favState: document.querySelector("[data-semtag-id=\'header.favorites\']")?.getAttribute(\'data-semtag-state\')})');
+```
+
+================================================================================
+[35] browser_click  input={"target": "[data-semtag-id='preview.close']", "element": "Close preview"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.close\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-21-49-981Z.yml)
+
+================================================================================
+[36] browser_click  input={"target": "[data-semtag-id='templates.grid.item.3.favorite']", "element": "Favorite toggle on Meeting Minutes card"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'templates.grid.item.3.favorite\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-21-52-413Z.yml)
+
+================================================================================
+[37] browser_click  input={"target": "[data-semtag-id='header.favorites']", "element": "Favorites-only toggle"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'header.favorites\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-21-54-558Z.yml)
+
+================================================================================
+[38] browser_evaluate  input={"function": "() => ({favBtn: document.querySelector(\"[data-semtag-id='header.favorites']\")?.innerText, favState: document.querySelector(\"[data-semtag-id='he
+--------------------------------------------------------------------------------
+### Result
+{
+  "favBtn": "Favorites\n2",
+  "favState": "on",
+  "count": "Showing 2 of 6 templates",
+  "items": [
+    "Professional Resume",
+    "Meeting Minutes"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({favBtn: document.querySelector("[data-semtag-id=\'header.favorites\']")?.innerText, favState: document.querySelector("[data-semtag-id=\'header.favorites\']")?.getAttribute(\'data-semtag-state\'), count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, items: Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\w+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText)})');
+```
+
+================================================================================
+[39] browser_type  input={"target": "[data-semtag-id='search.query']", "text": "meeting"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'search.query\']').fill('meeting');
+```
+
+================================================================================
+[40] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='filters.result-count']\")?.innerText, items: Array.from(document.querySelectorAll(\"[data
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 1 of 6 templates",
+  "items": [
+    "Meeting Minutes"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, items: Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\w+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText)})');
+```
+
+================================================================================
+[41] browser_type  input={"target": "[data-semtag-id='search.query']", "text": ""}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'search.query\']').fill('');
+```
+
+================================================================================
+[42] browser_select_option  input={"target": "[data-semtag-id='filters.category']", "values": ["resume"]}
+--------------------------------------------------------------------------------
+### Error
+Error: browserBackend.callTool: Error: Element is not a <select> element
+Call log:
+[2m  - waiting for locator('[data-semtag-id=\'filters.category\']')[22m
+[2m    - locator resolved to <button dir="ltr" type="button" role="combobox" data-state="closed" aria-expanded="false" aria-autocomplete="none" data-semtag-role="select" aria-controls="radix-:r0:" data-semtag-id="filters.category" data-semtag-state="filters.category" data-semtag-controls="templates.grid" data-semtag-action="filter-by-category" data-semtag-options="all|All Categories;resume|Resume;weekly-report|Weekly Report;meeting-minutes|Meeting Minutes;proposal|Proposal;email|Email;other|Other" class="flex h-10 items-center ju…>…</button>[22m
+[2m  - attempting select option action[22m
+[2m    - waiting for element to be visible and enabled[22m
+
+================================================================================
+[43] browser_click  input={"target": "[data-semtag-id='filters.category']", "element": "Category filter trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.category\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-22-10-266Z.yml)
+
+================================================================================
+[44] browser_click  input={"target": "[data-semtag-id='filters.category.option.resume']", "element": "Resume category option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.category.option.resume\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-22-12-429Z.yml)
+
+================================================================================
+[45] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='filters.result-count']\")?.innerText, items: Array.from(document.querySelectorAll(\"[data
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 1 of 6 templates",
+  "items": [
+    "Professional Resume"
+  ],
+  "favState": "on"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, items: Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\w+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText), favState: document.querySelector("[data-semtag-id=\'header.favorites\']")?.getAttribute(\'data-semtag-state\')})');
+```
+
+================================================================================
+[46] mcp__structured_results__record_result  input={"item_id": "FT-12", "verdict": "PASS", "evidence": "In favorites-only view (2 items), search \"meeting\" → 1 item Meeting Minutes; category=Resume → 1 item Pro
+--------------------------------------------------------------------------------
+{"recorded": "FT-12", "verdict": "PASS", "recorded_count": 12, "total_count": 26, "missing_ids": ["FT-5", "FT-6", "FT-9", "FT-10", "FT-11", "FT-28", "CS-16", "CS-27", "CS-29", "IX-20", "IX-21", "IX-24", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[47] browser_click  input={"target": "[data-semtag-id='templates.grid.item.1.favorite']", "element": "Unfavorite Professional Resume"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'templates.grid.item.1.favorite\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-22-20-193Z.yml)
+
+================================================================================
+[48] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='filters.result-count']\")?.innerText, favBtn: document.querySelector(\"[data-semtag-id='h
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 0 of 6 templates",
+  "favBtn": "Favorites\n1",
+  "items": [],
+  "empty": null
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, favBtn: document.querySelector("[data-semtag-id=\'header.favorites\']")?.innerText, items: Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\w+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText), empty: document.body.innerText.match(/No templates[^\\n]*/g)})');
+```
+
+================================================================================
+[49] mcp__structured_results__record_result  input={"item_id": "FT-11", "verdict": "PASS", "evidence": "Favorited via preview & card toggles (count 2), Favorites-only view listed exactly those 2; unfavoriting re
+--------------------------------------------------------------------------------
+{"recorded": "FT-11", "verdict": "PASS", "recorded_count": 13, "total_count": 26, "missing_ids": ["FT-5", "FT-6", "FT-9", "FT-10", "FT-28", "CS-16", "CS-27", "CS-29", "IX-20", "IX-21", "IX-24", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[50] mcp__structured_results__record_result  input={"item_id": "IX-24", "verdict": "PASS", "evidence": "Toggle state flipped off→on immediately on both preview and card, header badge updated 1→2→1, favorites lis
+--------------------------------------------------------------------------------
+{"recorded": "IX-24", "verdict": "PASS", "recorded_count": 14, "total_count": 26, "missing_ids": ["FT-5", "FT-6", "FT-9", "FT-10", "FT-28", "CS-16", "CS-27", "CS-29", "IX-20", "IX-21", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[51] browser_click  input={"target": "[data-semtag-id='header.favorites']", "element": "Favorites-only toggle (turn off)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'header.favorites\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-22-31-399Z.yml)
+
+================================================================================
+[52] browser_click  input={"target": "[data-semtag-id='filters.scenario']", "element": "Scenario filter trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.scenario\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-22-33-711Z.yml)
+
+================================================================================
+[53] browser_click  input={"target": "[data-semtag-id='filters.scenario.option.academic']", "element": "Academic scenario option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.scenario.option.academic\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-22-36-042Z.yml)
+
+================================================================================
+[54] browser_evaluate  input={"function": "() => ({cat: document.querySelector(\"[data-semtag-id='filters.category']\")?.innerText, scen: document.querySelector(\"[data-semtag-id='filters.s
+--------------------------------------------------------------------------------
+### Result
+{
+  "cat": "Resume",
+  "scen": "Academic",
+  "count": "Showing 0 of 6 templates",
+  "items": []
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({cat: document.querySelector("[data-semtag-id=\'filters.category\']")?.innerText, scen: document.querySelector("[data-semtag-id=\'filters.scenario\']")?.innerText, count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, items: Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\w+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText)})');
+```
+
+================================================================================
+[55] browser_click  input={"target": "[data-semtag-id='filters.category']", "element": "Category filter trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.category\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-22-42-331Z.yml)
+
+================================================================================
+[56] browser_click  input={"target": "[data-semtag-id='filters.category.option.all']", "element": "All categories option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.category.option.all\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-22-44-395Z.yml)
+
+================================================================================
+[57] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='filters.result-count']\")?.innerText, items: Array.from(document.querySelectorAll(\"[data
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 1 of 6 templates",
+  "items": [
+    "Academic Research Summary"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, items: Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\w+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText)})');
+```
+
+================================================================================
+[58] browser_click  input={"target": "[data-semtag-id='filters.scenario']", "element": "Scenario filter trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.scenario\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-22-49-963Z.yml)
+
+================================================================================
+[59] browser_click  input={"target": "[data-semtag-id='filters.scenario.option.all']", "element": "All scenarios option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.scenario.option.all\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-22-52-226Z.yml)
+
+================================================================================
+[60] browser_click  input={"target": "[data-semtag-id='filters.sort']", "element": "Sort select trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.sort\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-22-54-613Z.yml)
+
+================================================================================
+[61] browser_click  input={"target": "[data-semtag-id='filters.sort.option.newest']", "element": "Recently Updated sort option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.sort.option.newest\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-22-56-743Z.yml)
+
+================================================================================
+[62] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='filters.result-count']\")?.innerText, order: Array.from(document.querySelectorAll(\"[data
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 6 of 6 templates",
+  "order": [
+    "Professional Email",
+    "Professional Resume",
+    "Weekly Status Report",
+    "Meeting Minutes",
+    "Project Proposal",
+    "Academic Research Summary"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, order: Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\w+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText)})');
+```
+
+================================================================================
+[63] browser_click  input={"target": "[data-semtag-id='filters.sort']", "element": "Sort select trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.sort\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-23-03-224Z.yml)
+
+================================================================================
+[64] browser_click  input={"target": "[data-semtag-id='filters.sort.option.alphabetical']", "element": "Alphabetical sort option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.sort.option.alphabetical\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-23-05-464Z.yml)
+
+================================================================================
+[65] browser_evaluate  input={"function": "() => Array.from(document.querySelectorAll(\"[data-semtag-id^='templates.grid.item.']\")).filter(e=>/item\\.\\w+$/.test(e.getAttribute('data-semta
+--------------------------------------------------------------------------------
+### Result
+[
+  "Academic Research Summary",
+  "Meeting Minutes",
+  "Professional Email",
+  "Professional Resume",
+  "Project Proposal",
+  "Weekly Status Report"
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\w+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText)');
+```
+
+================================================================================
+[66] browser_click  input={"target": "[data-semtag-id='filters.sort']", "element": "Sort select trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.sort\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-23-10-163Z.yml)
+
+================================================================================
+[67] browser_click  input={"target": "[data-semtag-id='filters.sort.option.oldest']", "element": "Oldest First sort option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'filters.sort.option.oldest\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-23-12-461Z.yml)
+
+================================================================================
+[68] browser_evaluate  input={"function": "() => Array.from(document.querySelectorAll(\"[data-semtag-id^='templates.grid.item.']\")).filter(e=>/item\\.\\w+$/.test(e.getAttribute('data-semta
+--------------------------------------------------------------------------------
+### Result
+[
+  "Professional Email",
+  "Professional Resume",
+  "Weekly Status Report",
+  "Meeting Minutes",
+  "Project Proposal",
+  "Academic Research Summary"
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\w+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText)');
+```
+
+================================================================================
+[69] browser_evaluate  input={"function": "() => ({ls: Object.keys(localStorage).map(k=>k+':'+localStorage.getItem(k).slice(0,200))})"}
+--------------------------------------------------------------------------------
+### Result
+{
+  "ls": [
+    "template-favorites:[\"3\"]",
+    "template-library:[{\"id\":\"1\",\"title\":\"Professional Resume\",\"description\":\"A clean, modern resume template perfect for job applications in any industry.\",\"author\":\"Sarah Chen\",\"category\":\"resume\",\"scenario\":\"business\",\""
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({ls: Object.keys(localStorage).map(k=>k+\':\'+localStorage.getItem(k).slice(0,200))})');
+```
+
+================================================================================
+[70] browser_evaluate  input={"function": "() => JSON.parse(localStorage.getItem('template-library')).map(t=>({id:t.id,title:t.title,createdAt:t.createdAt,updatedAt:t.updatedAt,format:t.for
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "id": "1",
+    "title": "Professional Resume",
+    "createdAt": "2024-01-15",
+    "updatedAt": "2024-12-01",
+    "usage": 1250
+  },
+  {
+    "id": "2",
+    "title": "Weekly Status Report",
+    "createdAt": "2024-02-20",
+    "updatedAt": "2024-11-28",
+    "usage": 890
+  },
+  {
+    "id": "3",
+    "title": "Meeting Minutes",
+    "createdAt": "2024-03-10",
+    "updatedAt": "2024-11-15",
+    "usage": 720
+  },
+  {
+    "id": "4",
+    "title": "Project Proposal",
+    "createdAt": "2024-04-05",
+    "updatedAt": "2024-10-20",
+    "usage": 560
+  },
+  {
+    "id": "5",
+    "title": "Professional Email",
+    "createdAt": "2024-01-08",
+    "updatedAt": "2024-12-05",
+    "usage": 1100
+  },
+  {
+    "id": "6",
+    "title": "Academic Research Summary",
+    "createdAt": "2024-05-12",
+    "updatedAt": "2024-09-30",
+    "usage": 340
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => JSON.parse(localStorage.getItem(\'template-library\')).map(t=>({id:t.id,title:t.title,createdAt:t.createdAt,updatedAt:t.updatedAt,format:t.format,usage:t.usageCount||t.popularity}))');
+```
+
+================================================================================
+[71] mcp__structured_results__record_result  input={"item_id": "FT-9", "verdict": "PASS", "evidence": "Category=Resume+Scenario=Academic→0; Scenario=Academic→1 (Academic Research Summary); sorts newest/alphabeti
+--------------------------------------------------------------------------------
+{"recorded": "FT-9", "verdict": "PASS", "recorded_count": 15, "total_count": 26, "missing_ids": ["FT-5", "FT-6", "FT-10", "FT-28", "CS-16", "CS-27", "CS-29", "IX-20", "IX-21", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[72] mcp__structured_results__record_result  input={"item_id": "IX-21", "verdict": "PASS", "evidence": "Search, category, scenario, favorites-only, and sort changes all updated grid and \"Showing X of 6 template
+--------------------------------------------------------------------------------
+{"recorded": "IX-21", "verdict": "PASS", "recorded_count": 16, "total_count": 26, "missing_ids": ["FT-5", "FT-6", "FT-10", "FT-28", "CS-16", "CS-27", "CS-29", "IX-20", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[73] browser_type  input={"target": "[data-semtag-id='search.query']", "text": "re", "slowly": true}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'search.query\']').pressSequentially('re');
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-23-32-045Z.yml)
+
+================================================================================
+[74] mcp__semantic_hints__semantic_snapshot  input={"scope": "[data-semtag-id='filters.panel']"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7089/","screen":"home","select":[{"id":"filters.category","name":"All Categories","action":"filter-by-category","state":"filters.category","controls":"templates.grid","options":[{"value":"all","label":"All Categories"},{"value":"resume","label":"Resume"},{"value":"weekly-report","label":"Weekly Report"},{"value":"meeting-minutes","label":"Meeting Minutes"},{"value":"proposal","label":"Proposal"},{"value":"email","label":"Email"},{"value":"other","label":"Other"}],"value":"All Categories"},{"id":"filters.scenario","name":"All Scenarios","action":"filter-by-scenario","state":"filters.scenario","controls":"templates.grid","options":[{"value":"all","label":"All Scenarios"},{"value":"business","label":"Business"},{"value":"academic","label":"Academic"},{"value":"personal","label":"Personal"},{"value":"technical","label":"Technical"}],"value":"All Scenarios"},{"id":"filters.sort","name":"Oldest First","action":"sort-templates","state":"filters.sort","controls":"templates.grid","options":[{"value":"popularity","label":"Most Popular"},{"value":"newest","label":"Recently Updated"},{"value":"oldest","label":"Oldest First"},{"value":"alphabetical","label":"Alphabetical"}],"value":"Oldest First"}],"observable":[{"id":"filters.result-count","name":"Showing 5 of 6 templates","state":"filters.resultCount","value":"Showing 5 of 6 templates"}],"region":[{"id":"filters.panel","name":""}]}
+
+================================================================================
+[75] browser_evaluate  input={"function": "() => Array.from(document.querySelectorAll(\"[data-semtag-id*='suggest']\")).map(e=>({id:e.getAttribute('data-semtag-id'),role:e.getAttribute('dat
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "id": "search.suggestions",
+    "role": "collection",
+    "text": "Professional Resume\nResponsibilities\nDegree\nWeekly Status Report\nIn Progress"
+  },
+  {
+    "id": "search.suggestions.item.professional-resume",
+    "role": "action",
+    "text": "Professional Resume"
+  },
+  {
+    "id": "search.suggestions.item.responsibilities",
+    "role": "action",
+    "text": "Responsibilities"
+  },
+  {
+    "id": "search.suggestions.item.degree",
+    "role": "action",
+    "text": "Degree"
+  },
+  {
+    "id": "search.suggestions.item.weekly-status-report",
+    "role": "action",
+    "text": "Weekly Status Report"
+  },
+  {
+    "id": "search.suggestions.item.in-progress",
+    "role": "action",
+    "text": "In Progress"
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => Array.from(document.querySelectorAll("[data-semtag-id*=\'suggest\']")).map(e=>({id:e.getAttribute(\'data-semtag-id\'),role:e.getAttribute(\'data-semtag-role\'),text:e.innerText}))');
+```
+
+================================================================================
+[76] browser_click  input={"target": "[data-semtag-id='search.suggestions.item.professional-resume']", "element": "Suggestion: Professional Resume"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'search.suggestions.item.professional-resume\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-23-39-354Z.yml)
+
+================================================================================
+[77] browser_evaluate  input={"function": "() => ({q: document.querySelector(\"[data-semtag-id='search.query']\").value, count: document.querySelector(\"[data-semtag-id='filters.result-coun
+--------------------------------------------------------------------------------
+### Result
+{
+  "q": "Professional Resume",
+  "count": "Showing 1 of 6 templates",
+  "items": [
+    "Professional Resume"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({q: document.querySelector("[data-semtag-id=\'search.query\']").value, count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, items: Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\w+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText)})');
+```
+
+================================================================================
+[78] mcp__structured_results__record_result  input={"item_id": "IX-20", "verdict": "PASS", "evidence": "Typing \"re\" showed suggestion list (Professional Resume, Responsibilities, ...); clicking suggestion set 
+--------------------------------------------------------------------------------
+{"recorded": "IX-20", "verdict": "PASS", "recorded_count": 17, "total_count": 26, "missing_ids": ["FT-5", "FT-6", "FT-10", "FT-28", "CS-16", "CS-27", "CS-29", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[79] browser_type  input={"target": "[data-semtag-id='search.query']", "text": "resmue", "slowly": true}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'search.query\']').pressSequentially('resmue');
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-23-47-963Z.yml)
+
+================================================================================
+[80] browser_evaluate  input={"function": "() => ({q: document.querySelector(\"[data-semtag-id='search.query']\").value, count: document.querySelector(\"[data-semtag-id='filters.result-coun
+--------------------------------------------------------------------------------
+### Result
+{
+  "q": "resmueProfessional Resume",
+  "count": "Showing 0 of 6 templates",
+  "items": [],
+  "sugg": []
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({q: document.querySelector("[data-semtag-id=\'search.query\']").value, count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, items: Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\w+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText), sugg: Array.from(document.querySelectorAll("[data-semtag-id^=\'search.suggestions.item\']")).map(e=>e.innerText)})');
+```
+
+================================================================================
+[81] browser_type  input={"target": "[data-semtag-id='search.query']", "text": ""}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'search.query\']').fill('');
+```
+
+================================================================================
+[82] browser_type  input={"target": "[data-semtag-id='search.query']", "text": "resmue", "slowly": true}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'search.query\']').pressSequentially('resmue');
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-23-56-151Z.yml)
+
+================================================================================
+[83] browser_evaluate  input={"function": "() => ({q: document.querySelector(\"[data-semtag-id='search.query']\").value, count: document.querySelector(\"[data-semtag-id='filters.result-coun
+--------------------------------------------------------------------------------
+### Result
+{
+  "q": "resmue",
+  "count": "Showing 0 of 6 templates",
+  "items": [],
+  "sugg": []
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({q: document.querySelector("[data-semtag-id=\'search.query\']").value, count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, items: Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\w+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText), sugg: Array.from(document.querySelectorAll("[data-semtag-id^=\'search.suggestions.item\']")).map(e=>e.innerText)})');
+```
+
+================================================================================
+[84] browser_type  input={"target": "[data-semtag-id='search.query']", "text": "resme"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'search.query\']').fill('resme');
+```
+
+================================================================================
+[85] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='filters.result-count']\")?.innerText, items: Array.from(document.querySelectorAll(\"[data
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 0 of 6 templates",
+  "items": [],
+  "sugg": [],
+  "body": null
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, items: Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.\\w+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText), sugg: Array.from(document.querySelectorAll("[data-semtag-id^=\'search.suggestions.item\']")).map(e=>e.innerText), body: document.body.innerText.match(/Did you mean[^\\n]*/g)})');
+```
+
+================================================================================
+[86] mcp__structured_results__record_result  input={"item_id": "FT-10", "verdict": "FAIL", "issue": "No fuzzy/typo tolerance in search", "actual": "Query \"resmue\" and \"resme\" (one-character typos of \"resume
+--------------------------------------------------------------------------------
+{"recorded": "FT-10", "verdict": "FAIL", "recorded_count": 18, "total_count": 26, "missing_ids": ["FT-5", "FT-6", "FT-28", "CS-16", "CS-27", "CS-29", "CT-25", "CT-26"], "complete": false}
+
+================================================================================
+[87] browser_type  input={"target": "[data-semtag-id='search.query']", "text": ""}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'search.query\']').fill('');
+```
+
+================================================================================
+[88] browser_click  input={"target": "[data-semtag-id='header.submit-template']", "element": "Submit Template button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'header.submit-template\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-24-11-525Z.yml)
+
+================================================================================
+[89] mcp__semantic_hints__semantic_snapshot  input={"scope": "[data-semtag-id='submit.panel']"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7089/","screen":"home","action":[{"id":"header.submit-template","name":"Submit Template","action":"open-submit-template"},{"id":"submit.new-field.add","name":"Add Field","action":"add-field"},{"id":"submit.cancel","name":"Cancel","action":"cancel-submit"},{"id":"submit.confirm","name":"Submit Template","action":"submit-template"}],"input":[{"id":"search.query","name":"Search templates by name, author, or field...","state":"search.query","controls":"templates.grid","value":""},{"id":"submit.title","name":"Template Title *","state":"submit.title","value":""},{"id":"submit.author","name":"Author Name *","state":"submit.author","value":""},{"id":"submit.description","name":"Description *","state":"submit.description","value":""},{"id":"submit.content","name":"Template Content *","state":"submit.content","value":""},{"id":"submit.new-field.label","name":"Field label (e.g., Name)","state":"submit.newField.label","value":""},{"id":"submit.new-field.placeholder","name":"Placeholder text","state":"submit.newField.placeholder","value":""}],"select":[{"id":"filters.category","name":"All Categories","action":"filter-by-category","state":"filters.category","controls":"templates.grid","options":[{"value":"all","label":"All Categories"},{"value":"resume","label":"Resume"},{"value":"weekly-report","label":"Weekly Report"},{"value":"meeting-minutes","label":"Meeting Minutes"},{"value":"proposal","label":"Proposal"},{"value":"email","label":"Email"},{"value":"other","label":"Other"}],"value":"All Categories"},{"id":"filters.scenario","name":"All Scenarios","action":"filter-by-scenario","state":"filters.scenario","controls":"templates.grid","options":[{"value":"all","label":"All Scenarios"},{"value":"business","label":"Business"},{"value":"academic","label":"Academic"},{"value":"personal","label":"Personal"},{"value":"technical","label":"Technical"}],"value":"All Scenarios"},{"id":"filters.sort","name":"Oldest First","action":"sort-templates","state":"filters.sort","controls":"templates.grid","options":[{"value":"popularity","label":"Most Popular"},{"value":"newest","label":"Recently Updated"},{"value":"oldest","label":"Oldest First"},{"value":"alphabetical","label":"Alphabetical"}],"value":"Oldest First"},{"id":"submit.category","name":"Other","action":"choose-category","state":"submit.category","options":[{"value":"resume","label":"Resume"},{"value":"weekly-report","label":"Weekly Report"},{"value":"meeting-minutes","label":"Meeting Minutes"},{"value":"proposal","label":"Proposal"},{"value":"email","label":"Email"},{"value":"other","label":"Other"}],"value":"Other"},{"id":"submit.scenario","name":"Business","action":"choose-scenario","state":"submit.scenario","options":[{"value":"business","label":"Business"},{"value":"academic","label":"Academic"},{"value":"personal","label":"Personal"},{"value":"technical","label":"Technical"}],"value":"Business"},{"id":"submit.new-field.type","name":"Text","action":"choose-field-type","state":"submit.newField.type","options":[{"value":"text","label":"Text"},{"value":"textarea","label":"Textarea"},{"value":"email","label":"Email"},{"value":"date","label":"Date"}],"value":"Text"}],"toggle":[{"id":"header.favorites","name":"Favorites 1","action":"toggle-favorites-filter","state":"off","controls":"templates.grid","value":"Favorites 1"},{"id":"submit.markdown","name":"Markdown","state":"submit.isMarkdown","value":true},{"id":"submit.new-field.required","name":"Required","state":"submit.newField.required","value":false}],"observable":[{"id":"header.favorites.count","name":"1","state":"favorites.count","value":"1"},{"id":"filters.result-count","name":"Showing 6 of 6 templates","state":"filters.resultCount","value":"Showing 6 of 6 templates"}],"region":[{"id":"filters.panel","name":""},{"id":"submit.dialog","name":"Submit a Template"}],"collection":[{"id":"submit.fields","name":""}],"collections":[{"id":"templates.grid","idPattern":"templates.grid.item.{key}[.{control}]","item":{"role":"observable","state":"template.title"},"itemControls":{"favorite":{"role":"toggle","action":"toggle-favorite","value":""},"popularity":{"role":"observable","state":"template.popularity"},"updated":{"role":"observable","state":"template.updatedAt"},"use":{"role":"action","name":"Use Template","action":"open-template-preview"}},"fields":["key","value","favorite.state","popularity.value","updated.value"],"items":[["5","Professional Email","off","1,100 uses","Updated 2024-12-05"],["1","Professional Resume","off","1,250 uses","Updated 2024-12-01"],["2","Weekly Status Report","off","890 uses","Updated 2024-11-28"],["3","Meeting Minutes","on","720 uses","Updated 2024-11-15"],["4","Project Proposal","off","560 uses","Updated 2024-10-20"],["6","Academic Research Summary","off","340 uses","Updated 2024-09-30"]]}]}
+
+================================================================================
+[90] browser_click  input={"target": "[data-semtag-id='submit.confirm']", "element": "Submit Template confirm (empty form)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'submit.confirm\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-24-17-058Z.yml)
+
+================================================================================
+[91] browser_evaluate  input={"function": "() => ({dialogOpen: !!document.querySelector(\"[data-semtag-id='submit.dialog']\"), errors: document.querySelector(\"[data-semtag-id='submit.dialo
+--------------------------------------------------------------------------------
+### Result
+{
+  "dialogOpen": true,
+  "errors": "Submit a Template\n\nShare your template with the community. Use {{fieldName}} syntax for dynamic fields.\n\nTemplate Title *\nAuthor Name *\nDescription *\nCategory\nOther\nScenario\nBusiness\nTemplate Content *\nMarkdown\n\nUse {{fieldName}} syntax for dynamic fields. Example: {{name}}, {{email}}\n\nDefine Template Fields\nText\nRequired\nAdd Field\nCancel\nSubmit Template\nClose",
+  "count": "Showing 6 of 6 templates"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({dialogOpen: !!document.querySelector("[data-semtag-id=\'submit.dialog\']"), errors: document.querySelector("[data-semtag-id=\'submit.dialog\']")?.innerText.slice(0,700), count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText})');
+```
+
+================================================================================
+[92] browser_evaluate  input={"function": "() => document.body.innerText.split('\\n').filter(l=>/requir|fill|error|missing|Please/i.test(l)).slice(0,10)"}
+--------------------------------------------------------------------------------
+### Result
+[
+  "Required"
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => document.body.innerText.split(\'\\n\').filter(l=>/requir|fill|error|missing|Please/i.test(l)).slice(0,10)');
+```
+
+================================================================================
+[93] browser_fill_form  input={"fields": [{"target": "[data-semtag-id='submit.title']", "name": "Title", "type": "textbox", "value": "QA Status Note"}, {"target": "[data-semtag-id='submit.au
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'submit.title\']').fill('QA Status Note');
+await page.locator('[data-semtag-id=\'submit.author\']').fill('QA Bot');
+await page.locator('[data-semtag-id=\'submit.description\']').fill('A short markdown status note used for QA validation.');
+await page.locator('[data-semtag-id=\'submit.content\']').fill('# Status for {{name}}\n\n**Owner:** {{name}}\n\n---\n\n## Notes\n\n*{{notes}}*\n');
+```
+
+================================================================================
+[94] browser_click  input={"target": "[data-semtag-id='submit.confirm']", "element": "Submit with no defined fields"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'submit.confirm\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-24-36-938Z.yml)
+
+================================================================================
+[95] browser_evaluate  input={"function": "() => ({dialogOpen: !!document.querySelector(\"[data-semtag-id='submit.dialog']\"), count: document.querySelector(\"[data-semtag-id='filters.resul
+--------------------------------------------------------------------------------
+### Result
+{
+  "dialogOpen": true,
+  "count": "Showing 6 of 6 templates",
+  "toast": [
+    "No fields defined",
+    "Please add at least one template field.",
+    "Share your template with the community. Use {{fieldName}} syntax for dynamic fields.",
+    "Use {{fieldName}} syntax for dynamic fields. Example: {{name}}, {{email}}",
+    "Define Template Fields",
+    "Required",
+    "Add Field"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({dialogOpen: !!document.querySelector("[data-semtag-id=\'submit.dialog\']"), count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, toast: document.body.innerText.split(\'\\n\').filter(l=>/field|requir|error|least/i.test(l)).slice(0,8)})');
+```
+
+================================================================================
+[96] browser_fill_form  input={"fields": [{"target": "[data-semtag-id='submit.new-field.label']", "name": "Field label", "type": "textbox", "value": "name"}, {"target": "[data-semtag-id='sub
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'submit.new-field.label\']').fill('name');
+await page.locator('[data-semtag-id=\'submit.new-field.placeholder\']').fill('Jane');
+```
+
+================================================================================
+[97] browser_click  input={"target": "[data-semtag-id='submit.new-field.add']", "element": "Add Field button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'submit.new-field.add\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-24-47-523Z.yml)
+
+================================================================================
+[98] browser_click  input={"target": "[data-semtag-id='submit.confirm']", "element": "Submit with unmapped {{notes}} placeholder"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'submit.confirm\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-24-49-990Z.yml)
+
+================================================================================
+[99] browser_evaluate  input={"function": "() => ({dialogOpen: !!document.querySelector(\"[data-semtag-id='submit.dialog']\"), count: document.querySelector(\"[data-semtag-id='filters.resul
+--------------------------------------------------------------------------------
+### Result
+{
+  "dialogOpen": false,
+  "count": "Showing 7 of 7 templates",
+  "lib": 7,
+  "toast": [
+    "Template submitted!",
+    "Your template has been added to the library.",
+    "Template Library",
+    "",
+    "Browse, create, and customize templates",
+    "",
+    "Favorites",
+    "1",
+    "Submit Template",
+    "Find the Perfect Template",
+    "",
+    "Browse our curated collection of professional templates for every need"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({dialogOpen: !!document.querySelector("[data-semtag-id=\'submit.dialog\']"), count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, lib: JSON.parse(localStorage.getItem(\'template-library\')).length, toast: document.body.innerText.split(\'\\n\').slice(0,12)})');
+```
+
+================================================================================
+[100] mcp__structured_results__record_result  input={"item_id": "CT-26", "verdict": "PASS", "evidence": "After submit, count went \"Showing 6 of 6\" → \"Showing 7 of 7\" instantly with toast \"Template submitted!
+--------------------------------------------------------------------------------
+{"recorded": "CT-26", "verdict": "PASS", "recorded_count": 19, "total_count": 26, "missing_ids": ["FT-5", "FT-6", "FT-28", "CS-16", "CS-27", "CS-29", "CT-25"], "complete": false}
+
+================================================================================
+[101] mcp__structured_results__record_result  input={"item_id": "FT-5", "verdict": "PASS", "evidence": "Submitted \"QA Status Note\" (author QA Bot, description, category Other, scenario Business, Markdown conten
+--------------------------------------------------------------------------------
+{"recorded": "FT-5", "verdict": "PASS", "recorded_count": 20, "total_count": 26, "missing_ids": ["FT-6", "FT-28", "CS-16", "CS-27", "CS-29", "CT-25"], "complete": false}
+
+================================================================================
+[102] browser_evaluate  input={"function": "() => ({newT: JSON.parse(localStorage.getItem('template-library')).slice(-1), ids: Array.from(document.querySelectorAll(\"[data-semtag-id^='templa
+--------------------------------------------------------------------------------
+### Result
+{
+  "newT": [
+    {
+      "id": "6",
+      "title": "Academic Research Summary",
+      "description": "Summarize your research findings in a structured academic format.",
+      "author": "Dr. James Wilson",
+      "category": "other",
+      "scenario": "academic",
+      "content": "# Research Summary: {{title}}\n\n**Researcher:** {{researcher}}\n**Institution:** {{institution}}\n**Date:** {{date}}\n\n---\n\n## Abstract\n{{abstract}}\n\n## Introduction\n{{introduction}}\n\n## Methodology\n{{methodology}}\n\n## Key Findings\n{{findings}}\n\n## Discussion\n{{discussion}}\n\n## Conclusion\n{{conclusion}}\n\n## References\n{{references}}",
+      "fields": [
+        {
+          "id": "title",
+          "label": "Research Title",
+          "placeholder": "Impact of AI on Education",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "id": "researcher",
+          "label": "Researcher Name",
+          "placeholder": "Dr. Jane Doe",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "id": "institution",
+          "label": "Institution",
+          "placeholder": "Stanford University",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "placeholder": "December 2024",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "id": "abstract",
+          "label": "Abstract",
+          "placeholder": "Brief summary of your research...",
+          "required": true,
+          "type": "textarea"
+        },
+        {
+          "id": "introduction",
+          "label": "Introduction",
+          "placeholder": "Background and research questions...",
+          "required": true,
+          "type": "textarea"
+        },
+        {
+          "id": "methodology",
+          "label": "Methodology",
+          "placeholder": "Research methods used...",
+          "required": true,
+          "type": "textarea"
+        },
+        {
+          "id": "findings",
+          "label": "Key Findings",
+          "placeholder": "1. Finding one\n2. Finding two",
+          "required": true,
+          "type": "textarea"
+        },
+        {
+          "id": "discussion",
+          "label": "Discussion",
+          "placeholder": "Analysis of findings...",
+          "required": true,
+          "type": "textarea"
+        },
+        {
+          "id": "conclusion",
+          "label": "Conclusion",
+          "placeholder": "Summary and implications...",
+          "required": true,
+          "type": "textarea"
+        },
+        {
+          "id": "references",
+          "label": "References",
+          "placeholder": "1. Author (Year). Title.",
+          "required": false,
+          "type": "textarea"
+        }
+      ],
+      "popularity": 340,
+      "createdAt": "2024-05-12",
+      "updatedAt": "2024-09-30",
+      "isMarkdown": true
+    }
+  ],
+  "ids": [
+    "templates.grid.item.5|Professional Email",
+    "templates.grid.item.1|Professional Resume",
+    "templates.grid.item.2|Weekly Status Report",
+    "templates.grid.item.3|Meeting Minutes",
+    "templates.grid.item.4|Project Proposal",
+    "templates.grid.item.6|Academic Research Summary",
+    "templates.grid.item.1787883889305|QA Status Note"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({newT: JSON.parse(localStorage.getItem(\'template-library\')).slice(-1), ids: Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.[^.]+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.getAttribute(\'data-semtag-id\')+\'|\'+e.innerText)})');
+```
+
+================================================================================
+[103] browser_click  input={"target": "[data-semtag-id='templates.grid.item.1787883889305.use']", "element": "Use QA Status Note template"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'templates.grid.item.1787883889305.use\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-25-06-345Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T02-20-03-509Z.log#L5
+
+================================================================================
+[104] mcp__semantic_hints__semantic_snapshot  input={"scope": "[data-semtag-id='preview.panel']"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7089/","screen":"home","navigation":[{"id":"preview.tab.fill","name":"Fill Template","target":"preview.fill-form"},{"id":"preview.tab.result","name":"Preview Result","target":"preview.result"}],"action":[{"id":"preview.close","name":"","action":"close-preview"}],"input":[{"id":"preview.fields.item.name","name":"name","state":"preview.field.name","value":""}],"toggle":[{"id":"preview.favorite","name":"","action":"toggle-favorite","state":"off","value":""}],"observable":[{"id":"preview.title","name":"QA Status Note","state":"template.title","value":"QA Status Note"}],"region":[{"id":"preview.panel","name":"QA Status Note"}],"collection":[{"id":"preview.fields","name":""}]}
+
+================================================================================
+[105] browser_type  input={"target": "[data-semtag-id='preview.fields.item.name']", "text": "Jane Doe"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.fields.item.name\']').fill('Jane Doe');
+```
+
+================================================================================
+[106] browser_click  input={"target": "[data-semtag-id='preview.tab.result']", "element": "Preview Result tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.tab.result\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-25-12-755Z.yml)
+
+================================================================================
+[107] browser_evaluate  input={"function": "() => { const r=document.querySelector(\"[data-semtag-id='preview.result']\"); return {html:r.innerHTML.slice(0,800)}; }"}
+--------------------------------------------------------------------------------
+### Result
+{
+  "html": "<div class=\"prose prose-sm max-w-none dark:prose-invert\"><h1>Status for Jane Doe</h1>\n<p><strong>Owner:</strong> Jane Doe</p>\n<hr>\n<h2>Notes</h2>\n<p><em>{{notes}}</em></p></div>"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const r=document.querySelector("[data-semtag-id=\'preview.result\']"); return {html:r.innerHTML.slice(0,800)}; }');
+```
+
+================================================================================
+[108] mcp__structured_results__record_result  input={"item_id": "FT-6", "verdict": "PASS", "evidence": "\"QA Status Note\" card appeared in grid (templates.grid.item.1787883889305), Use Template opened its form a
+--------------------------------------------------------------------------------
+{"recorded": "FT-6", "verdict": "PASS", "recorded_count": 21, "total_count": 26, "missing_ids": ["FT-28", "CS-16", "CS-27", "CS-29", "CT-25"], "complete": false}
+
+================================================================================
+[109] mcp__structured_results__record_result  input={"item_id": "CS-27", "verdict": "FAIL", "issue": "No placeholder/field consistency validation; preview contains unresolved placeholder", "actual": "Template con
+--------------------------------------------------------------------------------
+{"recorded": "CS-27", "verdict": "FAIL", "recorded_count": 22, "total_count": 26, "missing_ids": ["FT-28", "CS-16", "CS-29", "CT-25"], "complete": false}
+
+================================================================================
+[110] browser_click  input={"target": "[data-semtag-id='preview.close']", "element": "Close preview"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.close\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-25-22-844Z.yml)
+
+================================================================================
+[111] browser_evaluate  input={"function": "() => JSON.parse(localStorage.getItem('template-library')).map(t=>({id:t.id,title:t.title,md:t.isMarkdown,fields:t.fields.map(f=>f.id+(f.required?
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "id": "1787883889305",
+    "title": "QA Status Note",
+    "md": true,
+    "fields": [
+      "name"
+    ]
+  },
+  {
+    "id": "1",
+    "title": "Professional Resume",
+    "md": true,
+    "fields": [
+      "name*",
+      "title*",
+      "email*",
+      "phone",
+      "summary*",
+      "company*",
+      "position*",
+      "startDate*",
+      "endDate",
+      "responsibilities*",
+      "degree*",
+      "school*",
+      "graduationYear*",
+      "skills*"
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Weekly Status Report",
+    "md": true,
+    "fields": [
+      "name*",
+      "weekDate*",
+      "department*",
+      "accomplishments*",
+      "inProgress*",
+      "blockers",
+      "nextWeekGoals*",
+      "notes"
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Meeting Minutes",
+    "md": true,
+    "fields": [
+      "meetingTitle*",
+      "date*",
+      "time*",
+      "attendees*",
+      "facilitator*",
+      "agenda*",
+      "discussion*",
+      "decisions*",
+      "actionItems*",
+      "nextMeetingDate",
+      "nextTopics"
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Project Proposal",
+    "md": true,
+    "fields": [
+      "projectName*",
+      "author*",
+      "date*",
+      "version",
+      "executiveSummary*",
+      "problemStatement*",
+      "solution*",
+      "timeline*",
+      "budget*",
+      "outcomes*",
+      "risks",
+      "conclusion*"
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Professional Email",
+    "md": false,
+    "fields": [
+      "subject*",
+      "recipientName*",
+      "opening*",
+      "body*",
+      "closing*",
+      "senderName*",
+      "senderTitle",
+      "senderContact"
+    ]
+  },
+  {
+    "id": "6",
+    "title": "Academic Research Summary",
+    "md": true,
+    "fields": [
+      "title*",
+      "researcher*",
+      "institution*",
+      "date*",
+      "abstract*",
+      "introduction*",
+      "methodology*",
+      "findings*",
+      "discussion*",
+      "conclusion*",
+      "references"
+    ]
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => JSON.parse(localStorage.getItem(\'template-library\')).map(t=>({id:t.id,title:t.title,md:t.isMarkdown,fields:t.fields.map(f=>f.id+(f.required?\'*\':\'\'))}))');
+```
+
+================================================================================
+[112] browser_click  input={"target": "[data-semtag-id='templates.grid.item.5.use']", "element": "Use Professional Email template"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'templates.grid.item.5.use\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 5 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-25-29-125Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T02-20-03-509Z.log#L6
+
+================================================================================
+[113] browser_fill_form  input={"fields": [{"target": "[data-semtag-id='preview.fields.item.subject']", "name": "Subject", "type": "textbox", "value": "Q3 Planning Sync"}, {"target": "[data-s
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.fields.item.subject\']').fill('Q3 Planning Sync');
+await page.locator('[data-semtag-id=\'preview.fields.item.recipientName\']').fill('Mr. Smith');
+await page.locator('[data-semtag-id=\'preview.fields.item.opening\']').fill('I hope this message finds you well.');
+await page.locator('[data-semtag-id=\'preview.fields.item.body\']').fill('Line one of the body.\nLine two: * not a bullet * and # not a heading.');
+await page.locator('[data-semtag-id=\'preview.fields.item.closing\']').fill('Looking forward to your reply.');
+await page.locator('[data-semtag-id=\'preview.fields.item.senderName\']').fill('Jane Doe');
+await page.locator('[data-semtag-id=\'preview.fields.item.senderTitle\']').fill('Product Manager');
+await page.locator('[data-semtag-id=\'preview.fields.item.senderContact\']').fill('jane@example.com');
+```
+
+================================================================================
+[114] browser_click  input={"target": "[data-semtag-id='preview.tab.result']", "element": "Preview Result tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.tab.result\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 5 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-25-37-483Z.yml)
+
+================================================================================
+[115] browser_evaluate  input={"function": "() => ({html: document.querySelector(\"[data-semtag-id='preview.result']\").innerHTML.slice(0,800)})"}
+--------------------------------------------------------------------------------
+### Result
+{
+  "html": "<pre class=\"whitespace-pre-wrap text-sm font-body\">Subject: Q3 Planning Sync\n\nDear Mr. Smith,\n\nI hope this message finds you well.\n\nLine one of the body.\nLine two: * not a bullet * and # not a heading.\n\nLooking forward to your reply.\n\nBest regards,\nJane Doe\nProduct Manager\njane@example.com</pre>"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({html: document.querySelector("[data-semtag-id=\'preview.result\']").innerHTML.slice(0,800)})');
+```
+
+================================================================================
+[116] mcp__structured_results__record_result  input={"item_id": "CT-25", "verdict": "PASS", "evidence": "Plain-text template (Professional Email) rendered inside <pre whitespace-pre-wrap> preserving line breaks a
+--------------------------------------------------------------------------------
+{"recorded": "CT-25", "verdict": "PASS", "recorded_count": 23, "total_count": 26, "missing_ids": ["FT-28", "CS-16", "CS-29"], "complete": false}
+
+================================================================================
+[117] browser_click  input={"target": "[data-semtag-id='preview.close']", "element": "Close preview"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.close\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 5 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-25-43-605Z.yml)
+
+================================================================================
+[118] browser_click  input={"target": "[data-semtag-id='header.submit-template']", "element": "Submit Template button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'header.submit-template\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 5 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-25-49-573Z.yml)
+
+================================================================================
+[119] browser_fill_form  input={"fields": [{"target": "[data-semtag-id='submit.title']", "name": "Title", "type": "textbox", "value": "   "}, {"target": "[data-semtag-id='submit.author']", "n
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'submit.title\']').fill('   ');
+await page.locator('[data-semtag-id=\'submit.author\']').fill('QA Bot');
+await page.locator('[data-semtag-id=\'submit.description\']').fill('Duplicate label check template.');
+await page.locator('[data-semtag-id=\'submit.content\']').fill('# Report by {{name}}\n\nSummary: {{name}}\n');
+await page.locator('[data-semtag-id=\'submit.new-field.label\']').fill('Name');
+```
+
+================================================================================
+[120] browser_click  input={"target": "[data-semtag-id='submit.new-field.add']", "element": "Add Field (Name)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'submit.new-field.add\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 5 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-25-56-253Z.yml)
+
+================================================================================
+[121] browser_click  input={"target": "[data-semtag-id='submit.confirm']", "element": "Submit with whitespace-only title"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'submit.confirm\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 5 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-25-58-441Z.yml)
+
+================================================================================
+[122] browser_evaluate  input={"function": "() => ({dialogOpen: !!document.querySelector(\"[data-semtag-id='submit.dialog']\"), libLen: JSON.parse(localStorage.getItem('template-library')).l
+--------------------------------------------------------------------------------
+### Result
+{
+  "dialogOpen": true,
+  "libLen": 7,
+  "count": "Showing 7 of 7 templates",
+  "toast": [
+    "Missing required fields",
+    "Please fill in all required fields.",
+    "Template Library",
+    ""
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({dialogOpen: !!document.querySelector("[data-semtag-id=\'submit.dialog\']"), libLen: JSON.parse(localStorage.getItem(\'template-library\')).length, count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, toast: document.body.innerText.split(\'\\n\').slice(0,4)})');
+```
+
+================================================================================
+[123] mcp__structured_results__record_result  input={"item_id": "CS-16", "verdict": "PASS", "evidence": "Empty form submit blocked; all-filled-but-no-fields → toast \"No fields defined\"; whitespace-only title → 
+--------------------------------------------------------------------------------
+{"recorded": "CS-16", "verdict": "PASS", "recorded_count": 24, "total_count": 26, "missing_ids": ["FT-28", "CS-29"], "complete": false}
+
+================================================================================
+[124] browser_type  input={"target": "[data-semtag-id='submit.new-field.label']", "text": "Name"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'submit.new-field.label\']').fill('Name');
+```
+
+================================================================================
+[125] browser_click  input={"target": "[data-semtag-id='submit.new-field.add']", "element": "Add Field (duplicate Name)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'submit.new-field.add\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 5 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-26-08-578Z.yml)
+
+================================================================================
+[126] browser_evaluate  input={"function": "() => ({fieldsList: document.querySelector(\"[data-semtag-id='submit.fields']\")?.innerText, ids: Array.from(document.querySelectorAll(\"[data-sem
+--------------------------------------------------------------------------------
+### Result
+{
+  "fieldsList": "Define Template Fields\n\nName\n\ntext • Optional\n\n{{name}}\n\nName\n\ntext • Optional\n\n{{name}}\nText\nRequired\nAdd Field",
+  "ids": [
+    "submit.fields.item.name",
+    "submit.fields.item.name.remove",
+    "submit.fields.item.name",
+    "submit.fields.item.name.remove"
+  ],
+  "toast": [
+    "Template Library",
+    "",
+    "Browse, create, and customize templates",
+    ""
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({fieldsList: document.querySelector("[data-semtag-id=\'submit.fields\']")?.innerText, ids: Array.from(document.querySelectorAll("[data-semtag-id^=\'submit.fields.\']")).map(e=>e.getAttribute(\'data-semtag-id\')), toast: document.body.innerText.split(\'\\n\').slice(0,4)})');
+```
+
+================================================================================
+[127] browser_type  input={"target": "[data-semtag-id='submit.title']", "text": "Dup Field Check"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'submit.title\']').fill('Dup Field Check');
+```
+
+================================================================================
+[128] browser_click  input={"target": "[data-semtag-id='submit.confirm']", "element": "Submit template with duplicate labels"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'submit.confirm\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 5 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-26-18-253Z.yml)
+
+================================================================================
+[129] browser_evaluate  input={"function": "() => ({dialogOpen: !!document.querySelector(\"[data-semtag-id='submit.dialog']\"), toast: document.body.innerText.split('\\n').slice(0,3), lib: J
+--------------------------------------------------------------------------------
+### Result
+{
+  "dialogOpen": false,
+  "toast": [
+    "Template submitted!",
+    "Your template has been added to the library.",
+    "Template Library"
+  ],
+  "lib": [
+    {
+      "id": "1787883977605",
+      "fields": [
+        {
+          "id": "name",
+          "label": "Name",
+          "placeholder": "",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "id": "name",
+          "label": "Name",
+          "placeholder": "",
+          "required": false,
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({dialogOpen: !!document.querySelector("[data-semtag-id=\'submit.dialog\']"), toast: document.body.innerText.split(\'\\n\').slice(0,3), lib: JSON.parse(localStorage.getItem(\'template-library\')).filter(t=>t.title===\'Dup Field Check\').map(t=>({id:t.id, fields:t.fields}))})');
+```
+
+================================================================================
+[130] browser_click  input={"target": "[data-semtag-id='templates.grid.item.1787883977605.use']", "element": "Use Dup Field Check template"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'templates.grid.item.1787883977605.use\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 1 errors, 6 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-26-24-522Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T02-20-03-509Z.log#L7-L51
+
+================================================================================
+[131] browser_evaluate  input={"function": "() => { const els = document.querySelectorAll(\"[data-semtag-id='preview.fields.item.name']\"); els[0].focus(); const setter = Object.getOwnProper
+--------------------------------------------------------------------------------
+### Result
+{
+  "n": 2,
+  "vals": [
+    "Alpha",
+    "Alpha"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const els = document.querySelectorAll("[data-semtag-id=\'preview.fields.item.name\']"); els[0].focus(); const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,\'value\').set; setter.call(els[0],\'Alpha\'); els[0].dispatchEvent(new Event(\'input\',{bubbles:true})); return {n: els.length, vals: Array.from(document.querySelectorAll("[data-semtag-id=\'preview.fields.item.name\']")).map(e=>e.value)}; }');
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 2 errors, 6 warnings
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T02-20-03-509Z.log#L52-L95
+
+================================================================================
+[132] mcp__structured_results__record_result  input={"item_id": "CS-29", "verdict": "FAIL", "issue": "Duplicate field labels accepted and not disambiguated; fields not independently fillable", "actual": "Added fi
+--------------------------------------------------------------------------------
+{"recorded": "CS-29", "verdict": "FAIL", "recorded_count": 25, "total_count": 26, "missing_ids": ["FT-28"], "complete": false}
+
+================================================================================
+[133] browser_click  input={"target": "[data-semtag-id='preview.close']", "element": "Close preview"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'preview.close\']').click();
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 2 errors, 6 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-26-34-894Z.yml)
+
+================================================================================
+[134] browser_navigate  input={"url": "http://localhost:7089/"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.goto('http://localhost:7089/');
+```
+### Page
+- Page URL: http://localhost:7089/
+- Page Title: Template Library | Browse & Create Professional Templates
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T02-26-37-432Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T02-26-36-299Z.log#L1-L3
+
+================================================================================
+[135] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='filters.result-count']\")?.innerText, favBadge: document.querySelector(\"[data-semtag-id=
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 8 of 8 templates",
+  "favBadge": "Favorites\n1",
+  "titles": [
+    "Professional Resume",
+    "Professional Email",
+    "Weekly Status Report",
+    "Meeting Minutes",
+    "Project Proposal",
+    "Academic Research Summary",
+    "Dup Field Check",
+    "QA Status Note"
+  ],
+  "fav3": "on"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'filters.result-count\']")?.innerText, favBadge: document.querySelector("[data-semtag-id=\'header.favorites\']")?.innerText, titles: Array.from(document.querySelectorAll("[data-semtag-id^=\'templates.grid.item.\']")).filter(e=>/item\\.[^.]+$/.test(e.getAttribute(\'data-semtag-id\'))).map(e=>e.innerText), fav3: document.querySelector("[data-semtag-id=\'templates.grid.item.3.favorite\']")?.getAttribute(\'data-semtag-state\')})');
+```
+
+================================================================================
+[136] mcp__structured_results__record_result  input={"item_id": "FT-28", "verdict": "PASS", "evidence": "After reloading the URL: 8 templates including custom \"QA Status Note\" and \"Dup Field Check\"; Favorites
+--------------------------------------------------------------------------------
+{"recorded": "FT-28", "verdict": "PASS", "recorded_count": 26, "total_count": 26, "missing_ids": [], "complete": true}
+
+================================================================================
+[137] mcp__structured_results__get_result_progress
+--------------------------------------------------------------------------------
+{"recorded_count": 26, "total_count": 26, "missing_ids": [], "complete": true, "results": [{"item_id": "FT-1", "verdict": "PASS", "issue": null, "actual": null, "evidence": "6 templates listed with author (Sarah Chen, Lisa Park, ...) and descriptions."}, {"item_id": "FT-2", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Clicking Use Template opened preview.panel \"Professional Resume\" with Fill Template form (14 fields) and details."}, {"item_id": "FT-3", "verdict": "PASS", "issue": null, "actual": null, "evidence": "All 14 resume fields accepted typed values (verified via DOM value read)."}, {"item_id": "FT-4", "verdict": "PASS", "issue": null, "actual": null, "evidence": "With all required fields filled, Preview Result tab enabled and shows generated resume with entered values substituted."}, {"item_id": "FT-5", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Submitted \"QA Status Note\" (author QA Bot, description, category Other, scenario Business, Markdown content, 1 defined field \"name\") successfully."}, {"item_id": "FT-6", "verdict": "PASS", "issue": null, "actual": null, "evidence": "\"QA Status Note\" card appeared in grid (templates.grid.item.1787883889305), Use Template opened its form and generated a preview."}, {"item_id": "FT-7", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Card 1: \"Resume / Business / Professional Resume / desc / Sarah Chen / 1,250 uses / Updated 2024-12-01\""}, {"item_id": "FT-8", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Resume markdown preview rendered h1/h2/h3, <strong>, <em>, <hr>, paragraphs; no unresolved {{placeholders}}."}, {"item_id": "FT-9", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Category=Resume+Scenario=Academic→0; Scenario=Academic→1 (Academic Research Summary); sorts newest/alphabetical/oldest each produced correct order matching updatedAt/title/createdAt data."}, {"item_id": "FT-10", "verdict": "FAIL", "issue": "No fuzzy/typo tolerance in search", "actual": "Query \"resmue\" and \"resme\" (one-character typos of \"resume\") both returned \"Showing 0 of 6 templates\" with no suggestions and no \"did you mean\" hint; exact substring \"resume\" returns the template.", "evidence": null}, {"item_id": "FT-11", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Favorited via preview & card toggles (count 2), Favorites-only view listed exactly those 2; unfavoriting removed it (count 1)."}, {"item_id": "FT-12", "verdict": "PASS", "issue": null, "actual": null, "evidence": "In favorites-only view (2 items), search \"meeting\" → 1 item Meeting Minutes; category=Resume → 1 item Professional Resume."}, {"item_id": "FT-13", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Clipboard contained the raw Markdown of the generated resume; toast \"Copied to clipboard!\" displayed."}, {"item_id": "FT-28", "verdict": "PASS", "issue": null, "actual": null, "evidence": "After reloading the URL: 8 templates including custom \"QA Status Note\" and \"Dup Field Check\"; Favorites badge 1 and Meeting Minutes favorite state still \"on\"."}, {"item_id": "CS-14", "verdict": "FAIL", "issue": "Format validation not enforced for email field", "actual": "Email field (type=email, required) accepted \"not-an-email\"; no error shown, Preview Result tab became enabled and preview rendered \"Product Manager | not-an-email | +1 555 010 2020\".", "evidence": null}, {"item_id": "CS-16", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Empty form submit blocked; all-filled-but-no-fields → toast \"No fields defined\"; whitespace-only title → toast \"Missing required fields\"; library stayed at 7."}, {"item_id": "CS-17", "verdict": "FAIL", "issue": "Markdown-altering special characters in field values are not rejected or neutralized", "actual": "Full Name = \"# Jane **Doe** ---\" was accepted with no warning; generated preview HTML shows \"<h1># Jane <strong>Doe</strong> ---</h1>\" — the ** markers were interpreted as Markdown emphasis, altering the generated structure.", "evidence": null}, {"item_id": "CS-19", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Setting Full Name to whitespace-only re-disabled Preview Result tab and showed \"Please fill in: Full Name\". (Format validity gap tracked separately in CS-14.)"}, {"item_id": "CS-27", "verdict": "FAIL", "issue": "No placeholder/field consistency validation; preview contains unresolved placeholder", "actual": "Template content contained {{name}} and {{notes}} but only field \"name\" was declared; submission succeeded. Generated preview renders \"<p><em>{{notes}}</em></p>\" — unresolved placeholder.", "evidence": null}, {"item_id": "CS-29", "verdict": "FAIL", "issue": "Duplicate field labels accepted and not disambiguated; fields not independently fillable", "actual": "Added field \"Name\" twice — both listed as {{name}} with identical id \"name\" and submission succeeded (also React duplicate-key console errors). In the template's fill form both inputs share one value: typing \"Alpha\" in the first set both to \"Alpha\".", "evidence": null}, {"item_id": "IX-20", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Typing \"re\" showed suggestion list (Professional Resume, Responsibilities, ...); clicking suggestion set query to \"Professional Resume\" and narrowed grid to 1 of 6."}, {"item_id": "IX-21", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Search, category, scenario, favorites-only, and sort changes all updated grid and \"Showing X of 6 templates\" instantly with no page navigation/reload."}, {"item_id": "IX-22", "verdict": "PASS", "issue": null, "actual": null, "evidence": "preview.missing-fields lists \"Please fill in: Full Name, Job Title, Email, ...\" and preview.tab.result button is disabled."}, {"item_id": "IX-24", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Toggle state flipped off→on immediately on both preview and card, header badge updated 1→2→1, favorites list updated accordingly."}, {"item_id": "CT-25", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Plain-text template (Professional Email) rendered inside <pre whitespace-pre-wrap> preserving line breaks and literal * / # ; Markdown templates rendered h1/h2/strong/em/hr correctly."}, {"item_id": "CT-26", "verdict": "PASS", "issue": null, "actual": null, "evidence": "After submit, count went \"Showing 6 of 6\" → \"Showing 7 of 7\" instantly with toast \"Template submitted!\", no reload."}]}
+
+
+# accessibility snapshots seen by the agent: 0
+# screenshots seen by the agent: 0

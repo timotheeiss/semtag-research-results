@@ -1,0 +1,69 @@
+# Test Result
+
+## Functionality
+- [X] FT-1: Sellers can create a listing by attaching one or more of their own product photos and supplying a title, description, non-negative price, category, condition, location, and upcycled status; the created listing retains and displays the submitted information.
+
+- [ ] FT-2: Sellers can edit the title, description, photos, price, category, condition, location, and upcycled status of an existing listing they own, and the saved listing displays the changes.
+  - Bug Report:
+    - Issue: No edit functionality for existing listings
+    - Actual: The My Listings page only exposes "View", "Mark Sold", and "Delete" actions for each owned listing — there is no "Edit" button or any UI path to modify a listing's title, description, photos, price, category, condition, location, or upcycled status. The listing detail page (viewed as owner) only shows a "Manage Your Listings" link, which returns to the My Listings list; no edit form or field is reachable from anywhere in the app.
+
+- [X] FT-3: Sellers can mark an owned listing as sold or available and can delete it after confirmation; their listing view immediately reflects the resulting status or removal.
+
+- [X] FT-4: A listing marked sold or deleted is no longer offered to buyers in browse results and cannot be newly added to a cart or used to start a purchase request.
+
+- [X] FT-5: A user can register with a name, unique valid email address, password of at least six characters, and location; successful registration is confirmed and leaves the new user signed in.
+
+- [X] FT-6: Buyers can combine category, minimum and maximum price, condition, distance, and upcycled-only filters and sort the available listings by newest, price, or distance; every result satisfies all active criteria.
+
+- [X] FT-7: Buyers can search available listings case-insensitively by words in the title, description, or location; every result matches the query, and clearing it restores the unsearched result set.
+
+- [X] FT-8: A signed-in buyer can add an available listing they do not own to the cart; the item is retained once with its title, photo, location, and price, and the cart total is correct.
+
+- [X] FT-9: A signed-in buyer can submit a non-empty purchase-request message for an available listing they do not own and receives visible confirmation that it was submitted.
+
+- [X] FT-21: Choosing a category from the category-browsing page opens browse results containing only available listings in that category and shows a matching result count.
+
+- [ ] FT-22: After a buyer submits a purchase request, the relevant seller can view the requested item and buyer message, and a cart request is reported as sent only after a request has been recorded for each cart item.
+  - Bug Report:
+    - Issue: No seller-facing UI to view or manage received purchase requests
+    - Actual: As Emma, added Marcus Chen's "Vintage Denim Jacket - Size M" to cart and successfully sent a purchase request (toast "Purchase requests sent to sellers!", cart cleared). Logged in as Marcus Chen (the seller) afterward and checked both the account dropdown menu (only "My Profile", "My Listings", "Log out" - no "Purchase Requests"/"Orders"/"Offers" option) and the My Listings page, where the "Vintage Denim Jacket - Size M" listing still shows status "Active" with only View/Mark Sold/Delete actions and no badge, count, or any indication that a purchase request was received. There is no discoverable UI anywhere in the app for a seller to view, accept, or decline purchase requests sent by buyers.
+
+
+## Constraint
+- [X] CS-10: A login attempt using an email that is not registered is rejected and does not create an authenticated session.
+
+- [ ] CS-11: Registration rejects an email already used by an account, including a case-only variation, without replacing the existing account.
+  - Bug Report:
+    - Issue: Duplicate email not rejected on registration
+    - Actual: Registering with "QATest.Tim2026@Example.com" (case-only variant of existing qatest.tim2026@example.com) succeeded, creating a new account "Duplicate Tester" with toast "Account created successfully!". Registering again with the exact same email "qatest.tim2026@example.com" also succeeded, creating yet another account "Exact Dup Tester". No duplicate-account error was shown and the original account was not preserved as the sole owner of that email.
+
+- [ ] CS-12: A registered account can be authenticated only with its correct password; an incorrect password is rejected without creating a signed-in session.
+  - Bug Report:
+    - Issue: Incorrect password accepted for login
+    - Actual: Logging in as emma@example.com with an arbitrary incorrect password "randompass" succeeded and created a signed-in session (header showed "Emma Green" as logged-in user). The app itself documents this on the login page: "Demo accounts: emma@example.com, marcus@example.com, sofia@example.com (any password works)". Additionally, for a self-registered account (qatest.tim2026@example.com), even the correct password "Passw0rd!" was rejected with "Invalid credentials" after duplicate accounts were created for that email, so password-based authentication is broken in both directions.
+
+- [X] CS-13: Seller-management actions are available only for listings owned by the signed-in seller and are not exposed when that user views another seller's listing.
+
+- [X] CS-14: A listing cannot be created without at least one photo, a title, description, valid price, category, condition, and location, and the missing required information is identified to the seller.
+
+- [X] CS-15: A listing price must be a finite number greater than or equal to zero; negative or non-numeric prices are rejected without creating the listing.
+
+- [X] CS-23: Creating or managing listings, adding items to or viewing the cart, and submitting purchase requests require a signed-in account; unauthenticated attempts are blocked with a clear sign-in prompt or redirect.
+
+
+## Interaction
+- [ ] IX-16: Attempting to register an existing email produces immediate, visible duplicate-account feedback and keeps the registration form available for correction.
+  - Bug Report:
+    - Issue: No duplicate-account feedback shown
+    - Actual: Attempting to register with an already-used email (exact and case-variant) did not produce any duplicate-account error; instead the app silently created a new account and navigated away from the registration form to the home page with a success toast.
+
+- [X] IX-17: Search results and the available-item count update as the buyer types or clears a query, without requiring a separate search submission.
+
+- [X] IX-18: Changing any available filter or sort choice immediately updates the displayed listings and result count, and clearing all filters restores the unfiltered available listings.
+
+- [X] IX-19: Adding a listing to the cart produces immediate visible confirmation and updates the cart count, line item, and total without a manual reload.
+
+
+## Content
+- [X] CT-20: Each listing's details present its photos, title, description, price, category, condition, location, seller, listing date, availability, and upcycled status consistently with the listing data.

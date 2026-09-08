@@ -1,0 +1,130 @@
+=== injection: WebTestBench_0010 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0010
+model:  claude-sonnet-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+Now let's explore the app structure.
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Now let's look at the components.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Read
+[tool] ToolSearch
+[tool] TodoWrite
+Now let's start editing. First, Header.tsx:
+[tool] Edit
+Now FilterBar.tsx:
+[tool] Edit
+Now Index.tsx:
+[tool] Edit
+Now RestaurantCard.tsx:
+[tool] Edit
+Now RestaurantDetail.tsx:
+[tool] Edit
+[tool] TodoWrite
+Continuing with RestaurantDetail.tsx — back link, hero, info, tabs, and sidebar:
+[tool] Edit
+[tool] Edit
+Now the reviews tabs section and reservation sidebar/confirmation section:
+[tool] Edit
+[tool] Edit
+Now the "Make a Reservation" region wrapper:
+[tool] Edit
+RestaurantDetail.tsx done. Now ReservationForm.tsx:
+[tool] Edit
+[tool] TodoWrite
+[tool] Edit
+Now the guest fields, coupon, and submit button:
+[tool] Edit
+Now the coupon block and submit button:
+[tool] Edit
+ReservationForm done. Now ReviewCard.tsx and ReviewForm.tsx:
+[tool] TodoWrite
+[tool] Edit
+Now ReviewForm.tsx — star rating collection, name/date/comment inputs, submit:
+[tool] Edit
+[tool] Edit
+Now MyReservations.tsx:
+[tool] TodoWrite
+[tool] Edit
+[tool] Edit
+Now the largest remaining piece — ReservationCard.tsx:
+[tool] TodoWrite
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the Modify dialog (trigger, time select, party-size select, save) and Cancel alert-dialog:
+[tool] Edit
+Now NotFound.tsx:
+[tool] Edit
+All screens hinted. Now run the validator.
+[tool] TodoWrite
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Dependencies installed. Now run lint, typecheck, and build:
+[tool] Bash
+Type-check passes cleanly. Now lint and build:
+[tool] Bash
+[tool] Bash
+That deletion of `WebTestBench_0002` and modifications to other app folders predate this session — I never touched those directories; all my edits were scoped to `WebTestBench_0010/src`. Let's confirm my diff is clean and proceed to build.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+All literal (non-templated) ids are unique — no duplicates. Final validator run to confirm nothing regressed after the build step touched files:
+[tool] Bash
+Good — 79 hinted elements, 0 errors, 1 expected warning. Let's finalize the todo list.
+[tool] TodoWrite
+## Summary
+
+Injected `data-semtag-*` hints into **TableSpot** (`WebTestBench_0010`, a restaurant-reservation app) across all four screens/views, per the spec at `references/hint-design.md`.
+
+**Screens & components annotated:**
+- **Header** (all pages): logo/nav links (desktop + `.mobile` duplicates per §8), mobile-menu toggle controlling a `region`
+- **Home** (`Index.tsx` + `FilterBar.tsx` + `RestaurantCard.tsx`): search input, filter toggle/panel, cuisine & price `select`s (with `data-semtag-options` + individual `option` items), restaurant count/empty observables, and the `restaurants.grid` `collection` with `.item.<id>` cards (nav + rating observable)
+- **Restaurant detail** (`RestaurantDetail.tsx` + `ReservationForm.tsx` + `ReviewCard.tsx` + `ReviewForm.tsx`): back link, not-found fallback, name/rating/address/price observables, features `collection`, reviews tabs (`action` + `controls`) with a folded reviews `collection`, full reservation form (date/time/party-size/guest fields/coupon flow/submit), confirmation panel, star-rating picker folded as a `collection` of `action` items, and the write-a-review form
+- **My Reservations** (`MyReservations.tsx` + `ReservationCard.tsx`): upcoming/past tabs each `controls`-linked to a folded `collection`, per-tab empty states, and each reservation card (status/coupon observables, modify dialog with time/party-size selects, cancel alert-dialog)
+- **404** (`NotFound.tsx`): return-home link
+
+**Id namespaces:** `nav.*`, `search.*` / `filters.*`, `restaurants.grid.*`, `restaurant.detail.*`, `restaurant.reviews.*` / `restaurant.review.*`, `reservation.*`, `reservations.tab.*` / `reservations.upcoming|past.*` / `reservations.list.item.<id>.*`, `notfound.*`.
+
+**Validator:** 79 hinted elements, **0 errors**, 1 expected warning (`select-without-options` on the date picker in `ReservationForm.tsx` — deliberately left without `data-semtag-options` since it opens a 60-day calendar, not an enumerable option list).
+
+**Deliberately left unhinted:**
+- Calendar day cells inside the date popover (too granular, no stable enumeration)
+- Footer Privacy/Terms/Support spans (inert, no `onClick`, purely decorative)
+- Numeric star-rating display on existing reviews (`ReviewCard`) — visually rendered as filled icons with no visible text, so a hint couldn't carry real information without adding visible copy (against the constraints)
+
+**Manual checks performed** (beyond static linting): confirmed every `collection`-role container is a real DOM ancestor of its `.item.` children, and that all template-literal ids (restaurant id, review id, reservation id, feature/cuisine/time/star slugs) stay unique at runtime given the app's data.
+
+**Project checks:** `tsc --noEmit` clean; `npm run build` succeeded; `npm run lint` shows only 3 pre-existing errors/8 warnings, all in files I didn't touch (`ui/command.tsx`, `ui/textarea.tsx`'s empty-interface pattern, `tailwind.config.ts`'s `require()`) — confirmed via `git status`/`diff` that these predate this session.
+
+--- WebTestBench_0010: ok in 608.2s
+    turns=76 cost=$5.6196392500000005 tool_calls=74 skill_invoked=True
+    hinted_elements=79 files=11 validator_errors=0 warnings=1

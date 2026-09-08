@@ -1,0 +1,224 @@
+=== injection: WebTestBench_0010 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0010
+model:  claude-opus-5   max_turns: 150
+
+I'll start by invoking the skill to get its procedure.
+[tool] Skill
+I'll start by reading the spec, as the skill requires.
+[tool] Read
+[tool] Bash
+Spec read. Now let me explore the application structure.
+[tool] Bash
+The working directory is actually a specific app. Let me explore it.
+[tool] Bash
+A Vite + React + TypeScript + shadcn/ui app. Let me map the source tree.
+[tool] Bash
+A restaurant reservation app. Let me read the routing and core files.
+[tool] ToolSearch
+[tool] Read
+[tool] Read
+Now let me read all pages and components.
+[tool] TodoWrite
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Now I have the full picture. Let me read the validator (its id rules will drive key naming) and confirm the shadcn primitives forward props.
+[tool] Read
+Now I understand the validator's rules. Let me verify the shadcn primitives forward props to the DOM.
+[tool] Bash
+[tool] Bash
+All primitives spread `{...props}` — no prop-widening needed. Now injecting, starting with the shared Header.
+[tool] TodoWrite
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Header done. Now FilterBar and RestaurantCard.
+[tool] Edit
+[tool] Edit
+Now RestaurantCard (the grid item, shared component).
+[tool] Edit
+[tool] Edit
+Now the per-item observables inside the card.
+[tool] Edit
+Now the Index page — hero, result count, grid collection, footer.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Index done. Now the RestaurantDetail page.
+[tool] TodoWrite
+[tool] Edit
+[tool] Edit
+Now the restaurant info block and its features collection.
+[tool] Edit
+Now the reviews tabs and the reservation sidebar.
+[tool] Edit
+[tool] Edit
+Now ReviewCard and ReviewForm.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the ReviewForm, including the star-rating collection.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the ReservationForm — the largest form in the app.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the guest fields, coupon block, and submit button.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now MyReservations, ReservationCard, and NotFound.
+[tool] TodoWrite
+[tool] Edit
+[tool] Edit
+Now the ReservationCard, with its per-item Modify dialog and Cancel alert dialog.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the Modify dialog and Cancel alert dialog inside the card.
+[tool] Edit
+[tool] Edit
+Now the MyReservations page header and the NotFound page.
+[tool] Edit
+[tool] Edit
+All screens annotated. Now running the skill's validator.
+[tool] TodoWrite
+[tool] Bash
+0 errors, 1 warning. The warning is a real gap — let me address it rather than dismiss it.
+[tool] Read
+[tool] Edit
+[tool] Bash
+Clean in strict mode. Now the project's own checks, plus verification of what the linter can't see.
+[tool] TodoWrite
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Dependencies aren't installed. Let me install so I can run the project's real checks.
+[tool] Bash
+Dependencies installed. Now the real checks.
+[tool] Bash
+[tool] Bash
+tsc clean, build succeeds. Now lint, and confirming the CSS warning is pre-existing.
+[tool] Bash
+[tool] Bash
+All lint findings look like they're in files I didn't touch. Let me verify that precisely.
+[tool] Bash
+[tool] Bash
+`data/` is gitignored. Let me find the pristine original to diff against — that's a stronger check anyway.
+[tool] Bash
+A pristine original exists. Let me diff against it to prove only attributes changed, and get a true lint baseline.
+[tool] Bash
+Exactly the 11 files intended. Now let me verify the diff contains *only* attribute additions.
+[tool] Bash
+Every removed line reappears reformatted. Let me prove it rigorously: strip all `data-semtag-*` attributes and diff against the original.
+[tool] Write
+[tool] Bash
+The residuals are JSX reformatting artifacts plus my intended prop-threading. Let me confirm by removing whitespace entirely.
+[tool] Bash
+[tool] Bash
+Lint is clean on my files. Let me confirm the 3 pre-existing errors are all in untouched files.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Playwright browsers are cached. Let me do a real runtime verification of ancestry and id uniqueness.
+[tool] Bash
+[tool] Bash
+[tool] Write
+[tool] Bash
+[tool] Read
+[tool] Bash
+[tool] Write
+[tool] Bash
+Most of these look like artifacts of my checker being too strict (Radix portals, closed disclosures). Let me verify that hypothesis rather than assume it.
+[tool] Bash
+[tool] Bash
+Confirmed — dialogs portal to `<body>`, outside `#root`. Let me correct my checker for portals and deferred-render `controls` targets, then re-run.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+I'll add the deferred `controls` check to the end of the verifier, then re-run it.
+[tool] Edit
+[tool] Bash
+[tool] Bash
+The only remaining failures are `res_a2`'s dialogs — I never opened them in the run, so it's a gap in my test coverage, not in the hints. Let me prove that rather than assume it.
+[tool] Edit
+[tool] Edit
+[tool] Bash
+Clean across 18 screen states. Final confirmation of the skill's own validator and the project checks:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+All checks pass and scratch artifacts are cleaned up. Here is the step-5 report.
+
+## Semantic hint injection — TableSpot (WebTestBench_0010)
+
+**115 hinted elements**, 0 errors / 0 warnings / 0 info under `validate-semtags.mjs --strict`.
+
+### Screens and components annotated
+
+| Screen | Files |
+|---|---|
+| Shared chrome (all pages) | `components/Header.tsx` |
+| Home / restaurant browse | `pages/Index.tsx`, `components/FilterBar.tsx`, `components/RestaurantCard.tsx` |
+| Restaurant detail (info, reviews tab, write-review tab, booking, confirmation, not-found) | `pages/RestaurantDetail.tsx`, `components/ReviewCard.tsx`, `components/ReviewForm.tsx`, `components/ReservationForm.tsx` |
+| My Reservations (upcoming/past tabs, modify + cancel dialogs) | `pages/MyReservations.tsx`, `components/ReservationCard.tsx` |
+| 404 | `pages/NotFound.tsx` |
+
+11 files touched. No shadcn primitive needed prop-widening — `input`, `textarea`, `button`, `select` and `tabs` already `forwardRef` and spread `{...props}`, so the one extra code change the skill permits was unnecessary.
+
+### Id namespaces
+
+`nav.*` · `home.*` · `filters.*` · `restaurants.*` · `restaurant.*` · `reservation.*` · `review.*` · `reservations.*` · `notfound.*`
+
+### Collections — all six fold
+
+`restaurants.grid` [6] · `restaurant.features` [3] · `restaurant.reviews` [2] · `review.form.rating` [5] · `reservations.upcoming` [2] · `reservations.past` [2]. No collection failed to fold.
+
+Two §8 collision risks were real and handled: the desktop and mobile navs render **simultaneously** (desktop is CSS-hidden, not unmounted), so mobile links carry a `.mobile` suffix with identical `data-semtag-state`; and `ReservationCard` renders in both lists, so `collectionId` is a **required** prop — TypeScript enforces it at every call site and the ids stay visible to the source-text linter.
+
+### Judgement calls
+
+- **The date picker is `role="input"`, not `select"`.** The validator warned `select-without-options`. Enumerating a 60-day calendar into `data-semtag-options` would bloat every snapshot — directly against this fork's token-efficiency aim. As an `input` the extractor still reads the trigger's live text, `action="pick-date"` signals click-not-type, and `controls="reservation.date.calendar"` names the popover.
+- **Footer links got `role="navigation"` with no `target`.** They don't actually navigate; supplying a target would describe what the UI *should* do, which is test intent.
+- Deliberately unhinted: `components/ui/*` primitives, decorative icons, and purely presentational wrappers.
+
+### Verification beyond the linter
+
+The linter reads source text, so I checked the rest in a live browser: a Playwright run over **18 screen states** (seeded with 4 reservations so every list has ≥2 items) confirmed page-wide id uniqueness, valid roles, real DOM ancestry of items under collections, template-literal ids staying unique at runtime, and all 12 `controls` targets resolving — **all runtime checks passed**.
+
+Two initial failure classes turned out to be my checker's fault, not the hints', and I confirmed each empirically rather than assuming: Radix portals dialog content onto `<body>` outside `#root` (so a modal legitimately has no collection ancestor — its `.modify`/`.cancel` triggers are inside the collection and do fold), and `controls` may name a region that only renders once opened. I also had to open the *second* card's dialogs, not just the first, to actually exercise per-item template-literal ids.
+
+### Project checks
+
+`tsc --noEmit` clean · `npm run build` succeeds · `eslint` clean on all 11 modified files.
+
+Two pre-existing failures, **present before I started** and in files I never touched: 3 eslint errors in `ui/command.tsx`, `ui/textarea.tsx` and `tailwind.config.ts`, and a CSS `@import` ordering warning in `index.css`.
+
+Since `data/` is gitignored, I proved the change was attribute-only by diffing against the pristine copy at `web_applications/WebTestBench_0010`: exactly the 11 intended files differ, and after stripping `data-semtag-*` and normalizing whitespace, 4 are byte-identical to the original while the other 7 differ solely by the sanctioned collection-id / nav-id threading described above.
+
+--- WebTestBench_0010: ok in 1244.5s
+    turns=128 cost=$8.586849500000001 tool_calls=125 skill_invoked=True
+    hinted_elements=118 files=11 validator_errors=0 warnings=0

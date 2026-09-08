@@ -1,0 +1,212 @@
+=== injection: WebTestBench_0005 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0005
+model:  claude-opus-5   max_turns: 150
+
+I'll start by invoking the semtag-inject skill.
+[tool] Skill
+I'll start by reading the spec, as required.
+[tool] Read
+[tool] Bash
+Spec read. Now let me explore the application structure.
+[tool] Bash
+Note: the shell cwd was reset to a specific app directory. Let me check that — that's the actual target.
+[tool] Bash
+[tool] Bash
+A resume builder app. Let me capture a baseline of project checks and read the core files in parallel.
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Baseline checks can't run — dependencies aren't installed. Let me verify and read the remaining files.
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Let me start dependency installation in the background (needed for project checks) and read the remaining screens.
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Dependencies installed. Let me verify baseline checks now pass, and confirm the shadcn primitives forward arbitrary props.
+[tool] Bash
+[tool] Bash
+Baseline build passes; lint has 4 pre-existing errors. Let me record the full baseline lint and verify remaining primitives.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+All primitives spread props, so no prop-widening is needed. Baseline recorded: build passes, lint has 4 pre-existing errors. Now let me inject, starting with the Dashboard screen.
+[tool] Edit
+[tool] Edit
+Now the search/sort toolbar:
+[tool] Edit
+Now the empty state and the resumes grid (the collection container):
+[tool] Edit
+[tool] Edit
+Now the ResumeCard — the shared per-item component for the dashboard collection.
+[tool] Bash
+[tool] Edit
+Now the two dialogs in ResumeCard:
+[tool] Edit
+[tool] Edit
+Now the editor shell — header, tab collection, and content regions:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the tab strip as a foldable collection:
+[tool] Edit
+Now the seven tab content regions — one atomic edit:
+[tool] Edit
+[tool] Edit
+Now the ContactForm fields:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now SummaryForm — the textarea plus its character counter:
+[tool] Edit
+[tool] Edit
+Now ExperienceForm — a repeated collection:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now EducationForm, same collection shape:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now SkillsForm — introducing one shared level list so the select triggers and their menus can't drift:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now TemplateSelector and SectionManager:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the three preview templates. Modern first:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now ClassicTemplate — same id vocabulary, since only one template mounts at a time:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Classic's skills section renders one joined string rather than per-skill elements, so there is no collection to fold there:
+[tool] Edit
+[tool] Edit
+Now MinimalTemplate:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Finally the 404 screen, then I'll validate:
+[tool] Edit
+Now running the skill's validator:
+[tool] Bash
+Zero errors. Let me fix the one info finding, then verify the project's own checks:
+[tool] Edit
+[tool] Bash
+Type-check clean, build passes, and the CSS bundle hash is unchanged (`index-DNg1yfAr.css`) — confirming no styling drift. Now lint:
+[tool] Bash
+Lint is substantively unchanged — same 4 pre-existing errors and 8 warnings; only a line number shifted. Let me verify the riskiest assumption: that Radix components actually forward these attributes to the DOM.
+[tool] Bash
+No Playwright, but I can prove it properly by server-rendering the real components and inspecting the emitted HTML.
+[tool] Write
+[tool] Bash
+The SSR bundle externalizes deps, so it must resolve `node_modules` from the project. Let me output inside the project:
+[tool] Bash
+SSR rendered successfully. Now let me mechanically verify the two things the static linter cannot see — collection ancestry and runtime id uniqueness:
+[tool] Write
+[tool] Bash
+Radix does forward the attributes. But my per-tab loop didn't actually switch tabs, so let me render the remaining forms directly to cover every screen:
+[tool] Write
+[tool] Bash
+All screens clean. Let me remove my scratch files and do a final verification:
+[tool] Bash
+Those belong to sibling apps. Let me scope to this app:
+[tool] Bash
+I'll restore the incidentally-deleted build artifacts and confirm the final change set.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Working tree is clean — 14 source files modified, nothing else.
+
+## Report
+
+**App:** `WebTestBench_0005`, a resume builder — Dashboard, Editor (7 tabs + live preview), 404.
+
+### Screens & components annotated
+
+| Screen | Components |
+|---|---|
+| Dashboard | `Dashboard.tsx`, `ResumeCard.tsx` (incl. rename + delete dialogs) |
+| Editor shell | `ResumeEditor.tsx` (header, title edit, preview toggle, tab bar, 7 panels) |
+| Editor tabs | `ContactForm`, `SummaryForm`, `ExperienceForm`, `EducationForm`, `SkillsForm`, `TemplateSelector`, `SectionManager` |
+| Preview | `ModernTemplate`, `ClassicTemplate`, `MinimalTemplate` |
+| 404 | `NotFound.tsx` |
+
+### Id namespaces
+
+`dashboard.*` · `editor.*` · `contact.*` · `summary.*` · `experience.*` · `education.*` · `skills.*` · `template.*` · `sections.*` · `preview.*` · `notfound.*`
+
+Preview observables reuse the **same `data-semtag-state` keys as the editor inputs** (`contact.email`, `resume.summary`, …), so an agent can link a field edit to its rendered output without extra hints.
+
+### Collections (all verified folding at runtime)
+
+I SSR-rendered every screen and parsed the emitted HTML with an ancestor-stack checker — page-wide id uniqueness, `.item.` ids having a `role="collection"` ancestor, every hinted element having a role, every `select` having options. **All 11 screens clean.** Folds: `dashboard.resumes`→15, `editor.tabs`→7, `experience.list`→20, `education.list`→20, `skills.list`→15, `template.options`→3, `sections.list`→20, `preview.experience`→8, `preview.education`→3–6, `preview.skills`→5.
+
+**Could not fold:** ResumeCard's dropdown menu items, its rename/delete dialogs, and per-skill `SelectContent` options. Radix portals these to `document.body`, outside the collection ancestor, and they only mount while open — at most one at a time, so snapshot cost is bounded.
+
+**Also not folded by design:** Classic renders skills as one joined string, so it uses `preview.skills.names` (observable) rather than a collection.
+
+### Deliberately unhinted
+
+`NavLink.tsx` (unused), all 49 `src/components/ui/*` primitives (hints belong at call sites — verified each spreads `{...props}` so attributes reach the DOM, no prop-widening needed), decorative icons, layout wrappers, positional labels, drag handles.
+
+### Checks
+
+- **Validator:** 160 hinted elements / 75 files — **0 errors, 15 warnings, 0 info**. All 15 warnings are the intentional identical ids across the three preview templates, which are *mutually exclusive at runtime*; template-scoped ids would have been worse (the agent would need to know the active template to read content). This is precisely the blind spot the validator documents.
+- **Type-check:** clean. **Build:** passes; **CSS bundle hash unchanged (`index-DNg1yfAr.css`, 67.81 kB)** — zero styling drift. JS 471.47 → 488.44 kB.
+- **Lint:** 4 errors + 8 warnings, all **pre-existing** (in `Dashboard.tsx`, `ui/textarea.tsx`, `tailwind.config.ts`). The only diff vs. baseline is one `prefer-const` error shifting line 27→34 because I added the `sortOptions` array above it.
+
+The diff contains attribute changes plus three small non-attribute additions, each required by the spec: `sortOptions` and `skillLevels` arrays (so a select's `data-semtag-options` is built from the same source that renders its items, per §3) and an `itemId` const in `ResumeCard`.
+
+--- WebTestBench_0005: ok in 1116.4s
+    turns=127 cost=$9.04487925 tool_calls=124 skill_invoked=True
+    hinted_elements=160 files=14 validator_errors=0 warnings=15

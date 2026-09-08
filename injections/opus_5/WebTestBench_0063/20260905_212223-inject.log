@@ -1,0 +1,217 @@
+=== injection: WebTestBench_0063 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0063
+model:  claude-opus-5   max_turns: 150
+
+I'll start by invoking the skill to get its procedure.
+[tool] Skill
+I'll start by reading the spec, as the skill requires.
+[tool] Read
+[tool] Bash
+The project root has no `src/`. Let me find the actual app source.
+[tool] Bash
+[tool] Bash
+The shell resets to a specific app directory — that's the real CWD. Let me inspect it.
+[tool] Bash
+A Vite + React + shadcn app. Let me explore its structure and screens.
+[tool] ToolSearch
+[tool] Bash
+Let me read the app source files.
+[tool] Bash
+No hints yet. Let me read all the app files.
+[tool] Read
+[tool] Read
+[tool] Read
+A Chinese intangible-heritage showcase app: 8 items, 3 routes, two view modes on the home page. Let me read the components.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Now the remaining components and pages.
+[tool] Read
+[tool] Read
+[tool] Read
+Now the detail page, footer, and NotFound.
+[tool] Read
+[tool] Read
+[tool] Read
+I have the full picture. Let me verify the shared UI components forward arbitrary props, and locate the validator.
+[tool] Bash
+[tool] Bash
+Both forward props — no widening needed. Let me capture a baseline of the project's own checks before editing.
+[tool] Bash
+Dependencies aren't installed. Let me start that in the background while I inject hints.
+[tool] Bash
+[tool] TodoWrite
+Now let me inject hints, starting with the global chrome — Header and Footer.
+[tool] Edit
+[tool] Edit
+Dependencies installed. Now the Footer — its two link lists need stable keys instead of index/label-only mapping.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the HeroSection, including its stats collection which currently uses index keys.
+[tool] Edit
+[tool] Edit
+Add the hero region wrapper, then move to the listing.
+[tool] Edit
+[tool] TodoWrite
+Now the listing: filter panel, selects with generated options, results count, and the grid collection.
+[tool] Edit
+[tool] Edit
+Now the grid collection and the empty state.
+[tool] Edit
+Now `HeritageCard`, threading a collection id so item ids stay scoped per §8.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the panorama viewer and its hotspot collection.
+[tool] TodoWrite
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the panorama zoom controls and hotspot loading status.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the HeritageOverlay dialog.
+[tool] Edit
+[tool] Edit
+Now the overlay's content fields and actions.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the detail page. Let me start with the not-found branch and breadcrumb.
+[tool] TodoWrite
+[tool] Edit
+[tool] Edit
+Now the image gallery. Thumbnails are index-keyed, which §7 forbids — I'll derive a stable key from the image URL.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+I referenced `heritage.detail.media` — let me define that region and annotate the info column.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the detail meta info, description, and action buttons.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now NotFound and the Index panorama section region.
+[tool] Edit
+[tool] Edit
+Injection done. Now the skill's validator.
+[tool] Bash
+Zero errors and zero warnings. Three INFO notes flag single-segment ids — the spec describes ids as dotted domain paths, so I'll fix those too.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Bash
+Clean. Now the checks the linter explicitly can't do — DOM ancestry and runtime id uniqueness. Let me audit every collection and id.
+[tool] Bash
+[tool] Bash
+No duplicates. Let me confirm each collection container genuinely wraps its items in the DOM.
+[tool] Bash
+[tool] Bash
+All six containers wrap their items. Let me verify the runtime-derived gallery keys can't collide.
+[tool] Bash
+Now the project's own checks.
+[tool] Bash
+[tool] Bash
+Type-check and build pass. The CSS `@import` warning is in `index.css`, which I never touched. Now lint.
+[tool] Bash
+All lint problems appear to be in untouched files. Let me confirm none are in files I edited, and verify against a pristine baseline.
+[tool] Bash
+[tool] Bash
+`HeritageListing.tsx` shows a problem — let me see what it is and compare against the pristine (non-hinted) copy of this app.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+The `as any` error is pre-existing (line 122 in the pristine copy). Let me verify my diff contains only attribute additions plus the sanctioned key restructurings.
+[tool] Bash
+All removals are re-opened tags plus the four sanctioned restructurings. Since the linter can't verify runtime uniqueness, let me smoke-test the real DOM if Playwright is available.
+[tool] Bash
+[tool] Bash
+No Playwright. Several hints sit on `framer-motion` components, and whether those forward `data-*` to the DOM is worth verifying rather than assuming. Let me render the built app in jsdom (installed outside the project, so the app's deps stay untouched).
+[tool] Bash
+[tool] Bash
+[tool] Write
+[tool] Bash
+[tool] Edit
+[tool] Bash
+[tool] Edit
+[tool] Bash
+[tool] Bash
+jsdom 30 replaced `ResourceLoader` with `requestInterceptor`. Let me adapt.
+[tool] Bash
+Let me simplify — allow resources and let external image requests fail naturally.
+[tool] Bash
+[tool] Bash
+Zero everywhere — the app likely isn't booting in jsdom at all. Let me diagnose before drawing any conclusion.
+[tool] Bash
+The bundle is an ES module, which jsdom can't execute — so that zero means nothing. Let me build a classic (IIFE) bundle with esbuild purely for the test.
+[tool] Bash
+[tool] Bash
+Those are jsdom API gaps, not app bugs. Let me polyfill them.
+[tool] Bash
+Real runtime verification: app mounts, hints present on every screen, zero duplicate ids, and every collection folds. Now let me verify the conditional UI I annotated — the overlay dialog, select options, and the empty-results state.
+[tool] Bash
+Overlay and the empty-state (both clear buttons coexisting) verified with no collisions. Let me fix my test-script bug and confirm the select options render when the menu opens.
+[tool] Bash
+Radix's menu doesn't open under jsdom (it hangs on focus/animation loops) — I'll note that as a limitation. Let me clean up my test artifacts.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] TodoWrite
+[tool] Bash
+[tool] Bash
+[tool] Bash
+That was matching its own shell command. Let me confirm by port.
+[tool] Bash
+Done. Final state: validator clean, project checks pass, no stray processes.
+
+## What I did
+
+Read the spec first (`references/hint-design.md`), surveyed the app, injected hints across all screens, then validated statically **and** at runtime.
+
+The app is a Chinese intangible-heritage showcase (Vite + React + shadcn, 8 heritage items, 3 routes, two view modes on `/`).
+
+**Screens & components annotated** — 10 files, 83 hinted elements:
+
+| Screen | Components |
+|---|---|
+| Global chrome | `Header` (brand, 3 nav links, CTA), `Footer` (2 link lists) |
+| Home `/` | `HeroSection` (CTAs + stats), `HeritageListing`, `HeritageCard` |
+| Panorama `/?view=panorama` | `Index` section, `PanoramaViewer` (hotspots, zoom, loading), `HeritageOverlay` dialog |
+| Detail `/heritage/:id` | `HeritageDetail` (breadcrumb, gallery, fields, actions) + its "not found" branch |
+| 404 | `NotFound` |
+
+**Id namespaces:** `nav.*`, `hero.*`, `heritage.listing/filters/results/grid.*`, `heritage.detail.*`, `heritage.overlay.*`, `panorama.*`, `footer.*`, `notfound.*`.
+
+**Collections — all six fold**, confirmed in a live DOM: `heritage.grid` (8), `panorama.hotspots` (4), `hero.stats` (4), `footer.categories` (4), `footer.about` (4), `heritage.detail.gallery` (3). None failed to fold.
+
+## Verification beyond the linter
+
+The validator reported **0 errors, 0 warnings, 0 info**, but it's static-only. Since several hints sit on `framer-motion` components — which could have silently dropped `data-*` before reaching the DOM — I built an IIFE bundle and rendered all four screens in jsdom. Hints reach the DOM everywhere, **zero duplicate ids on every screen**, and no element lands in `other`. I also exercised the conditional UI: opening the overlay (78 hints on-page, no collision) and forcing empty results, which confirmed `heritage.filters.clear` and `heritage.results.empty.clear` coexist without clashing — the one real uniqueness trap in this app.
+
+**Project checks:** `tsc` clean, `build` succeeds. `lint` shows 4 errors/7 warnings — **all pre-existing**; the only one in a file I touched (`HeritageListing`, `setSortBy(v as any)`) is present verbatim in the pristine copy. The CSS `@import` build warning is also pre-existing.
+
+## Three code changes beyond adding attributes
+
+1. `HeritageCard` gained a `collectionId` prop, so item ids are scoped by collection (§8) rather than hardcoded.
+2. Hero stats and both footer lists were index-/label-keyed; I added stable `key` fields so item ids aren't array-index-keyed (§7 rule 2). Same rendered output.
+3. `HeritageDetail` gained a pure `imageKey()` helper deriving gallery keys from image filenames — the thumbnails had no stable key but the index. I verified no collisions across all 8 items' images.
+
+## Deliberately left unhinted
+
+Card description paragraphs (line-clamped, 8× long Chinese text — expensive on every snapshot), the overlay's non-interactive thumbnail strip, static headings/marketing copy and the panorama instruction line, decorative gradients/patterns/scroll indicator, icon SVGs adjacent to labelled controls, and all `components/ui/*` primitives (hinted at call sites instead — no prop-widening was needed, as `Input` and `SelectTrigger` already spread props).
+
+One limitation worth flagging: `SelectItem` options only exist in the DOM while the menu is open, and Radix's menu wouldn't open under jsdom, so their ids are validated statically only. This matters little in practice — each trigger carries `data-semtag-options` built from the same source that renders the menu, which is what lets the agent pick a value without opening it.
+
+--- WebTestBench_0063: ok in 1116.4s
+    turns=122 cost=$7.424555000000001 tool_calls=120 skill_invoked=True
+    hinted_elements=84 files=10 validator_errors=0 warnings=0

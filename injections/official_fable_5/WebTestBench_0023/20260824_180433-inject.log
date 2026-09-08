@@ -1,0 +1,153 @@
+=== injection: WebTestBench_0023 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0023
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Grep
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Grep
+Now let me check the product id format in mock data, then start injecting.
+[tool] Grep
+Product ids are stable (`prod-1` …). Now I'll inject the hints, starting with shared components.
+
+**ProductCard** — thread a collection prefix in per §8:
+[tool] Edit
+[tool] Edit
+**SearchBar** — widen props so `data-semtag-*` passes through to the input:
+[tool] Edit
+[tool] Edit
+**SortDropdown** — single source for options + hints:
+[tool] Edit
+**Header** — hints for nav, cart, user menu, and `.mobile`-suffixed sheet copies:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the mobile menu portion of the Header:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**FilterSidebar** — rewrite with prefix props so the desktop and mobile copies get distinct ids:
+[tool] Write
+Now the **Index** page:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now **ProductDetail**:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now **Cart**:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now **Login** and **Register**:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now **CreateListing**:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now **MyListings**:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Finally **Categories**, **About**, and **NotFound**:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now run the skill's validator:
+[tool] Bash
+Validator is clean. Now the manual checks and project verification — type-check, lint, build:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+All three lint errors are in files I never touched (`ui/command.tsx`, `ui/textarea.tsx`, `tailwind.config.ts`) — pre-existing shadcn/config issues. Let me confirm the diff scope:
+[tool] Bash
+[tool] Bash
+Injection complete. Summary of what was done in `web_applications_hinted/WebTestBench_0023` (ReVive marketplace app):
+
+## Screens & components annotated (15 files, 107 hinted elements)
+
+- **Header** (shared, every page): logo, nav links, Sell/Cart (+ live `header.cart.count` observable), user menu + its portal items, login/signup, and `.mobile`-suffixed copies of everything in the mobile sheet (§8 two-layout rule).
+- **Index / home**: hero CTAs, `home.categories` collection (quick-link buttons as `filter-category` actions), `home.browse` region, `browse.count` observable, search input, sort select (with `data-semtag-options` + option items), `browse.products` product collection, empty state + clear-filters.
+- **FilterSidebar**: full filter panel — upcycled toggle, category/condition checkbox collections (`.item.<slug>` keyed), price/distance sliders + their value observables, clear button.
+- **ProductDetail**: breadcrumbs, image prev/next, title/price/category/condition/description/seller observables, add-to-cart, message-seller dialog (region, textarea, send), manage-listings, unavailable/not-found states.
+- **Cart**: `cart.items` collection keyed by `prod-N` (item link, `.price`, `.remove`), `cart.count`, `cart.total`, checkout, empty state.
+- **CreateListing**: `listing.form` region, all inputs, category/condition selects with options built from the same `categories`/`conditions` arrays that render the menus, upcycled switch, add-photo, cancel/submit.
+- **MyListings**: `my-listings.list` collection with `.view`, `.toggle-availability`, `.delete` (+ per-item delete dialog confirm/cancel), status/price observables, new-listing, empty state.
+- **Categories, About, NotFound**: category grid collection with `.count` observables, CTA and return-home navigations.
+
+## Design decisions
+
+- **Id namespaces**: `header.*` (+`.mobile`), `home.*`, `browse.*` (incl. `browse.filters` / `browse.filters.mobile`), `product.*`, `cart.*`, `listing.*`, `my-listings.*`, `login.*`, `register.*`, `categories.*`, `about.*`, `not-found.*`.
+- **Shared-component prop widening** (the one permitted code change): `ProductCard` got `semtagCollection` (emits nothing when absent), `SearchBar` now passes input props through, `FilterSidebar` got `semtagPrefix`/`semtagMobilePrefix` so its four DOM copies (2 instances × desktop aside + mobile sheet) yield exactly **two** hinted copies with distinct ids — the redundant duplicates stay unhinted. `SortDropdown` options were refactored into a single `sortOptions` array so the trigger's `data-semtag-options` and rendered menu can't drift.
+- **Linked state keys**: `cart.count`/`cart.total`, `filters.*`, `search.query`, `product.availability` appear on both the controls that edit them and the elements displaying them.
+
+## Not folded / deliberately unhinted
+
+- **ProductDetail image thumbnails** and **CreateListing photo-remove buttons**: keyed only by array index (banned by §7); left unhinted.
+- MyListings per-item delete dialogs render in a portal, so they won't fold under the collection — ids remain unique and addressable.
+- Decorative footer, hero marketing stats, favorite-heart button (a no-op `TODO` in the code), and the header search icon (duplicates the Browse link).
+
+## Validation
+
+- `validate-semtags.mjs src`: **107 hinted elements, 0 errors, 0 warnings**. Manually confirmed collection containers wrap their items and template-literal ids stay unique at runtime (stable `prod-N` / slug keys, collection-scoped prefixes).
+- `tsc --noEmit` ✓, `vite build` ✓. `eslint`: 3 errors remain, all pre-existing in untouched files (`ui/command.tsx`, `ui/textarea.tsx`, `tailwind.config.ts`); zero issues in the files I changed. A diff against the pristine `web_applications/WebTestBench_0023` copy confirms only the 15 intended files changed, all attribute-only apart from the sanctioned prop widening.
+
+--- WebTestBench_0023: ok in 604.8s
+    turns=99 cost=$4.225944500000001 tool_calls=97 skill_invoked=True
+    hinted_elements=113 files=14 validator_errors=0 warnings=0

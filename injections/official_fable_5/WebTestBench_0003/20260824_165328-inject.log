@@ -1,0 +1,130 @@
+=== injection: WebTestBench_0003 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0003
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+The working directory is actually a specific app: `WebTestBench_0003`. Let me inspect it.
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Grep
+Now let me verify the shared UI components pass through arbitrary props (shadcn components usually spread `...props`):
+[tool] Bash
+All components pass props through. Now I'll inject the hints. First a tiny slug helper (needed to build stable ids from strings like "San Francisco, CA" / "Node.js"):
+[tool] Write
+Now the Header (shared nav across all screens):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the Index page:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now JobCard (the collection item):
+[tool] Edit
+[tool] Edit
+Now JobFilters — search input, three selects (with `data-semtag-options` built from the same data source, and option ids on the items), and the clear button:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now JobDetail:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the ApplicationForm:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the employer Dashboard:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the applications sublist inside each expanded job:
+[tool] Edit
+[tool] Edit
+Now PostJob:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Finally, NotFound:
+[tool] Edit
+Now run the skill's validator over the app source:
+[tool] Bash
+One info-level note: fix the flat `nav` id:
+[tool] Edit
+[tool] Bash
+[tool] Bash
+Dependencies aren't installed. Let me install and build:
+[tool] Bash
+[tool] Bash
+Let me confirm these lint errors pre-existed (not introduced by my changes):
+[tool] Bash
+[tool] Bash
+The diff stat shows deletions exceeding insertions — I need to check what the committed baseline was:
+[tool] Bash
+[tool] Grep
+[tool] Bash
+Semtag injection complete — validator clean (81 hinted elements, 0 errors/warnings/info), type-check passes, production build succeeds.
+
+## Screens & components annotated
+
+- **Header (all screens)**: `nav.*` — logo, Find Jobs, Employer, Post a Job as `navigation` with targets; nav bar as `region`
+- **Index (job seeker home)**: `jobs.*` — hero active-jobs count and results count/empty state as `observable`; filter panel (`jobs.filters`) with search `input`, three `select` triggers carrying `data-semtag-options` built from the same arrays that render the menus, option ids on every `SelectItem`, clear-filters `action` — all with `data-semtag-controls="jobs.list"`; job grid as `collection` with items `jobs.list.item.<job.id>` (navigation) plus per-item salary observable
+- **Job detail**: `job.detail.*` — back link, title/company/location/salary/posted/industry/type observables, description `region`, skills `collection` (`.item.<slug>`), plus the not-found state and its browse link
+- **Application form**: `application.form.*` — name/email/phone/message inputs with `application.*` state keys, submit `action`
+- **Employer dashboard**: `dashboard.*` — stats observables (`employer.jobs.count`, `employer.applications.count`), jobs `collection` with item id on each title, per-item `toggle-applications` (state `open`/`closed`) and `delete-job` controls, delete-confirm dialog (region + confirm/cancel actions), nested applications `collection` per job with `dashboard.applications.item.<app.id>` name/email/message observables, and both empty states
+- **Post job form**: `post-job.form.*` — all inputs/selects (with options), skills chip `collection` with per-chip `.remove` actions, submit/cancel
+- **NotFound**: `notfound.*` message + home link
+
+## Id namespaces
+`nav`, `jobs`, `job.detail`, `application`, `dashboard`, `dashboard.applications`, `post-job`, `notfound`. Shared state keys connect controls to displays (e.g. `filters.*` on selects, `job.applications.count` on toggle count and empty message).
+
+## Notes
+- **One helper added**: `src/lib/semtag.ts` (`semtagSlug`) — pure string function to build stable ids from values like "San Francisco, CA" / "Node.js"; no behavior change. Uniqueness at runtime holds: job/app ids are unique db ids, skill lists are deduplicated by the app, and each select's options are distinct.
+- **Ancestry verified by reading**: every `collection` container is a DOM ancestor of its `.item.` children. The delete-confirm dialog renders in a Radix portal (outside the collection), which is fine — only one renders at a time and its ids stay unique.
+- **Deliberately unhinted**: decorative hero stats ("1,000+ Companies"), per-card badges on the list (available on detail), per-application phone/date, and the long description text (region only — capturing it would bloat every snapshot).
+- **Pre-existing failures**: `npm run lint` reports 4 errors, all pre-existing in untouched code (shadcn `ui/` empty interfaces, the original `value as any` in PostJob, `require()` in tailwind.config) — none on lines I added. Also note: the git HEAD for this app contains an older, different hinting attempt; my work started from the clean working tree, so `git diff` mixes the two.
+
+--- WebTestBench_0003: ok in 425.0s
+    turns=86 cost=$3.09231875 tool_calls=84 skill_invoked=True
+    hinted_elements=82 files=10 validator_errors=0 warnings=0

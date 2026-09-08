@@ -1,0 +1,104 @@
+=== injection: WebTestBench_0045 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0045
+model:  claude-sonnet-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+Now let's inspect the app structure.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+This is a task-management app (WebTestBench_0045). Let's read the main pages/components to understand screens and structure.
+[tool] Read
+This is a single-page app (task manager) with one main screen (list, filters, add/edit dialog). Let's look at the other components.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Grep
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Grep
+Now I'll implement the hints, starting with `Index.tsx`.
+[tool] Edit
+[tool] Edit
+Now `TaskFilters.tsx`:
+[tool] Edit
+[tool] Edit
+Now the actual hint additions to TaskFilters.tsx:
+[tool] Edit
+[tool] Edit
+Now `TaskItem.tsx`:
+[tool] Edit
+[tool] Edit
+Now the blocked-warning indicator and the prerequisites-completed indicator (mutually exclusive, same id/state):
+[tool] Edit
+[tool] Edit
+Now the edit and delete action buttons:
+[tool] Edit
+[tool] Edit
+Now `TaskForm.tsx` — the dialog region, fields, select, prerequisites collection, and buttons:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the priority select:
+[tool] Edit
+Now the prerequisites collection:
+[tool] Edit
+Now the cancel/submit buttons:
+[tool] Edit
+Now `NotFound.tsx`:
+[tool] Edit
+Now let's find and run the validator script.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Good — exactly the 5 files I edited. Now let's run the project's own checks (type-check, lint, build) to confirm nothing else broke.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Type-check passes. Now lint and build:
+[tool] Bash
+[tool] Bash
+Build succeeds. Lint errors are pre-existing and confined to untouched files (`ui/command.tsx`, `ui/textarea.tsx`, `tailwind.config.ts`), not in any file I edited. Let's confirm with git status/diff that only the intended 5 files changed.
+[tool] Bash
+[tool] Bash
+Good, `node_modules` is gitignored so it won't pollute the deliverable. Let's do a final read-through of the two most complex edited files to sanity-check correctness.
+[tool] Read
+This all checks out correctly — the two `prerequisites` indicator branches are mutually exclusive (`isBlocked` vs `!isBlocked`), so sharing the same id/state key is safe at runtime. Everything looks good.
+
+## Summary
+
+I ran `/semtag-inject` against `WebTestBench_0045` (a task-manager SPA — the app the shell had been placed in), following the skill exactly: read `references/hint-design.md` first, then injected hints, then validated.
+
+**Screens/components annotated** (the app has one main screen plus a 404):
+- `src/pages/Index.tsx` — header summary, "Add Task" button, task-list collection container, empty-state message
+- `src/components/TaskFilters.tsx` — Active/Completed filter toggles, sort select trigger + its options
+- `src/components/TaskItem.tsx` — per-item title, priority badge, description, deadline, blocked/prerequisites indicator, toggle-complete, edit, delete (all repeated-collection items)
+- `src/components/TaskForm.tsx` — dialog region, title/description/deadline inputs, deadline-clear button, priority select + options, prerequisites checkbox collection, cancel/submit buttons
+- `src/pages/NotFound.tsx` — "Return to Home" link
+
+**Id namespaces introduced:** `tasks.*` (summary, add, list, list.empty, list.item.<id>[.toggle/.edit/.delete/.priority/.description/.deadline/.prerequisites]), `filters.*` (tab.active, tab.completed, sort, sort.option.<value>), `task.form.*` (heading, title, description, deadline[.clear], priority[.option.<value>], prerequisites[.item.<id>], cancel, submit), `notfound.home`.
+
+**Collections folded:** `tasks.list` (task rows, keyed by stable `task.id`) and `task.form.prerequisites` (checkbox list, same key space) — both verified as true DOM ancestors of their items.
+
+**Deliberately left unhinted:** the `DependencyLines` SVG overlay (purely decorative, duplicates info already exposed via the prerequisites/blocked observables) and the hover-tooltip contents (dependency chain, prerequisite lists) — transient, hover-only, and redundant with the adjacent labelled indicator.
+
+**Validation:** `node scripts/validate-semtags.mjs src` → 32 hinted elements, **0 errors, 0 warnings**. Also ran the project's own checks: `tsc --noEmit` clean, `vite build` succeeded. `npm run lint` shows 3 pre-existing errors, but all in files I never touched (`ui/command.tsx`, `ui/textarea.tsx`, `tailwind.config.ts`) — confirmed via `grep -rl data-semtag-id` that only the 5 files I edited carry hints.
+
+--- WebTestBench_0045: ok in 406.6s
+    turns=59 cost=$2.8474055000000007 tool_calls=57 skill_invoked=True
+    hinted_elements=32 files=5 validator_errors=0 warnings=0

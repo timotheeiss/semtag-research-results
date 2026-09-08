@@ -1,0 +1,134 @@
+=== injection: WebTestBench_0089 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0089
+model:  claude-sonnet-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+Now let me explore the app structure.
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+This is a single-page template gallery app (only one real route). Let me read all the components to understand the full UI.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] ToolSearch
+[tool] TodoWrite
+Now let's implement the edits, starting with Header.tsx.
+[tool] Edit
+Now SearchBar.tsx:
+[tool] Edit
+[tool] Edit
+Now FilterSidebar.tsx:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] TodoWrite
+Now Index.tsx — mark the templates grid as a collection:
+[tool] Edit
+Now TemplateCard.tsx:
+[tool] Edit
+[tool] Edit
+Now TemplatePreview.tsx — this is a large one. Let me apply edits section by section.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the field inputs loop and the preview result tab content:
+[tool] Edit
+Now the "Preview Result" tab content (copy button + generated content):
+[tool] Read
+[tool] Read
+[tool] Edit
+Now SubmitTemplateModal.tsx:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the markdown toggle switch and content textarea:
+[tool] Edit
+[tool] TodoWrite
+Continuing with SubmitTemplateModal.tsx — content textarea and the dynamic fields collection:
+[tool] Edit
+Now the dynamic fields collection (list of already-added fields + the add-field mini-form):
+[tool] Edit
+Now the "add new field" mini-form inputs, select, switch, and add button:
+[tool] Edit
+Now the Cancel/Submit buttons:
+[tool] Edit
+Now EmptyState.tsx:
+[tool] Edit
+Now NotFound.tsx:
+[tool] Edit
+All annotation edits are done. Now let's update the todo list and run the validator.
+[tool] TodoWrite
+[tool] Bash
+Clean run — 0 errors, 0 warnings, 0 info. Now let's run the project's own checks (typecheck/lint/build/tests).
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Install succeeded. Now let's run typecheck, lint, build, and tests.
+[tool] Bash
+No type errors. Now lint, build, and tests:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Build succeeds (the CSS `@import` warning and chunk-size warning are pre-existing, unrelated to my changes). Now tests:
+[tool] Bash
+All checks pass (typecheck clean, build succeeds, tests pass; pre-existing lint issues untouched by my edits). Now let's do the manual ancestry/uniqueness verification the skill requires.
+[tool] TodoWrite
+[tool] TodoWrite
+## Summary
+
+Injected `data-semtag-*` hints across the whole app (WebTestBench_0089, a single-page Template Library gallery with two overlay screens). Read the spec (`hint-design.md`) first, then annotated every screen and re-ran the bundled validator until clean.
+
+**Screens/components annotated:**
+- **Header.tsx** — favorites toggle, favorites count badge, submit-template button
+- **SearchBar.tsx** — query input, clear button, suggestions dropdown (folded collection)
+- **FilterSidebar.tsx** — filter panel region, results-count observable, category/scenario/sort `select` triggers (each with `data-semtag-options` built from `categoryLabels`/`scenarioLabels`)
+- **Index.tsx** — main templates grid marked `role="collection"`
+- **TemplateCard.tsx** — per-card title, category/scenario badges, favorite toggle, "Use Template" action (all keyed off `template.id`)
+- **TemplatePreview.tsx** — sheet region, favorite/close, Fill/Result tabs (as navigation + region panels), each dynamic field's input/error, copy button, generated-content observable
+- **SubmitTemplateModal.tsx** — dialog region, all form inputs/selects/switch, the dynamically-added fields list (folded collection keyed by label slug, matching the app's own id-generation logic), the "add field" mini-form, cancel/submit
+- **EmptyState.tsx** — message and the context-dependent action button (clear-filters / browse-favorites)
+- **NotFound.tsx** — return-home link
+
+**Id namespaces:** `header.*`, `search.*` (+ `search.suggestions.item.*`), `filters.*`, `templates.grid` (+ `.item.<template.id>` and per-item `.favorite`/`.open`/`.category`/`.scenario`), `template.preview` / `preview.*` (+ `.field.<fieldId>`), `submit.dialog` / `submit.*` (+ `submit.fields.item.<label-slug>`), `templates.empty.*`, `notfound.*`.
+
+No prop-widening was needed — all shadcn/Radix wrapper components already spread `...props` to their root element.
+
+**Validation:** `validate-semtags.mjs src` → 52 hinted elements, **0 errors, 0 warnings, 0 info**.
+
+**Manual checks beyond the linter's reach:**
+- Confirmed each collection container is a true DOM ancestor of its items (grid ↔ cards, suggestions dropdown ↔ suggestion buttons, submit fields div ↔ field rows).
+- Confirmed template-literal ids stay unique at runtime (`template.id` and generated ids are unique; `preview.*` is a singleton so no clash with per-item `templates.grid.item.*.favorite` even though both can be mounted at once).
+- One residual gap: `submit.fields.item.<slug>` and `search.suggestions.item.<slug>` are keyed by a slug of user-entered/free-text content — if a user creates two fields with the identical label, or two suggestions slugify identically, their ids would collide. This mirrors a pre-existing ambiguity in the app's own data model (it also derives real field ids from the same label slug), not something hinting can resolve without violating the "no index keys" rule.
+
+**Project checks:** `tsc --noEmit` clean, `vite build` succeeds, `vitest run` passes (1/1). `npm run lint` reports 3 pre-existing errors/7 warnings, all in files I did not touch (`ui/badge.tsx`, `ui/textarea.tsx`, `ui/command.tsx`, `tailwind.config.ts`, etc.) — these predate this change.
+
+--- WebTestBench_0089: ok in 658.4s
+    turns=77 cost=$5.492351749999999 tool_calls=75 skill_invoked=True
+    hinted_elements=52 files=9 validator_errors=0 warnings=0

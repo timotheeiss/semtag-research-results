@@ -1,0 +1,109 @@
+=== injection: WebTestBench_0010 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0010
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**FilterBar.tsx** (search + filter selects):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**Index.tsx** (home screen — grid collection, result count, empty state):
+[tool] Edit
+**RestaurantCard.tsx** (grid item, keyed by restaurant id):
+[tool] Edit
+[tool] Edit
+**RestaurantDetail.tsx** (info region, tabs, reviews, confirmation panel):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ReviewCard.tsx** (review list items):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ReviewForm.tsx** (star rating collection + fields):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ReservationForm.tsx** (booking form):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**MyReservations.tsx** (tabs + reservation lists):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ReservationCard.tsx** (reservation items with modify/cancel dialogs):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the modify/cancel dialogs in ReservationCard:
+[tool] Edit
+[tool] Edit
+**NotFound.tsx**, then validate:
+[tool] Edit
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+All checks done. The lint errors (3) are pre-existing in shadcn `ui/` boilerplate and `tailwind.config.ts` — identical count before my changes (the whole app directory is untracked, so the stash comparison confirms baseline). Build and type-check pass cleanly, and the validator reports **90 hinted elements, 0 errors, 1 warning**.
+
+## Summary
+
+**Screens annotated** (TableSpot restaurant reservation app):
+
+- **Home / browse** (`Index.tsx`, `FilterBar.tsx`, `RestaurantCard.tsx`): search input, filter panel toggle, cuisine & price selects (with `data-semtag-options` built from the same data that renders the menus), clear-filters, result count / empty state, and the restaurant grid as a foldable collection keyed by restaurant id, with per-item rating observables.
+- **Restaurant detail** (`RestaurantDetail.tsx`, `ReservationForm.tsx`, `ReviewForm.tsx`, `ReviewCard.tsx`): info observables (name, cuisine, rating, review count, address, price, description), back link, reviews/write tabs, reviews collection keyed by review id, review form (star-rating as a 5-option collection with `selected` state, inputs, submit), reservation form (date, time & party-size selects with options, guest fields, coupon apply/remove flow, submit), confirmation panel, and the not-found branch.
+- **My reservations** (`MyReservations.tsx`, `ReservationCard.tsx`): upcoming/past tabs, each tab's list as a collection keyed by reservation id, per-item observables (status, date, time, party size, coupon), modify dialog (time/party-size selects + save) and cancel confirm dialog, empty state.
+- **Shared header** (`Header.tsx`): logo, desktop nav, mobile menu toggle with open/closed state, mobile nav with `.mobile`-suffixed ids. **404 page** message + home link.
+
+**Id namespaces**: `nav.*`, `search.*`, `filters.*`, `restaurants.grid.item.<id>.*`, `restaurant.*`, `reviews.list.item.<id>.*`, `reviews.form.*`, `reservation.*`, `reservations.item.<id>.*`, `notfound.*`. Runtime keys are stable database ids (`1`–`6`, `r1`…, `res_<timestamp>`), so template-literal ids stay unique; upcoming/past never share a reservation and Radix mounts only the active tab.
+
+**Deliberate gaps**:
+- `reservation.date` is a `select` **without** `data-semtag-options` (the one validator warning): it opens a 60-day calendar popover, so enumerating options is impractical; the extractor still reads its displayed value. The Radix calendar day grid itself is un-hinted (library-internal, ~60 buttons).
+- One permitted-by-spec structural touch: the price-range `SelectItem`s now render from a `priceOptions` array so the trigger's options string and the menu share one source — identical values, labels, and order, no behavior change.
+- Left un-hinted: hero copy, footer placeholder links (non-functional `<span>`s), feature chips, decorative icons/images.
+
+--- WebTestBench_0010: ok in 551.9s
+    turns=75 cost=$2.4386335 tool_calls=73 skill_invoked=True
+    hinted_elements=90 files=11 validator_errors=0 warnings=1

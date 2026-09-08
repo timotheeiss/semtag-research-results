@@ -1,0 +1,2226 @@
+# Transcript: /home/ubuntu/.claude/projects/-home-ubuntu-semantic-hints-project-WebTestBench-claude-code-cwd/674a661a-7af3-4925-a47c-5e6608bc2f92.jsonl
+# total tool calls: 195
+
+================================================================================
+[01] ToolSearch  input={"query": "select:mcp__playwright__browser_navigate,mcp__semantic_hints__semantic_snapshot,mcp__semantic_hints__semantic_observe,mcp__structured_results__record
+--------------------------------------------------------------------------------
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_navigate"}
+{"type": "tool_reference", "tool_name": "mcp__semantic_hints__semantic_snapshot"}
+{"type": "tool_reference", "tool_name": "mcp__semantic_hints__semantic_observe"}
+{"type": "tool_reference", "tool_name": "mcp__structured_results__record_result"}
+{"type": "tool_reference", "tool_name": "mcp__structured_results__get_result_progress"}
+
+================================================================================
+[02] ToolSearch  input={"query": "select:mcp__playwright__browser_click,mcp__playwright__browser_type,mcp__playwright__browser_fill_form,mcp__playwright__browser_select_option,mcp__pl
+--------------------------------------------------------------------------------
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_click"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_type"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_fill_form"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_select_option"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_evaluate"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_snapshot"}
+
+================================================================================
+[03] browser_navigate  input={"url": "http://localhost:7005/"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.goto('http://localhost:7005/');
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-51-03-838Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T00-51-01-964Z.log#L1-L3
+
+================================================================================
+[04] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","action":[{"id":"dashboard.create","name":"New Resume","action":"create-resume"}],"input":[{"id":"dashboard.search","name":"Search resumes...","state":"dashboard.search.query","controls":"dashboard.resumes","value":""}],"select":[{"id":"dashboard.sort","name":"Newest First","action":"sort-resumes","state":"dashboard.sort","controls":"dashboard.resumes","options":[{"value":"newest","label":"Newest First"},{"value":"oldest","label":"Oldest First"},{"value":"title-asc","label":"Title A-Z"},{"value":"title-desc","label":"Title Z-A"}],"value":"Newest First"}],"collections":[{"id":"dashboard.resumes","idPattern":"dashboard.resumes.item.{key}[.{control}]","item":{"role":"navigation","state":"resume.title","target":"editor.screen"},"itemControls":{"updated":{"role":"observable","state":"resume.updated-at"},"template":{"role":"observable","state":"resume.template"}},"fields":["key","name","updated.value","template.value"],"items":[["resume-3","Product Designer Resume","Updated Feb 25, 2024","Minimal"],["resume-2","Marketing Manager Resume","Updated Feb 10, 2024","Classic"],["resume-1","Software Engineer Resume","Updated Jan 20, 2024","Modern"]]}]}
+
+================================================================================
+[05] browser_snapshot
+--------------------------------------------------------------------------------
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+```yaml
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e6]:
+        - generic [ref=e7]:
+          - img [ref=e9]
+          - heading "ResumeBuilder" [level=1] [ref=e12]
+        - button "New Resume" [ref=e13] [cursor=pointer]:
+          - img
+          - text: New Resume
+    - main [ref=e14]:
+      - generic [ref=e15]:
+        - heading "Your Resumes" [level=2] [ref=e16]
+        - paragraph [ref=e17]: Create, customize, and manage your professional resumes
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - img [ref=e20]
+          - textbox "Search resumes..." [ref=e23]
+        - combobox [ref=e24] [cursor=pointer]:
+          - img [ref=e25]
+          - generic: Newest First
+          - img [ref=e28]
+      - generic [ref=e30]:
+        - generic [ref=e32] [cursor=pointer]:
+          - generic [ref=e33]:
+            - img [ref=e35]
+            - button [ref=e38]:
+              - img
+          - heading "Product Designer Resume" [level=3] [ref=e39]
+          - paragraph [ref=e40]: Updated Feb 25, 2024
+          - generic [ref=e42]: minimal
+        - generic [ref=e44] [cursor=pointer]:
+          - generic [ref=e45]:
+            - img [ref=e47]
+            - button [ref=e50]:
+              - img
+          - heading "Marketing Manager Resume" [level=3] [ref=e51]
+          - paragraph [ref=e52]: Updated Feb 10, 2024
+          - generic [ref=e54]: classic
+        - generic [ref=e56] [cursor=pointer]:
+          - generic [ref=e57]:
+            - img [ref=e59]
+            - button [ref=e62]:
+              - img
+          - heading "Software Engineer Resume" [level=3] [ref=e63]
+          - paragraph [ref=e64]: Updated Jan 20, 2024
+          - generic [ref=e66]: modern
+```
+
+================================================================================
+[06] browser_evaluate  input={"function": "() => { const els=[...document.querySelectorAll('input,button,select')].map(e=>e.type+'|'+(e.getAttribute('placeholder')||e.textContent||'').trim(
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": 6,
+  "els": [
+    "submit|New Resume",
+    "text|Search resumes...",
+    "button|Newest First",
+    "button|",
+    "button|",
+    "button|"
+  ],
+  "dateInputs": 0
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const els=[...document.querySelectorAll(\'input,button,select\')].map(e=>e.type+\'|\'+(e.getAttribute(\'placeholder\')||e.textContent||\'\').trim().slice(0,40)); return {count:els.length, els, dateInputs: document.querySelectorAll(\'input[type=date]\').length}; }');
+```
+
+================================================================================
+[07] mcp__structured_results__record_result  input={"item_id": "FT-19", "verdict": "FAIL", "issue": "Date filtering feature is entirely absent from the dashboard", "actual": "The dashboard toolbar contains only 
+--------------------------------------------------------------------------------
+{"recorded": "FT-19", "verdict": "FAIL", "recorded_count": 1, "total_count": 21, "missing_ids": ["FT-1", "FT-2", "FT-3", "FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "CS-9", "CS-10", "CS-11", "CS-21", "IX-12", "IX-13", "IX-14", "CT-15", "CT-16", "CT-17", "CT-18", "CT-20"], "complete": false}
+
+================================================================================
+[08] browser_click  input={"target": "[data-semtag-id='dashboard.create']", "element": "New Resume button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.create\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-51-18-651Z.yml)
+
+================================================================================
+[09] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","navigation":[{"id":"editor.back","name":"","target":"dashboard.screen"}],"action":[{"id":"editor.title","name":"Untitled Resume","action":"edit-title","state":"resume.title"}],"input":[{"id":"editor.contact.full-name","name":"Full Name","state":"contact.full-name","value":""},{"id":"editor.contact.email","name":"Email","state":"contact.email","value":""},{"id":"editor.contact.phone","name":"Phone","state":"contact.phone","value":""},{"id":"editor.contact.location","name":"Location","state":"contact.location","value":""},{"id":"editor.contact.linkedin","name":"LinkedIn (optional)","state":"contact.linkedin","value":""},{"id":"editor.contact.website","name":"Website (optional)","state":"contact.website","value":""}],"toggle":[{"id":"editor.preview.toggle","name":"Hide Preview","state":"editor.preview.visible","controls":"editor.preview","value":"Hide Preview"}],"observable":[{"id":"preview.contact.name","name":"Your Name","state":"contact.full-name","value":"Your Name"}],"region":[{"id":"editor.contact","name":"Contact"},{"id":"editor.preview","name":""},{"id":"preview.document","name":""}],"collections":[{"id":"editor.tabs","idPattern":"editor.tabs.item.{key}[.{control}]","item":{"role":"navigation"},"fields":["key","name","target"],"items":[["contact","Contact","editor.contact"],["summary","Summary","editor.summary"],["experience","Experience","editor.experience"],["education","Education","editor.education"],["skills","Skills","editor.skills"],["template","Template","editor.template"],["sections","Sections","editor.sections"]]}]}
+
+================================================================================
+[10] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.summary']", "element": "Summary tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.summary\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-51-24-159Z.yml)
+
+================================================================================
+[11] mcp__semantic_hints__semantic_snapshot  input={"scope": "editor.summary"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","input":[{"id":"editor.summary.text","name":"Professional Summary","state":"summary.text","value":""}],"observable":[{"id":"editor.summary.char-count","name":"0/500","state":"summary.char-count","value":"0/500"}],"region":[{"id":"editor.summary","name":"Summary"}]}
+
+================================================================================
+[12] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.experience']", "element": "Experience tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.experience\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-51-27-740Z.yml)
+
+================================================================================
+[13] mcp__semantic_hints__semantic_snapshot  input={"scope": "editor.experience"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","action":[{"id":"editor.experience.add","name":"Add Experience","action":"add-experience"}],"region":[{"id":"editor.experience","name":"Experience"}],"collection":[{"id":"editor.experience.list","name":""}]}
+
+================================================================================
+[14] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.education']", "element": "Education tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.education\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-51-31-909Z.yml)
+
+================================================================================
+[15] mcp__semantic_hints__semantic_snapshot  input={"scope": "editor.education"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","action":[{"id":"editor.education.add","name":"Add Education","action":"add-education"}],"region":[{"id":"editor.education","name":"Education"}],"collection":[{"id":"editor.education.list","name":""}]}
+
+================================================================================
+[16] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.skills']", "element": "Skills tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.skills\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-51-35-176Z.yml)
+
+================================================================================
+[17] mcp__semantic_hints__semantic_snapshot  input={"scope": "editor.skills"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","action":[{"id":"editor.skills.add","name":"","action":"add-skill","enabled":false}],"input":[{"id":"editor.skills.new.name","name":"e.g., React, Project Management","state":"skills.new.name","value":""}],"select":[{"id":"editor.skills.new.level","name":"Intermediate","state":"skills.new.level","options":[{"value":"beginner","label":"Beginner"},{"value":"intermediate","label":"Intermediate"},{"value":"advanced","label":"Advanced"},{"value":"expert","label":"Expert"}],"value":"Intermediate"}],"observable":[{"id":"editor.skills.empty-message","name":"No skills added yet. Add your first skill above!","state":"skills.empty","value":"No skills added yet. Add your first skill above!"}],"region":[{"id":"editor.skills","name":"Skills"},{"id":"editor.skills.new","name":""}]}
+
+================================================================================
+[18] mcp__structured_results__record_result  input={"item_id": "FT-1", "verdict": "PASS", "evidence": "Clicking dashboard.create opened the editor titled \"Untitled Resume\" with all contact inputs value:\"\", s
+--------------------------------------------------------------------------------
+{"recorded": "FT-1", "verdict": "PASS", "recorded_count": 2, "total_count": 21, "missing_ids": ["FT-2", "FT-3", "FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "CS-9", "CS-10", "CS-11", "CS-21", "IX-12", "IX-13", "IX-14", "CT-15", "CT-16", "CT-17", "CT-18", "CT-20"], "complete": false}
+
+================================================================================
+[19] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.contact']", "element": "Contact tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.contact\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-51-42-423Z.yml)
+
+================================================================================
+[20] browser_fill_form  input={"fields": [{"name": "Full Name", "target": "[data-semtag-id='editor.contact.full-name']", "type": "textbox", "value": "Jane Tester"}, {"name": "Email", "target
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.contact.full-name\']').fill('Jane Tester');
+await page.locator('[data-semtag-id=\'editor.contact.email\']').fill('jane@example.com');
+await page.locator('[data-semtag-id=\'editor.contact.phone\']').fill('555-0100');
+await page.locator('[data-semtag-id=\'editor.contact.location\']').fill('Boston, MA');
+await page.locator('[data-semtag-id=\'editor.contact.linkedin\']').fill('linkedin.com/in/janetester');
+await page.locator('[data-semtag-id=\'editor.contact.website\']').fill('janetester.dev');
+```
+
+================================================================================
+[21] mcp__semantic_hints__semantic_snapshot  input={"scope": "editor.preview"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","observable":[{"id":"preview.contact.name","name":"Jane Tester","state":"contact.full-name","value":"Jane Tester"},{"id":"preview.contact.email","name":"jane@example.com","state":"contact.email","value":"jane@example.com"},{"id":"preview.contact.phone","name":"555-0100","state":"contact.phone","value":"555-0100"},{"id":"preview.contact.location","name":"Boston, MA","state":"contact.location","value":"Boston, MA"},{"id":"preview.contact.linkedin","name":"linkedin.com/in/janetester","state":"contact.linkedin","value":"linkedin.com/in/janetester"},{"id":"preview.contact.website","name":"janetester.dev","state":"contact.website","value":"janetester.dev"}],"region":[{"id":"editor.preview","name":""},{"id":"preview.document","name":""}]}
+
+================================================================================
+[22] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.summary']", "element": "Summary tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.summary\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-51-50-875Z.yml)
+
+================================================================================
+[23] browser_type  input={"target": "[data-semtag-id='editor.summary.text']", "element": "Professional summary textarea", "text": "Experienced QA engineer with a focus on automation."}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.summary.text\']').fill('Experienced QA engineer with a focus on automation.');
+```
+
+================================================================================
+[24] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.experience']", "element": "Experience tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.experience\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-51-55-091Z.yml)
+
+================================================================================
+[25] browser_click  input={"target": "[data-semtag-id='editor.experience.add']", "element": "Add Experience"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.add\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-51-57-367Z.yml)
+
+================================================================================
+[26] mcp__semantic_hints__semantic_snapshot  input={"scope": "editor.experience"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","action":[{"id":"editor.experience.item.lxfqf2lcnfh.move-up","name":"↑","action":"move-experience-up","enabled":false},{"id":"editor.experience.item.lxfqf2lcnfh.move-down","name":"↓","action":"move-experience-down","enabled":false},{"id":"editor.experience.item.lxfqf2lcnfh.remove","name":"","action":"remove-experience"},{"id":"editor.experience.add","name":"Add Experience","action":"add-experience"}],"input":[{"id":"editor.experience.item.lxfqf2lcnfh.company","name":"Company Name","state":"experience.company","value":""},{"id":"editor.experience.item.lxfqf2lcnfh.position","name":"Job Title","state":"experience.position","value":""},{"id":"editor.experience.item.lxfqf2lcnfh.start-date","name":"","state":"experience.start-date","value":""},{"id":"editor.experience.item.lxfqf2lcnfh.end-date","name":"","state":"experience.end-date","value":""},{"id":"editor.experience.item.lxfqf2lcnfh.description","name":"Describe your responsibilities and achievements...","state":"experience.description","value":""}],"toggle":[{"id":"editor.experience.item.lxfqf2lcnfh.current","name":"I currently work here","state":"experience.current","value":false}],"region":[{"id":"editor.experience","name":"Experience"},{"id":"editor.experience.item.lxfqf2lcnfh","name":""}],"collection":[{"id":"editor.experience.list","name":""}]}
+
+================================================================================
+[27] browser_evaluate  input={"function": "() => { const s=document.querySelector(\"[data-semtag-id='editor.experience.item.lxfqf2lcnfh.start-date']\"); const e=document.querySelector(\"[da
+--------------------------------------------------------------------------------
+### Result
+{
+  "startType": "month",
+  "startMax": "",
+  "startPlaceholder": "",
+  "endType": "month",
+  "endMax": "",
+  "endDisabled": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const s=document.querySelector("[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.start-date\']"); const e=document.querySelector("[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.end-date\']"); return {startType:s.type, startMax:s.max, startPlaceholder:s.placeholder, endType:e.type, endMax:e.max, endDisabled:e.disabled}; }');
+```
+
+================================================================================
+[28] browser_fill_form  input={"fields": [{"name": "Company", "target": "[data-semtag-id='editor.experience.item.lxfqf2lcnfh.company']", "type": "textbox", "value": "Acme Corp"}, {"name": "P
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.company\']').fill('Acme Corp');
+await page.locator('[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.position\']').fill('Senior QA Engineer');
+await page.locator('[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.start-date\']').fill('2020-01');
+await page.locator('[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.end-date\']').fill('2023-06');
+await page.locator('[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.description\']').fill('Led automation testing efforts.');
+```
+
+================================================================================
+[29] browser_click  input={"target": "[data-semtag-id='editor.experience.add']", "element": "Add Experience"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.add\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-52-09-712Z.yml)
+
+================================================================================
+[30] mcp__semantic_hints__semantic_snapshot  input={"scope": "editor.experience"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","action":[{"id":"editor.experience.add","name":"Add Experience","action":"add-experience"}],"region":[{"id":"editor.experience","name":"Experience"}],"collections":[{"id":"editor.experience.list","idPattern":"editor.experience.item.{key}[.{control}]","item":{"role":"region","name":""},"itemControls":{"move-up":{"role":"action","name":"↑","action":"move-experience-up"},"move-down":{"role":"action","name":"↓","action":"move-experience-down"},"remove":{"role":"action","name":"","action":"remove-experience"},"company":{"role":"input","name":"Company Name","state":"experience.company"},"position":{"role":"input","name":"Job Title","state":"experience.position"},"start-date":{"role":"input","state":"experience.start-date"},"end-date":{"role":"input","state":"experience.end-date"},"current":{"role":"toggle","name":"I currently work here","state":"experience.current","value":false},"description":{"role":"input","name":"Describe your responsibilities and achievements...","state":"experience.description"}},"fields":["key","move-up.enabled","move-down.enabled","company.value","position.value","start-date.name","start-date.value","end-date.name","end-date.value","description.value"],"items":[["lxfqf2lcnfh",false,null,"Acme Corp","Senior QA Engineer","","2020-01","","2023-06","Led automation testing efforts."],["2m2cv7joyz4",null,false,"","",null,"",null,"",""]]}]}
+
+================================================================================
+[31] browser_fill_form  input={"fields": [{"name": "Company2", "target": "[data-semtag-id='editor.experience.item.2m2cv7joyz4.company']", "type": "textbox", "value": "Beta Inc"}, {"name": "P
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.item.2m2cv7joyz4.company\']').fill('Beta Inc');
+await page.locator('[data-semtag-id=\'editor.experience.item.2m2cv7joyz4.position\']').fill('QA Analyst');
+await page.locator('[data-semtag-id=\'editor.experience.item.2m2cv7joyz4.start-date\']').fill('2017-03');
+await page.locator('[data-semtag-id=\'editor.experience.item.2m2cv7joyz4.end-date\']').fill('2019-12');
+await page.locator('[data-semtag-id=\'editor.experience.item.2m2cv7joyz4.description\']').fill('Manual and regression testing.');
+```
+
+================================================================================
+[32] browser_click  input={"target": "[data-semtag-id='editor.experience.item.2m2cv7joyz4.move-up']", "element": "Move Beta Inc up"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.item.2m2cv7joyz4.move-up\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-52-18-808Z.yml)
+
+================================================================================
+[33] mcp__semantic_hints__semantic_snapshot  input={"scope": "editor.experience.list"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","action":[{"id":"editor.experience.add","name":"Add Experience","action":"add-experience"}],"collections":[{"id":"editor.experience.list","idPattern":"editor.experience.item.{key}[.{control}]","item":{"role":"region","name":""},"itemControls":{"move-up":{"role":"action","name":"↑","action":"move-experience-up"},"move-down":{"role":"action","name":"↓","action":"move-experience-down"},"remove":{"role":"action","name":"","action":"remove-experience"},"company":{"role":"input","name":"Company Name","state":"experience.company"},"position":{"role":"input","name":"Job Title","state":"experience.position"},"start-date":{"role":"input","name":"","state":"experience.start-date"},"end-date":{"role":"input","name":"","state":"experience.end-date"},"current":{"role":"toggle","name":"I currently work here","state":"experience.current","value":false},"description":{"role":"input","name":"Describe your responsibilities and achievements...","state":"experience.description"}},"fields":["key","move-up.enabled","move-down.enabled","company.value","position.value","start-date.value","end-date.value","description.value"],"items":[["2m2cv7joyz4",false,null,"Beta Inc","QA Analyst","2017-03","2019-12","Manual and regression testing."],["lxfqf2lcnfh",null,false,"Acme Corp","Senior QA Engineer","2020-01","2023-06","Led automation testing efforts."]]}]}
+
+================================================================================
+[34] browser_click  input={"target": "[data-semtag-id='editor.experience.item.2m2cv7joyz4.move-down']", "element": "Move Beta Inc down"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.item.2m2cv7joyz4.move-down\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-52-23-426Z.yml)
+
+================================================================================
+[35] browser_fill_form  input={"fields": [{"name": "End before start", "target": "[data-semtag-id='editor.experience.item.lxfqf2lcnfh.end-date']", "type": "textbox", "value": "2019-05"}]}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.end-date\']').fill('2019-05');
+```
+
+================================================================================
+[36] mcp__semantic_hints__semantic_snapshot  input={"scope": "editor.experience.item.lxfqf2lcnfh"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","action":[{"id":"editor.experience.item.lxfqf2lcnfh.move-up","name":"↑","action":"move-experience-up","enabled":false},{"id":"editor.experience.item.lxfqf2lcnfh.move-down","name":"↓","action":"move-experience-down"},{"id":"editor.experience.item.lxfqf2lcnfh.remove","name":"","action":"remove-experience"}],"input":[{"id":"editor.experience.item.lxfqf2lcnfh.company","name":"Company Name","state":"experience.company","value":"Acme Corp"},{"id":"editor.experience.item.lxfqf2lcnfh.position","name":"Job Title","state":"experience.position","value":"Senior QA Engineer"},{"id":"editor.experience.item.lxfqf2lcnfh.start-date","name":"","state":"experience.start-date","value":"2020-01"},{"id":"editor.experience.item.lxfqf2lcnfh.end-date","name":"","state":"experience.end-date","value":"2019-05"},{"id":"editor.experience.item.lxfqf2lcnfh.description","name":"Describe your responsibilities and achievements...","state":"experience.description","value":"Led automation testing efforts."}],"toggle":[{"id":"editor.experience.item.lxfqf2lcnfh.current","name":"I currently work here","state":"experience.current","value":false}],"region":[{"id":"editor.experience.item.lxfqf2lcnfh","name":""}]}
+
+================================================================================
+[37] browser_evaluate  input={"function": "() => { const el=document.querySelector(\"[data-semtag-id='editor.experience.item.lxfqf2lcnfh']\"); return {text: el.innerText, bodyHasError: /inv
+--------------------------------------------------------------------------------
+### Result
+{
+  "text": "Position 1\n↑\n↓\nCompany\nPosition\nStart Date\nEnd Date\nI currently work here\nDescription",
+  "bodyHasError": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const el=document.querySelector("[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh\']"); return {text: el.innerText, bodyHasError: /invalid|error|must|cannot|before/i.test(document.body.innerText)}; }');
+```
+
+================================================================================
+[38] browser_fill_form  input={"fields": [{"name": "Future start", "target": "[data-semtag-id='editor.experience.item.lxfqf2lcnfh.start-date']", "type": "textbox", "value": "2030-01"}]}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.start-date\']').fill('2030-01');
+```
+
+================================================================================
+[39] browser_evaluate  input={"function": "() => { const el=document.querySelector(\"[data-semtag-id='editor.experience.item.lxfqf2lcnfh']\"); const prev=document.querySelector(\"[data-semt
+--------------------------------------------------------------------------------
+### Result
+{
+  "itemText": "Position 1\n↑\n↓\nCompany\nPosition\nStart Date\nEnd Date\nI currently work here\nDescription",
+  "start": "2030-01",
+  "end": "2019-05",
+  "previewText": "Jane Tester\njane@example.com\n555-0100\nBoston, MA\nlinkedin.com/in/janetester\njanetester.dev\nProfessional Summary\n\nExperienced QA engineer with a focus on automation.\n\nWork Experience\nSenior QA Engineer\n\nAcme Corp\n\nJan 2030 - May 2019\n\nLed automation testing efforts.\n\nQA Analyst\n\nBeta Inc\n\nMar 2017 - Dec 2019\n\nManual and regression testing."
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const el=document.querySelector("[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh\']"); const prev=document.querySelector("[data-semtag-id=\'preview.document\']"); return {itemText: el.innerText, start: document.querySelector("[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.start-date\']").value, end: document.querySelector("[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.end-date\']").value, previewText: prev?prev.innerText:null}; }');
+```
+
+================================================================================
+[40] mcp__structured_results__record_result  input={"item_id": "CS-9", "verdict": "FAIL", "issue": "No date-period validation on experience/education entries", "actual": "Set Acme Corp experience start=2020-01 w
+--------------------------------------------------------------------------------
+{"recorded": "CS-9", "verdict": "FAIL", "recorded_count": 3, "total_count": 21, "missing_ids": ["FT-2", "FT-3", "FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "CS-10", "CS-11", "CS-21", "IX-12", "IX-13", "IX-14", "CT-15", "CT-16", "CT-17", "CT-18", "CT-20"], "complete": false}
+
+================================================================================
+[41] browser_fill_form  input={"fields": [{"name": "Start restore", "target": "[data-semtag-id='editor.experience.item.lxfqf2lcnfh.start-date']", "type": "textbox", "value": "2020-01"}, {"na
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.start-date\']').fill('2020-01');
+await page.locator('[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.end-date\']').fill('2023-06');
+```
+
+================================================================================
+[42] browser_click  input={"target": "[data-semtag-id='editor.experience.item.lxfqf2lcnfh.current']", "element": "I currently work here checkbox"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.current\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-52-47-814Z.yml)
+
+================================================================================
+[43] browser_evaluate  input={"function": "() => { const e=document.querySelector(\"[data-semtag-id='editor.experience.item.lxfqf2lcnfh.end-date']\"); const c=document.querySelector(\"[data
+--------------------------------------------------------------------------------
+### Result
+{
+  "endValue": "",
+  "endDisabled": true,
+  "endReadOnly": false,
+  "preview": [
+    "Jan 2020 - Present",
+    "Mar 2017 - Dec 2019"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const e=document.querySelector("[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.end-date\']"); const c=document.querySelector("[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.current\']"); const prev=document.querySelector("[data-semtag-id=\'preview.document\']"); return {checked:c.checked, endValue:e.value, endDisabled:e.disabled, endReadOnly:e.readOnly, preview: prev.innerText.split(\'\\n\').filter(l=>/20\\d\\d|Present/.test(l))}; }');
+```
+
+================================================================================
+[44] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.education']", "element": "Education tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.education\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-52-56-156Z.yml)
+
+================================================================================
+[45] browser_click  input={"target": "[data-semtag-id='editor.education.add']", "element": "Add Education"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.education.add\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-52-58-498Z.yml)
+
+================================================================================
+[46] mcp__semantic_hints__semantic_snapshot  input={"scope": "editor.education"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","action":[{"id":"editor.education.item.4jbys30u4p2.move-up","name":"↑","action":"move-education-up","enabled":false},{"id":"editor.education.item.4jbys30u4p2.move-down","name":"↓","action":"move-education-down","enabled":false},{"id":"editor.education.item.4jbys30u4p2.remove","name":"","action":"remove-education"},{"id":"editor.education.add","name":"Add Education","action":"add-education"}],"input":[{"id":"editor.education.item.4jbys30u4p2.institution","name":"University or School Name","state":"education.institution","value":""},{"id":"editor.education.item.4jbys30u4p2.degree","name":"Bachelor of Science","state":"education.degree","value":""},{"id":"editor.education.item.4jbys30u4p2.field","name":"Computer Science","state":"education.field","value":""},{"id":"editor.education.item.4jbys30u4p2.start-date","name":"","state":"education.start-date","value":""},{"id":"editor.education.item.4jbys30u4p2.end-date","name":"","state":"education.end-date","value":""},{"id":"editor.education.item.4jbys30u4p2.gpa","name":"3.8","state":"education.gpa","value":""}],"region":[{"id":"editor.education","name":"Education"},{"id":"editor.education.item.4jbys30u4p2","name":""}],"collection":[{"id":"editor.education.list","name":""}]}
+
+================================================================================
+[47] browser_fill_form  input={"fields": [{"name": "Institution", "target": "[data-semtag-id='editor.education.item.4jbys30u4p2.institution']", "type": "textbox", "value": "State University"
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.education.item.4jbys30u4p2.institution\']').fill('State University');
+await page.locator('[data-semtag-id=\'editor.education.item.4jbys30u4p2.degree\']').fill('Bachelor of Science');
+await page.locator('[data-semtag-id=\'editor.education.item.4jbys30u4p2.field\']').fill('Computer Science');
+await page.locator('[data-semtag-id=\'editor.education.item.4jbys30u4p2.start-date\']').fill('2013-09');
+await page.locator('[data-semtag-id=\'editor.education.item.4jbys30u4p2.end-date\']').fill('2017-05');
+await page.locator('[data-semtag-id=\'editor.education.item.4jbys30u4p2.gpa\']').fill('3.8');
+```
+
+================================================================================
+[48] browser_evaluate  input={"function": "() => { const s=document.querySelector(\"[data-semtag-id='editor.education.item.4jbys30u4p2.start-date']\"); const prev=document.querySelector(\"[
+--------------------------------------------------------------------------------
+### Result
+{
+  "eduType": "month",
+  "preview": "Jane Tester\njane@example.com\n555-0100\nBoston, MA\nlinkedin.com/in/janetester\njanetester.dev\nProfessional Summary\n\nExperienced QA engineer with a focus on automation.\n\nWork Experience\nSenior QA Engineer\n\nAcme Corp\n\nJan 2020 - Present\n\nLed automation testing efforts.\n\nQA Analyst\n\nBeta Inc\n\nMar 2017 - Dec 2019\n\nManual and regression testing.\n\nEducation\nState University\n\nBachelor of Science in Computer Science • GPA: 3.8\n\nSep 2013 - May 2017"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const s=document.querySelector("[data-semtag-id=\'editor.education.item.4jbys30u4p2.start-date\']"); const prev=document.querySelector("[data-semtag-id=\'preview.document\']"); return {eduType:s.type, preview: prev.innerText}; }');
+```
+
+================================================================================
+[49] mcp__structured_results__record_result  input={"item_id": "CS-10", "verdict": "PASS", "evidence": "All experience and education date inputs are input[type=month]; preview renders \"Mon YYYY\" consistently (
+--------------------------------------------------------------------------------
+{"recorded": "CS-10", "verdict": "PASS", "recorded_count": 4, "total_count": 21, "missing_ids": ["FT-2", "FT-3", "FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "CS-11", "CS-21", "IX-12", "IX-13", "IX-14", "CT-15", "CT-16", "CT-17", "CT-18", "CT-20"], "complete": false}
+
+================================================================================
+[50] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.skills']", "element": "Skills tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.skills\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-53-13-489Z.yml)
+
+================================================================================
+[51] browser_type  input={"target": "[data-semtag-id='editor.skills.new.name']", "element": "New skill name", "text": "Playwright"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.skills.new.name\']').fill('Playwright');
+```
+
+================================================================================
+[52] browser_click  input={"target": "[data-semtag-id='editor.skills.add']", "element": "Add skill button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.skills.add\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-53-17-605Z.yml)
+
+================================================================================
+[53] mcp__semantic_hints__semantic_snapshot  input={"scope": "editor.skills"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","action":[{"id":"editor.skills.add","name":"","action":"add-skill","enabled":false}],"input":[{"id":"editor.skills.new.name","name":"e.g., React, Project Management","state":"skills.new.name","value":""}],"select":[{"id":"editor.skills.new.level","name":"Intermediate","state":"skills.new.level","options":[{"value":"beginner","label":"Beginner"},{"value":"intermediate","label":"Intermediate"},{"value":"advanced","label":"Advanced"},{"value":"expert","label":"Expert"}],"value":"Intermediate"},{"id":"editor.skills.item.bddpy9p6b4t.level","name":"Intermediate","state":"skill.level","options":[{"value":"beginner","label":"Beginner"},{"value":"intermediate","label":"Intermediate"},{"value":"advanced","label":"Advanced"},{"value":"expert","label":"Expert"}],"value":"Intermediate"}],"observable":[{"id":"editor.skills.item.bddpy9p6b4t","name":"Playwright","state":"skill.name","value":"Playwright"}],"region":[{"id":"editor.skills","name":"Skills"},{"id":"editor.skills.new","name":""}],"collection":[{"id":"editor.skills.list","name":""}]}
+
+================================================================================
+[54] browser_click  input={"target": "[data-semtag-id='editor.skills.item.bddpy9p6b4t.level']", "element": "Skill level select for Playwright"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.skills.item.bddpy9p6b4t.level\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-53-24-249Z.yml)
+
+================================================================================
+[55] browser_click  input={"target": "[data-semtag-id='editor.skills.item.bddpy9p6b4t.level.option.expert']", "element": "Expert option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.skills.item.bddpy9p6b4t.level.option.expert\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-53-26-561Z.yml)
+
+================================================================================
+[56] mcp__semantic_hints__semantic_observe  input={"id": "editor.skills.item.bddpy9p6b4t.level"}
+--------------------------------------------------------------------------------
+{"id":"editor.skills.item.bddpy9p6b4t.level","role":"select","name":"Expert","state":"skill.level","options":[{"value":"beginner","label":"Beginner"},{"value":"intermediate","label":"Intermediate"},{"value":"advanced","label":"Advanced"},{"value":"expert","label":"Expert"}],"value":"Expert"}
+
+================================================================================
+[57] browser_type  input={"target": "[data-semtag-id='editor.skills.new.name']", "element": "New skill name", "text": "TypeScript"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.skills.new.name\']').fill('TypeScript');
+```
+
+================================================================================
+[58] browser_click  input={"target": "[data-semtag-id='editor.skills.add']", "element": "Add skill button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.skills.add\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-53-32-595Z.yml)
+
+================================================================================
+[59] browser_type  input={"target": "[data-semtag-id='editor.skills.new.name']", "element": "New skill name", "text": "TempSkill"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.skills.new.name\']').fill('TempSkill');
+```
+
+================================================================================
+[60] browser_click  input={"target": "[data-semtag-id='editor.skills.add']", "element": "Add skill button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.skills.add\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-53-36-973Z.yml)
+
+================================================================================
+[61] browser_evaluate  input={"function": "() => { const list=document.querySelector(\"[data-semtag-id='editor.skills.list']\"); const ids=[...list.querySelectorAll('[data-semtag-id]')].map
+--------------------------------------------------------------------------------
+### Result
+{
+  "ids": [
+    "editor.skills.item.bddpy9p6b4t",
+    "editor.skills.item.bddpy9p6b4t.level",
+    "editor.skills.item.bddpy9p6b4t.remove",
+    "editor.skills.item.447i8agu6d2",
+    "editor.skills.item.447i8agu6d2.level",
+    "editor.skills.item.447i8agu6d2.remove",
+    "editor.skills.item.lu7v4sg3ee",
+    "editor.skills.item.lu7v4sg3ee.level",
+    "editor.skills.item.lu7v4sg3ee.remove"
+  ],
+  "text": "Playwright\nExpert\nTypeScript\nIntermediate\nTempSkill\nIntermediate"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const list=document.querySelector("[data-semtag-id=\'editor.skills.list\']"); const ids=[...list.querySelectorAll(\'[data-semtag-id]\')].map(e=>e.getAttribute(\'data-semtag-id\')); return {ids, text:list.innerText}; }');
+```
+
+================================================================================
+[62] browser_click  input={"target": "[data-semtag-id='editor.skills.item.lu7v4sg3ee.remove']", "element": "Remove TempSkill"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.skills.item.lu7v4sg3ee.remove\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-53-42-770Z.yml)
+
+================================================================================
+[63] browser_evaluate  input={"function": "() => ({skills: document.querySelector(\"[data-semtag-id='editor.skills.list']\").innerText, preview: document.querySelector(\"[data-semtag-id='pr
+--------------------------------------------------------------------------------
+### Result
+{
+  "skills": "Playwright\nExpert\nTypeScript\nIntermediate",
+  "preview": "Jane Tester\njane@example.com\n555-0100\nBoston, MA\nlinkedin.com/in/janetester\njanetester.dev\nProfessional Summary\n\nExperienced QA engineer with a focus on automation.\n\nWork Experience\nSenior QA Engineer\n\nAcme Corp\n\nJan 2020 - Present\n\nLed automation testing efforts.\n\nQA Analyst\n\nBeta Inc\n\nMar 2017 - Dec 2019\n\nManual and regression testing.\n\nEducation\nState University\n\nBachelor of Science in Computer Science • GPA: 3.8\n\nSep 2013 - May 2017\nSkills\nPlaywright\nTypeScript"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({skills: document.querySelector("[data-semtag-id=\'editor.skills.list\']").innerText, preview: document.querySelector("[data-semtag-id=\'preview.document\']").innerText})');
+```
+
+================================================================================
+[64] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.experience']", "element": "Experience tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.experience\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-53-50-014Z.yml)
+
+================================================================================
+[65] browser_click  input={"target": "[data-semtag-id='editor.experience.add']", "element": "Add Experience"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.add\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-53-52-372Z.yml)
+
+================================================================================
+[66] browser_evaluate  input={"function": "() => [...document.querySelectorAll(\"[data-semtag-id^='editor.experience.item.'][data-semtag-role='region']\")].map(e=>e.getAttribute('data-semta
+--------------------------------------------------------------------------------
+### Result
+[
+  "editor.experience.item.lxfqf2lcnfh",
+  "editor.experience.item.2m2cv7joyz4",
+  "editor.experience.item.9dza3e0id7h"
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => [...document.querySelectorAll("[data-semtag-id^=\'editor.experience.item.\'][data-semtag-role=\'region\']")].map(e=>e.getAttribute(\'data-semtag-id\'))');
+```
+
+================================================================================
+[67] browser_click  input={"target": "[data-semtag-id='editor.experience.item.9dza3e0id7h.remove']", "element": "Remove third experience"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.item.9dza3e0id7h.remove\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-53-57-413Z.yml)
+
+================================================================================
+[68] browser_evaluate  input={"function": "() => [...document.querySelectorAll(\"[data-semtag-id^='editor.experience.item.'][data-semtag-role='region']\")].map(e=>e.getAttribute('data-semta
+--------------------------------------------------------------------------------
+### Result
+[
+  "editor.experience.item.lxfqf2lcnfh",
+  "editor.experience.item.2m2cv7joyz4"
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => [...document.querySelectorAll("[data-semtag-id^=\'editor.experience.item.\'][data-semtag-role=\'region\']")].map(e=>e.getAttribute(\'data-semtag-id\'))');
+```
+
+================================================================================
+[69] mcp__structured_results__record_result  input={"item_id": "FT-3", "verdict": "PASS", "evidence": "Contact (6 fields) and summary filled and reflected in preview. Experience: added 2 entries, edited all fiel
+--------------------------------------------------------------------------------
+{"recorded": "FT-3", "verdict": "PASS", "recorded_count": 5, "total_count": 21, "missing_ids": ["FT-2", "FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "CS-11", "CS-21", "IX-12", "IX-13", "IX-14", "CT-15", "CT-16", "CT-17", "CT-18", "CT-20"], "complete": false}
+
+================================================================================
+[70] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.template']", "element": "Template tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.template\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-54-06-285Z.yml)
+
+================================================================================
+[71] mcp__semantic_hints__semantic_snapshot  input={"scope": "editor.template"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","region":[{"id":"editor.template","name":"Template"}],"collections":[{"id":"editor.template.list","idPattern":"editor.template.item.{key}[.{control}]","item":{"role":"option","action":"select-template"},"fields":["key","name","state"],"items":[["modern","Modern Clean design with accent colors and clear hierarchy","selected"],["classic","Classic Traditional layout perfect for corporate roles",null],["minimal","Minimal Simple and elegant with focus on content",null]]}]}
+
+================================================================================
+[72] browser_click  input={"target": "[data-semtag-id='editor.template.item.classic']", "element": "Classic template option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.template.item.classic\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-54-10-563Z.yml)
+
+================================================================================
+[73] browser_evaluate  input={"function": "() => { const d=document.querySelector(\"[data-semtag-id='preview.document']\"); return {templateAttr: d.className, sel: document.querySelector(\"
+--------------------------------------------------------------------------------
+### Result
+{
+  "templateAttr": "resume-preview max-w-[21cm] mx-auto bg-white shadow-lg p-8",
+  "sel": "selected",
+  "preview": "Jane Tester\njane@example.com\n• 555-0100\n• Boston, MA\nlinkedin.com/in/janetester\njanetester.dev\nPROFESSIONAL SUMMARY\n\nExperienced QA engineer with a focus on automation.\n\nWORK EXPERIENCE\nSenior QA Engineer\nJan 2020 – Present\n\nAcme Corp\n\nLed automation testing efforts.\n\nQA Analyst\nMar 2017 – Dec 2019\n\nBeta Inc\n\nManual and regression testing.\n\nEDUCATION\nState University\n\nBachelor of Science in Computer Science – GPA: 3.8\n\nSep 2013 – May 2017\nSKILLS\n\nPlaywright • TypeScript"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const d=document.querySelector("[data-semtag-id=\'preview.document\']"); return {templateAttr: d.className, sel: document.querySelector("[data-semtag-id=\'editor.template.item.classic\']").getAttribute(\'data-semtag-state\'), preview: d.innerText}; }');
+```
+
+================================================================================
+[74] browser_click  input={"target": "[data-semtag-id='editor.template.item.minimal']", "element": "Minimal template option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.template.item.minimal\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-54-17-001Z.yml)
+
+================================================================================
+[75] browser_evaluate  input={"function": "() => ({sel:[...document.querySelectorAll(\"[data-semtag-id^='editor.template.item.']\")].map(e=>e.getAttribute('data-semtag-id')+':'+e.getAttribu
+--------------------------------------------------------------------------------
+### Result
+{
+  "sel": [
+    "editor.template.item.modern:null",
+    "editor.template.item.classic:null",
+    "editor.template.item.minimal:selected"
+  ],
+  "preview": "Jane Tester\nJANE@EXAMPLE.COM\n555-0100\nBOSTON, MA\nLINKEDIN.COM/IN/JANETESTER\nJANETESTER.DEV\n\nExperienced QA engineer with a focus on automation.\n\nWORK EXPERIENCE\nJan 2020\nPresent\nSenior QA Engineer\n\nAcme Corp\n\nLed automation testing efforts.\n\nMar 2017\nDec 2019\nQA Analyst\n\nBeta Inc\n\nManual and regression testing.\n\nEDUCATION\nSep 2013\nMay 2017\nState University\n\nBachelor of Science in Computer Science • 3.8\n\nSKILLS\nPlaywright\nTypeScript"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({sel:[...document.querySelectorAll("[data-semtag-id^=\'editor.template.item.\']")].map(e=>e.getAttribute(\'data-semtag-id\')+\':\'+e.getAttribute(\'data-semtag-state\')), preview: document.querySelector("[data-semtag-id=\'preview.document\']").innerText})');
+```
+
+================================================================================
+[76] mcp__structured_results__record_result  input={"item_id": "FT-2", "verdict": "PASS", "evidence": "Template list offers Modern/Classic/Minimal. Selecting Classic then Minimal moved data-semtag-state=\"select
+--------------------------------------------------------------------------------
+{"recorded": "FT-2", "verdict": "PASS", "recorded_count": 6, "total_count": 21, "missing_ids": ["FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "CS-11", "CS-21", "IX-12", "IX-13", "IX-14", "CT-15", "CT-16", "CT-17", "CT-18", "CT-20"], "complete": false}
+
+================================================================================
+[77] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.sections']", "element": "Sections tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.sections\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-54-27-229Z.yml)
+
+================================================================================
+[78] mcp__semantic_hints__semantic_snapshot  input={"scope": "editor.sections"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","region":[{"id":"editor.sections","name":"Sections"}],"collections":[{"id":"editor.sections.list","idPattern":"editor.sections.item.{key}[.{control}]","item":{"role":"region","name":""},"itemControls":{"title":{"role":"input","name":""},"move-up":{"role":"action","name":"","action":"move-section-up"},"move-down":{"role":"action","name":"","action":"move-section-down"},"visible":{"role":"toggle","name":"","value":true}},"fields":["key","title.state","title.value","move-up.enabled","move-down.enabled","visible.state"],"items":[["contact","section.contact.title","Contact Information",false,null,"section.contact.visible"],["summary","section.summary.title","Professional Summary",null,null,"section.summary.visible"],["experience","section.experience.title","Work Experience",null,null,"section.experience.visible"],["education","section.education.title","Education",null,null,"section.education.visible"],["skills","section.skills.title","Skills",null,false,"section.skills.visible"]]}]}
+
+================================================================================
+[79] browser_click  input={"target": "[data-semtag-id='editor.sections.item.education.move-up']", "element": "Move Education section up"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.sections.item.education.move-up\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-54-33-542Z.yml)
+
+================================================================================
+[80] browser_evaluate  input={"function": "() => ({order:[...document.querySelectorAll(\"[data-semtag-id^='editor.sections.item.'][data-semtag-role='region']\")].map(e=>e.getAttribute('data
+--------------------------------------------------------------------------------
+### Result
+{
+  "order": [
+    "editor.sections.item.contact",
+    "editor.sections.item.summary",
+    "editor.sections.item.education",
+    "editor.sections.item.experience",
+    "editor.sections.item.skills"
+  ],
+  "preview": "Jane Tester\nJANE@EXAMPLE.COM\n555-0100\nBOSTON, MA\nLINKEDIN.COM/IN/JANETESTER\nJANETESTER.DEV\n\nExperienced QA engineer with a focus on automation.\n\nEDUCATION\nSep 2013\nMay 2017\nState University\n\nBachelor of Science in Computer Science • 3.8\n\nWORK EXPERIENCE\nJan 2020\nPresent\nSenior QA Engineer\n\nAcme Corp\n\nLed automation testing efforts.\n\nMar 2017\nDec 2019\nQA Analyst\n\nBeta Inc\n\nManual and regression testing.\n\nSKILLS\nPlaywright\nTypeScript"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({order:[...document.querySelectorAll("[data-semtag-id^=\'editor.sections.item.\'][data-semtag-role=\'region\']")].map(e=>e.getAttribute(\'data-semtag-id\')), preview: document.querySelector("[data-semtag-id=\'preview.document\']").innerText})');
+```
+
+================================================================================
+[81] browser_click  input={"target": "[data-semtag-id='editor.sections.item.skills.visible']", "element": "Skills section visibility toggle"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.sections.item.skills.visible\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-54-39-306Z.yml)
+
+================================================================================
+[82] browser_evaluate  input={"function": "() => ({toggle: document.querySelector(\"[data-semtag-id='editor.sections.item.skills.visible']\").getAttribute('data-semtag-value')||document.que
+--------------------------------------------------------------------------------
+### Result
+{
+  "toggle": "false",
+  "preview": "Jane Tester\nJANE@EXAMPLE.COM\n555-0100\nBOSTON, MA\nLINKEDIN.COM/IN/JANETESTER\nJANETESTER.DEV\n\nExperienced QA engineer with a focus on automation.\n\nEDUCATION\nSep 2013\nMay 2017\nState University\n\nBachelor of Science in Computer Science • 3.8\n\nWORK EXPERIENCE\nJan 2020\nPresent\nSenior QA Engineer\n\nAcme Corp\n\nLed automation testing efforts.\n\nMar 2017\nDec 2019\nQA Analyst\n\nBeta Inc\n\nManual and regression testing."
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({toggle: document.querySelector("[data-semtag-id=\'editor.sections.item.skills.visible\']").getAttribute(\'data-semtag-value\')||document.querySelector("[data-semtag-id=\'editor.sections.item.skills.visible\']").getAttribute(\'aria-checked\'), preview: document.querySelector("[data-semtag-id=\'preview.document\']").innerText})');
+```
+
+================================================================================
+[83] browser_click  input={"target": "[data-semtag-id='editor.sections.item.skills.visible']", "element": "Skills section visibility toggle"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.sections.item.skills.visible\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-54-44-812Z.yml)
+
+================================================================================
+[84] mcp__structured_results__record_result  input={"item_id": "FT-4", "verdict": "PASS", "evidence": "Sections tab lists contact/summary/experience/education/skills with move-up, move-down and visible toggles. 
+--------------------------------------------------------------------------------
+{"recorded": "FT-4", "verdict": "PASS", "recorded_count": 7, "total_count": 21, "missing_ids": ["FT-5", "FT-6", "FT-7", "FT-8", "CS-11", "CS-21", "IX-12", "IX-13", "IX-14", "CT-15", "CT-16", "CT-17", "CT-18", "CT-20"], "complete": false}
+
+================================================================================
+[85] browser_fill_form  input={"fields": [{"name": "Contact heading", "target": "[data-semtag-id='editor.sections.item.contact.title']", "type": "textbox", "value": "How To Reach Me"}, {"nam
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.sections.item.contact.title\']').fill('How To Reach Me');
+await page.locator('[data-semtag-id=\'editor.sections.item.summary.title\']').fill('About Me');
+await page.locator('[data-semtag-id=\'editor.sections.item.experience.title\']').fill('Career History');
+await page.locator('[data-semtag-id=\'editor.sections.item.education.title\']').fill('Academic Background');
+await page.locator('[data-semtag-id=\'editor.sections.item.skills.title\']').fill('Core Competencies');
+```
+
+================================================================================
+[86] browser_evaluate  input={"function": "() => document.querySelector(\"[data-semtag-id='preview.document']\").innerText"}
+--------------------------------------------------------------------------------
+### Result
+"Jane Tester\nJANE@EXAMPLE.COM\n555-0100\nBOSTON, MA\nLINKEDIN.COM/IN/JANETESTER\nJANETESTER.DEV\n\nExperienced QA engineer with a focus on automation.\n\nACADEMIC BACKGROUND\nSep 2013\nMay 2017\nState University\n\nBachelor of Science in Computer Science • 3.8\n\nCAREER HISTORY\nJan 2020\nPresent\nSenior QA Engineer\n\nAcme Corp\n\nLed automation testing efforts.\n\nMar 2017\nDec 2019\nQA Analyst\n\nBeta Inc\n\nManual and regression testing.\n\nCORE COMPETENCIES\nPlaywright\nTypeScript"
+### Ran Playwright code
+```js
+await page.evaluate('() => document.querySelector("[data-semtag-id=\'preview.document\']").innerText');
+```
+
+================================================================================
+[87] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.template']", "element": "Template tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.template\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-54-58-292Z.yml)
+
+================================================================================
+[88] browser_click  input={"target": "[data-semtag-id='editor.template.item.modern']", "element": "Modern template"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.template.item.modern\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-55-00-644Z.yml)
+
+================================================================================
+[89] browser_evaluate  input={"function": "() => document.querySelector(\"[data-semtag-id='preview.document']\").innerText"}
+--------------------------------------------------------------------------------
+### Result
+"Jane Tester\njane@example.com\n555-0100\nBoston, MA\nlinkedin.com/in/janetester\njanetester.dev\nAbout Me\n\nExperienced QA engineer with a focus on automation.\n\nAcademic Background\nState University\n\nBachelor of Science in Computer Science • GPA: 3.8\n\nSep 2013 - May 2017\nCareer History\nSenior QA Engineer\n\nAcme Corp\n\nJan 2020 - Present\n\nLed automation testing efforts.\n\nQA Analyst\n\nBeta Inc\n\nMar 2017 - Dec 2019\n\nManual and regression testing.\n\nCore Competencies\nPlaywright\nTypeScript"
+### Ran Playwright code
+```js
+await page.evaluate('() => document.querySelector("[data-semtag-id=\'preview.document\']").innerText');
+```
+
+================================================================================
+[90] browser_click  input={"target": "[data-semtag-id='editor.template.item.classic']", "element": "Classic template"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.template.item.classic\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-55-05-753Z.yml)
+
+================================================================================
+[91] browser_evaluate  input={"function": "() => document.querySelector(\"[data-semtag-id='preview.document']\").innerText"}
+--------------------------------------------------------------------------------
+### Result
+"Jane Tester\njane@example.com\n• 555-0100\n• Boston, MA\nlinkedin.com/in/janetester\njanetester.dev\nABOUT ME\n\nExperienced QA engineer with a focus on automation.\n\nACADEMIC BACKGROUND\nState University\n\nBachelor of Science in Computer Science – GPA: 3.8\n\nSep 2013 – May 2017\nCAREER HISTORY\nSenior QA Engineer\nJan 2020 – Present\n\nAcme Corp\n\nLed automation testing efforts.\n\nQA Analyst\nMar 2017 – Dec 2019\n\nBeta Inc\n\nManual and regression testing.\n\nCORE COMPETENCIES\n\nPlaywright • TypeScript"
+### Ran Playwright code
+```js
+await page.evaluate('() => document.querySelector("[data-semtag-id=\'preview.document\']").innerText');
+```
+
+================================================================================
+[92] mcp__structured_results__record_result  input={"item_id": "CT-20", "verdict": "FAIL", "issue": "Customized section headings not rendered in every style: contact heading never rendered; summary heading missi
+--------------------------------------------------------------------------------
+{"recorded": "CT-20", "verdict": "FAIL", "recorded_count": 8, "total_count": 21, "missing_ids": ["FT-5", "FT-6", "FT-7", "FT-8", "CS-11", "CS-21", "IX-12", "IX-13", "IX-14", "CT-15", "CT-16", "CT-17", "CT-18"], "complete": false}
+
+================================================================================
+[93] browser_evaluate  input={"function": "() => { const p=document.querySelector(\"[data-semtag-id='editor.preview']\"); const d=document.querySelector(\"[data-semtag-id='preview.document'
+--------------------------------------------------------------------------------
+### Result
+{
+  "previewOverflow": "hidden",
+  "docHeight": 693,
+  "scrollContainer": null,
+  "bodyScroll": {
+    "c": 720,
+    "s": 851
+  }
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const p=document.querySelector("[data-semtag-id=\'editor.preview\']"); const d=document.querySelector("[data-semtag-id=\'preview.document\']"); const cs=getComputedStyle(p); let sc=p, found=null; while(sc){const s=getComputedStyle(sc); if(/auto|scroll/.test(s.overflowY)){found={id:sc.getAttribute(\'data-semtag-id\')||sc.tagName, overflowY:s.overflowY, clientH:sc.clientHeight, scrollH:sc.scrollHeight}; break;} sc=sc.parentElement;} return {previewOverflow:cs.overflowY, docHeight:d.scrollHeight, scrollContainer:found, bodyScroll:{c:document.documentElement.clientHeight,s:document.documentElement.scrollHeight}}; }');
+```
+
+================================================================================
+[94] browser_evaluate  input={"function": "() => { const p=document.querySelector(\"[data-semtag-id='editor.preview']\"); return {clientH:p.clientHeight, scrollH:p.scrollHeight, styleH:getC
+--------------------------------------------------------------------------------
+### Result
+{
+  "clientH": 786,
+  "scrollH": 786,
+  "styleH": "785.75px",
+  "maxH": "none",
+  "cls": "w-1/2 bg-muted/30 overflow-hidden flex flex-col"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const p=document.querySelector("[data-semtag-id=\'editor.preview\']"); return {clientH:p.clientHeight, scrollH:p.scrollHeight, styleH:getComputedStyle(p).height, maxH:getComputedStyle(p).maxHeight, cls:p.className}; }');
+```
+
+================================================================================
+[95] browser_evaluate  input={"function": "() => { const p=document.querySelector(\"[data-semtag-id='editor.preview']\"); return [...p.querySelectorAll('*')].filter(e=>{const s=getComputedS
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "cls": "h-full w-full rounded-[inherit]",
+    "clientH": 741,
+    "scrollH": 741
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => { const p=document.querySelector("[data-semtag-id=\'editor.preview\']"); return [...p.querySelectorAll(\'*\')].filter(e=>{const s=getComputedStyle(e); return /auto|scroll/.test(s.overflowY);}).slice(0,5).map(e=>({cls:e.className, clientH:e.clientHeight, scrollH:e.scrollHeight})); }');
+```
+
+================================================================================
+[96] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.summary']", "element": "Summary tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.summary\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-55-40-867Z.yml)
+
+================================================================================
+[97] browser_type  input={"target": "[data-semtag-id='editor.summary.text']", "element": "Summary textarea", "text": "Experienced QA engineer with a focus on automation, test strategy, 
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.summary.text\']').fill('Experienced QA engineer with a focus on automation, test strategy, continuous integration pipelines, accessibility auditing, performance profiling, cross-browser compatibility validation, exploratory testing, risk-based prioritization, defect triage, release readiness assessment, mentoring junior testers, building reusable test harnesses, maintaining flake-free regression suites, and partnering closely with product and engineering leadership to raise the overall quality bar across many teams.');
+```
+
+================================================================================
+[98] browser_evaluate  input={"function": "() => { const p=document.querySelector(\"[data-semtag-id='editor.preview']\"); const v=[...p.querySelectorAll('*')].find(e=>/auto|scroll/.test(get
+--------------------------------------------------------------------------------
+### Result
+{
+  "clientH": 877,
+  "scrollH": 877,
+  "scrollTopAfter": 0,
+  "docText": "s.\n\nQA Analyst\nMar 2017 – Dec 2019\n\nBeta Inc\n\nManual and regression testing.\n\nCORE COMPETENCIES\n\nPlaywright • TypeScript",
+  "charCount": "497/500"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const p=document.querySelector("[data-semtag-id=\'editor.preview\']"); const v=[...p.querySelectorAll(\'*\')].find(e=>/auto|scroll/.test(getComputedStyle(e).overflowY)); v.scrollTop = 99999; const doc=document.querySelector("[data-semtag-id=\'preview.document\']"); return {clientH:v.clientHeight, scrollH:v.scrollHeight, scrollTopAfter:v.scrollTop, docText: doc.innerText.slice(-120), charCount: document.querySelector("[data-semtag-id=\'editor.summary.char-count\']").innerText}; }');
+```
+
+================================================================================
+[99] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.experience']", "element": "Experience tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.experience\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-55-56-498Z.yml)
+
+================================================================================
+[100] browser_type  input={"target": "[data-semtag-id='editor.experience.item.2m2cv7joyz4.description']", "element": "Beta Inc description", "text": "Manual and regression testing. Owned
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.item.2m2cv7joyz4.description\']').fill('Manual and regression testing. Owned the end-to-end regression suite covering checkout, search, and account flows. Wrote detailed test plans and executed exploratory charters each sprint. Coordinated UAT with stakeholders across three regions and triaged incoming production defects. Built dashboards tracking escape rate, coverage, and mean time to detection. Mentored two junior analysts and standardized bug report templates. Partnered with developers on root cause analysis and drove adoption of contract testing for the payments integration, cutting integration defects by forty percent over two quarters. Ran accessibility sweeps against WCAG AA and documented remediation backlogs for each product surface.');
+```
+
+================================================================================
+[101] browser_evaluate  input={"function": "() => { const p=document.querySelector(\"[data-semtag-id='editor.preview']\"); const v=[...p.querySelectorAll('*')].find(e=>/auto|scroll/.test(get
+--------------------------------------------------------------------------------
+### Result
+{
+  "before": {
+    "clientH": 1077,
+    "scrollH": 1077
+  },
+  "after": 0,
+  "docRect": {
+    "top": -276,
+    "bottom": 444.4749755859375,
+    "h": 720.4749755859375
+  },
+  "previewRect": {
+    "top": -345,
+    "bottom": 777.25
+  },
+  "page": {
+    "c": 720,
+    "s": 1187
+  },
+  "tail": "remediation backlogs for each product surface.\n\nCORE COMPETENCIES\n\nPlaywright • TypeScript"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const p=document.querySelector("[data-semtag-id=\'editor.preview\']"); const v=[...p.querySelectorAll(\'*\')].find(e=>/auto|scroll/.test(getComputedStyle(e).overflowY)); const doc=document.querySelector("[data-semtag-id=\'preview.document\']"); const before={clientH:v.clientHeight, scrollH:v.scrollHeight}; v.scrollTop=99999; const after=v.scrollTop; const r=doc.getBoundingClientRect(); const pr=p.getBoundingClientRect(); return {before, after, docRect:{top:r.top,bottom:r.bottom,h:r.height}, previewRect:{top:pr.top,bottom:pr.bottom}, page:{c:document.documentElement.clientHeight,s:document.documentElement.scrollHeight}, tail: doc.innerText.slice(-90)}; }');
+```
+
+================================================================================
+[102] mcp__structured_results__record_result  input={"item_id": "CT-15", "verdict": "PASS", "evidence": "In each style (Modern/Classic/Minimal) the preview rendered content for all 5 visible sections (contact, su
+--------------------------------------------------------------------------------
+{"recorded": "CT-15", "verdict": "PASS", "recorded_count": 9, "total_count": 21, "missing_ids": ["FT-5", "FT-6", "FT-7", "FT-8", "CS-11", "CS-21", "IX-12", "IX-13", "IX-14", "CT-16", "CT-17", "CT-18"], "complete": false}
+
+================================================================================
+[103] mcp__structured_results__record_result  input={"item_id": "IX-12", "verdict": "PASS", "evidence": "No save button exists; every edit propagated to preview.document on the spot: contact fields (Jane Tester/j
+--------------------------------------------------------------------------------
+{"recorded": "IX-12", "verdict": "PASS", "recorded_count": 10, "total_count": 21, "missing_ids": ["FT-5", "FT-6", "FT-7", "FT-8", "CS-11", "CS-21", "IX-13", "IX-14", "CT-16", "CT-17", "CT-18"], "complete": false}
+
+================================================================================
+[104] browser_click  input={"target": "[data-semtag-id='editor.preview.toggle']", "element": "Hide Preview toggle"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.preview.toggle\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-56-24-439Z.yml)
+
+================================================================================
+[105] browser_evaluate  input={"function": "() => ({toggle: document.querySelector(\"[data-semtag-id='editor.preview.toggle']\").innerText, previewPresent: !!document.querySelector(\"[data-s
+--------------------------------------------------------------------------------
+### Result
+{
+  "toggle": "Show Preview",
+  "previewPresent": false,
+  "previewRegion": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({toggle: document.querySelector("[data-semtag-id=\'editor.preview.toggle\']").innerText, previewPresent: !!document.querySelector("[data-semtag-id=\'preview.document\']"), previewRegion: !!document.querySelector("[data-semtag-id=\'editor.preview\']")})');
+```
+
+================================================================================
+[106] browser_click  input={"target": "[data-semtag-id='editor.preview.toggle']", "element": "Show Preview toggle"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.preview.toggle\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-56-29-764Z.yml)
+
+================================================================================
+[107] browser_evaluate  input={"function": "() => ({toggle: document.querySelector(\"[data-semtag-id='editor.preview.toggle']\").innerText, preview: document.querySelector(\"[data-semtag-id=
+--------------------------------------------------------------------------------
+### Result
+{
+  "toggle": "Hide Preview",
+  "preview": "Jane Tester\njane@example.com\n• 555-0100\n• Boston, MA\nlinkedin.com/in/janetester\n",
+  "template": [],
+  "expCompany": "Acme Corp"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({toggle: document.querySelector("[data-semtag-id=\'editor.preview.toggle\']").innerText, preview: document.querySelector("[data-semtag-id=\'preview.document\']").innerText.slice(0,80), template: [...document.querySelectorAll("[data-semtag-id^=\'editor.template.item.\']")].map(e=>e.getAttribute(\'data-semtag-id\')+\':\'+e.getAttribute(\'data-semtag-state\')), expCompany: document.querySelector("[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.company\']")?.value})');
+```
+
+================================================================================
+[108] mcp__structured_results__record_result  input={"item_id": "FT-5", "verdict": "PASS", "evidence": "Toggle labeled \"Hide Preview\" removed editor.preview/preview.document from the DOM and became \"Show Previ
+--------------------------------------------------------------------------------
+{"recorded": "FT-5", "verdict": "PASS", "recorded_count": 11, "total_count": 21, "missing_ids": ["FT-6", "FT-7", "FT-8", "CS-11", "CS-21", "IX-13", "IX-14", "CT-16", "CT-17", "CT-18"], "complete": false}
+
+================================================================================
+[109] browser_click  input={"target": "[data-semtag-id='editor.title']", "element": "Resume title (edit-title)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.title\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-56-39-504Z.yml)
+
+================================================================================
+[110] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","navigation":[{"id":"editor.back","name":"","target":"dashboard.screen"}],"action":[{"id":"editor.experience.add","name":"Add Experience","action":"add-experience"}],"input":[{"id":"editor.title.input","name":"","state":"resume.title","value":"Untitled Resume"}],"toggle":[{"id":"editor.preview.toggle","name":"Hide Preview","state":"editor.preview.visible","controls":"editor.preview","value":"Hide Preview"}],"observable":[{"id":"preview.contact.name","name":"Jane Tester","state":"contact.full-name","value":"Jane Tester"},{"id":"preview.contact.email","name":"jane@example.com","state":"contact.email","value":"jane@example.com"},{"id":"preview.contact.phone","name":"• 555-0100","state":"contact.phone","value":"• 555-0100"},{"id":"preview.contact.location","name":"• Boston, MA","state":"contact.location","value":"• Boston, MA"},{"id":"preview.contact.linkedin","name":"linkedin.com/in/janetester","state":"contact.linkedin","value":"linkedin.com/in/janetester"},{"id":"preview.contact.website","name":"janetester.dev","state":"contact.website","value":"janetester.dev"},{"id":"preview.summary.heading","name":"ABOUT ME","state":"section.summary.title","value":"ABOUT ME"},{"id":"preview.summary.text","name":"Experienced QA engineer with a focus on automation, test strategy, continuous integration pipelines, accessibility audit…","state":"summary.text","value":"Experienced QA engineer with a focus on automation, test strategy, continuous integration pipelines, accessibility auditing, performance profiling, cross-browser compatibility validation, exploratory …"},{"id":"preview.education.heading","name":"ACADEMIC BACKGROUND","state":"section.education.title","value":"ACADEMIC BACKGROUND"},{"id":"preview.education.item.4jbys30u4p2","name":"State University","state":"education.institution","value":"State University"},{"id":"preview.education.item.4jbys30u4p2.degree","name":"Bachelor of Science in Computer Science – GPA: 3.8","state":"education.degree","value":"Bachelor of Science in Computer Science – GPA: 3.8"},{"id":"preview.education.item.4jbys30u4p2.dates","name":"Sep 2013 – May 2017","state":"education.dates","value":"Sep 2013 – May 2017"},{"id":"preview.experience.heading","name":"CAREER HISTORY","state":"section.experience.title","value":"CAREER HISTORY"},{"id":"preview.skills.heading","name":"CORE COMPETENCIES","state":"section.skills.title","value":"CORE COMPETENCIES"},{"id":"preview.skills.text","name":"Playwright • TypeScript","state":"skills.names","value":"Playwright • TypeScript"}],"region":[{"id":"editor.experience","name":"Experience"},{"id":"editor.preview","name":""},{"id":"preview.document","name":""}],"collection":[{"id":"preview.education.list","name":""}],"collections":[{"id":"editor.tabs","idPattern":"editor.tabs.item.{key}[.{control}]","item":{"role":"navigation"},"fields":["key","name","target"],"items":[["contact","Contact","editor.contact"],["summary","Summary","editor.summary"],["experience","Experience","editor.experience"],["education","Education","editor.education"],["skills","Skills","editor.skills"],["template","Template","editor.template"],["sections","Sections","editor.sections"]]},{"id":"editor.experience.list","idPattern":"editor.experience.item.{key}[.{control}]","item":{"role":"region","name":""},"itemControls":{"move-up":{"role":"action","name":"↑","action":"move-experience-up"},"move-down":{"role":"action","name":"↓","action":"move-experience-down"},"remove":{"role":"action","name":"","action":"remove-experience"},"company":{"role":"input","name":"Company Name","state":"experience.company"},"position":{"role":"input","name":"Job Title","state":"experience.position"},"start-date":{"role":"input","name":"","state":"experience.start-date"},"end-date":{"role":"input","state":"experience.end-date"},"current":{"role":"toggle","name":"I currently work here","state":"experience.current"},"description":{"role":"input","name":"Describe your responsibilities and achievements...","state":"experience.description"}},"fields":["key","move-up.enabled","move-down.enabled","company.value","position.value","start-date.value","end-date.name","end-date.value","end-date.enabled","current.value","description.value"],"items":[["lxfqf2lcnfh",false,null,"Acme Corp","Senior QA Engineer","2020-01",null,"",false,true,"Led automation testing efforts."],["2m2cv7joyz4",null,false,"Beta Inc","QA Analyst","2017-03","","2019-12",null,false,"Manual and regression testing. Owned the end-to-end regression suite covering checkout, search, and account flows. Wrote detailed test plans and executed exploratory charters each sprint. Coordinated UAT with stakeholders across three regions and triaged incoming production defects. Built dashboards tracking escape rate, coverage, and mean time to detection. Mentored two junior analysts and standardized bug report templates. Partnered with developers on root cause analysis and drove adoption of contract testing for the payments integration, cutting integration defects by forty percent over two quarters. Ran accessibility sweeps against WCAG AA and documented remediation backlogs for each product surface."]]},{"id":"preview.experience.list","idPattern":"preview.experience.item.{key}[.{control}]","item":{"role":"observable","state":"experience.position"},"itemControls":{"dates":{"role":"observable","state":"experience.dates"},"company":{"role":"observable","state":"experience.company"},"description":{"role":"observable","state":"experience.description"}},"fields":["key","value","dates.value","company.value","description.name","description.value"],"items":[["lxfqf2lcnfh","Senior QA Engineer","Jan 2020 – Present","Acme Corp",null,"Led automation testing efforts."],["2m2cv7joyz4","QA Analyst","Mar 2017 – Dec 2019","Beta Inc","Manual and regression testing. Owned the end-to-end regression suite covering checkout, search, and account flows. Wrote…","Manual and regression testing. Owned the end-to-end regression suite covering checkout, search, and account flows. Wrote detailed test plans and executed exploratory charters each sprint. Coordinated …"]]}]}
+
+================================================================================
+[111] browser_type  input={"target": "[data-semtag-id='editor.title.input']", "element": "Resume title input", "text": "   ", "submit": true}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.title.input\']').fill('   ');
+await page.locator('[data-semtag-id=\'editor.title.input\']').press('Enter');
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-56-45-938Z.yml)
+
+================================================================================
+[112] browser_evaluate  input={"function": "() => { const t=document.querySelector(\"[data-semtag-id='editor.title']\"); const i=document.querySelector(\"[data-semtag-id='editor.title.input'
+--------------------------------------------------------------------------------
+### Result
+{
+  "titleEl": "\"Untitled Resume\"",
+  "inputVal": null,
+  "header": "Untitled Resume\nHide Preview",
+  "toastText": null
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const t=document.querySelector("[data-semtag-id=\'editor.title\']"); const i=document.querySelector("[data-semtag-id=\'editor.title.input\']"); return {titleEl: t?JSON.stringify(t.innerText):null, inputVal: i?i.value:null, header: document.querySelector(\'header\').innerText, toastText: document.body.innerText.match(/(empty|required|cannot|invalid|blank)[^\\n]*/i)}; }');
+```
+
+================================================================================
+[113] browser_click  input={"target": "[data-semtag-id='editor.title']", "element": "Resume title"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.title\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-56-53-601Z.yml)
+
+================================================================================
+[114] browser_evaluate  input={"function": "async () => { const i=document.querySelector(\"[data-semtag-id='editor.title.input']\"); const setter=Object.getOwnPropertyDescriptor(window.HTMLI
+--------------------------------------------------------------------------------
+### Result
+{
+  "toaster": "none",
+  "aria": [],
+  "title": "Untitled Resume",
+  "stillInput": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => { const i=document.querySelector("[data-semtag-id=\'editor.title.input\']"); const setter=Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,\'value\').set; setter.call(i,\'\'); i.dispatchEvent(new Event(\'input\',{bubbles:true})); i.dispatchEvent(new KeyboardEvent(\'keydown\',{key:\'Enter\',bubbles:true})); i.blur(); await new Promise(r=>setTimeout(r,150)); return {toaster: document.querySelector(\'[data-sonner-toaster]\')?.innerText ?? \'none\', aria: [...document.querySelectorAll(\'[role=alert],[aria-live]\')].map(e=>e.innerText).filter(Boolean), title: document.querySelector("[data-semtag-id=\'editor.title\']")?.innerText, stillInput: !!document.querySelector("[data-semtag-id=\'editor.title.input\']")}; }');
+```
+
+================================================================================
+[115] mcp__structured_results__record_result  input={"item_id": "CS-21", "verdict": "FAIL", "issue": "Empty/whitespace rename is silently rejected with no validation feedback", "actual": "Typed \"   \" (whitespac
+--------------------------------------------------------------------------------
+{"recorded": "CS-21", "verdict": "FAIL", "recorded_count": 12, "total_count": 21, "missing_ids": ["FT-6", "FT-7", "FT-8", "CS-11", "IX-13", "IX-14", "CT-16", "CT-17", "CT-18"], "complete": false}
+
+================================================================================
+[116] browser_click  input={"target": "[data-semtag-id='editor.title']", "element": "Resume title"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.title\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-57-07-849Z.yml)
+
+================================================================================
+[117] browser_type  input={"target": "[data-semtag-id='editor.title.input']", "element": "Resume title input", "text": "QA Lead Application", "submit": true}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.title.input\']').fill('QA Lead Application');
+await page.locator('[data-semtag-id=\'editor.title.input\']').press('Enter');
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-57-10-395Z.yml)
+
+================================================================================
+[118] mcp__semantic_hints__semantic_observe  input={"id": "editor.title"}
+--------------------------------------------------------------------------------
+{"id":"editor.title","role":"action","name":"QA Lead Application","action":"edit-title","state":"resume.title"}
+
+================================================================================
+[119] browser_click  input={"target": "[data-semtag-id='editor.back']", "element": "Back to dashboard"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.back\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-57-16-304Z.yml)
+
+================================================================================
+[120] mcp__semantic_hints__semantic_snapshot  input={"scope": "dashboard.resumes"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","collections":[{"id":"dashboard.resumes","idPattern":"dashboard.resumes.item.{key}[.{control}]","item":{"role":"navigation","state":"resume.title","target":"editor.screen"},"itemControls":{"updated":{"role":"observable","state":"resume.updated-at"},"template":{"role":"observable","state":"resume.template"}},"fields":["key","name","updated.value","template.value"],"items":[["fxwhkhvyli","QA Lead Application","Updated Aug 28, 2026","Classic"],["resume-3","Product Designer Resume","Updated Feb 25, 2024","Minimal"],["resume-2","Marketing Manager Resume","Updated Feb 10, 2024","Classic"],["resume-1","Software Engineer Resume","Updated Jan 20, 2024","Modern"]]}]}
+
+================================================================================
+[121] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.fxwhkhvyli']", "element": "QA Lead Application card"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.fxwhkhvyli\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-57-21-104Z.yml)
+
+================================================================================
+[122] browser_evaluate  input={"function": "() => ({title: document.querySelector(\"[data-semtag-id='editor.title']\").innerText, preview: document.querySelector(\"[data-semtag-id='preview.d
+--------------------------------------------------------------------------------
+### Result
+{
+  "title": "QA Lead Application",
+  "preview": "Jane Tester\njane@example.com\n• 555-0100\n• Boston, MA\nlinkedin.com/in/janetester\njanetester.dev\nABOUT ME\n\nExperienced QA engineer with a focus on automation, test strategy, continuous integration pipelines, accessibility auditing, performance profiling, cross-browser compatibility validation, exploratory testing, risk-based prioritization, defect triage, release readiness assessment, mentoring junior testers, building reusable test harnesses, maintaining flake-free regression suites, and partnering closely with product and engineering leadership to raise the overall quality bar across many teams.\n\nACADEMIC BACKGROUND\nState University\n\nBachelor of Science in Computer Science – GPA: 3.8\n\nSep 2013 – May 2017\nCAREER HISTORY\nSenior QA Engineer\nJan 2020 – Present\n\nAcme Corp\n\nLed automation testing efforts.\n\nQA Analyst\nMar 2017 – Dec 2019\n\nBeta Inc\n\nManual and regression testing. Owned the end-to-end regression suite covering checkout, search, and account flows. Wrote detailed test plans and executed exploratory charters each sprint. Coordinated UAT with stakeholders across three regions and triaged incoming production defects. Built dashboards tracking escape rate, coverage, and mean time to detection. Mentored two junior analysts and standardized bug report templates. Partnered with developers on root cause analysis and drove adoption of contract testing for the payments integration, cutting integration defects by forty percent over two quarters. Ran accessibility sweeps against WCAG AA and documented remediation backlogs for each product surface.\n\nCORE COMPETENCIES\n\nPlaywright • TypeScript",
+  "contactName": "Jane Tester"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({title: document.querySelector("[data-semtag-id=\'editor.title\']").innerText, preview: document.querySelector("[data-semtag-id=\'preview.document\']").innerText, contactName: document.querySelector("[data-semtag-id=\'editor.contact.full-name\']")?.value})');
+```
+
+================================================================================
+[123] mcp__structured_results__record_result  input={"item_id": "CT-18", "verdict": "PASS", "evidence": "Renamed to \"QA Lead Application\"; editor.title reads \"QA Lead Application\", dashboard card fxwhkhvyli n
+--------------------------------------------------------------------------------
+{"recorded": "CT-18", "verdict": "PASS", "recorded_count": 13, "total_count": 21, "missing_ids": ["FT-6", "FT-7", "FT-8", "CS-11", "IX-13", "IX-14", "CT-16", "CT-17"], "complete": false}
+
+================================================================================
+[124] mcp__structured_results__record_result  input={"item_id": "CT-16", "verdict": "PASS", "evidence": "After switching across all 7 editor tabs, returning to dashboard via editor.back and reopening the card, th
+--------------------------------------------------------------------------------
+{"recorded": "CT-16", "verdict": "PASS", "recorded_count": 14, "total_count": 21, "missing_ids": ["FT-6", "FT-7", "FT-8", "CS-11", "IX-13", "IX-14", "CT-17"], "complete": false}
+
+================================================================================
+[125] mcp__structured_results__record_result  input={"item_id": "IX-13", "verdict": "PASS", "evidence": "education.move-up and skills.visible toggles each re-rendered preview.document instantly (EDUCATION moved a
+--------------------------------------------------------------------------------
+{"recorded": "IX-13", "verdict": "PASS", "recorded_count": 15, "total_count": 21, "missing_ids": ["FT-6", "FT-7", "FT-8", "CS-11", "IX-14", "CT-17"], "complete": false}
+
+================================================================================
+[126] mcp__structured_results__record_result  input={"item_id": "IX-14", "verdict": "PASS", "evidence": "No manual save exists; all edits made across the Contact/Summary/Experience/Education/Skills/Template/Secti
+--------------------------------------------------------------------------------
+{"recorded": "IX-14", "verdict": "PASS", "recorded_count": 16, "total_count": 21, "missing_ids": ["FT-6", "FT-7", "FT-8", "CS-11", "CT-17"], "complete": false}
+
+================================================================================
+[127] browser_click  input={"target": "[data-semtag-id='editor.back']", "element": "Back to dashboard"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.back\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-57-41-487Z.yml)
+
+================================================================================
+[128] browser_evaluate  input={"function": "() => { const card=document.querySelector(\"[data-semtag-id='dashboard.resumes.item.fxwhkhvyli']\"); return [...card.querySelectorAll('button')].m
+--------------------------------------------------------------------------------
+### Result
+[]
+### Ran Playwright code
+```js
+await page.evaluate('() => { const card=document.querySelector("[data-semtag-id=\'dashboard.resumes.item.fxwhkhvyli\']"); return [...card.querySelectorAll(\'button\')].map(b=>({semtag:b.getAttribute(\'data-semtag-id\'), aria:b.getAttribute(\'aria-label\'), txt:b.innerText})); }');
+```
+
+================================================================================
+[129] browser_evaluate  input={"function": "() => { const card=document.querySelector(\"[data-semtag-id='dashboard.resumes.item.fxwhkhvyli']\"); const p=card.closest('div').parentElement; re
+--------------------------------------------------------------------------------
+### Result
+{
+  "cardTag": "H3",
+  "cardHTML": "<h3 class=\"font-semibold text-foreground mb-1 truncate\" data-semtag-id=\"dashboard.resumes.item.fxwhkhvyli\" data-semtag-role=\"navigation\" data-semtag-target=\"editor.screen\" data-semtag-state=\"resume.title\">QA Lead Application</h3>",
+  "parentButtons": [
+    "dashboard.resumes.item.fxwhkhvyli.menu|"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const card=document.querySelector("[data-semtag-id=\'dashboard.resumes.item.fxwhkhvyli\']"); const p=card.closest(\'div\').parentElement; return {cardTag:card.tagName, cardHTML: card.outerHTML.slice(0,300), parentButtons: [...(card.parentElement.parentElement.querySelectorAll(\'button\'))].map(b=>b.getAttribute(\'data-semtag-id\')+\'|\'+b.innerText)}; }');
+```
+
+================================================================================
+[130] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.fxwhkhvyli.menu']", "element": "Card menu for QA Lead Application"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.fxwhkhvyli.menu\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-57-50-779Z.yml)
+
+================================================================================
+[131] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","navigation":[{"id":"dashboard.resumes.item.fxwhkhvyli","name":"QA Lead Application","state":"resume.title","target":"editor.screen"},{"id":"dashboard.resumes.item.resume-3","name":"Product Designer Resume","state":"resume.title","target":"editor.screen"},{"id":"dashboard.resumes.item.resume-2","name":"Marketing Manager Resume","state":"resume.title","target":"editor.screen"},{"id":"dashboard.resumes.item.resume-1","name":"Software Engineer Resume","state":"resume.title","target":"editor.screen"}],"action":[{"id":"dashboard.create","name":"New Resume","action":"create-resume"},{"id":"dashboard.resumes.item.fxwhkhvyli.rename","name":"Rename","action":"rename-resume"},{"id":"dashboard.resumes.item.fxwhkhvyli.duplicate","name":"Duplicate","action":"duplicate-resume"},{"id":"dashboard.resumes.item.fxwhkhvyli.delete","name":"Delete","action":"delete-resume"}],"input":[{"id":"dashboard.search","name":"Search resumes...","state":"dashboard.search.query","controls":"dashboard.resumes","value":""}],"select":[{"id":"dashboard.sort","name":"Newest First","action":"sort-resumes","state":"dashboard.sort","controls":"dashboard.resumes","options":[{"value":"newest","label":"Newest First"},{"value":"oldest","label":"Oldest First"},{"value":"title-asc","label":"Title A-Z"},{"value":"title-desc","label":"Title Z-A"}],"value":"Newest First"}],"observable":[{"id":"dashboard.resumes.item.fxwhkhvyli.updated","name":"Updated Aug 28, 2026","state":"resume.updated-at","value":"Updated Aug 28, 2026"},{"id":"dashboard.resumes.item.fxwhkhvyli.template","name":"Classic","state":"resume.template","value":"Classic"},{"id":"dashboard.resumes.item.resume-3.updated","name":"Updated Feb 25, 2024","state":"resume.updated-at","value":"Updated Feb 25, 2024"},{"id":"dashboard.resumes.item.resume-3.template","name":"Minimal","state":"resume.template","value":"Minimal"},{"id":"dashboard.resumes.item.resume-2.updated","name":"Updated Feb 10, 2024","state":"resume.updated-at","value":"Updated Feb 10, 2024"},{"id":"dashboard.resumes.item.resume-2.template","name":"Classic","state":"resume.template","value":"Classic"},{"id":"dashboard.resumes.item.resume-1.updated","name":"Updated Jan 20, 2024","state":"resume.updated-at","value":"Updated Jan 20, 2024"},{"id":"dashboard.resumes.item.resume-1.template","name":"Modern","state":"resume.template","value":"Modern"}],"collection":[{"id":"dashboard.resumes","name":""}]}
+
+================================================================================
+[132] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.fxwhkhvyli.duplicate']", "element": "Duplicate menu item"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.fxwhkhvyli.duplicate\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-57-54-726Z.yml)
+
+================================================================================
+[133] mcp__semantic_hints__semantic_snapshot  input={"scope": "dashboard.resumes"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","collections":[{"id":"dashboard.resumes","idPattern":"dashboard.resumes.item.{key}[.{control}]","item":{"role":"navigation","state":"resume.title","target":"editor.screen"},"itemControls":{"menu":{"role":"action","name":"","action":"open-resume-menu"},"updated":{"role":"observable","state":"resume.updated-at"},"template":{"role":"observable","state":"resume.template"}},"fields":["key","name","menu","updated.value","template.value"],"items":[["f50os8qr4h","QA Lead Application (Copy)",true,"Updated Aug 28, 2026","Classic"],["fxwhkhvyli","QA Lead Application",null,"Updated Aug 28, 2026","Classic"],["resume-3","Product Designer Resume",null,"Updated Feb 25, 2024","Minimal"],["resume-2","Marketing Manager Resume",null,"Updated Feb 10, 2024","Classic"],["resume-1","Software Engineer Resume",null,"Updated Jan 20, 2024","Modern"]]}]}
+
+================================================================================
+[134] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.f50os8qr4h.menu']", "element": "Copy card menu"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.f50os8qr4h.menu\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-57-59-288Z.yml)
+
+================================================================================
+[135] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.f50os8qr4h.rename']", "element": "Rename copy"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.f50os8qr4h.rename\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-58-01-725Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T00-51-01-964Z.log#L4
+
+================================================================================
+[136] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","navigation":[{"id":"dashboard.resumes.item.f50os8qr4h","name":"QA Lead Application (Copy)","state":"resume.title","target":"editor.screen"},{"id":"dashboard.resumes.item.fxwhkhvyli","name":"QA Lead Application","state":"resume.title","target":"editor.screen"},{"id":"dashboard.resumes.item.resume-3","name":"Product Designer Resume","state":"resume.title","target":"editor.screen"},{"id":"dashboard.resumes.item.resume-2","name":"Marketing Manager Resume","state":"resume.title","target":"editor.screen"},{"id":"dashboard.resumes.item.resume-1","name":"Software Engineer Resume","state":"resume.title","target":"editor.screen"}],"action":[{"id":"dashboard.create","name":"New Resume","action":"create-resume"},{"id":"dashboard.resumes.item.f50os8qr4h.rename-dialog.cancel","name":"Cancel","action":"cancel-rename"},{"id":"dashboard.resumes.item.f50os8qr4h.rename-dialog.save","name":"Save","action":"confirm-rename"}],"input":[{"id":"dashboard.search","name":"Search resumes...","state":"dashboard.search.query","controls":"dashboard.resumes","value":""},{"id":"dashboard.resumes.item.f50os8qr4h.rename-dialog.title","name":"Resume title","state":"resume.title","value":"QA Lead Application (Copy)"}],"select":[{"id":"dashboard.sort","name":"Newest First","action":"sort-resumes","state":"dashboard.sort","controls":"dashboard.resumes","options":[{"value":"newest","label":"Newest First"},{"value":"oldest","label":"Oldest First"},{"value":"title-asc","label":"Title A-Z"},{"value":"title-desc","label":"Title Z-A"}],"value":"Newest First"}],"observable":[{"id":"dashboard.resumes.item.f50os8qr4h.updated","name":"Updated Aug 28, 2026","state":"resume.updated-at","value":"Updated Aug 28, 2026"},{"id":"dashboard.resumes.item.f50os8qr4h.template","name":"Classic","state":"resume.template","value":"Classic"},{"id":"dashboard.resumes.item.fxwhkhvyli.updated","name":"Updated Aug 28, 2026","state":"resume.updated-at","value":"Updated Aug 28, 2026"},{"id":"dashboard.resumes.item.fxwhkhvyli.template","name":"Classic","state":"resume.template","value":"Classic"},{"id":"dashboard.resumes.item.resume-3.updated","name":"Updated Feb 25, 2024","state":"resume.updated-at","value":"Updated Feb 25, 2024"},{"id":"dashboard.resumes.item.resume-3.template","name":"Minimal","state":"resume.template","value":"Minimal"},{"id":"dashboard.resumes.item.resume-2.updated","name":"Updated Feb 10, 2024","state":"resume.updated-at","value":"Updated Feb 10, 2024"},{"id":"dashboard.resumes.item.resume-2.template","name":"Classic","state":"resume.template","value":"Classic"},{"id":"dashboard.resumes.item.resume-1.updated","name":"Updated Jan 20, 2024","state":"resume.updated-at","value":"Updated Jan 20, 2024"},{"id":"dashboard.resumes.item.resume-1.template","name":"Modern","state":"resume.template","value":"Modern"}],"region":[{"id":"dashboard.resumes.item.f50os8qr4h.rename-dialog","name":"Rename Resume"}],"collection":[{"id":"dashboard.resumes","name":""}]}
+
+================================================================================
+[137] browser_type  input={"target": "[data-semtag-id='dashboard.resumes.item.f50os8qr4h.rename-dialog.title']", "element": "Rename dialog title input", "text": "   "}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.f50os8qr4h.rename-dialog.title\']').fill('   ');
+```
+
+================================================================================
+[138] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.f50os8qr4h.rename-dialog.save']", "element": "Save rename"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.f50os8qr4h.rename-dialog.save\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-58-09-527Z.yml)
+
+================================================================================
+[139] browser_evaluate  input={"function": "() => ({dialogOpen: !!document.querySelector(\"[data-semtag-id='dashboard.resumes.item.f50os8qr4h.rename-dialog']\"), cardTitle: document.querySel
+--------------------------------------------------------------------------------
+### Result
+{
+  "dialogOpen": false,
+  "cardTitle": "",
+  "toaster": "none"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({dialogOpen: !!document.querySelector("[data-semtag-id=\'dashboard.resumes.item.f50os8qr4h.rename-dialog\']"), cardTitle: document.querySelector("[data-semtag-id=\'dashboard.resumes.item.f50os8qr4h\']")?.innerText, toaster: document.querySelector(\'[data-sonner-toaster]\')?.innerText ?? \'none\', dialogText: document.querySelector("[data-semtag-id=\'dashboard.resumes.item.f50os8qr4h.rename-dialog\']")?.innerText})');
+```
+
+================================================================================
+[140] mcp__semantic_hints__semantic_observe  input={"id": "dashboard.resumes.item.f50os8qr4h"}
+--------------------------------------------------------------------------------
+{"id":"dashboard.resumes.item.f50os8qr4h","role":"navigation","name":"","state":"resume.title","target":"editor.screen"}
+
+================================================================================
+[141] mcp__structured_results__record_result  input={"item_id": "CS-21", "verdict": "FAIL", "issue": "Dashboard rename dialog accepts a whitespace-only title (resume left with a blank name); editor rename silentl
+--------------------------------------------------------------------------------
+{"recorded": "CS-21", "verdict": "FAIL", "recorded_count": 16, "total_count": 21, "missing_ids": ["FT-6", "FT-7", "FT-8", "CS-11", "CT-17"], "complete": false}
+
+================================================================================
+[142] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.f50os8qr4h.menu']", "element": "Copy card menu"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.f50os8qr4h.menu\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-58-24-335Z.yml)
+
+================================================================================
+[143] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.f50os8qr4h.rename']", "element": "Rename copy"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.f50os8qr4h.rename\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-58-26-715Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T00-51-01-964Z.log#L5
+
+================================================================================
+[144] browser_type  input={"target": "[data-semtag-id='dashboard.resumes.item.f50os8qr4h.rename-dialog.title']", "element": "Rename dialog title input", "text": "Automation Architect App
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.f50os8qr4h.rename-dialog.title\']').fill('Automation Architect Application');
+```
+
+================================================================================
+[145] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.f50os8qr4h.rename-dialog.save']", "element": "Save rename"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.f50os8qr4h.rename-dialog.save\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-58-31-277Z.yml)
+
+================================================================================
+[146] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.f50os8qr4h']", "element": "Automation Architect Application card"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.f50os8qr4h\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-58-34-375Z.yml)
+
+================================================================================
+[147] browser_evaluate  input={"function": "() => ({title: document.querySelector(\"[data-semtag-id='editor.title']\").innerText, name: document.querySelector(\"[data-semtag-id='editor.conta
+--------------------------------------------------------------------------------
+### Result
+{
+  "title": "Automation Architect Application",
+  "name": "Jane Tester",
+  "previewHead": "Jane Tester\njane@example.com\n• 555-0100\n• Boston, MA\nlinkedin.com/in/janetester\njanetester.dev\nABOUT ME\n\nExperienced QA engineer with a focus on automation, test strategy, continuous integration pipel"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({title: document.querySelector("[data-semtag-id=\'editor.title\']").innerText, name: document.querySelector("[data-semtag-id=\'editor.contact.full-name\']")?.value, previewHead: document.querySelector("[data-semtag-id=\'preview.document\']").innerText.slice(0,200)})');
+```
+
+================================================================================
+[148] browser_fill_form  input={"fields": [{"name": "Full name", "target": "[data-semtag-id='editor.contact.full-name']", "type": "textbox", "value": "Jane T. Architect"}, {"name": "Email", "
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.contact.full-name\']').fill('Jane T. Architect');
+await page.locator('[data-semtag-id=\'editor.contact.email\']').fill('arch@example.com');
+```
+
+================================================================================
+[149] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.experience']", "element": "Experience tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.experience\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-58-42-985Z.yml)
+
+================================================================================
+[150] browser_evaluate  input={"function": "() => [...document.querySelectorAll(\"[data-semtag-id^='editor.experience.item.'][data-semtag-role='region']\")].map(e=>e.getAttribute('data-semta
+--------------------------------------------------------------------------------
+### Result
+[
+  "editor.experience.item.lxfqf2lcnfh",
+  "editor.experience.item.2m2cv7joyz4"
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => [...document.querySelectorAll("[data-semtag-id^=\'editor.experience.item.\'][data-semtag-role=\'region\']")].map(e=>e.getAttribute(\'data-semtag-id\'))');
+```
+
+================================================================================
+[151] browser_fill_form  input={"fields": [{"name": "Company", "target": "[data-semtag-id='editor.experience.item.lxfqf2lcnfh.company']", "type": "textbox", "value": "Copy Corp"}]}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.experience.item.lxfqf2lcnfh.company\']').fill('Copy Corp');
+```
+
+================================================================================
+[152] browser_click  input={"target": "[data-semtag-id='editor.back']", "element": "Back to dashboard"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.back\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-58-50-523Z.yml)
+
+================================================================================
+[153] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.fxwhkhvyli']", "element": "QA Lead Application (original)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.fxwhkhvyli\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-58-52-944Z.yml)
+
+================================================================================
+[154] browser_evaluate  input={"function": "() => ({title: document.querySelector(\"[data-semtag-id='editor.title']\").innerText, name: document.querySelector(\"[data-semtag-id='editor.conta
+--------------------------------------------------------------------------------
+### Result
+{
+  "title": "QA Lead Application",
+  "name": "Jane Tester",
+  "email": "jane@example.com",
+  "preview": "Jane Tester\njane@example.com\n• 555-0100\n• Boston, MA\nlinkedin.com/in/janetester\njanetester.dev\nABOUT ME\n\nExperienced QA ",
+  "companies": [
+    "Acme Corp",
+    "Beta Inc"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({title: document.querySelector("[data-semtag-id=\'editor.title\']").innerText, name: document.querySelector("[data-semtag-id=\'editor.contact.full-name\']")?.value, email: document.querySelector("[data-semtag-id=\'editor.contact.email\']")?.value, preview: document.querySelector("[data-semtag-id=\'preview.document\']").innerText.slice(0,120), companies: document.querySelector("[data-semtag-id=\'preview.document\']").innerText.match(/(Acme Corp|Copy Corp|Beta Inc)/g)})');
+```
+
+================================================================================
+[155] browser_fill_form  input={"fields": [{"name": "Location", "target": "[data-semtag-id='editor.contact.location']", "type": "textbox", "value": "Cambridge, MA"}]}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.contact.location\']').fill('Cambridge, MA');
+```
+
+================================================================================
+[156] browser_click  input={"target": "[data-semtag-id='editor.tabs.item.skills']", "element": "Skills tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.tabs.item.skills\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-59-01-520Z.yml)
+
+================================================================================
+[157] browser_type  input={"target": "[data-semtag-id='editor.skills.new.name']", "element": "New skill name", "text": "OriginalOnlySkill"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.skills.new.name\']').fill('OriginalOnlySkill');
+```
+
+================================================================================
+[158] browser_click  input={"target": "[data-semtag-id='editor.skills.add']", "element": "Add skill"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.skills.add\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-59-05-742Z.yml)
+
+================================================================================
+[159] browser_click  input={"target": "[data-semtag-id='editor.back']", "element": "Back to dashboard"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.back\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-59-07-838Z.yml)
+
+================================================================================
+[160] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.f50os8qr4h']", "element": "Automation Architect Application (copy)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.f50os8qr4h\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-59-10-567Z.yml)
+
+================================================================================
+[161] browser_evaluate  input={"function": "() => { const p=document.querySelector(\"[data-semtag-id='preview.document']\").innerText; return {title: document.querySelector(\"[data-semtag-id
+--------------------------------------------------------------------------------
+### Result
+{
+  "title": "Automation Architect Application",
+  "name": "Jane T. Architect",
+  "email": "arch@example.com",
+  "location": "Boston, MA",
+  "hasOriginalOnlySkill": false,
+  "companies": [
+    "Copy Corp",
+    "Beta Inc"
+  ],
+  "skills": "\n\nPlaywright • TypeScript"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const p=document.querySelector("[data-semtag-id=\'preview.document\']").innerText; return {title: document.querySelector("[data-semtag-id=\'editor.title\']").innerText, name: document.querySelector("[data-semtag-id=\'editor.contact.full-name\']")?.value, email: document.querySelector("[data-semtag-id=\'editor.contact.email\']")?.value, location: document.querySelector("[data-semtag-id=\'editor.contact.location\']")?.value, hasOriginalOnlySkill: /OriginalOnlySkill/.test(p), companies: p.match(/(Acme Corp|Copy Corp|Beta Inc)/g), skills: p.split(\'CORE COMPETENCIES\')[1]}; }');
+```
+
+================================================================================
+[162] mcp__structured_results__record_result  input={"item_id": "FT-6", "verdict": "PASS", "evidence": "Card menu → Duplicate created \"QA Lead Application (Copy)\" (id f50os8qr4h) alongside the source. Renamed i
+--------------------------------------------------------------------------------
+{"recorded": "FT-6", "verdict": "PASS", "recorded_count": 17, "total_count": 21, "missing_ids": ["FT-7", "FT-8", "CS-11", "CT-17"], "complete": false}
+
+================================================================================
+[163] mcp__structured_results__record_result  input={"item_id": "CT-17", "verdict": "PASS", "evidence": "Copy→original isolation: after editing the copy (name \"Jane T. Architect\", email arch@example.com, compan
+--------------------------------------------------------------------------------
+{"recorded": "CT-17", "verdict": "PASS", "recorded_count": 18, "total_count": 21, "missing_ids": ["FT-7", "FT-8", "CS-11"], "complete": false}
+
+================================================================================
+[164] browser_click  input={"target": "[data-semtag-id='editor.back']", "element": "Back to dashboard"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.back\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-59-26-074Z.yml)
+
+================================================================================
+[165] browser_click  input={"target": "[data-semtag-id='dashboard.create']", "element": "New Resume"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.create\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-59-28-177Z.yml)
+
+================================================================================
+[166] browser_click  input={"target": "[data-semtag-id='editor.title']", "element": "Resume title"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.title\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-59-30-291Z.yml)
+
+================================================================================
+[167] browser_type  input={"target": "[data-semtag-id='editor.title.input']", "element": "Title input", "text": "Zeta Startup Pitch Resume", "submit": true}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.title.input\']').fill('Zeta Startup Pitch Resume');
+await page.locator('[data-semtag-id=\'editor.title.input\']').press('Enter');
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-59-33-032Z.yml)
+
+================================================================================
+[168] browser_click  input={"target": "[data-semtag-id='editor.contact.full-name']", "element": "Full name input"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.contact.full-name\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-59-35-153Z.yml)
+
+================================================================================
+[169] browser_type  input={"target": "[data-semtag-id='editor.contact.full-name']", "element": "Full name input", "text": "Zed Founder"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.contact.full-name\']').fill('Zed Founder');
+```
+
+================================================================================
+[170] browser_click  input={"target": "[data-semtag-id='editor.back']", "element": "Back to dashboard"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'editor.back\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-59-39-430Z.yml)
+
+================================================================================
+[171] mcp__semantic_hints__semantic_snapshot  input={"scope": "dashboard.resumes"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","collections":[{"id":"dashboard.resumes","idPattern":"dashboard.resumes.item.{key}[.{control}]","item":{"role":"navigation","state":"resume.title","target":"editor.screen"},"itemControls":{"updated":{"role":"observable","state":"resume.updated-at"},"template":{"role":"observable","state":"resume.template"}},"fields":["key","name","updated.value","template.value"],"items":[["kmkxk7nt5ur","Zeta Startup Pitch Resume","Updated Aug 28, 2026","Modern"],["f50os8qr4h","Automation Architect Application","Updated Aug 28, 2026","Classic"],["fxwhkhvyli","QA Lead Application","Updated Aug 28, 2026","Classic"],["resume-3","Product Designer Resume","Updated Feb 25, 2024","Minimal"],["resume-2","Marketing Manager Resume","Updated Feb 10, 2024","Classic"],["resume-1","Software Engineer Resume","Updated Jan 20, 2024","Modern"]]}]}
+
+================================================================================
+[172] mcp__structured_results__record_result  input={"item_id": "FT-7", "verdict": "PASS", "evidence": "Session now holds 6 coexisting resumes including 3 created this session: \"QA Lead Application\" (Classic, J
+--------------------------------------------------------------------------------
+{"recorded": "FT-7", "verdict": "PASS", "recorded_count": 19, "total_count": 21, "missing_ids": ["FT-8", "CS-11"], "complete": false}
+
+================================================================================
+[173] browser_type  input={"target": "[data-semtag-id='dashboard.search']", "element": "Search resumes", "text": "RESUME"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.search\']').fill('RESUME');
+```
+
+================================================================================
+[174] mcp__semantic_hints__semantic_snapshot  input={"scope": "dashboard.resumes"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","collections":[{"id":"dashboard.resumes","idPattern":"dashboard.resumes.item.{key}[.{control}]","item":{"role":"navigation","state":"resume.title","target":"editor.screen"},"itemControls":{"updated":{"role":"observable","state":"resume.updated-at"},"template":{"role":"observable","state":"resume.template"}},"fields":["key","name","updated.value","template.value"],"items":[["kmkxk7nt5ur","Zeta Startup Pitch Resume","Updated Aug 28, 2026","Modern"],["resume-3","Product Designer Resume","Updated Feb 25, 2024","Minimal"],["resume-2","Marketing Manager Resume","Updated Feb 10, 2024","Classic"],["resume-1","Software Engineer Resume","Updated Jan 20, 2024","Modern"]]}]}
+
+================================================================================
+[175] browser_type  input={"target": "[data-semtag-id='dashboard.search']", "element": "Search resumes", "text": "qa lead"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.search\']').fill('qa lead');
+```
+
+================================================================================
+[176] mcp__semantic_hints__semantic_snapshot  input={"scope": "dashboard.resumes"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","navigation":[{"id":"dashboard.resumes.item.fxwhkhvyli","name":"QA Lead Application","state":"resume.title","target":"editor.screen"}],"observable":[{"id":"dashboard.resumes.item.fxwhkhvyli.updated","name":"Updated Aug 28, 2026","state":"resume.updated-at","value":"Updated Aug 28, 2026"},{"id":"dashboard.resumes.item.fxwhkhvyli.template","name":"Classic","state":"resume.template","value":"Classic"}],"collection":[{"id":"dashboard.resumes","name":""}]}
+
+================================================================================
+[177] browser_evaluate  input={"function": "() => { const i=document.querySelector(\"[data-semtag-id='dashboard.search']\"); const s=Object.getOwnPropertyDescriptor(window.HTMLInputElement.p
+--------------------------------------------------------------------------------
+### Result
+true
+### Ran Playwright code
+```js
+await page.evaluate('() => { const i=document.querySelector("[data-semtag-id=\'dashboard.search\']"); const s=Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,\'value\').set; s.call(i,\'\'); i.dispatchEvent(new Event(\'input\',{bubbles:true})); return true; }');
+```
+
+================================================================================
+[178] mcp__semantic_hints__semantic_snapshot  input={"scope": "dashboard.resumes"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","collections":[{"id":"dashboard.resumes","idPattern":"dashboard.resumes.item.{key}[.{control}]","item":{"role":"navigation","state":"resume.title","target":"editor.screen"},"itemControls":{"updated":{"role":"observable","state":"resume.updated-at"},"template":{"role":"observable","state":"resume.template"}},"fields":["key","name","updated.value","template.value"],"items":[["kmkxk7nt5ur","Zeta Startup Pitch Resume","Updated Aug 28, 2026","Modern"],["f50os8qr4h","Automation Architect Application","Updated Aug 28, 2026","Classic"],["fxwhkhvyli","QA Lead Application","Updated Aug 28, 2026","Classic"],["resume-3","Product Designer Resume","Updated Feb 25, 2024","Minimal"],["resume-2","Marketing Manager Resume","Updated Feb 10, 2024","Classic"],["resume-1","Software Engineer Resume","Updated Jan 20, 2024","Modern"]]}]}
+
+================================================================================
+[179] browser_click  input={"target": "[data-semtag-id='dashboard.sort']", "element": "Sort dropdown"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.sort\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T00-59-59-620Z.yml)
+
+================================================================================
+[180] browser_click  input={"target": "[data-semtag-id='dashboard.sort.option.oldest']", "element": "Oldest First option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.sort.option.oldest\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T01-00-01-904Z.yml)
+
+================================================================================
+[181] mcp__semantic_hints__semantic_snapshot  input={"scope": "dashboard.resumes"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","collections":[{"id":"dashboard.resumes","idPattern":"dashboard.resumes.item.{key}[.{control}]","item":{"role":"navigation","state":"resume.title","target":"editor.screen"},"itemControls":{"updated":{"role":"observable","state":"resume.updated-at"},"template":{"role":"observable","state":"resume.template"},"menu":{"role":"action","name":"","action":"open-resume-menu"}},"fields":["key","name","updated.value","template.value","menu"],"items":[["resume-1","Software Engineer Resume","Updated Jan 20, 2024","Modern",null],["resume-2","Marketing Manager Resume","Updated Feb 10, 2024","Classic",null],["resume-3","Product Designer Resume","Updated Feb 25, 2024","Minimal",null],["fxwhkhvyli","QA Lead Application","Updated Aug 28, 2026","Classic",true],["f50os8qr4h","Automation Architect Application","Updated Aug 28, 2026","Classic",null],["kmkxk7nt5ur","Zeta Startup Pitch Resume","Updated Aug 28, 2026","Modern",null]]}]}
+
+================================================================================
+[182] mcp__structured_results__record_result  input={"item_id": "FT-8", "verdict": "PASS", "evidence": "Search \"RESUME\" (uppercase) matched the 4 lowercase-\"Resume\" titles and excluded the 2 \"...Application\
+--------------------------------------------------------------------------------
+{"recorded": "FT-8", "verdict": "PASS", "recorded_count": 20, "total_count": 21, "missing_ids": ["CS-11"], "complete": false}
+
+================================================================================
+[183] browser_click  input={"target": "[data-semtag-id='dashboard.sort']", "element": "Sort dropdown"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.sort\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T01-00-13-593Z.yml)
+
+================================================================================
+[184] browser_click  input={"target": "[data-semtag-id='dashboard.sort.option.newest']", "element": "Newest First option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.sort.option.newest\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T01-00-15-836Z.yml)
+
+================================================================================
+[185] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.resume-2.menu']", "element": "Marketing Manager Resume menu"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.resume-2.menu\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T01-00-19-804Z.yml)
+
+================================================================================
+[186] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.resume-2.delete']", "element": "Delete Marketing Manager Resume"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.resume-2.delete\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 5 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T01-00-22-213Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T00-51-01-964Z.log#L6
+
+================================================================================
+[187] mcp__semantic_hints__semantic_snapshot  input={"scope": "dashboard.resumes"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","collections":[{"id":"dashboard.resumes","idPattern":"dashboard.resumes.item.{key}[.{control}]","item":{"role":"navigation","state":"resume.title","target":"editor.screen"},"itemControls":{"updated":{"role":"observable","state":"resume.updated-at"},"template":{"role":"observable","state":"resume.template"}},"fields":["key","name","updated.value","template.value"],"items":[["kmkxk7nt5ur","Zeta Startup Pitch Resume","Updated Aug 28, 2026","Modern"],["f50os8qr4h","Automation Architect Application","Updated Aug 28, 2026","Classic"],["fxwhkhvyli","QA Lead Application","Updated Aug 28, 2026","Classic"],["resume-3","Product Designer Resume","Updated Feb 25, 2024","Minimal"],["resume-2","Marketing Manager Resume","Updated Feb 10, 2024","Classic"],["resume-1","Software Engineer Resume","Updated Jan 20, 2024","Modern"]]}]}
+
+================================================================================
+[188] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","navigation":[{"id":"dashboard.resumes.item.kmkxk7nt5ur","name":"Zeta Startup Pitch Resume","state":"resume.title","target":"editor.screen"},{"id":"dashboard.resumes.item.f50os8qr4h","name":"Automation Architect Application","state":"resume.title","target":"editor.screen"},{"id":"dashboard.resumes.item.fxwhkhvyli","name":"QA Lead Application","state":"resume.title","target":"editor.screen"},{"id":"dashboard.resumes.item.resume-3","name":"Product Designer Resume","state":"resume.title","target":"editor.screen"},{"id":"dashboard.resumes.item.resume-2","name":"Marketing Manager Resume","state":"resume.title","target":"editor.screen"},{"id":"dashboard.resumes.item.resume-1","name":"Software Engineer Resume","state":"resume.title","target":"editor.screen"}],"action":[{"id":"dashboard.create","name":"New Resume","action":"create-resume"},{"id":"dashboard.resumes.item.resume-2.delete-dialog.cancel","name":"Cancel","action":"cancel-delete"},{"id":"dashboard.resumes.item.resume-2.delete-dialog.confirm","name":"Delete","action":"confirm-delete"}],"input":[{"id":"dashboard.search","name":"Search resumes...","state":"dashboard.search.query","controls":"dashboard.resumes","value":""}],"select":[{"id":"dashboard.sort","name":"Newest First","action":"sort-resumes","state":"dashboard.sort","controls":"dashboard.resumes","options":[{"value":"newest","label":"Newest First"},{"value":"oldest","label":"Oldest First"},{"value":"title-asc","label":"Title A-Z"},{"value":"title-desc","label":"Title Z-A"}],"value":"Newest First"}],"observable":[{"id":"dashboard.resumes.item.kmkxk7nt5ur.updated","name":"Updated Aug 28, 2026","state":"resume.updated-at","value":"Updated Aug 28, 2026"},{"id":"dashboard.resumes.item.kmkxk7nt5ur.template","name":"Modern","state":"resume.template","value":"Modern"},{"id":"dashboard.resumes.item.f50os8qr4h.updated","name":"Updated Aug 28, 2026","state":"resume.updated-at","value":"Updated Aug 28, 2026"},{"id":"dashboard.resumes.item.f50os8qr4h.template","name":"Classic","state":"resume.template","value":"Classic"},{"id":"dashboard.resumes.item.fxwhkhvyli.updated","name":"Updated Aug 28, 2026","state":"resume.updated-at","value":"Updated Aug 28, 2026"},{"id":"dashboard.resumes.item.fxwhkhvyli.template","name":"Classic","state":"resume.template","value":"Classic"},{"id":"dashboard.resumes.item.resume-3.updated","name":"Updated Feb 25, 2024","state":"resume.updated-at","value":"Updated Feb 25, 2024"},{"id":"dashboard.resumes.item.resume-3.template","name":"Minimal","state":"resume.template","value":"Minimal"},{"id":"dashboard.resumes.item.resume-2.updated","name":"Updated Feb 10, 2024","state":"resume.updated-at","value":"Updated Feb 10, 2024"},{"id":"dashboard.resumes.item.resume-2.template","name":"Classic","state":"resume.template","value":"Classic"},{"id":"dashboard.resumes.item.resume-1.updated","name":"Updated Jan 20, 2024","state":"resume.updated-at","value":"Updated Jan 20, 2024"},{"id":"dashboard.resumes.item.resume-1.template","name":"Modern","state":"resume.template","value":"Modern"},{"id":"dashboard.resumes.item.resume-2.delete-dialog.message","name":"Are you sure you want to delete \"Marketing Manager Resume\"? This action cannot be undone.","value":"Are you sure you want to delete \"Marketing Manager Resume\"? This action cannot be undone."}],"region":[{"id":"dashboard.resumes.item.resume-2.delete-dialog","name":"Delete Resume"}],"collection":[{"id":"dashboard.resumes","name":""}]}
+
+================================================================================
+[189] browser_click  input={"target": "[data-semtag-id='dashboard.resumes.item.resume-2.delete-dialog.confirm']", "element": "Confirm delete"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.resumes.item.resume-2.delete-dialog.confirm\']').click();
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 5 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T01-00-28-381Z.yml)
+
+================================================================================
+[190] mcp__semantic_hints__semantic_snapshot  input={"scope": "dashboard.resumes"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","collections":[{"id":"dashboard.resumes","idPattern":"dashboard.resumes.item.{key}[.{control}]","item":{"role":"navigation","state":"resume.title","target":"editor.screen"},"itemControls":{"updated":{"role":"observable","state":"resume.updated-at"},"template":{"role":"observable","state":"resume.template"},"menu":{"role":"action","name":"","action":"open-resume-menu"}},"fields":["key","name","updated.value","template.value","menu"],"items":[["kmkxk7nt5ur","Zeta Startup Pitch Resume","Updated Aug 28, 2026","Modern",null],["f50os8qr4h","Automation Architect Application","Updated Aug 28, 2026","Classic",null],["fxwhkhvyli","QA Lead Application","Updated Aug 28, 2026","Classic",true],["resume-3","Product Designer Resume","Updated Feb 25, 2024","Minimal",null],["resume-1","Software Engineer Resume","Updated Jan 20, 2024","Modern",null]]}]}
+
+================================================================================
+[191] browser_navigate  input={"url": "http://localhost:7005/"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.goto('http://localhost:7005/');
+```
+### Page
+- Page URL: http://localhost:7005/
+- Page Title: ResumeBuilder - Create Professional Resumes
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T01-00-33-165Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T01-00-31-851Z.log#L1-L3
+
+================================================================================
+[192] mcp__semantic_hints__semantic_snapshot  input={"scope": "dashboard.resumes"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7005/","screen":"home","collections":[{"id":"dashboard.resumes","idPattern":"dashboard.resumes.item.{key}[.{control}]","item":{"role":"navigation","state":"resume.title","target":"editor.screen"},"itemControls":{"updated":{"role":"observable","state":"resume.updated-at"},"template":{"role":"observable","state":"resume.template"},"menu":{"role":"action","name":"","action":"open-resume-menu"}},"fields":["key","name","updated.value","template.value","menu"],"items":[["resume-3","Product Designer Resume","Updated Feb 25, 2024","Minimal",null],["resume-2","Marketing Manager Resume","Updated Feb 10, 2024","Classic",null],["resume-1","Software Engineer Resume","Updated Jan 20, 2024","Modern",true]]}]}
+
+================================================================================
+[193] browser_evaluate  input={"function": "() => ({localStorageKeys: Object.keys(localStorage), sessionStorageKeys: Object.keys(sessionStorage)})"}
+--------------------------------------------------------------------------------
+### Result
+{
+  "localStorageKeys": [],
+  "sessionStorageKeys": []
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({localStorageKeys: Object.keys(localStorage), sessionStorageKeys: Object.keys(sessionStorage)})');
+```
+
+================================================================================
+[194] mcp__structured_results__record_result  input={"item_id": "CS-11", "verdict": "FAIL", "issue": "No persistence — all resume changes are lost on reload and deletions are resurrected", "actual": "Before reloa
+--------------------------------------------------------------------------------
+{"recorded": "CS-11", "verdict": "FAIL", "recorded_count": 21, "total_count": 21, "missing_ids": [], "complete": true}
+
+================================================================================
+[195] mcp__structured_results__get_result_progress
+--------------------------------------------------------------------------------
+{"recorded_count": 21, "total_count": 21, "missing_ids": [], "complete": true, "results": [{"item_id": "FT-1", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Clicking dashboard.create opened the editor titled \"Untitled Resume\" with all contact inputs value:\"\", summary text value:\"\" (0/500), empty editor.experience.list, empty editor.education.list, and skills empty-message \"No skills added yet\"; all editor tabs immediately interactive."}, {"item_id": "FT-2", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Template list offers Modern/Classic/Minimal. Selecting Classic then Minimal moved data-semtag-state=\"selected\" accordingly and re-rendered preview.document with visibly different layouts (Modern: \"Professional Summary\"; Classic: uppercase \"PROFESSIONAL SUMMARY\" with inline dates; Minimal: uppercase contact, date column). All content (Jane Tester, summary, Acme Corp, Beta Inc, State University, Playwright, TypeScript) persisted across all three."}, {"item_id": "FT-3", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Contact (6 fields) and summary filled and reflected in preview. Experience: added 2 entries, edited all fields, move-up reordered Beta Inc above Acme Corp then move-down restored, added+removed a 3rd entry (list back to 2). Education: added entry with institution/degree/field/dates/GPA. Skills: added Playwright, changed its level Intermediate→Expert, added TypeScript and TempSkill, removed TempSkill (list = Playwright/Expert, TypeScript/Intermediate)."}, {"item_id": "FT-4", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Sections tab lists contact/summary/experience/education/skills with move-up, move-down and visible toggles. Clicking education.move-up changed editor order to contact,summary,education,experience,skills and preview.document reordered so EDUCATION appears before WORK EXPERIENCE. Toggling skills.visible to false removed the SKILLS block and its content from the preview; toggling back restored it."}, {"item_id": "FT-5", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Toggle labeled \"Hide Preview\" removed editor.preview/preview.document from the DOM and became \"Show Preview\"; clicking again restored the preview with the same Classic-style rendering (\"Jane Tester / jane@example.com / • 555-0100 ...\") and editor content intact (experience company still \"Acme Corp\")."}, {"item_id": "FT-6", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Card menu → Duplicate created \"QA Lead Application (Copy)\" (id f50os8qr4h) alongside the source. Renamed it via the Rename dialog to \"Automation Architect Application\". Opened the copy: it carried the source content, and editing it (full-name→\"Jane T. Architect\", email→arch@example.com, company→\"Copy Corp\") left the source \"QA Lead Application\" unchanged (Jane Tester / jane@example.com / Acme Corp)."}, {"item_id": "FT-7", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Session now holds 6 coexisting resumes including 3 created this session: \"QA Lead Application\" (Classic, Jane Tester/Acme Corp), \"Automation Architect Application\" (Classic, Jane T. Architect/Copy Corp, a renamed duplicate) and \"Zeta Startup Pitch Resume\" (Modern, Zed Founder). Each opens with its own independent content and template."}, {"item_id": "FT-8", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Search \"RESUME\" (uppercase) matched the 4 lowercase-\"Resume\" titles and excluded the 2 \"...Application\" ones; \"qa lead\" (lowercase) matched only \"QA Lead Application\" — case-insensitive both ways. Clearing the box restored all 6 resumes. Sort \"Newest First\" listed Zeta / Automation Architect / QA Lead / Product Designer / Marketing Manager / Software Engineer; \"Oldest First\" produced the exact reverse (Software Engineer Jan 20 2024 → Marketing Feb 10 → Product Designer Feb 25 → QA Lead → Copy → Zeta), matching creation order."}, {"item_id": "FT-19", "verdict": "FAIL", "issue": "Date filtering feature is entirely absent from the dashboard", "actual": "The dashboard toolbar contains only a text search box (dashboard.search) and a sort dropdown (dashboard.sort with newest/oldest/title-asc/title-desc). A DOM scan found 0 input[type=date] elements and no date-range or exact-date controls anywhere on the page, so saved resumes cannot be narrowed by creation date.", "evidence": "Full DOM control inventory of dashboard: submit \"New Resume\", text \"Search resumes...\", button \"Newest First\", 3 card menu buttons. dateInputs: 0"}, {"item_id": "CS-9", "verdict": "FAIL", "issue": "No date-period validation on experience/education entries", "actual": "Set Acme Corp experience start=2020-01 with end=2019-05 (end before start): no error, no styling change, item text unchanged (\"Position 1 / Company / Position / Start Date / End Date...\"), no message anywhere in body. Then set start=2030-01 (future, today is 2026-08-28): also accepted. The preview rendered the invalid period verbatim as \"Jan 2030 - May 2019\". Date inputs are type=month with no max attribute.", "evidence": "preview.document text: \"Senior QA Engineer / Acme Corp / Jan 2030 - May 2019\""}, {"item_id": "CS-10", "verdict": "PASS", "issue": null, "actual": null, "evidence": "All experience and education date inputs are input[type=month]; preview renders \"Mon YYYY\" consistently (\"Jan 2020 - Present\", \"Mar 2017 - Dec 2019\", \"Sep 2013 - May 2017\"). Checking \"I currently work here\" cleared end-date value to \"\" and set disabled=true; preview switched that entry to \"- Present\"."}, {"item_id": "CS-11", "verdict": "FAIL", "issue": "No persistence — all resume changes are lost on reload and deletions are resurrected", "actual": "Before reload the dashboard held 5 resumes: created \"QA Lead Application\" (edited, renamed from Untitled), duplicated+renamed \"Automation Architect Application\", created \"Zeta Startup Pitch Resume\", plus seeds resume-3 and resume-1 (\"Marketing Manager Resume\" had been deleted via the confirm dialog). After navigating to http://localhost:7005/ again, the dashboard reverted to the 3 original seed resumes: Product Designer Resume, Marketing Manager Resume (the deleted one is back), Software Engineer Resume. All 3 session resumes and every content edit were lost. localStorage and sessionStorage are both empty, so state is in-memory only.", "evidence": "Post-reload dashboard.resumes items: [resume-3 Product Designer, resume-2 Marketing Manager, resume-1 Software Engineer]; localStorageKeys=[], sessionStorageKeys=[]"}, {"item_id": "CS-21", "verdict": "FAIL", "issue": "Dashboard rename dialog accepts a whitespace-only title (resume left with a blank name); editor rename silently reverts with no feedback", "actual": "Path A (dashboard menu → Rename dialog): entered \"   \" and clicked Save. The dialog closed, the rename was APPLIED and the card title became an empty string (semantic_observe of dashboard.resumes.item.f50os8qr4h returns name:\"\"). No validation message shown. Path B (editor header title): entering \"   \" or \"\" and pressing Enter reverts to the previous title but shows no message at all — sonner toaster empty, no [role=alert]/[aria-live] text, no inline error.", "evidence": "After Save with whitespace: dialogOpen=false, card innerText=\"\", toaster=\"none\""}, {"item_id": "IX-12", "verdict": "PASS", "issue": null, "actual": null, "evidence": "No save button exists; every edit propagated to preview.document on the spot: contact fields (Jane Tester/jane@example.com/...) appeared immediately after fill, summary text, experience/education entries, skill add+level change+removal, and template switches Modern→Classic→Minimal→Modern each re-rendered the preview instantly without refresh."}, {"item_id": "IX-13", "verdict": "PASS", "issue": null, "actual": null, "evidence": "education.move-up and skills.visible toggles each re-rendered preview.document instantly (EDUCATION moved above WORK EXPERIENCE; SKILLS block disappeared/reappeared). After navigating across editor tabs, out to the dashboard and back into the resume, the preview still shows ACADEMIC BACKGROUND before CAREER HISTORY with SKILLS visible, so the custom layout survived in-session navigation."}, {"item_id": "IX-14", "verdict": "PASS", "issue": null, "actual": null, "evidence": "No manual save exists; all edits made across the Contact/Summary/Experience/Education/Skills/Template/Sections tabs were intact after editor.back to the dashboard and reopening the card. The dashboard card showed the refreshed stamp \"Updated Aug 28, 2026\" (today) and template \"Classic\" matching the chosen style."}, {"item_id": "CT-15", "verdict": "PASS", "issue": null, "actual": null, "evidence": "In each style (Modern/Classic/Minimal) the preview rendered content for all 5 visible sections (contact, summary, experience x2, education, skills). After enlarging content (497-char summary + ~700-char description) the preview region grew from 741px to 1077px, preview.document was fully laid out (height 720px, bottom 444px inside preview bottom 777px, nothing clipped) and the page became scrollable (documentElement scrollHeight 1187 vs clientHeight 720), with the last line \"CORE COMPETENCIES / Playwright • TypeScript\" present."}, {"item_id": "CT-16", "verdict": "PASS", "issue": null, "actual": null, "evidence": "After switching across all 7 editor tabs, returning to dashboard via editor.back and reopening the card, the editor/preview still contained: contact (Jane Tester, jane@example.com, 555-0100, Boston MA, linkedin.com/in/janetester, janetester.dev), the full 497-char summary, both experience entries (Senior QA Engineer/Acme Corp/Jan 2020–Present and QA Analyst/Beta Inc/Mar 2017–Dec 2019 with long description), education (State University, BSc Computer Science, GPA 3.8, Sep 2013–May 2017) and skills (Playwright • TypeScript)."}, {"item_id": "CT-17", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Copy→original isolation: after editing the copy (name \"Jane T. Architect\", email arch@example.com, company \"Copy Corp\"), the original still read Jane Tester / jane@example.com / Acme Corp, Beta Inc. Original→copy isolation: after editing the original (location→\"Cambridge, MA\", added skill \"OriginalOnlySkill\"), the copy still read location \"Boston, MA\", skills \"Playwright • TypeScript\" with no OriginalOnlySkill, and companies Copy Corp / Beta Inc. Both directions isolated despite the copy reusing the same nested entry ids."}, {"item_id": "CT-18", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Renamed to \"QA Lead Application\"; editor.title reads \"QA Lead Application\", dashboard card fxwhkhvyli name = \"QA Lead Application\", and reopening the resume still shows that title in the editor header."}, {"item_id": "CT-20", "verdict": "FAIL", "issue": "Customized section headings not rendered in every style: contact heading never rendered; summary heading missing in Minimal", "actual": "Renamed all 5 editable section titles to: Contact=\"How To Reach Me\", Summary=\"About Me\", Experience=\"Career History\", Education=\"Academic Background\", Skills=\"Core Competencies\". Modern preview shows About Me / Academic Background / Career History / Core Competencies but no \"How To Reach Me\". Classic shows ABOUT ME / ACADEMIC BACKGROUND / CAREER HISTORY / CORE COMPETENCIES but no \"How To Reach Me\". Minimal shows ACADEMIC BACKGROUND / CAREER HISTORY / CORE COMPETENCIES only — the summary paragraph is rendered with NO heading at all, so the customized \"About Me\" is dropped, and \"How To Reach Me\" is again absent.", "evidence": "Minimal preview text: \"...JANETESTER.DEV\\n\\nExperienced QA engineer with a focus on automation.\\n\\nACADEMIC BACKGROUND...\" — no About Me heading between contact block and summary text."}]}
+
+
+# accessibility snapshots seen by the agent: 1
+# screenshots seen by the agent: 0

@@ -1,0 +1,101 @@
+=== injection: WebTestBench_0089 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0089
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the FilterSidebar with its three selects:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the grid container in Index, and TemplateCard items:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the TemplatePreview sheet:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the SubmitTemplateModal:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Finally EmptyState and NotFound:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now run the skill's validator, then the project's own checks:
+[tool] Bash
+[tool] Bash
+Dependencies aren't installed; installing then re-running checks:
+[tool] Bash
+[tool] Bash
+All checks pass. Summary of the injection:
+
+## What was annotated
+
+**Validator:** `0 errors, 0 warnings` across 67 hinted elements. **Project checks:** `tsc --noEmit` clean, `vite build` succeeds, vitest suite passes (1/1). Only `data-semtag-*` attributes were added — no behavior, styling, or copy changed. All UI primitives (shadcn/Radix) already spread props, so no component widening was needed.
+
+### Screens & components
+- **Header** — `header.favorites` (toggle, literal `on`/`off` state since a button has no readable form value, controls `templates.grid`), `header.favorites.count` (observable), `header.submit-template` (action)
+- **SearchBar** — `search.query` (input, controls `templates.grid`), `search.clear` (action), `search.suggestions` collection with items `search.suggestions.item.<slug>` (apply-suggestion actions)
+- **FilterSidebar** — `filters.panel` region, `filters.result-count` observable, three select triggers (`filters.category`, `filters.scenario`, `filters.sort`) each with `data-semtag-options` built from the same `categoryLabels`/`scenarioLabels` sources that render the menu, plus `option`-role hints on every `SelectItem`
+- **Template grid** (Index + TemplateCard) — `templates.grid` collection; per item: `templates.grid.item.<id>` (title observable, keyed by database id), `.favorite` (toggle), `.popularity` / `.updated` (observables), `.use` (action)
+- **TemplatePreview sheet** — `preview.panel` region, `preview.title`, `preview.favorite`, `preview.close`, tab navigations (`preview.tab.fill`, `preview.tab.result`), `preview.missing-fields` observable, `preview.fields` collection keyed by `field.id` with per-item `.error` observables, `preview.copy`, `preview.result` observable
+- **SubmitTemplateModal** — `submit.dialog` region; inputs `submit.title/author/description/content`; selects `submit.category/scenario` with options; `submit.markdown` toggle; `submit.fields` collection keyed by label slug with `.remove` controls; new-field row (`submit.new-field.label/placeholder/type/required/add`); `submit.cancel` / `submit.confirm`
+- **EmptyState** — `templates.empty` region, `.title` observable, and a type-dependent action (`templates.empty.clear-filters` or `.browse-all` — never both rendered)
+- **NotFound** — `notfound.home` navigation → `home.page`
+
+### Id namespaces
+`header.*`, `search.*`, `filters.*`, `templates.grid.*`, `templates.empty.*`, `preview.*`, `submit.*`, `notfound.*`
+
+### Manual checks the linter can't do
+- All four collection containers (`templates.grid`, `search.suggestions`, `preview.fields`, `submit.fields`) are direct DOM ancestors of their items (AnimatePresence/framer-motion wrappers render children in place).
+- Runtime uniqueness: template ids and template-field ids are unique in the data, so grid and preview item ids stay unique.
+
+### Known caveats
+- `submit.fields` items are keyed by a label slug (the app itself keys fields by index and derives ids from labels); two user-added fields with identical labels would collide — that mirrors an existing app-data limitation, not an id-scheme choice.
+- Select `option` elements live in a Radix portal and only render while the menu is open; the trigger's `data-semtag-options` is the primary way agents pick a value.
+- Deliberately unhinted: decorative icons, badges duplicating the select-driven category/scenario state, layout wrappers, and the app title/hero copy.
+
+--- WebTestBench_0089: ok in 304.4s
+    turns=61 cost=$1.5476572500000003 tool_calls=59 skill_invoked=True
+    hinted_elements=67 files=9 validator_errors=0 warnings=0

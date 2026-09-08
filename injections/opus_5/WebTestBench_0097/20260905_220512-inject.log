@@ -1,0 +1,180 @@
+=== injection: WebTestBench_0097 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0097
+model:  claude-opus-5   max_turns: 150
+
+I'll start by invoking the semtag-inject skill.
+[tool] Skill
+I'll start by reading the spec as instructed.
+[tool] Read
+[tool] Bash
+The project root has no `src/`. Let me find the actual app.
+[tool] Bash
+The shell cwd is actually a specific app directory. Let me explore it.
+[tool] Bash
+[tool] Bash
+No existing semtags. Let me read the app's structure.
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+Now the components. Let me read them all.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Bash
+All UI components spread props, so no prop-widening needed. Let me read the validator to know what it enforces.
+[tool] Read
+Let me check the toaster and the unused NavLink component.
+[tool] Read
+[tool] Bash
+NavLink is dead code. Let me capture a baseline of the project's checks before editing.
+[tool] Bash
+[tool] Bash
+Dependencies aren't installed. Let me start `npm ci` in the background while I inject hints.
+[tool] Bash
+Now let me inject hints. Starting with `Index.tsx` (header, hero stats, footer).
+[tool] Edit
+Now the hero stats collection:
+[tool] Edit
+`npm ci` finished. Continuing with the footer links:
+[tool] Edit
+Now `JobSearch.tsx` — the search controls and the model grid collection:
+[tool] Edit
+Now the model card grid:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the empty state:
+[tool] Edit
+Now `ModelDetailView.tsx` — header, back, and action buttons:
+[tool] Edit
+Now `MetricsPanel.tsx` — the four metric cards and alerts:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the Critical Path and Risk Gaps cards, including their badge collections:
+[tool] Edit
+[tool] Edit
+Now the two alerts:
+[tool] Edit
+[tool] Edit
+Now the graph container as the collection ancestor for the nodes:
+[tool] Edit
+Now `CompetencyNode.tsx` — the per-item controls inside the graph collection:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now `SimulationPanel.tsx` — the scenario tabs, adjustment sliders, and run/reset:
+[tool] Edit
+I dropped the `<CardHeader>` tag. Let me fix that:
+[tool] Read
+[tool] Edit
+Now the scenario tabs collection:
+[tool] Edit
+Now the scenario description and the category-adjustment collection:
+[tool] Edit
+Now the per-category label, badge, and the two slider pairs:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now `TemplateLibrary.tsx`:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the NotFound page and the toast surface (so the agent can read confirmation messages):
+[tool] Edit
+[tool] Bash
+TOAST_LIMIT is 1, so flat toast ids stay unique. Adding hints in the shared toaster:
+[tool] Bash
+[tool] Edit
+Now let me run the skill's validator.
+[tool] Bash
+Validator is clean (0 errors/warnings; the 6 info items are top-level region ids, which the spec allows). Now let me verify what static analysis can't see. First, the Radix Tabs mounting question:
+[tool] Bash
+[tool] Bash
+Confirmed: `children: present && children` — inactive tabs render nothing, so `simulation.adjustments` exists exactly once at runtime. Now let me verify collection ancestry and id uniqueness against the real DOM with a temporary test.
+[tool] Bash
+[tool] Write
+[tool] Bash
+Good — browse screen passes. The detail-view failures are a framer-motion `AnimatePresence` + jsdom artifact (the exit animation never completes), not a hint problem. Let me render the detail view directly instead.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Bash
+All runtime checks pass — including that ReactFlow's graph nodes really do land inside the `graph` collection. Now let me remove the temporary harness and run the project's own checks.
+[tool] Bash
+[tool] Bash
+Build, type-check, and tests all pass. Let me confirm the lint errors are pre-existing and not from my files.
+[tool] Bash
+Let me rigorously confirm those lint findings pre-date my changes:
+[tool] Bash
+[tool] Bash
+The app isn't tracked by git. But there may be an unhinted original to compare against:
+[tool] Bash
+There's a pristine original. Let me lint it as a true baseline and diff my changes against it.
+[tool] Bash
+Lint output is byte-identical before and after. Let me clean up the symlink and verify my diff adds nothing but attributes.
+[tool] Bash
+Let me check whether the original already had its own `node_modules` and that I left no stray symlink.
+[tool] Bash
+I created a stray nested symlink. Removing it:
+[tool] Bash
+Cleaned up. Now the key check — confirming my diff adds *only* attributes:
+[tool] Bash
+Every removed line is a tag I re-expanded across lines. Let me prove it definitively — strip all `data-semtag-*` attributes from my version and compare token-for-token with the original:
+[tool] Bash
+Every difference is whitespace where the stripped attribute sat. Let me confirm with a whitespace-insensitive comparison:
+[tool] Bash
+9 of 10 files are provably identical modulo semtag attributes and whitespace. The lone residual is `toaster.tsx`, where multi-line formatting added parentheses around `&&` JSX — semantically inert. Final confirmation run:
+[tool] Bash
+Done. **82 hinted elements, 0 errors, 0 warnings.**
+
+## What I annotated
+
+The app is *CompetencyHub* (Vite + React + shadcn, single route with two view states):
+
+| Screen / component | Hints |
+|---|---|
+| **Header / footer** (`Index.tsx`) | `nav.models`, `nav.analytics`, three `footer.*` links |
+| **Browse screen** | `home.stats` collection (3), `models.filters` region, `models.search.query` input, `models.filter.department` select + options, `models.grid` collection (5), `models.grid.empty` |
+| **Model detail** | `model.detail.header` region, back/export/share/save, title/department/count observables |
+| **Metrics** | coverage, avg level, critical-path & risk-gap counts, two badge collections, both alerts |
+| **Graph** (`CompetencyNode`) | `graph` collection with 6 nodes; per node: enabled toggle, category/critical/gap badges, level readout, **5 level buttons**, weight slider + display |
+| **Simulation** | `simulation.scenarios` tab collection (3), `simulation.adjustments` collection (4 categories × slider+display pairs), run/reset |
+| **Template library** | `templates.list` collection (5), per-item metadata + apply action, save-current |
+| **404 + toast** | `notFound.*`; `toast`/`toast.title`/`toast.message`/`toast.close` in the shared toaster |
+
+**Namespaces:** `nav.*`, `footer.*`, `home.stats.*`, `models.*`, `model.detail.*`, `metrics.*`, `graph.*`, `simulation.*`, `templates.*`, `toast.*`, `notFound.*`.
+
+## Verification beyond the linter
+
+The linter can't see DOM ancestry or runtime ids, so I wrote a temporary vitest harness (since deleted) that rendered every screen and asserted **zero duplicate ids** and **zero orphaned `.item.` ids** on the browse screen, the detail screen, after a tab switch, after a toast, and in the empty state. This confirmed the two things I couldn't take on faith:
+
+- **ReactFlow nodes really land inside the `graph` collection** — they're portal-ish and rendered by the library, so I verified all 6 `graph.item.*` ids resolve under the container.
+- **`simulation.adjustments` is mounted exactly once.** It's rendered inside *every* `TabsContent`, which would have meant 3 duplicate copies. I read the Radix source (`children: present && children`) and confirmed inactive tabs render nothing.
+
+## Notes
+
+- **No prop-widening was needed** — every shadcn component already spreads `...props`.
+- **Behavior is provably unchanged.** I diffed against the pristine copy in `web_applications/`: stripping all `data-semtag-*` attributes makes 9 of 10 files byte-identical to the original modulo whitespace. The tenth (`toaster.tsx`) differs only by parentheses added around `&&` JSX during reformatting.
+- **The 6 `flat-id` INFOs are expected** — they're top-level region/collection ids (`graph`, `metrics`, `simulation`, `templates`, `toast`, `notFound`), which the spec explicitly permits.
+- **Pre-existing lint failures:** `npm run lint` reports 3 errors + 7 warnings. These are **not mine** — I linted the pristine original and the file list is byte-identical. All are shadcn/tailwind boilerplate (`no-empty-object-type`, `no-require-imports`); none of the 10 files I touched produce any finding.
+
+**Deliberately left unhinted:** keyword badges on model/template cards (~35 elements of low value), the model description paragraphs (long text), the decorative chevron button, ReactFlow's Controls/MiniMap/edges, the unused `NavLink.tsx` dead code, and the inert `<Sonner />` toaster.
+
+One thing worth flagging: I ran `npm ci` to install dependencies, which weren't present. That's the only change outside `src/`.
+
+--- WebTestBench_0097: ok in 721.0s
+    turns=92 cost=$5.7436609999999995 tool_calls=90 skill_invoked=True
+    hinted_elements=82 files=10 validator_errors=0 warnings=0

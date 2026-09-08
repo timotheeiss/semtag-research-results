@@ -1,0 +1,151 @@
+=== injection: WebTestBench_0019 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0019
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Ids are stable domain slugs (`thread-1`, `user-2`, `general`) — good keys for collections. Now injecting hints, starting with the shared components.
+
+**Header.tsx** (renders on every screen):
+[tool] Edit
+[tool] Edit
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Now editing Header:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**Sidebar.tsx** — filter actions, categories collection, stats observables:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ThreadCard.tsx** — thread it a collection id from each call site so ids stay unique when the same thread appears on different screens:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ReplyCard.tsx** — items of the `thread.replies` collection (only used on ThreadPage):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the pages. **HomePage** and **CategoryPage**:
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ThreadPage.tsx**:
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**NewThreadPage.tsx** — form with select + options:
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**LoginPage** and **RegisterPage**:
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ProfilePage** and **NotFound**:
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Read
+[tool] Edit
+[tool] Edit
+All screens are annotated. Now running the skill's validator:
+[tool] Bash
+[tool] Grep
+[tool] Bash
+[tool] Bash
+[tool] Bash
+The app directory is a fresh untracked copy, so the injection is the only modification. One more check — TypeScript (vite build doesn't type-check):
+[tool] Bash
+Injection complete. Summary:
+
+## Screens & components annotated (all 8 routes)
+
+- **Header** (every screen): `nav.home`, `search.query` (input, controls `threads.list`), `nav.new-thread`, `nav.profile`, `nav.logout`, `nav.login`, `nav.register`
+- **Sidebar** (Home, Category): `browse.filters` region with sort actions (`browse.filters.trending/recent/hot`, state `threads.filter`), `nav.categories` collection (items keyed by category slug), `stats.*` observables
+- **HomePage / CategoryPage**: `threads.list` collection, `threads.heading` / `search.summary` observables (linked to `threads.filter` / `search.query`), `category.title`/`.description`, empty states
+- **ThreadCard** (shared): per-item title link (`<list>.item.<thread-id>`, nav → `thread.detail`) plus `.upvote`, `.upvotes`, `.author`, `.replies`, `.views`
+- **ThreadPage**: `thread.detail` region (`thread.upvote/.upvotes/.title/.content/.author/.reply-count/.view-count`), `reply.form` region (`reply.content`, `reply.submit` controls `thread.replies`), `thread.replies` collection via **ReplyCard** (item id on the content paragraph, `.upvote/.upvotes/.author`)
+- **NewThreadPage**: `new-thread.form`; category select with `data-semtag-options` built from the same `categories.map` that renders the `SelectItem`s (`new-thread.category.option.<id>`); title input + live char-counter sharing state key `new-thread.title`; content, cancel, submit
+- **Login / Register / NotFound**: form regions, field inputs, submit actions, cross-links
+
+## Id namespaces
+
+`nav.*`, `search.*`, `browse.filters.*`, `stats.*`, `threads.*`, `category.*`, `thread.*` (incl. `thread.replies.item.*`), `reply.*`, `new-thread.*`, `login.*`, `register.*`, `profile.*`, `error.*`
+
+## Design notes
+
+- Same thread in multiple lists: `ThreadCard` takes a `semtagCollectionId` prop (the one permitted prop-widening); each page scopes item ids (`threads.list.item.*` vs `profile.threads.item.*`), and emits **no** attributes if the prop is absent, per spec §8. Item keys are stable entity ids (`thread-3`, `reply-2`, `tech`), never indexes.
+- **Not folded**: profile interest badges — hinted as a single `profile.interests` observable instead of a collection (no per-item controls; interest strings aren't stable slugs).
+- **Left unhinted**: per-card category badge (reachable via sidebar), timestamps/avatars, decorative icons, toast notifications.
+
+## Validation
+
+- `validate-semtags.mjs`: **78 hinted elements, 0 errors, 6 warnings** — all cross-file literal duplicates I verified never co-render on one page (Header isn't rendered on Login/Register/NotFound; `threads.list` is on Home *or* Category; `nav.back` once per page). Collection ancestry confirmed by reading the DOM structure.
+- `vite build` ✓, `tsc --noEmit` ✓, `eslint`: 1 pre-existing error in `tailwind.config.ts` (a file I didn't touch) plus pre-existing shadcn warnings — unrelated to the injection. No behavior, styling, or copy changed.
+
+--- WebTestBench_0019: ok in 441.9s
+    turns=105 cost=$2.96378875 tool_calls=103 skill_invoked=True
+    hinted_elements=79 files=12 validator_errors=0 warnings=6

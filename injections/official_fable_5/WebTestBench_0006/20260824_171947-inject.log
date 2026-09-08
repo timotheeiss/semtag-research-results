@@ -1,0 +1,137 @@
+=== injection: WebTestBench_0006 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0006
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Edit
+[tool] Read
+[tool] Edit
+**StatCard** — widen props so `data-semtag-*` passes through to the value element:
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**Dashboard (Index.tsx + RecentTransactions):**
+[tool] Edit
+[tool] Read
+[tool] Edit
+[tool] Edit
+**Transactions page:**
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the summary totals and the two dialogs on the Transactions page:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**TransactionDialog:**
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**Categories page** — thread a collection id through the local `CategoryCard`:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**CategoryDialog:**
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**Reports page:**
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**Tax Summary page:**
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**NotFound page:**
+[tool] Read
+[tool] Edit
+Now run the skill's validator:
+[tool] Bash
+Fix the one info — give the nav container a dotted id (item prefix need not match the container id, per §7):
+[tool] Edit
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Done. Semantic hints injected across the entire app, validator clean, type-check and build pass.
+
+## Summary
+
+**Screens & components annotated** (89 hinted elements):
+- **Sidebar (shared)** — `nav.sidebar` collection with folded `nav.item.<slug>` navigation links (dashboard, transactions, categories, reports, tax-summary)
+- **Dashboard** — 4 stat cards as observables (`dashboard.stats.*` with state keys `balance.total`, `month.income/expenses/profit`); `dashboard.recent` collection keyed by `tx-N` with `.meta`/`.amount` per item
+- **Transactions** — `transactions.add`; `transactions.filters` region (search input, type/category selects with `data-semtag-options` built from the same `categories` array that renders the menu, date-from/to, clear — all with `controls → transactions.table`); `transactions.table` collection keyed `tx-N` with `.date`, `.category`, `.amount`, `.edit`, `.delete` and an item id on the description cell; summary totals; empty-state observable; delete-confirm dialog region
+- **Transaction dialog** — `transaction.form` region: type/category selects (options from live data), date, description, amount, reference, notes inputs, tax-related toggle, cancel/submit
+- **Categories** — `categories.income` and `categories.expense` collections keyed `cat-N` (collection id threaded through the shared `CategoryCard` via a new `collectionId` prop) with `.count`, `.total`, `.edit`, `.delete`; add button; delete dialog; `category.form` dialog with color picker as a folded `option` collection keyed by color name, `selected` state literal on the active swatch
+- **Reports** — `reports.month` select (options from `monthOptions`); 3 summary observables; `reports.income-by-category` / `reports.expenses-by-category` collections keyed by slugified category name; empty-state observables
+- **Tax Summary** — `tax.year` select, `tax.print`; 3 summary observables; `tax.income-table` / `tax.expense-table` (keyed `cat-N`, attributes omitted entirely for unknown categories rather than half-formed) and `tax.transactions` (keyed `tx-N`) collections; transaction count observable
+- **404** — `notfound.home` navigation
+
+**Id namespaces:** `nav`, `dashboard`, `transactions`, `transaction.form`, `categories`, `category.form`, `reports`, `tax`, `notfound`.
+
+**Permitted prop-widening (only non-attribute code change):** `StatCard` now extends `ComponentProps<'p'>` and spreads onto its value element; `CategoryCard` (local to Categories.tsx) takes a `collectionId` prop for collection-scoped ids.
+
+**Deliberately unhinted:** the recharts SVG charts (Monthly/Expense/Daily charts) — their values aren't extractable as element text; the equivalent numbers are exposed via the summary observables. Also table total rows in Tax Summary (duplicate the summary-card observables) and decorative icons/wrappers.
+
+**Verification:** validator — 0 errors / 0 warnings / 0 info; `tsc --noEmit` — clean; `vite build` — succeeds (pre-existing chunk-size warning only). `eslint` reports 3 errors / 8 warnings, all in files I did not touch (shadcn `ui/*` boilerplate, `BookkeepingContext`, `tailwind.config.ts`) — pre-existing.
+
+--- WebTestBench_0006: ok in 481.7s
+    turns=98 cost=$3.8019015000000005 tool_calls=96 skill_invoked=True
+    hinted_elements=89 files=11 validator_errors=0 warnings=0

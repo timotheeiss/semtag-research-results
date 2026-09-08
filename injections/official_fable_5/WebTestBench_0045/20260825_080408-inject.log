@@ -1,0 +1,75 @@
+=== injection: WebTestBench_0045 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0045
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now TaskItem — the per-item hints (title anchor, checkbox toggle, priority/deadline observables, blocked-state, edit/delete controls):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now TaskFilters — view toggles and the sort select (deriving `data-semtag-options` from the same array that renders the items):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the TaskForm dialog:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Finally the 404 page, then validate:
+[tool] Edit
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Done. All checks pass on the code I touched.
+
+## Summary
+
+**App**: `data/WebTestBench/web_applications_hinted/WebTestBench_0045` (cwd) — a task manager with dependencies. **29 hinted elements**, validator: **0 errors, 0 warnings**.
+
+**Screens/components annotated**
+- **Main screen** (`Index.tsx`): header summary (`tasks.summary`, observable `tasks.counts`), Add Task button (`tasks.add` → controls `task.form`), task list container (`tasks.list`, `collection`), empty-state message (`tasks.empty`).
+- **Task item** (`TaskItem.tsx`, shared component so every row is covered once): item anchor on the title (`tasks.list.item.<id>`), plus per-item controls/observables `.complete` (toggle with dynamic `completed`/`blocked`/`active` state), `.priority`, `.deadline`, `.blocked-warning`, `.prerequisites-done`, `.edit`, `.delete`.
+- **Filter bar** (`TaskFilters.tsx`): Active/Completed view toggles (`filters.show-active`/`filters.show-completed`, dynamic `selected` state, controls `tasks.list`), sort select (`filters.sort` with `data-semtag-options` derived from the same `sortOptions` array that now renders the `SelectItem`s — the one structural change, behavior-identical) and its `filters.sort.option.*` options.
+- **Task form dialog** (`TaskForm.tsx`): region `task.form`; inputs `.title`, `.description`, `.deadline` (+ `.deadline.clear`); priority select with options built from `priorityOptions`; prerequisites checklist as a foldable collection (`task.form.prerequisites.item.<taskId>` toggles); `.cancel` / `.submit`.
+- **404 page** (`NotFound.tsx`): `notfound.message`, `notfound.home` → `tasks.page`.
+
+**Id namespaces**: `tasks.*`, `tasks.list.item.<taskId>.*`, `filters.*`, `task.form.*`, `notfound.*`. Item keys use stable task ids (seed ids `1`–`7` / `crypto.randomUUID()`), never indices; each task renders at most once per view, and the form's prerequisite items use a distinct prefix, so ids stay unique page-wide. Both collections' containers are direct ancestors of their items.
+
+**Left unhinted**: `DependencyLines` (decorative SVG), tooltip contents (transient, duplicate the warning text), count badges inside the filter buttons (duplicated by `tasks.summary`), header title/icon.
+
+**Project checks**: `tsc --noEmit` clean, `vite build` succeeds. `npm run lint` reports 3 errors / 7 warnings, all pre-existing in untouched shadcn boilerplate (`ui/command.tsx`, `ui/textarea.tsx`, `tailwind.config.ts`) — not introduced by this change.
+
+--- WebTestBench_0045: ok in 263.2s
+    turns=47 cost=$1.4685237500000003 tool_calls=45 skill_invoked=True
+    hinted_elements=29 files=5 validator_errors=0 warnings=0

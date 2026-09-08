@@ -1,0 +1,175 @@
+=== injection: WebTestBench_0003 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0003
+model:  claude-opus-5   max_turns: 150
+
+I'll start by invoking the skill to get its procedure.
+[tool] Skill
+I'll read the spec first, and explore the project layout in parallel.
+[tool] Read
+[tool] Bash
+The shell cwd points at a specific app. Let me explore it.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+A job board app. Let me read the core files.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Now let me check the shared UI components for prop pass-through, and establish a baseline.
+[tool] Bash
+[tool] Bash
+Now I have the full picture. Let me start the dependency install in the background while I inject.
+[tool] Bash
+Now the injection. Starting with the global header:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the job list card — the largest repeated collection:
+[tool] Write
+Install finished. Continuing with the filters:
+[tool] Write
+Now the Index page — results count, empty state, and the list collection container:
+[tool] Edit
+[tool] Edit
+Now the job detail page:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the application form:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the employer dashboard — the most complex screen, with nested collections:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the per-job row, delete dialog, and the nested applications collection:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the Post Job form — the last screen:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the skills sub-collection and the submit/cancel actions:
+[tool] Edit
+[tool] Edit
+Finally the 404 screen:
+[tool] Edit
+Injection complete. Now running the skill's validator:
+[tool] Bash
+Clean. Now the project's own checks — type-check, lint, build:
+[tool] Bash
+[tool] Bash
+Type-check is clean. Let me confirm the 4 lint errors are pre-existing, not mine:
+[tool] Bash
+Not tracked. Let me compare against the un-hinted original copy:
+[tool] Bash
+[tool] Bash
+Confirmed identical (4 errors, 8 warnings) before my changes. Now the build, and a diff to prove only attributes changed:
+[tool] Bash
+[tool] Bash
+Build passes. Now verifying the diff contains nothing but attributes:
+[tool] Bash
+All removals are single-line tags that got re-wrapped. Let me verify that rigorously — strip the semtag attributes back out and compare to the original:
+[tool] Bash
+Those are artifacts of my stripper (a leftover space before `>`, plus the intentional options constants). Tightening the normalization:
+[tool] Bash
+Every remaining difference is the same benign pattern — JSX children moved onto their own line. JSX strips newline-adjacent whitespace at text edges, so let me normalize by that actual rule:
+[tool] Bash
+Now the checks the validator explicitly cannot make — DOM ancestry and runtime id uniqueness. Let me verify those on the real rendered app:
+[tool] Bash
+[tool] Bash
+There's a `dump_agent_view.py` in the harness — let me see if I can use it to check the real snapshot:
+[tool] Bash
+Playwright browsers are cached on this machine. Let me set up a throwaway env (not touching the project venv) and verify the live DOM:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Version mismatch with the cached browsers. Let me just point at the cached Chromium:
+[tool] Bash
+[tool] Bash
+Every screen verified: no duplicate ids, no roleless hints, and every `.item.` id's nearest collection ancestor matches its prefix — so all five collections fold. Now let me confirm the `data-semtag-options` match the real menus, and screenshot-diff against the original app:
+[tool] Bash
+The CSS bundle hash is **identical** (`index-CsvmCOjG.css`) in both builds — zero styling change. Now a pixel diff of every screen:
+[tool] Bash
+[tool] Bash
+Every screen is pixel-identical. Final check — that each `data-semtag-options` matches the menu it advertises:
+[tool] Bash
+Let me shut down the servers and clean up:
+[tool] Bash
+[tool] Bash
+The `pkill` killed the shell before cleanup ran. Redoing it:
+[tool] Bash
+[tool] Bash
+The `pkill` keeps matching its own command line. Checking with a non-self-matching pattern:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Done. The app is `WebTestBench_0003`, a Vite/React/shadcn job board.
+
+## What I annotated
+
+97 hinted elements across 9 source files — all five screens, plus their conditional states:
+
+| Screen | Coverage |
+|---|---|
+| Header (global) | brand + 3 nav links |
+| `/` Home | hero job count, filter panel (search, 3 selects w/ options, clear), results count, empty state, job list |
+| `/jobs/:id` Detail | badges, title, company, location, salary, posted, description, skills, apply form (4 fields + submit), *job-not-found* branch |
+| `/employer/dashboard` | employer name, 2 stat cards, job list, per-row expand/delete, delete dialog, nested applications, both empty states |
+| `/employer/post-job` | 4 inputs, 3 selects, dynamic salary-unit labels, skill add/remove chips, submit, cancel |
+| `*` 404 | message + home link |
+
+**Id namespaces:** `nav.*`, `home.stats.*`, `jobs.filters.*`, `jobs.list.*`, `job.*` (incl. `job.apply.*`), `employer.dashboard.*`, `employer.jobs.list.*`, `employer.applications.<jobId>.*`, `employer.delete-job-dialog.*`, `employer.post-job.*`, `not-found.*`.
+
+## Collections — all five fold
+
+Verified in the live DOM, not just assumed: `jobs.list` (8), `job.skills` (4), `employer.jobs.list` (5), `employer.applications.job-1/-2` (2/1), `employer.post-job.skills` (3). For every `.item.` id, the nearest `role="collection"` ancestor exactly equals its prefix. The applications lists nest inside the jobs list and still resolve to the correct container.
+
+## Validation
+
+- **Skill's linter: 0 errors, 0 warnings, 0 info.**
+- Checks it *can't* see, done in a headless browser across all screens plus interactive states (select open, all applications expanded, delete dialog open, skills added): **no duplicate ids, no roleless hints, no broken ancestry**. Advertised `data-semtag-options` matches the rendered menu for all 6 selects.
+- `tsc --noEmit` clean; `vite build` passes.
+- **Pre-existing failure:** `npm run lint` reports 4 errors — identical count and rules on the untouched original (`badge.tsx`/`textarea.tsx` empty interfaces, PostJob's `as any`, `tailwind.config.ts` require). Not mine, not fixed.
+
+## No visible change
+
+Three independent confirmations: stripping the semtag attributes back out makes all 9 files byte-identical to the original under JSX whitespace rules; the built **CSS bundle hash is identical**; and full-page screenshots of 8 route/state combinations are **pixel-identical** to a build of the original.
+
+I needed no prop-widening — every shadcn component already spreads `...props`, and TS permits hyphenated JSX attributes. Non-attribute additions are only three `const` option strings and two id-prefix locals, all derived from the arrays that render the options so trigger and menu can't drift.
+
+## Deliberately left unhinted
+
+Decorative icons, layout wrappers, the two static hero stats ("1,000+ Companies", "Growing Daily"), and individual skill badges on job *cards* — those collapse into one `.skills` observable per card, since 8 cards × 4 badges would cost more than it informs. Skills are individually addressable on the detail page, where they matter.
+
+One judgement call worth flagging: `JobCard`'s `<Link>` wraps the whole card, so putting the item id there would give it an accessible name of every word in the card (§8 warns against this). I put the item id on the `<h3>` title and `.open` on the link.
+
+--- WebTestBench_0003: ok in 801.5s
+    turns=94 cost=$6.004200000000003 tool_calls=92 skill_invoked=True
+    hinted_elements=97 files=9 validator_errors=0 warnings=0

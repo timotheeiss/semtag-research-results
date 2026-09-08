@@ -1,0 +1,102 @@
+=== injection: WebTestBench_0097 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0097
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Now let me look at the remaining files and the validator.
+[tool] Read
+[tool] Read
+[tool] Bash
+All UI primitives pass props through, so no component widening needed. Now I'll inject the hints file by file.
+
+**Index.tsx** (landing screen):
+[tool] Edit
+[tool] Edit
+**JobSearch.tsx** (search, department filter, job grid):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ModelDetailView.tsx** (detail screen header):
+[tool] Edit
+**MetricsPanel.tsx** (metric cards and alerts):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**CompetencyGraph.tsx** (collection container) and **CompetencyNode.tsx** (per-competency controls):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**SimulationPanel.tsx** (scenario tabs, adjustment sliders, run/reset):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**TemplateLibrary.tsx** (template list) and **NotFound.tsx**:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now run the validator over the app source:
+[tool] Bash
+Validator is clean. Now the checks it can't do — DOM ancestry and runtime uniqueness — plus the project's own checks:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+All checks pass. Injection complete — here's the summary.
+
+## Screens & components annotated
+
+**App: WebTestBench_0097 — "CompetencyHub" (job competency modeling, Vite + React + shadcn)**
+
+- **Landing screen** (`Index.tsx`, `JobSearch.tsx`): header nav (`nav.models`, `nav.analytics`), stats collection (`home.stats` + 3 items), search input (`jobs.search.query` → controls `jobs.grid`), department select (`jobs.filter.department` with `data-semtag-options` built from the same `departments` array that renders the menu, plus `option` items keyed by slugged value), job card grid (`jobs.grid` collection, items keyed by model id, per-item `.department` / `.competency-count` observables), empty-state message (`jobs.search.empty`).
+- **Model detail screen** (`ModelDetailView.tsx`): back navigation, title/department/count observables, `export`/`share`/`save` actions.
+- **Metrics** (`MetricsPanel.tsx`): `model.metrics` region; `metrics.coverage`, `metrics.avg-level`, `metrics.critical-path.count`, `metrics.gaps.count` observables; conditional `metrics.gap-alert` / `metrics.healthy-alert`.
+- **Competency graph** (`CompetencyGraph.tsx` + `CompetencyNode.tsx`): `model.graph` collection wrapping the ReactFlow canvas; per-competency items keyed by domain id (`model.graph.item.prog-lang` …) with `.enabled` toggle, `.set-level-1…5` actions (the unlabeled level bars — now reachable by id alone), `.level-value` / `.weight-value` observables, and `.weight` slider sharing state key `competency.weight` with its display.
+- **Simulation panel** (`SimulationPanel.tsx`): region, scenario tabs as navigation (`simulation.scenario.<type>`), active-scenario observable, `simulation.adjustments` collection with items keyed by category and `.level` / `.weight` sliders paired to `.level-value` / `.weight-value` observables via shared state keys, `simulation.run` / `simulation.reset` actions.
+- **Template library** (`TemplateLibrary.tsx`): `templates.list` collection keyed by template id, `.apply` action and conditional `.current` badge per item, `templates.save-current` action.
+- **NotFound page**: message observable + home link.
+
+## Id namespaces
+`nav.*`, `home.stats.*`, `jobs.*`, `model.*` (incl. `model.graph.*`, `model.metrics`), `metrics.*`, `simulation.*`, `templates.*`, `notfound.*`.
+
+## Verification
+- **Validator**: `52 hinted elements — 0 errors, 0 warnings, 0 info`.
+- **Beyond the linter**: all four collections (`jobs.grid`, `model.graph`, `simulation.adjustments`, `templates.list`, `home.stats`) are true DOM ancestors of their items — including `model.graph`, whose ReactFlow nodes render inside the tagged wrapper div. Runtime uniqueness holds: only one model renders at a time (competency ids are unique within a model), Radix `TabsContent` unmounts inactive tabs so the per-category adjustment ids never duplicate across the three scenarios, and detail view vs. search grid are mutually exclusive.
+- **Project checks**: `tsc --noEmit` clean, `vite build` succeeds (pre-existing chunk-size warning only), vitest 1/1 passing.
+
+## Deliberately left unhinted
+- Footer placeholder links (`#` dead links) and the per-card chevron button (duplicates the card's title navigation).
+- Keyword badges, descriptions, category/Critical/Gap badges on graph nodes — redundant with the metrics panel, would bloat every snapshot.
+- ReactFlow minimap/zoom controls and node connection handles (canvas chrome, not domain UI).
+- Graph edges — rendered as SVG by ReactFlow with no practical way to attach per-edge attributes without changing behavior; edge counts are observable via the template cards instead.
+
+--- WebTestBench_0097: ok in 380.5s
+    turns=57 cost=$2.7327334999999997 tool_calls=55 skill_invoked=True
+    hinted_elements=52 files=9 validator_errors=0 warnings=0

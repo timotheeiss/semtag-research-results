@@ -1,0 +1,112 @@
+=== injection: WebTestBench_0074 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0074
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+The working directory is `web_applications_hinted/WebTestBench_0074`. Let me inspect its source.
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the toolbar components — SearchBar, SortDropdown, ViewToggle:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the TableView collection:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now CardView:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the EntryDialog:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now FieldConfigDialog:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Finally the 404 page, then run the validator:
+[tool] Edit
+[tool] Bash
+Validator passes clean. Now verifying what it can't see, plus the project's own checks:
+[tool] Grep
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Dependencies aren't installed in this copy. Installing, then building:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Done. The injection is complete and validated. Summary:
+
+## What was annotated (app: FlexBase, `web_applications_hinted/WebTestBench_0074`)
+
+**Main screen (`Index.tsx`)**
+- Toolbar: `toolbar.fields` (open field config), `toolbar.add-entry`, `toolbar.sort` (role `select`, with `data-semtag-options` built live from `fields.map(f => \`${f.id}|${f.name}\`)` — the same source that renders the menu), `toolbar.view.table` / `toolbar.view.cards`
+- `search.query` (input) + `search.clear`, all pointing `data-semtag-controls` at the `entries.view` region wrapping whichever view is active
+- Status bar observables: `statusbar.count` (`entries.count`), `statusbar.sort` (`entries.sort`)
+
+**Table view** — collection `entries.table`; rows keyed by database entry id: item anchor on the first field cell (`entries.table.item.entry-1`), per-cell observables `…​.<fieldId>` with state `entry.<fieldId>`, controls `.edit`, `.delete`, `.drag`; sortable column headers `entries.table.header.<fieldId>`; `entries.table.empty` observable.
+
+**Card view** — collection `entries.cards`, item anchor on the card title, same per-field observables and `.edit`/`.delete`/`.drag` controls. Table and card views never render together, so their id namespaces cannot collide at runtime.
+
+**Entry dialog** — region `entry.dialog`, collection `entry.dialog.fields` with one input/toggle per field (`entry.dialog.fields.item.<fieldId>`), sharing state key `entry.<fieldId>` with the display cells so edits and reads connect; `entry.dialog.save` / `entry.dialog.cancel`.
+
+**Field config dialog** — region `fields.dialog`, collection `fields.dialog.list` (name input as item anchor, `.type` select with shared `fieldTypeOptions` string, `.type.option.<type>` items, `.delete`), and the new-field row (`fields.dialog.new.name/.type/.add`).
+
+**404 page** — `notfound.home` navigation → `home.page`.
+
+## Id namespaces
+`toolbar.*`, `search.*`, `entries.*` (view region, table/cards collections, empty states), `statusbar.*`, `entry.dialog.*`, `fields.dialog.*`, `notfound.*`. Item keys use runtime database ids (`entry-<ts>-<rand>`, `field-…`) — stable and unique, never array indexes.
+
+## Validation & checks
+- `validate-semtags.mjs src`: **44 hinted elements, 0 errors, 0 warnings**
+- Manually confirmed each collection container is a DOM ancestor of its items, and that runtime ids stay unique (id generator is timestamp+random; the two views render exclusively)
+- `tsc --noEmit` ✅, `vite build` ✅ (had to `npm install` first — this copy shipped without `node_modules`)
+- `npm run lint`: 3 errors, all **pre-existing** in scaffold files I didn't touch (`ui/command.tsx`, `ui/textarea.tsx`, `tailwind.config.ts`)
+
+## Deliberately left unhinted / caveats
+- Radix `SelectContent`/`DropdownMenuContent` options render in portals, so they sit outside their collection in the DOM and won't fold — they only exist while a menu is open, and each still has a unique id
+- If a card's title text field is empty, that card has no item anchor (its controls remain addressable)
+- Branding header, icons duplicating labelled controls, and the "Drag entries to reorder" hint text were skipped as decorative
+
+--- WebTestBench_0074: ok in 322.0s
+    turns=65 cost=$1.7134139999999998 tool_calls=63 skill_invoked=True
+    hinted_elements=45 files=9 validator_errors=0 warnings=0

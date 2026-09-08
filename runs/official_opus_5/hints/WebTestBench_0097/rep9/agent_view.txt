@@ -1,0 +1,3068 @@
+# Transcript: /home/ubuntu/.claude/projects/-home-ubuntu-semantic-hints-project-WebTestBench-claude-code-cwd/9d74ee43-a61b-4c32-8e0d-1583ae6427c3.jsonl
+# total tool calls: 162
+
+================================================================================
+[01] ToolSearch  input={"query": "select:mcp__playwright__browser_navigate,mcp__playwright__browser_click,mcp__playwright__browser_type,mcp__playwright__browser_snapshot,mcp__playwrig
+--------------------------------------------------------------------------------
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_navigate"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_click"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_type"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_snapshot"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_evaluate"}
+
+================================================================================
+[02] ToolSearch  input={"query": "select:mcp__semantic_hints__semantic_snapshot,mcp__semantic_hints__semantic_observe,mcp__structured_results__record_result,mcp__structured_results__g
+--------------------------------------------------------------------------------
+{"type": "tool_reference", "tool_name": "mcp__semantic_hints__semantic_snapshot"}
+{"type": "tool_reference", "tool_name": "mcp__semantic_hints__semantic_observe"}
+{"type": "tool_reference", "tool_name": "mcp__structured_results__record_result"}
+{"type": "tool_reference", "tool_name": "mcp__structured_results__get_result_progress"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_fill_form"}
+
+================================================================================
+[03] ToolSearch  input={"query": "select:mcp__playwright__browser_drag,mcp__playwright__browser_select_option,mcp__playwright__browser_press_key,mcp__playwright__browser_hover", "max_
+--------------------------------------------------------------------------------
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_drag"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_select_option"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_press_key"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_hover"}
+
+================================================================================
+[04] browser_navigate  input={"url": "http://localhost:7097/"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.goto('http://localhost:7097/');
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-07-35-607Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T07-07-33-772Z.log#L1-L3
+
+================================================================================
+[05] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7097/","screen":"home","navigation":[{"id":"nav.models","name":"Models","target":"models.page"},{"id":"nav.analytics","name":"Analytics","target":"analytics.page"}],"input":[{"id":"jobs.search.query","name":"Search jobs, skills, or keywords...","state":"search.query","controls":"jobs.grid","value":""}],"select":[{"id":"jobs.filter.department","name":"All Departments","state":"filters.department","controls":"jobs.grid","options":[{"value":"all","label":"All Departments"},{"value":"Engineering","label":"Engineering"},{"value":"Product","label":"Product"},{"value":"Human Resources","label":"Human Resources"},{"value":"Analytics","label":"Analytics"},{"value":"Sales","label":"Sales"}],"value":"All Departments"}],"collections":[{"id":"home.stats","idPattern":"home.stats.item.{key}[.{control}]","item":{"role":"observable"},"fields":["key","state","value"],"items":[["job-models","stats.job-models","5+ Job Models"],["competencies","stats.competencies","30+ Competencies"],["templates","stats.templates","5 Templates"]]},{"id":"jobs.grid","idPattern":"jobs.grid.item.{key}[.{control}]","item":{"role":"navigation","target":"model.detail"},"itemControls":{"department":{"role":"observable","state":"model.department"},"competency-count":{"role":"observable","state":"model.competencyCount","value":"6 competencies"}},"fields":["key","name","department.value"],"items":[["software-engineer","Software Engineer","Engineering"],["product-manager","Product Manager","Product"],["hr-manager","HR Manager","Human Resources"],["data-scientist","Data Scientist","Analytics"],["sales-manager","Sales Manager","Sales"]]}]}
+
+================================================================================
+[06] browser_type  input={"target": "[data-semtag-id='jobs.search.query']", "element": "Job search input", "text": "ENGINEER"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.search.query\']').fill('ENGINEER');
+```
+
+================================================================================
+[07] mcp__semantic_hints__semantic_observe  input={"id": "jobs.grid"}
+--------------------------------------------------------------------------------
+{"id":"jobs.grid","role":"collection","name":""}
+
+================================================================================
+[08] mcp__semantic_hints__semantic_snapshot  input={"scope": "jobs.grid"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7097/","screen":"home","navigation":[{"id":"jobs.grid.item.software-engineer","name":"Software Engineer","target":"model.detail"}],"observable":[{"id":"jobs.grid.item.software-engineer.department","name":"Engineering","state":"model.department","value":"Engineering"},{"id":"jobs.grid.item.software-engineer.competency-count","name":"6 competencies","state":"model.competencyCount","value":"6 competencies"}],"collection":[{"id":"jobs.grid","name":""}]}
+
+================================================================================
+[09] browser_evaluate  input={"function": "() => {\n  const el = document.querySelector(\"[data-semtag-id='jobs.search.query']\");\n  const setter = Object.getOwnPropertyDescriptor(window.H
+--------------------------------------------------------------------------------
+### Result
+[
+  "Software Engineer",
+  "Product Manager",
+  "HR Manager",
+  "Data Scientist",
+  "Sales Manager"
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el = document.querySelector("[data-semtag-id=\'jobs.search.query\']");\n  const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,\'value\').set;\n  setter.call(el,\'\');\n  el.dispatchEvent(new Event(\'input\',{bubbles:true}));\n  return new Promise(r=>setTimeout(()=>{\n    const cards=[...document.querySelectorAll("[data-semtag-id^=\'jobs.grid.item.\']")].filter(n=>n.getAttribute(\'data-semtag-id\').split(\'.\').length===4);\n    r(cards.map(c=>c.innerText.replace(/\\n+/g,\' | \')));\n  },300));\n}');
+```
+
+================================================================================
+[10] browser_evaluate  input={"function": "() => {\n  const c=document.querySelector(\"[data-semtag-id='jobs.grid']\");\n  return c ? c.innerText.slice(0,1500) : 'no grid';\n}"}
+--------------------------------------------------------------------------------
+### Result
+"Software Engineer\nEngineering\n\nFull-stack software engineer responsible for designing, developing, and maintaining software applications.\n\n6 competencies\n2024-01-15\nProgramming\nCoding\nSoftware\n+3\nProduct Manager\nProduct\n\nProduct manager responsible for product strategy, roadmap, and cross-functional team coordination.\n\n6 competencies\n2024-01-20\nProduct\nManagement\nStrategy\n+2\nHR Manager\nHuman Resources\n\nHR manager overseeing recruitment, employee relations, and organizational development.\n\n6 competencies\n2024-02-01\nHr\nHuman Resources\nRecruitment\n+2\nData Scientist\nAnalytics\n\nData scientist focused on machine learning, statistical analysis, and data-driven insights.\n\n6 competencies\n2024-02-10\nData\nMachine Learning\nAnalytics\n+3\nSales Manager\nSales\n\nSales manager leading a team to achieve revenue targets and customer acquisition goals.\n\n6 competencies\n2024-02-15\nSales\nRevenue\nBusiness Development\n+2"
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const c=document.querySelector("[data-semtag-id=\'jobs.grid\']");\n  return c ? c.innerText.slice(0,1500) : \'no grid\';\n}');
+```
+
+================================================================================
+[11] browser_type  input={"target": "[data-semtag-id='jobs.search.query']", "element": "Job search input", "text": "recruitment"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.search.query\']').fill('recruitment');
+```
+
+================================================================================
+[12] mcp__semantic_hints__semantic_snapshot  input={"scope": "jobs.grid"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7097/","screen":"home","navigation":[{"id":"jobs.grid.item.hr-manager","name":"HR Manager","target":"model.detail"}],"observable":[{"id":"jobs.grid.item.hr-manager.department","name":"Human Resources","state":"model.department","value":"Human Resources"},{"id":"jobs.grid.item.hr-manager.competency-count","name":"6 competencies","state":"model.competencyCount","value":"6 competencies"}],"collection":[{"id":"jobs.grid","name":""}]}
+
+================================================================================
+[13] browser_type  input={"target": "[data-semtag-id='jobs.search.query']", "element": "Job search input", "text": "roadmap"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.search.query\']').fill('roadmap');
+```
+
+================================================================================
+[14] mcp__semantic_hints__semantic_snapshot  input={"scope": "jobs.grid"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7097/","screen":"home","navigation":[{"id":"jobs.grid.item.product-manager","name":"Product Manager","target":"model.detail"}],"observable":[{"id":"jobs.grid.item.product-manager.department","name":"Product","state":"model.department","value":"Product"},{"id":"jobs.grid.item.product-manager.competency-count","name":"6 competencies","state":"model.competencyCount","value":"6 competencies"}],"collection":[{"id":"jobs.grid","name":""}]}
+
+================================================================================
+[15] browser_type  input={"target": "[data-semtag-id='jobs.search.query']", "element": "Job search input", "text": "manager"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.search.query\']').fill('manager');
+```
+
+================================================================================
+[16] mcp__semantic_hints__semantic_snapshot  input={"scope": "jobs.grid"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7097/","screen":"home","collections":[{"id":"jobs.grid","idPattern":"jobs.grid.item.{key}[.{control}]","item":{"role":"navigation","target":"model.detail"},"itemControls":{"department":{"role":"observable","state":"model.department"},"competency-count":{"role":"observable","state":"model.competencyCount","value":"6 competencies"}},"fields":["key","name","department.value"],"items":[["product-manager","Product Manager","Product"],["hr-manager","HR Manager","Human Resources"],["sales-manager","Sales Manager","Sales"]]}]}
+
+================================================================================
+[17] browser_select_option  input={"target": "[data-semtag-id='jobs.filter.department']", "element": "Department filter", "values": ["Sales"]}
+--------------------------------------------------------------------------------
+### Error
+Error: browserBackend.callTool: Error: Element is not a <select> element
+Call log:
+[2m  - waiting for locator('[data-semtag-id=\'jobs.filter.department\']')[22m
+[2m    - locator resolved to <button dir="ltr" type="button" role="combobox" data-state="closed" aria-expanded="false" aria-autocomplete="none" data-semtag-role="select" aria-controls="radix-:r1:" data-semtag-controls="jobs.grid" data-semtag-state="filters.department" data-semtag-id="jobs.filter.department" data-semtag-options="all|All Departments;Engineering|Engineering;Product|Product;Human Resources|Human Resources;Analytics|Analytics;Sales|Sales" class="flex items-center justify-between rounded-md border border-input px-3 py-…>…</button>[22m
+[2m  - attempting select option action[22m
+[2m    - waiting for element to be visible and enabled[22m
+
+================================================================================
+[18] browser_click  input={"target": "[data-semtag-id='jobs.filter.department']", "element": "Department filter trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filter.department\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-08-23-498Z.yml)
+
+================================================================================
+[19] browser_click  input={"target": "[data-semtag-id='jobs.filter.department.option.Sales']", "element": "Sales department option"}
+--------------------------------------------------------------------------------
+### Error
+Error: "[data-semtag-id='jobs.filter.department.option.Sales']" does not match any elements.
+
+================================================================================
+[20] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7097/","screen":"home","navigation":[{"id":"nav.models","name":"Models","target":"models.page"},{"id":"nav.analytics","name":"Analytics","target":"analytics.page"}],"option":[{"id":"jobs.filter.department.option.all","name":"All Departments"},{"id":"jobs.filter.department.option.engineering","name":"Engineering"},{"id":"jobs.filter.department.option.product","name":"Product"},{"id":"jobs.filter.department.option.human-resources","name":"Human Resources"},{"id":"jobs.filter.department.option.analytics","name":"Analytics"},{"id":"jobs.filter.department.option.sales","name":"Sales"}],"input":[{"id":"jobs.search.query","name":"Search jobs, skills, or keywords...","state":"search.query","controls":"jobs.grid","value":"manager"}],"select":[{"id":"jobs.filter.department","name":"All Departments","state":"filters.department","controls":"jobs.grid","options":[{"value":"all","label":"All Departments"},{"value":"Engineering","label":"Engineering"},{"value":"Product","label":"Product"},{"value":"Human Resources","label":"Human Resources"},{"value":"Analytics","label":"Analytics"},{"value":"Sales","label":"Sales"}],"value":"All Departments"}],"collections":[{"id":"home.stats","idPattern":"home.stats.item.{key}[.{control}]","item":{"role":"observable"},"fields":["key","state","value"],"items":[["job-models","stats.job-models","5+ Job Models"],["competencies","stats.competencies","30+ Competencies"],["templates","stats.templates","5 Templates"]]},{"id":"jobs.grid","idPattern":"jobs.grid.item.{key}[.{control}]","item":{"role":"navigation","target":"model.detail"},"itemControls":{"department":{"role":"observable","state":"model.department"},"competency-count":{"role":"observable","state":"model.competencyCount","value":"6 competencies"}},"fields":["key","name","department.value"],"items":[["product-manager","Product Manager","Product"],["hr-manager","HR Manager","Human Resources"],["sales-manager","Sales Manager","Sales"]]}]}
+
+================================================================================
+[21] browser_click  input={"target": "[data-semtag-id='jobs.filter.department.option.sales']", "element": "Sales department option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filter.department.option.sales\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-08-30-512Z.yml)
+
+================================================================================
+[22] mcp__semantic_hints__semantic_snapshot  input={"scope": "jobs.grid"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7097/","screen":"home","navigation":[{"id":"jobs.grid.item.sales-manager","name":"Sales Manager","target":"model.detail"}],"observable":[{"id":"jobs.grid.item.sales-manager.department","name":"Sales","state":"model.department","value":"Sales"},{"id":"jobs.grid.item.sales-manager.competency-count","name":"6 competencies","state":"model.competencyCount","value":"6 competencies"}],"collection":[{"id":"jobs.grid","name":""}]}
+
+================================================================================
+[23] browser_type  input={"target": "[data-semtag-id='jobs.search.query']", "element": "Job search input", "text": "zzzqqq"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.search.query\']').fill('zzzqqq');
+```
+
+================================================================================
+[24] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='jobs.grid']\");\n  return {gridText: g?g.innerText.slice(0,400):'(no grid element)', 
+--------------------------------------------------------------------------------
+### Result
+{
+  "gridText": "",
+  "bodyHas": [
+    "No jobs found"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'jobs.grid\']");\n  return {gridText: g?g.innerText.slice(0,400):\'(no grid element)\', bodyHas: document.body.innerText.includes(\'No \')? document.body.innerText.match(/No [^\\n]*/g):null};\n}');
+```
+
+================================================================================
+[25] mcp__structured_results__record_result  input={"item_id": "FT-1", "verdict": "PASS", "evidence": "\"ENGINEER\" (uppercase) -> Software Engineer only; keyword \"recruitment\" -> HR Manager; description-only 
+--------------------------------------------------------------------------------
+{"recorded": "FT-1", "verdict": "PASS", "recorded_count": 1, "total_count": 19, "missing_ids": ["FT-2", "FT-3", "FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "IX-13", "IX-19", "IX-20", "CT-15", "CT-16", "CT-17", "CT-18"], "complete": false}
+
+================================================================================
+[26] browser_evaluate  input={"function": "() => {\n  const el = document.querySelector(\"[data-semtag-id='jobs.search.query']\");\n  const setter = Object.getOwnPropertyDescriptor(window.H
+--------------------------------------------------------------------------------
+### Result
+"cleared"
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el = document.querySelector("[data-semtag-id=\'jobs.search.query\']");\n  const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,\'value\').set;\n  setter.call(el,\'\'); el.dispatchEvent(new Event(\'input\',{bubbles:true}));\n  return \'cleared\';\n}');
+```
+
+================================================================================
+[27] browser_click  input={"target": "[data-semtag-id='jobs.filter.department']", "element": "Department filter trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filter.department\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-08-51-703Z.yml)
+
+================================================================================
+[28] browser_click  input={"target": "[data-semtag-id='jobs.filter.department.option.all']", "element": "All Departments option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filter.department.option.all\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-08-54-694Z.yml)
+
+================================================================================
+[29] browser_click  input={"target": "[data-semtag-id='jobs.grid.item.software-engineer']", "element": "Software Engineer model card"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.grid.item.software-engineer\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-08-57-930Z.yml)
+
+================================================================================
+[30] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7097/","screen":"home","navigation":[{"id":"nav.models","name":"Models","target":"models.page"},{"id":"nav.analytics","name":"Analytics","target":"analytics.page"},{"id":"model.back","name":"","target":"models.page"},{"id":"simulation.scenario.recruitment","name":"Recruitment","state":"simulation.scenario","target":"simulation.recruitment"},{"id":"simulation.scenario.training","name":"Training","state":"simulation.scenario","target":"simulation.training"},{"id":"simulation.scenario.promotion","name":"Promotion","state":"simulation.scenario","target":"simulation.promotion"}],"action":[{"id":"model.export","name":"Export","action":"export-model"},{"id":"model.share","name":"Share","action":"share-model"},{"id":"model.save","name":"Save","action":"save-model"},{"id":"simulation.run","name":"Run Simulation","action":"run-simulation"},{"id":"simulation.reset","name":"Reset","action":"reset-model"},{"id":"templates.save-current","name":"Save Current","action":"save-as-template"}],"observable":[{"id":"model.title","name":"Software Engineer","state":"model.jobTitle","value":"Software Engineer"},{"id":"model.department","name":"Engineering","state":"model.department","value":"Engineering"},{"id":"model.competency-count","name":"6 competencies","state":"model.competencyCount","value":"6 competencies"},{"id":"metrics.coverage","name":"68%","state":"metrics.coverage","value":"68%"},{"id":"metrics.avg-level","name":"3.3","state":"metrics.avgLevel","value":"3.3"},{"id":"metrics.critical-path.count","name":"3","state":"metrics.criticalPathCount","value":"3"},{"id":"metrics.gaps.count","name":"0","state":"metrics.gapCount","value":"0"},{"id":"simulation.active-scenario","name":"Recruitment Simulation","state":"simulation.scenario","value":"Recruitment Simulation"}],"region":[{"id":"model.metrics","name":""},{"id":"simulation.panel","name":""}],"collections":[{"id":"model.graph","idPattern":"model.graph.item.{key}[.{control}]","item":{"role":"observable","state":"competency.name"},"itemControls":{"enabled":{"role":"toggle","name":"","action":"toggle-competency","state":"competency.enabled","value":true},"level-value":{"role":"observable","state":"competency.level"},"set-level-1":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"set-level-2":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"set-level-3":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"set-level-4":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"set-level-5":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"weight-value":{"role":"observable","state":"competency.weight"},"weight":{"role":"slider","state":"competency.weight","value":""}},"fields":["key","value","level-value.value","weight-value.value"],"items":[["prog-lang","Programming Languages","Advanced","90%"],["sys-design","System Design","Intermediate","80%"],["code-review","Code Review","Intermediate","60%"],["problem-solve","Problem Solving","Advanced","90%"],["collab","Collaboration","Intermediate","70%"],["agile","Agile Methodology","Intermediate","50%"]]},{"id":"simulation.adjustments","idPattern":"simulation.adjustments.item.{key}[.{control}]","item":{"role":"observable","state":"simulation.category"},"itemControls":{"level-value":{"role":"observable","value":"0"},"level":{"role":"slider","value":""},"weight-value":{"role":"observable","value":"0%"},"weight":{"role":"slider","value":""}},"fields":["key","name","value","level-value.state","level.state","weight-value.state","weight.state"],"items":[["technical","technical","Technical","simulation.technical.levelDelta","simulation.technical.levelDelta","simulation.technical.weightDelta","simulation.technical.weightDelta"],["behavioral","behavioral","Behavioral","simulation.behavioral.levelDelta","simulation.behavioral.levelDelta","simulation.behavioral.weightDelta","simulation.behavioral.weightDelta"],["leadership","leadership","Leadership","simulation.leadership.levelDelta","simulation.leadership.levelDelta","simulation.leadership.weightDelta","simulation.leadership.weightDelta"],["domain","domain","Domain","simulation.domain.levelDelta","simulation.domain.levelDelta","simulation.domain.weightDelta","simulation.domain.weightDelta"]]},{"id":"templates.list","idPattern":"templates.list.item.{key}[.{control}]","item":{"role":"observable","state":"template.jobTitle"},"itemControls":{"current":{"role":"observable","state":"template.current","value":"Current"},"apply":{"role":"action","name":"Apply","action":"apply-template"}},"fields":["key","value","current","apply.enabled"],"items":[["software-engineer","Software Engineer",true,false],["product-manager","Product Manager",null,null],["hr-manager","HR Manager",null,null],["data-scientist","Data Scientist",null,null],["sales-manager","Sales Manager",null,null]]}]}
+
+================================================================================
+[31] mcp__structured_results__record_result  input={"item_id": "FT-2", "verdict": "PASS", "evidence": "Clicking Software Engineer card opened detail editor: model.title=\"Software Engineer\", model.department=\"
+--------------------------------------------------------------------------------
+{"recorded": "FT-2", "verdict": "PASS", "recorded_count": 2, "total_count": 19, "missing_ids": ["FT-3", "FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "IX-13", "IX-19", "IX-20", "CT-15", "CT-16", "CT-17", "CT-18"], "complete": false}
+
+================================================================================
+[32] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  const svg=g?g.querySelector('svg'):document.querySelector('svg')
+--------------------------------------------------------------------------------
+### Result
+{
+  "markers": [
+    "1__color=hsl(0, 72%, 51%)&type=arrowclosed",
+    "1__color=hsl(173, 58%, 39%)&type=arrowclosed",
+    "1__color=hsl(199, 89%, 48%)&type=arrowclosed"
+  ],
+  "paths": [
+    {
+      "tag": "path",
+      "marker": "url('#1__color=hsl(173, 58%, 39%)&type=arrowclosed')",
+      "stroke": null,
+      "w": null
+    },
+    {
+      "tag": "path",
+      "marker": null,
+      "stroke": null,
+      "w": "20"
+    },
+    {
+      "tag": "path",
+      "marker": "url('#1__color=hsl(0, 72%, 51%)&type=arrowclosed')",
+      "stroke": null,
+      "w": null
+    },
+    {
+      "tag": "path",
+      "marker": null,
+      "stroke": null,
+      "w": "20"
+    },
+    {
+      "tag": "path",
+      "marker": "url('#1__color=hsl(0, 72%, 51%)&type=arrowclosed')",
+      "stroke": null,
+      "w": null
+    },
+    {
+      "tag": "path",
+      "marker": null,
+      "stroke": null,
+      "w": "20"
+    },
+    {
+      "tag": "path",
+      "marker": "url('#1__color=hsl(173, 58%, 39%)&type=arrowclosed')",
+      "stroke": null,
+      "w": null
+    },
+    {
+      "tag": "path",
+      "marker": null,
+      "stroke": null,
+      "w": "20"
+    },
+    {
+      "tag": "path",
+      "marker": "url('#1__color=hsl(199, 89%, 48%)&type=arrowclosed')",
+      "stroke": null,
+      "w": null
+    },
+    {
+      "tag": "path",
+      "marker": null,
+      "stroke": null,
+      "w": "20"
+    },
+    {
+      "tag": "path",
+      "marker": null,
+      "stroke": null,
+      "w": null
+    },
+    {
+      "tag": "path",
+      "marker": null,
+      "stroke": null,
+      "w": null
+    }
+  ],
+  "texts": [
+    "80%",
+    "70%",
+    "90%",
+    "60%",
+    "50%"
+  ],
+  "svgAttrs": {
+    "viewBox": null,
+    "style": "z-index: 0;"
+  },
+  "graphControls": [
+    "model.graph"
+  ],
+  "allZoomIsh": [
+    "model.graph.item.prog-lang.enabled:",
+    "model.graph.item.prog-lang.set-level-1:",
+    "model.graph.item.prog-lang.set-level-2:",
+    "model.graph.item.prog-lang.set-level-3:",
+    "model.graph.item.prog-lang.set-level-4:",
+    "model.graph.item.prog-lang.set-level-5:",
+    "model.graph.item.sys-design.enabled:",
+    "model.graph.item.sys-design.set-level-1:",
+    "model.graph.item.sys-design.set-level-2:",
+    "model.graph.item.sys-design.set-level-3:",
+    "model.graph.item.sys-design.set-level-4:",
+    "model.graph.item.sys-design.set-level-5:",
+    "model.graph.item.code-review.enabled:",
+    "model.graph.item.code-review.set-level-1:",
+    "model.graph.item.code-review.set-level-2:",
+    "model.graph.item.code-review.set-level-3:",
+    "model.graph.item.code-review.set-level-4:",
+    "model.graph.item.code-review.set-level-5:",
+    "model.graph.item.problem-solve.enabled:",
+    "model.graph.item.problem-solve.set-level-1:"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  const svg=g?g.querySelector(\'svg\'):document.querySelector(\'svg\');\n  const out={};\n  if(g){\n    out.markers=[...g.querySelectorAll(\'marker\')].map(m=>m.id);\n    out.paths=[...g.querySelectorAll(\'path,line\')].slice(0,12).map(p=>({tag:p.tagName,marker:p.getAttribute(\'marker-end\'),stroke:p.getAttribute(\'stroke\'),w:p.getAttribute(\'stroke-width\')}));\n    out.texts=[...g.querySelectorAll(\'text\')].map(t=>t.textContent).slice(0,40);\n    out.svgAttrs = svg? {viewBox:svg.getAttribute(\'viewBox\'), style:svg.getAttribute(\'style\')} : null;\n  }\n  out.graphControls=[...document.querySelectorAll("[data-semtag-id*=\'graph\']")].map(n=>n.getAttribute(\'data-semtag-id\')).filter(id=>!id.includes(\'.item.\')).slice(0,30);\n  out.allZoomIsh=[...document.querySelectorAll(\'button\')].map(b=>(b.getAttribute(\'data-semtag-id\')||\'\')+\':\'+(b.getAttribute(\'title\')||b.getAttribute(\'aria-label\')||b.innerText.trim().slice(0,20))).filter(s=>/zoom|fit|reset|\\+|-/i.test(s)).slice(0,20);\n  return out;\n}');
+```
+
+================================================================================
+[33] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  const vp=g.querySelector('.react-flow__viewport');\n  const ctrl
+--------------------------------------------------------------------------------
+### Result
+{
+  "hasReactFlow": true,
+  "viewportTransform": "translate(68.5px, 81.2127px) scale(0.735768)",
+  "controlButtons": [
+    "react-flow__controls-button",
+    "react-flow__controls-button",
+    "react-flow__controls-button",
+    "react-flow__controls-button"
+  ],
+  "edges": [
+    "react-flow__edge react-flow__edge-smoothstep nopan animated",
+    "react-flow__edge react-flow__edge-smoothstep nopan",
+    "react-flow__edge react-flow__edge-smoothstep nopan animated",
+    "react-flow__edge react-flow__edge-smoothstep nopan animated",
+    "react-flow__edge react-flow__edge-smoothstep nopan"
+  ],
+  "nodes": [
+    {
+      "id": "prog-lang",
+      "transform": "translate(0px, 0px)",
+      "draggable": false
+    },
+    {
+      "id": "sys-design",
+      "transform": "translate(0px, 200px)",
+      "draggable": false
+    },
+    {
+      "id": "code-review",
+      "transform": "translate(0px, 400px)",
+      "draggable": false
+    },
+    {
+      "id": "problem-solve",
+      "transform": "translate(300px, 0px)",
+      "draggable": false
+    },
+    {
+      "id": "collab",
+      "transform": "translate(300px, 200px)",
+      "draggable": false
+    },
+    {
+      "id": "agile",
+      "transform": "translate(600px, 0px)",
+      "draggable": false
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  const vp=g.querySelector(\'.react-flow__viewport\');\n  const ctrls=g.querySelector(\'.react-flow__controls\');\n  return {\n    hasReactFlow: !!g.querySelector(\'.react-flow\'),\n    viewportTransform: vp?vp.style.transform:null,\n    controlButtons: ctrls?[...ctrls.querySelectorAll(\'button\')].map(b=>b.className.split(\' \').find(c=>c.includes(\'controls-\'))||b.getAttribute(\'aria-label\')):null,\n    edges: [...g.querySelectorAll(\'.react-flow__edge\')].map(e=>e.getAttribute(\'data-id\')||e.className.baseVal),\n    nodes: [...g.querySelectorAll(\'.react-flow__node\')].map(n=>({id:n.getAttribute(\'data-id\'), transform:n.style.transform, draggable:n.className.includes(\'draggable\')}))\n  };\n}');
+```
+
+================================================================================
+[34] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  const n=g.querySelector(\".react-flow__node[data-id='prog-lang']
+--------------------------------------------------------------------------------
+### Result
+{
+  "nodeClass": "react-flow__node react-flow__node-competency nopan selectable",
+  "rect": {
+    "x": 85.5,
+    "y": 504.2126770019531,
+    "w": 247.80438232421875,
+    "h": 140.89956665039062
+  },
+  "transform": "translate(0px, 0px)",
+  "edgeInfo": [
+    {
+      "id": null,
+      "testid": "rf__edge-e1",
+      "cls": "react-flow__edge react-flow__edge-smoothstep nopan animated"
+    },
+    {
+      "id": null,
+      "testid": "rf__edge-e2",
+      "cls": "react-flow__edge react-flow__edge-smoothstep nopan"
+    },
+    {
+      "id": null,
+      "testid": "rf__edge-e3",
+      "cls": "react-flow__edge react-flow__edge-smoothstep nopan animated"
+    },
+    {
+      "id": null,
+      "testid": "rf__edge-e4",
+      "cls": "react-flow__edge react-flow__edge-smoothstep nopan animated"
+    },
+    {
+      "id": null,
+      "testid": "rf__edge-e5",
+      "cls": "react-flow__edge react-flow__edge-smoothstep nopan"
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  const n=g.querySelector(".react-flow__node[data-id=\'prog-lang\']");\n  const r=n.getBoundingClientRect();\n  const edgeInfo=[...g.querySelectorAll(\'.react-flow__edge\')].map(e=>({id:e.getAttribute(\'data-id\'), testid:e.dataset.testid, cls:e.className.baseVal}));\n  return {nodeClass:n.className, rect:{x:r.x,y:r.y,w:r.width,h:r.height}, transform:n.style.transform, edgeInfo};\n}');
+```
+
+================================================================================
+[35] browser_drag  input={"startTarget": ".react-flow__node[data-id='prog-lang'] .text-sm", "startElement": "Programming Languages node title", "endTarget": ".react-flow__node[data-id='
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('.react-flow__node[data-id=\'prog-lang\'] .text-sm').dragTo(page.locator('.react-flow__node[data-id=\'agile\']'));
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-09-46-595Z.yml)
+
+================================================================================
+[36] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  return [...g.querySelectorAll('.react-flow__node')].map(n=>({id:
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "id": "prog-lang",
+    "transform": "translate(622.479px, 69.3153px)"
+  },
+  {
+    "id": "sys-design",
+    "transform": "translate(0px, 200px)"
+  },
+  {
+    "id": "code-review",
+    "transform": "translate(0px, 400px)"
+  },
+  {
+    "id": "problem-solve",
+    "transform": "translate(300px, 0px)"
+  },
+  {
+    "id": "collab",
+    "transform": "translate(300px, 200px)"
+  },
+  {
+    "id": "agile",
+    "transform": "translate(600px, 0px)"
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  return [...g.querySelectorAll(\'.react-flow__node\')].map(n=>({id:n.getAttribute(\'data-id\'), transform:n.style.transform}));\n}');
+```
+
+================================================================================
+[37] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  const edges=[...g.querySelectorAll('.react-flow__edge')].map(e=>
+--------------------------------------------------------------------------------
+### Result
+{
+  "edges": [
+    {
+      "testid": "rf__edge-e1",
+      "dStart": "M792.0710257203039 245.6653040",
+      "dEnd": "31860351562 417.54998779296875",
+      "label": "80%"
+    },
+    {
+      "testid": "rf__edge-e2",
+      "dStart": "M792.0710257203039 245.6653040",
+      "dEnd": "49969482422 217.54998779296875",
+      "label": "70%"
+    },
+    {
+      "testid": "rf__edge-e3",
+      "dStart": "M449.2640686035156 176.3499755",
+      "dEnd": "49969482422 217.54998779296875",
+      "label": "90%"
+    },
+    {
+      "testid": "rf__edge-e4",
+      "dStart": "M419.6703186035156 376.3499755",
+      "dEnd": "31860351562 417.54998779296875",
+      "label": "60%"
+    },
+    {
+      "testid": "rf__edge-e5",
+      "dStart": "M766.9359130859375 176.3499755",
+      "dEnd": "03186035156 217.54998779296875",
+      "label": "50%"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "prog-lang",
+      "t": "translate(622.479px, 69.3153px)"
+    },
+    {
+      "id": "sys-design",
+      "t": "translate(0px, 200px)"
+    },
+    {
+      "id": "code-review",
+      "t": "translate(0px, 400px)"
+    },
+    {
+      "id": "problem-solve",
+      "t": "translate(300px, 0px)"
+    },
+    {
+      "id": "collab",
+      "t": "translate(300px, 200px)"
+    },
+    {
+      "id": "agile",
+      "t": "translate(600px, 0px)"
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  const edges=[...g.querySelectorAll(\'.react-flow__edge\')].map(e=>{\n    const p=e.querySelector(\'path.react-flow__edge-path\');\n    const d=p?p.getAttribute(\'d\'):null;\n    const lbl=e.querySelector(\'text\')?e.querySelector(\'text\').textContent:(e.querySelector(\'.react-flow__edge-textwrapper\')?.textContent||null);\n    return {testid:e.dataset.testid, dStart:d?d.split(\'L\')[0].slice(0,30):null, dEnd:d?d.slice(-30):null, label:lbl};\n  });\n  // node handle absolute positions in flow coords\n  const nodes=[...g.querySelectorAll(\'.react-flow__node\')].map(n=>({id:n.getAttribute(\'data-id\'),t:n.style.transform}));\n  return {edges,nodes};\n}');
+```
+
+================================================================================
+[38] mcp__structured_results__record_result  input={"item_id": "FT-3", "verdict": "PASS", "evidence": "Dragged \"Programming Languages\" node from translate(0px,0px) to translate(622.479px,69.3153px); other 5 no
+--------------------------------------------------------------------------------
+{"recorded": "FT-3", "verdict": "PASS", "recorded_count": 3, "total_count": 19, "missing_ids": ["FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "IX-13", "IX-19", "IX-20", "CT-15", "CT-16", "CT-17", "CT-18"], "complete": false}
+
+================================================================================
+[39] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  const vp=g.querySelector('.react-flow__viewport');\n  const befo
+--------------------------------------------------------------------------------
+### Result
+{
+  "before": "translate(68.5px, 81.2127px) scale(0.735768)",
+  "afterZoomIn": "translate(0px, 37.6552px) scale(0.882922)",
+  "btnTitles": [
+    "zoom in",
+    "zoom out",
+    "fit view",
+    "toggle interactivity"
+  ],
+  "paneClass": "react-flow__pane"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  const vp=g.querySelector(\'.react-flow__viewport\');\n  const before=vp.style.transform;\n  const btns=[...g.querySelectorAll(\'.react-flow__controls button\')];\n  btns[0].click();\n  return new Promise(r=>setTimeout(()=>r({before, afterZoomIn:vp.style.transform, btnTitles:btns.map(b=>b.getAttribute(\'aria-label\')||b.title), paneClass:g.querySelector(\'.react-flow__pane\')?.className}),600));\n}');
+```
+
+================================================================================
+[40] browser_drag  input={"startTarget": ".react-flow__pane", "startElement": "Graph pane background", "endTarget": ".react-flow__node[data-id='code-review']", "endElement": "Code Revie
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('.react-flow__pane').dragTo(page.locator('.react-flow__node[data-id=\'code-review\']'));
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-10-26-106Z.yml)
+
+================================================================================
+[41] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  const vp=g.querySelector('.react-flow__viewport');\n  const node
+--------------------------------------------------------------------------------
+### Result
+{
+  "viewport": "translate(0px, 37.6552px) scale(0.882922)",
+  "graphPanelText": "80%\n70%\n90%\n60%\n50%\nProgramming Languages\n\nProficiency in multiple programming languages\n\nTechnical\nCritical\nLevel\nAdvanced\nWeight\n90%\nSystem Design\n\nAbility to design scalable systems\n\nTechnical\nCritical\nLevel\nIntermediate\nWeight\n80%\nCode Review\n\nReviewing and improving code quality\n\nTechnical\nLevel\nIntermediate\nWeight\n60%\nProblem Solving\n\nAnalytical thinking and debugging skills\n\nBehavioral\nCritical\nLevel\nAdvanced\nWeight\n90%\nCollaboration\n\nWorking effectively in teams\n\nBehavioral\nLevel\nIntermediate\nWeight\n70%\nAgile Methodology\n\nUnderstanding of agile development practices\n\nDomain\nLevel\nInter",
+  "nodeTexts": [
+    "Programming Languages | Proficiency in multiple programming languages | Technical | Critical | Level | Advanced | Weight | 90%",
+    "System Design | Ability to design scalable systems | Technical | Critical | Level | Intermediate | Weight | 80%"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  const vp=g.querySelector(\'.react-flow__viewport\');\n  const nodeTexts=[...g.querySelectorAll(\'.react-flow__node\')].slice(0,2).map(n=>n.innerText.replace(/\\n+/g,\' | \'));\n  return {viewport:vp.style.transform, graphPanelText:g.innerText.slice(0,600), nodeTexts};\n}');
+```
+
+================================================================================
+[42] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  const gr=g.getBoundingClientRect();\n  const nodes=[...g.querySe
+--------------------------------------------------------------------------------
+### Result
+{
+  "pt": {
+    "x": 36,
+    "y": 141
+  },
+  "graphRect": {
+    "l": 16,
+    "t": 121,
+    "r": 840,
+    "b": 721
+  }
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  const gr=g.getBoundingClientRect();\n  const nodes=[...g.querySelectorAll(\'.react-flow__node\')].map(n=>n.getBoundingClientRect());\n  // find empty point inside graph not covered by a node\n  let pt=null;\n  for(let y=gr.top+20;y<gr.bottom-20 && !pt;y+=15){\n    for(let x=gr.left+20;x<gr.right-20;x+=15){\n      if(!nodes.some(r=>x>=r.left-5&&x<=r.right+5&&y>=r.top-5&&y<=r.bottom+5)){\n        const el=document.elementFromPoint(x,y);\n        if(el && el.classList.contains(\'react-flow__pane\')){pt={x,y};break;}\n      }\n    }\n  }\n  return {pt, graphRect:{l:gr.left,t:gr.top,r:gr.right,b:gr.bottom}};\n}');
+```
+
+================================================================================
+[43] browser_evaluate  input={"function": "async () => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  const vp=g.querySelector('.react-flow__viewport');\n  cons
+--------------------------------------------------------------------------------
+### Result
+{
+  "before": "translate(0px, 37.6552px) scale(0.882922)",
+  "after": "translate(0px, 37.6552px) scale(0.882922)"
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  const vp=g.querySelector(\'.react-flow__viewport\');\n  const before=vp.style.transform;\n  const pane=g.querySelector(\'.react-flow__pane\');\n  const opts=(x,y)=>({bubbles:true,cancelable:true,composed:true,clientX:x,clientY:y,pointerId:1,pointerType:\'mouse\',isPrimary:true,button:0,buttons:1});\n  pane.dispatchEvent(new PointerEvent(\'pointerdown\',opts(36,141)));\n  await new Promise(r=>setTimeout(r,60));\n  for(const [x,y] of [[70,180],[110,220],[150,260],[186,291]]){\n    window.dispatchEvent(new PointerEvent(\'pointermove\',opts(x,y)));\n    await new Promise(r=>setTimeout(r,40));\n  }\n  window.dispatchEvent(new PointerEvent(\'pointerup\',{...opts(186,291),buttons:0}));\n  await new Promise(r=>setTimeout(r,300));\n  return {before, after:vp.style.transform};\n}');
+```
+
+================================================================================
+[44] browser_evaluate  input={"function": "() => {\n  const el=document.querySelector('.react-flow');\n  const key=Object.keys(el).find(k=>k.startsWith('__reactFiber$')||k.startsWith('__rea
+--------------------------------------------------------------------------------
+### Result
+{
+  "fitView": true,
+  "hasNodes": 6
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el=document.querySelector(\'.react-flow\');\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\')||k.startsWith(\'__reactInternalInstance$\'));\n  if(!key) return \'no fiber\';\n  let f=el[key], found=null, depth=0;\n  while(f && depth<40){\n    const p=f.memoizedProps||f.pendingProps;\n    if(p && ((\'panOnDrag\' in p)||(\'nodesDraggable\' in p)||(\'nodes\' in p && \'edges\' in p))){\n      found={panOnDrag:p.panOnDrag, nodesDraggable:p.nodesDraggable, zoomOnScroll:p.zoomOnScroll, panOnScroll:p.panOnScroll, nodesConnectable:p.nodesConnectable, fitView:p.fitView, hasNodes:Array.isArray(p.nodes)?p.nodes.length:undefined};\n      break;\n    }\n    f=f.return; depth++;\n  }\n  return found||\'not found\';\n}');
+```
+
+================================================================================
+[45] ToolSearch  input={"query": "mouse move drag coordinates position", "max_results": 8}
+--------------------------------------------------------------------------------
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_drag"}
+{"type": "tool_reference", "tool_name": "mcp__claude_ai_Gmail__label_message"}
+{"type": "tool_reference", "tool_name": "mcp__claude_ai_Gmail__label_thread"}
+
+================================================================================
+[46] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  const gr=g.getBoundingClientRect();\n  const cx=gr.left+gr.width
+--------------------------------------------------------------------------------
+### Result
+{
+  "nodes": [
+    {
+      "id": "prog-lang",
+      "t": "translate(622.479px, 69.3153px)"
+    },
+    {
+      "id": "sys-design",
+      "t": "translate(0px, 200px)"
+    },
+    {
+      "id": "code-review",
+      "t": "translate(0px, 400px)"
+    },
+    {
+      "id": "problem-solve",
+      "t": "translate(300px, 0px)"
+    },
+    {
+      "id": "collab",
+      "t": "translate(-21.6594px, 399.338px)"
+    },
+    {
+      "id": "agile",
+      "t": "translate(600px, 0px)"
+    }
+  ],
+  "elementAtPaneCenter": {},
+  "viewport": "translate(0px, 37.6552px) scale(0.882922)"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  const gr=g.getBoundingClientRect();\n  const cx=gr.left+gr.width/2, cy=gr.top+gr.height/2;\n  return {\n    nodes:[...g.querySelectorAll(\'.react-flow__node\')].map(n=>({id:n.getAttribute(\'data-id\'),t:n.style.transform})),\n    elementAtPaneCenter: (document.elementFromPoint(cx,cy)||{}).className,\n    viewport:g.querySelector(\'.react-flow__viewport\').style.transform\n  };\n}');
+```
+
+================================================================================
+[47] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  const gr=g.getBoundingClientRect();\n  const cx=gr.left+gr.width
+--------------------------------------------------------------------------------
+### Result
+{
+  "tag": "path",
+  "cls": "react-flow__edge-interaction",
+  "cx": 428,
+  "cy": 421
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  const gr=g.getBoundingClientRect();\n  const cx=gr.left+gr.width/2, cy=gr.top+gr.height/2;\n  const el=document.elementFromPoint(cx,cy);\n  return {tag:el.tagName, cls:(el.className.baseVal!==undefined?el.className.baseVal:el.className), cx, cy};\n}');
+```
+
+================================================================================
+[48] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  const st=document.createElement('style');\n  st.id='qa-pan-test'
+--------------------------------------------------------------------------------
+### Result
+{
+  "viewportBefore": "translate(0px, 37.6552px) scale(0.882922)"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  const st=document.createElement(\'style\');\n  st.id=\'qa-pan-test\';\n  st.textContent=\'.react-flow__node,.react-flow__edge,.react-flow__edge-interaction{pointer-events:none !important;}\';\n  document.head.appendChild(st);\n  return {viewportBefore:g.querySelector(\'.react-flow__viewport\').style.transform};\n}');
+```
+
+================================================================================
+[49] browser_drag  input={"startTarget": ".react-flow__pane", "startElement": "Graph pane empty area", "endTarget": "[data-semtag-id='model.graph']", "endElement": "Graph container"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('.react-flow__pane').dragTo(page.locator('[data-semtag-id=\'model.graph\']'));
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-12-29-575Z.yml)
+
+================================================================================
+[50] browser_drag  input={"startTarget": ".react-flow__pane", "startElement": "Graph pane empty area", "endTarget": ".react-flow__controls", "endElement": "Graph controls area (bottom-l
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('.react-flow__pane').dragTo(page.locator('.react-flow__controls'));
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-12-34-694Z.yml)
+
+================================================================================
+[51] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  const vp=g.querySelector('.react-flow__viewport').style.transfor
+--------------------------------------------------------------------------------
+### Result
+{
+  "viewportAfterPan": "translate(-382px, 265.655px) scale(0.882922)",
+  "nodes": [
+    "prog-lang:translate(622.479px, 69.3153px)",
+    "sys-design:translate(0px, 200px)",
+    "code-review:translate(0px, 400px)",
+    "problem-solve:translate(300px, 0px)",
+    "collab:translate(-21.6594px, 399.338px)",
+    "agile:translate(600px, 0px)"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  const vp=g.querySelector(\'.react-flow__viewport\').style.transform;\n  const s=document.getElementById(\'qa-pan-test\'); if(s) s.remove();\n  return {viewportAfterPan:vp, nodes:[...g.querySelectorAll(\'.react-flow__node\')].map(n=>n.getAttribute(\'data-id\')+\':\'+n.style.transform)};\n}');
+```
+
+================================================================================
+[52] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector(\"[data-semtag-id='model.graph']\");\n  g.querySelectorAll('.react-flow__controls button')[2].click(); /
+--------------------------------------------------------------------------------
+### Result
+{
+  "edges": [
+    {
+      "s": "prog-lang",
+      "t": "code-review",
+      "label": "80%",
+      "stroke": "hsl(173, 58%, 39%)",
+      "animated": true
+    },
+    {
+      "s": "prog-lang",
+      "t": "sys-design",
+      "label": "70%",
+      "stroke": "hsl(0, 72%, 51%)",
+      "animated": false
+    },
+    {
+      "s": "problem-solve",
+      "t": "sys-design",
+      "label": "90%",
+      "stroke": "hsl(0, 72%, 51%)",
+      "animated": true
+    },
+    {
+      "s": "collab",
+      "t": "code-review",
+      "label": "60%",
+      "stroke": "hsl(173, 58%, 39%)",
+      "animated": true
+    },
+    {
+      "s": "agile",
+      "t": "collab",
+      "label": "50%",
+      "stroke": "hsl(199, 89%, 48%)",
+      "animated": false
+    }
+  ],
+  "legend": []
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector("[data-semtag-id=\'model.graph\']");\n  g.querySelectorAll(\'.react-flow__controls button\')[2].click(); // fit view\n  const el=document.querySelector(\'.react-flow\');\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], edges=null, d=0;\n  while(f&&d<40){const p=f.memoizedProps||f.pendingProps; if(p&&Array.isArray(p.edges)){edges=p.edges.map(e=>({s:e.source,t:e.target,label:e.label,stroke:e.style&&e.style.stroke,animated:e.animated,type:e.data&&e.data.type}));break;} f=f.return;d++;}\n  const panel=g.closest(\'div\');\n  const legend=[...document.querySelectorAll(\'*\')].filter(n=>/dependen|reinforc/i.test(n.textContent)&&n.children.length===0).map(n=>n.textContent.trim()).slice(0,10);\n  return {edges, legend};\n}');
+```
+
+================================================================================
+[53] mcp__structured_results__record_result  input={"item_id": "CT-15", "verdict": "PASS", "evidence": "React Flow graph: 6 competency nodes each showing name, description, category, Level and Weight; 5 directed
+--------------------------------------------------------------------------------
+{"recorded": "CT-15", "verdict": "PASS", "recorded_count": 4, "total_count": 19, "missing_ids": ["FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "IX-13", "IX-19", "IX-20", "CT-16", "CT-17", "CT-18"], "complete": false}
+
+================================================================================
+[54] browser_click  input={"target": "[data-testid='rf__edge-e1'] .react-flow__edge-interaction", "element": "Edge prog-lang → code-review (80%)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-testid=\'rf__edge-e1\'] .react-flow__edge-interaction').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-13-12-090Z.yml)
+
+================================================================================
+[55] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7097/","screen":"home","navigation":[{"id":"nav.models","name":"Models","target":"models.page"},{"id":"nav.analytics","name":"Analytics","target":"analytics.page"},{"id":"model.back","name":"","target":"models.page"},{"id":"simulation.scenario.recruitment","name":"Recruitment","state":"simulation.scenario","target":"simulation.recruitment"},{"id":"simulation.scenario.training","name":"Training","state":"simulation.scenario","target":"simulation.training"},{"id":"simulation.scenario.promotion","name":"Promotion","state":"simulation.scenario","target":"simulation.promotion"}],"action":[{"id":"model.export","name":"Export","action":"export-model"},{"id":"model.share","name":"Share","action":"share-model"},{"id":"model.save","name":"Save","action":"save-model"},{"id":"simulation.run","name":"Run Simulation","action":"run-simulation"},{"id":"simulation.reset","name":"Reset","action":"reset-model"},{"id":"templates.save-current","name":"Save Current","action":"save-as-template"}],"observable":[{"id":"model.title","name":"Software Engineer","state":"model.jobTitle","value":"Software Engineer"},{"id":"model.department","name":"Engineering","state":"model.department","value":"Engineering"},{"id":"model.competency-count","name":"6 competencies","state":"model.competencyCount","value":"6 competencies"},{"id":"metrics.coverage","name":"68%","state":"metrics.coverage","value":"68%"},{"id":"metrics.avg-level","name":"3.3","state":"metrics.avgLevel","value":"3.3"},{"id":"metrics.critical-path.count","name":"3","state":"metrics.criticalPathCount","value":"3"},{"id":"metrics.gaps.count","name":"0","state":"metrics.gapCount","value":"0"},{"id":"simulation.active-scenario","name":"Recruitment Simulation","state":"simulation.scenario","value":"Recruitment Simulation"}],"region":[{"id":"model.metrics","name":""},{"id":"simulation.panel","name":""}],"collections":[{"id":"model.graph","idPattern":"model.graph.item.{key}[.{control}]","item":{"role":"observable","state":"competency.name"},"itemControls":{"enabled":{"role":"toggle","name":"","action":"toggle-competency","state":"competency.enabled","value":true},"level-value":{"role":"observable","state":"competency.level"},"set-level-1":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"set-level-2":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"set-level-3":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"set-level-4":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"set-level-5":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"weight-value":{"role":"observable","state":"competency.weight"},"weight":{"role":"slider","state":"competency.weight","value":""}},"fields":["key","value","level-value.value","weight-value.value"],"items":[["prog-lang","Programming Languages","Advanced","90%"],["sys-design","System Design","Intermediate","80%"],["code-review","Code Review","Intermediate","60%"],["problem-solve","Problem Solving","Advanced","90%"],["collab","Collaboration","Intermediate","70%"],["agile","Agile Methodology","Intermediate","50%"]]},{"id":"simulation.adjustments","idPattern":"simulation.adjustments.item.{key}[.{control}]","item":{"role":"observable","state":"simulation.category"},"itemControls":{"level-value":{"role":"observable","value":"0"},"level":{"role":"slider","value":""},"weight-value":{"role":"observable","value":"0%"},"weight":{"role":"slider","value":""}},"fields":["key","name","value","level-value.state","level.state","weight-value.state","weight.state"],"items":[["technical","technical","Technical","simulation.technical.levelDelta","simulation.technical.levelDelta","simulation.technical.weightDelta","simulation.technical.weightDelta"],["behavioral","behavioral","Behavioral","simulation.behavioral.levelDelta","simulation.behavioral.levelDelta","simulation.behavioral.weightDelta","simulation.behavioral.weightDelta"],["leadership","leadership","Leadership","simulation.leadership.levelDelta","simulation.leadership.levelDelta","simulation.leadership.weightDelta","simulation.leadership.weightDelta"],["domain","domain","Domain","simulation.domain.levelDelta","simulation.domain.levelDelta","simulation.domain.weightDelta","simulation.domain.weightDelta"]]},{"id":"templates.list","idPattern":"templates.list.item.{key}[.{control}]","item":{"role":"observable","state":"template.jobTitle"},"itemControls":{"current":{"role":"observable","state":"template.current","value":"Current"},"apply":{"role":"action","name":"Apply","action":"apply-template"}},"fields":["key","value","current","apply.enabled"],"items":[["software-engineer","Software Engineer",true,false],["product-manager","Product Manager",null,null],["hr-manager","HR Manager",null,null],["data-scientist","Data Scientist",null,null],["sales-manager","Sales Manager",null,null]]}]}
+
+================================================================================
+[56] browser_evaluate  input={"function": "() => {\n  const el=document.querySelector('.react-flow');\n  const key=Object.keys(el).find(k=>k.startsWith('__reactFiber$'));\n  let f=el[key], 
+--------------------------------------------------------------------------------
+### Result
+{
+  "reactFlowHandlerProps": [
+    "onNodesChange",
+    "onEdgesChange",
+    "connectionMode"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el=document.querySelector(\'.react-flow\');\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], out=null, d=0;\n  while(f&&d<40){const p=f.memoizedProps||f.pendingProps;\n    if(p&&Array.isArray(p.edges)){\n      out=Object.keys(p).filter(k=>/^on|updat|connect/i.test(k));\n      break;}\n    f=f.return;d++;}\n  return {reactFlowHandlerProps: out};\n}');
+```
+
+================================================================================
+[57] browser_evaluate  input={"function": "() => {\n  const t=document.body.innerText;\n  const idx=[];\n  const re=/relationship[^\\n]*/gi; let m;\n  while((m=re.exec(t))!==null) idx.push(
+--------------------------------------------------------------------------------
+### Result
+{
+  "relationshipText": [],
+  "edgeControls": []
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const t=document.body.innerText;\n  const idx=[];\n  const re=/relationship[^\\n]*/gi; let m;\n  while((m=re.exec(t))!==null) idx.push(m[0].slice(0,80));\n  const controls=[...document.querySelectorAll(\'input[type=range],[role=slider],select,button\')]\n    .map(n=>n.getAttribute(\'data-semtag-id\')).filter(Boolean).filter(id=>/edge|rel|link|conn/i.test(id));\n  return {relationshipText:idx.slice(0,15), edgeControls:controls};\n}');
+```
+
+================================================================================
+[58] browser_evaluate  input={"function": "() => {\n  const w=document.querySelector(\"[data-semtag-id='model.graph.item.prog-lang.weight']\");\n  const thumb=w.querySelector('[role=slider]
+--------------------------------------------------------------------------------
+### Result
+{
+  "tag": "SPAN",
+  "role": null,
+  "thumbRole": "slider",
+  "aria": {
+    "now": "90",
+    "min": "10",
+    "max": "100"
+  }
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const w=document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.weight\']");\n  const thumb=w.querySelector(\'[role=slider]\')||w;\n  return {tag:w.tagName, role:w.getAttribute(\'role\'), thumbRole:thumb.getAttribute(\'role\'),\n    aria:{now:thumb.getAttribute(\'aria-valuenow\'),min:thumb.getAttribute(\'aria-valuemin\'),max:thumb.getAttribute(\'aria-valuemax\')}};\n}');
+```
+
+================================================================================
+[59] browser_click  input={"target": "[data-semtag-id='model.graph.item.prog-lang.weight'] [role='slider']", "element": "Programming Languages weight slider thumb"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.graph.item.prog-lang.weight\'] [role=\'slider\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-13-52-455Z.yml)
+
+================================================================================
+[60] browser_evaluate  input={"function": "() => ({\n  weight: document.querySelector(\"[data-semtag-id='model.graph.item.prog-lang.weight-value']\").innerText,\n  aria: document.querySelec
+--------------------------------------------------------------------------------
+### Result
+{
+  "weight": "90%",
+  "aria": "90",
+  "coverage": "68%",
+  "avg": "3.3",
+  "crit": "3",
+  "gaps": "0"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({\n  weight: document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.weight-value\']").innerText,\n  aria: document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.weight\'] [role=slider]").getAttribute(\'aria-valuenow\'),\n  coverage: document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText,\n  avg: document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText,\n  crit: document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']").innerText,\n  gaps: document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText\n})');
+```
+
+================================================================================
+[61] browser_press_key  input={"key": "ArrowLeft"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+// Press ArrowLeft
+await page.keyboard.press('ArrowLeft');
+```
+
+================================================================================
+[62] browser_evaluate  input={"function": "() => ({\n  weight: document.querySelector(\"[data-semtag-id='model.graph.item.prog-lang.weight-value']\").innerText,\n  aria: document.querySelec
+--------------------------------------------------------------------------------
+### Result
+{
+  "weight": "90%",
+  "aria": "90",
+  "coverage": "68%",
+  "avg": "3.3",
+  "crit": "3",
+  "gaps": "0",
+  "edgeLabels": [
+    "80%",
+    "80%",
+    "70%",
+    "70%",
+    "90%",
+    "90%",
+    "60%",
+    "60%",
+    "50%",
+    "50%"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({\n  weight: document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.weight-value\']").innerText,\n  aria: document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.weight\'] [role=slider]").getAttribute(\'aria-valuenow\'),\n  coverage: document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText,\n  avg: document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText,\n  crit: document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']").innerText,\n  gaps: document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText,\n  edgeLabels: [...document.querySelectorAll("[data-semtag-id=\'model.graph\'] .react-flow__edge text, [data-semtag-id=\'model.graph\'] .react-flow__edge-textwrapper")].map(n=>n.textContent)\n})');
+```
+
+================================================================================
+[63] browser_evaluate  input={"function": "() => {\n  const t=document.querySelector(\"[data-semtag-id='model.graph.item.prog-lang.weight'] [role=slider]\");\n  t.focus();\n  return {active
+--------------------------------------------------------------------------------
+### Result
+{
+  "active": true,
+  "activeTag": "SPAN",
+  "activeRole": "slider",
+  "tabindex": "0"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const t=document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.weight\'] [role=slider]");\n  t.focus();\n  return {active: document.activeElement===t, activeTag:document.activeElement.tagName, activeRole:document.activeElement.getAttribute&&document.activeElement.getAttribute(\'role\'), tabindex:t.getAttribute(\'tabindex\')};\n}');
+```
+
+================================================================================
+[64] browser_press_key  input={"key": "ArrowLeft"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+// Press ArrowLeft
+await page.keyboard.press('ArrowLeft');
+```
+
+================================================================================
+[65] browser_evaluate  input={"function": "() => ({\n  weight: document.querySelector(\"[data-semtag-id='model.graph.item.prog-lang.weight-value']\").innerText,\n  aria: document.querySelec
+--------------------------------------------------------------------------------
+### Result
+{
+  "weight": "90%",
+  "aria": "90",
+  "coverage": "68%",
+  "avg": "3.3",
+  "crit": "3",
+  "gaps": "0"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({\n  weight: document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.weight-value\']").innerText,\n  aria: document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.weight\'] [role=slider]").getAttribute(\'aria-valuenow\'),\n  coverage: document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText,\n  avg: document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText,\n  crit: document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']").innerText,\n  gaps: document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText\n})');
+```
+
+================================================================================
+[66] browser_drag  input={"startTarget": "[data-semtag-id='model.graph.item.prog-lang.weight'] [role='slider']", "startElement": "Programming Languages weight slider thumb (90%)", "endT
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.graph.item.prog-lang.weight\'] [role=\'slider\']').dragTo(page.locator('[data-semtag-id=\'model.graph.item.prog-lang.weight\']'));
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-14-30-673Z.yml)
+
+================================================================================
+[67] browser_evaluate  input={"function": "() => ({\n  weight: document.querySelector(\"[data-semtag-id='model.graph.item.prog-lang.weight-value']\").innerText,\n  aria: document.querySelec
+--------------------------------------------------------------------------------
+### Result
+{
+  "weight": "90%",
+  "aria": "90",
+  "coverage": "67%",
+  "avg": "3.3",
+  "crit": "5",
+  "gaps": "0",
+  "nodePos": "translate(622.479px, 69.3153px)"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({\n  weight: document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.weight-value\']").innerText,\n  aria: document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.weight\'] [role=slider]").getAttribute(\'aria-valuenow\'),\n  coverage: document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText,\n  avg: document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText,\n  crit: document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']").innerText,\n  gaps: document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText,\n  nodePos: document.querySelector(".react-flow__node[data-id=\'prog-lang\']").style.transform\n})');
+```
+
+================================================================================
+[68] browser_evaluate  input={"function": "() => {\n  const el=document.querySelector('.react-flow');\n  const key=Object.keys(el).find(k=>k.startsWith('__reactFiber$'));\n  let f=el[key], 
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "id": "prog-lang",
+    "name": "Programming Languages",
+    "level": 4,
+    "weight": 0.9,
+    "enabled": true
+  },
+  {
+    "id": "sys-design",
+    "name": "System Design",
+    "level": 3,
+    "weight": 0.8,
+    "enabled": true
+  },
+  {
+    "id": "code-review",
+    "name": "Code Review",
+    "level": 3,
+    "weight": 0.6,
+    "enabled": true
+  },
+  {
+    "id": "problem-solve",
+    "name": "Problem Solving",
+    "level": 4,
+    "weight": 0.9,
+    "enabled": true
+  },
+  {
+    "id": "collab",
+    "name": "Collaboration",
+    "level": 3,
+    "weight": 0.7,
+    "enabled": true
+  },
+  {
+    "id": "agile",
+    "name": "Agile Methodology",
+    "level": 3,
+    "weight": 0.5,
+    "enabled": true
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el=document.querySelector(\'.react-flow\');\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], nodes=null, d=0;\n  while(f&&d<40){const p=f.memoizedProps||f.pendingProps;\n    if(p&&Array.isArray(p.nodes)&&p.nodes[0]&&p.nodes[0].data){\n      nodes=p.nodes.map(n=>({id:n.id, name:n.data.competency&&n.data.competency.name, level:n.data.competency&&n.data.competency.level, weight:n.data.competency&&n.data.competency.weight, enabled:n.data.competency&&n.data.competency.enabled}));\n      break;}\n    f=f.return;d++;}\n  return nodes;\n}');
+```
+
+================================================================================
+[69] browser_evaluate  input={"function": "() => {\n  const root=document.querySelector(\"[data-semtag-id='model.graph.item.prog-lang.weight']\");\n  const thumb=root.querySelector('[role=s
+--------------------------------------------------------------------------------
+### Result
+{
+  "trackRect": {
+    "x": 559,
+    "y": 374,
+    "w": 229
+  },
+  "thumbRect": {
+    "x": 749,
+    "y": 370,
+    "w": 15
+  },
+  "nodeText": "Programming Languages | Proficiency in multiple programming languages | Technical | Critical | Level | Advanced | Weight | 90%",
+  "cands": [
+    {
+      "id": null,
+      "txt": "",
+      "x": 669,
+      "y": 245,
+      "w": 9
+    },
+    {
+      "id": "model.graph.item.prog-lang.enabled",
+      "txt": "",
+      "x": 758,
+      "y": 264,
+      "w": 25
+    },
+    {
+      "id": null,
+      "txt": "",
+      "x": 771,
+      "y": 265,
+      "w": 11
+    },
+    {
+      "id": null,
+      "txt": "Technical",
+      "x": 559,
+      "y": 300,
+      "w": 58
+    },
+    {
+      "id": null,
+      "txt": "Critical",
+      "x": 623,
+      "y": 300,
+      "w": 48
+    },
+    {
+      "id": null,
+      "txt": "Level",
+      "x": 559,
+      "y": 326,
+      "w": 22
+    },
+    {
+      "id": "model.graph.item.prog-lang.level-value",
+      "txt": "Advanced",
+      "x": 747,
+      "y": 326,
+      "w": 41
+    },
+    {
+      "id": "model.graph.item.prog-lang.set-level-1",
+      "txt": "",
+      "x": 559,
+      "y": 344,
+      "w": 43
+    },
+    {
+      "id": "model.graph.item.prog-lang.set-level-2",
+      "txt": "",
+      "x": 605,
+      "y": 344,
+      "w": 43
+    },
+    {
+      "id": "model.graph.item.prog-lang.set-level-3",
+      "txt": "",
+      "x": 652,
+      "y": 344,
+      "w": 43
+    },
+    {
+      "id": "model.graph.item.prog-lang.set-level-4",
+      "txt": "",
+      "x": 698,
+      "y": 344,
+      "w": 43
+    },
+    {
+      "id": "model.graph.item.prog-lang.set-level-5",
+      "txt": "",
+      "x": 744,
+      "y": 344,
+      "w": 43
+    },
+    {
+      "id": null,
+      "txt": "Weight",
+      "x": 559,
+      "y": 359,
+      "w": 28
+    },
+    {
+      "id": "model.graph.item.prog-lang.weight-value",
+      "txt": "90%",
+      "x": 769,
+      "y": 359,
+      "w": 18
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const root=document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.weight\']");\n  const thumb=root.querySelector(\'[role=slider]\');\n  const rr=root.getBoundingClientRect(), tr=thumb.getBoundingClientRect();\n  const nodeEl=document.querySelector(".react-flow__node[data-id=\'prog-lang\']");\n  const cands=[...nodeEl.querySelectorAll(\'*\')].map(n=>{const r=n.getBoundingClientRect();return {id:n.getAttribute(\'data-semtag-id\'),txt:(n.innerText||\'\').slice(0,18),x:Math.round(r.x),y:Math.round(r.y),w:Math.round(r.width)};}).filter(c=>c.w>0&&c.w<120);\n  return {trackRect:{x:Math.round(rr.x),y:Math.round(rr.y),w:Math.round(rr.width)}, thumbRect:{x:Math.round(tr.x),y:Math.round(tr.y),w:Math.round(tr.width)}, nodeText:nodeEl.innerText.replace(/\\n+/g,\' | \'), cands:cands.slice(0,14)};\n}');
+```
+
+================================================================================
+[70] browser_drag  input={"startTarget": "[data-semtag-id='model.graph.item.prog-lang.weight'] [role='slider']", "startElement": "Programming Languages weight slider thumb", "endTarget"
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.graph.item.prog-lang.weight\'] [role=\'slider\']').dragTo(page.locator('.react-flow__node[data-id=\'prog-lang\']').locator('text=Weight'));
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-15-31-218Z.yml)
+
+================================================================================
+[71] browser_evaluate  input={"function": "() => {\n  const t=document.querySelector(\"[data-semtag-id='model.graph.item.prog-lang.weight'] [role=slider]\");\n  return {\n    displayedWeigh
+--------------------------------------------------------------------------------
+### Result
+{
+  "displayedWeight": "90%",
+  "ariaNow": "90",
+  "thumbX": 749,
+  "coverage": "66%",
+  "avg": "3.3",
+  "crit": "5",
+  "gaps": "0"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const t=document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.weight\'] [role=slider]");\n  return {\n    displayedWeight: document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.weight-value\']").innerText,\n    ariaNow: t.getAttribute(\'aria-valuenow\'),\n    thumbX: Math.round(t.getBoundingClientRect().x),\n    coverage: document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText,\n    avg: document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText,\n    crit: document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']").innerText,\n    gaps: document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText\n  };\n}');
+```
+
+================================================================================
+[72] mcp__structured_results__record_result  input={"item_id": "FT-4", "verdict": "FAIL", "issue": "No way to edit a competency relationship's weight; relationship weights are read-only and never update", "actua
+--------------------------------------------------------------------------------
+{"recorded": "FT-4", "verdict": "FAIL", "recorded_count": 5, "total_count": 19, "missing_ids": ["FT-5", "FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "IX-13", "IX-19", "IX-20", "CT-16", "CT-17", "CT-18"], "complete": false}
+
+================================================================================
+[73] browser_click  input={"target": "[data-semtag-id='model.graph.item.prog-lang.set-level-2']", "element": "Programming Languages set level 2 button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.graph.item.prog-lang.set-level-2\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-15-56-797Z.yml)
+
+================================================================================
+[74] browser_evaluate  input={"function": "() => {\n  const q=s=>document.querySelector(s);\n  const gaps=document.querySelector(\"[data-semtag-id='metrics.gaps.count']\").innerText;\n  con
+--------------------------------------------------------------------------------
+Error: result (110,687 characters) exceeds maximum allowed tokens. Output has been saved to /home/ubuntu/.claude/projects/-home-ubuntu-semantic-hints-project-WebTestBench-claude-code-cwd/9d74ee43-a61b-4c32-8e0d-1583ae6427c3/tool-results/mcp-playwright-browser_evaluate-1787901363396.txt.
+Format: JSON array with schema: [{type: string, text: string}]
+Use offset and limit parameters to read specific portions of the file, search within it for specific content, and jq to make structured queries.
+REQUIREMENTS FOR SUMMARIZATION/ANALYSIS/REVIEW:
+- You MUST read the content from the file at /home/ubuntu/.claude/projects/-home-ubuntu-semantic-hints-project-WebTestBench-claude-code-cwd/9d74ee43-a61b-4c32-8e0d-1583ae6427c3/tool-results/mcp-playwright-browser_evaluate-1787901363396.txt in sequential chunks until 100% of the content has been read.
+- If you receive truncation warnings when reading the file, reduce the chunk size until you have read 100% of the content without truncation.
+- Before producing ANY summary or analysis, you MUST explicitly describe what portion of the content you have read. ***If you did not read the entire content, you MUST explicitly state this.***
+
+
+================================================================================
+[75] browser_evaluate  input={"function": "() => {\n  const q=s=>document.querySelector(s);\n  return {\n    levelDisplay:q(\"[data-semtag-id='model.graph.item.prog-lang.level-value']\").in
+--------------------------------------------------------------------------------
+### Result
+{
+  "levelDisplay": "Advanced",
+  "weightDisplay": "90%",
+  "coverage": "60%",
+  "avg": "3.0",
+  "crit": "3",
+  "gaps": "1"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const q=s=>document.querySelector(s);\n  return {\n    levelDisplay:q("[data-semtag-id=\'model.graph.item.prog-lang.level-value\']").innerText,\n    weightDisplay:q("[data-semtag-id=\'model.graph.item.prog-lang.weight-value\']").innerText,\n    coverage:q("[data-semtag-id=\'metrics.coverage\']").innerText,\n    avg:q("[data-semtag-id=\'metrics.avg-level\']").innerText,\n    crit:q("[data-semtag-id=\'metrics.critical-path.count\']").innerText,\n    gaps:q("[data-semtag-id=\'metrics.gaps.count\']").innerText\n  };\n}');
+```
+
+================================================================================
+[76] mcp__semantic_hints__semantic_snapshot  input={"scope": "model.metrics"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7097/","screen":"home","observable":[{"id":"metrics.coverage","name":"60%","state":"metrics.coverage","value":"60%"},{"id":"metrics.avg-level","name":"3.0","state":"metrics.avgLevel","value":"3.0"},{"id":"metrics.critical-path.count","name":"3","state":"metrics.criticalPathCount","value":"3"},{"id":"metrics.gaps.count","name":"1","state":"metrics.gapCount","value":"1"},{"id":"metrics.gap-alert","name":"Competency Gap Alert 1 competency below recommended level: Programming Languages. Consider increasing training focus or …","state":"metrics.gapAlert","value":"Competency Gap Alert 1 competency below recommended level: Programming Languages. Consider increasing training focus or adjusting expectations."}],"region":[{"id":"model.metrics","name":""}]}
+
+================================================================================
+[77] browser_evaluate  input={"function": "() => {\n  const a=document.querySelector(\"[data-semtag-id='metrics.gap-alert']\");\n  const m=document.querySelector(\"[data-semtag-id='model.me
+--------------------------------------------------------------------------------
+### Result
+{
+  "svgIcons": 1,
+  "iconClasses": [
+    "lucide lucide-triangle-alert h-4 w-4 text-warning"
+  ],
+  "text": "Competency Gap Alert | 1 competency below recommended level: Programming Languages. Consider increasing training focus or adjusting expectations.",
+  "role": "alert",
+  "alertRect": {
+    "y": 113,
+    "h": 74,
+    "w": 1248
+  },
+  "metricsRect": {
+    "y": -85,
+    "h": 272
+  },
+  "verticalGapFromMetrics": -74
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const a=document.querySelector("[data-semtag-id=\'metrics.gap-alert\']");\n  const m=document.querySelector("[data-semtag-id=\'model.metrics\']");\n  const ar=a.getBoundingClientRect(), mr=m.getBoundingClientRect();\n  return {\n    svgIcons: a.querySelectorAll(\'svg\').length,\n    iconClasses:[...a.querySelectorAll(\'svg\')].map(s=>s.getAttribute(\'class\')),\n    text:a.innerText.replace(/\\n+/g,\' | \'),\n    role:a.getAttribute(\'role\'),\n    alertRect:{y:Math.round(ar.y),h:Math.round(ar.height),w:Math.round(ar.width)},\n    metricsRect:{y:Math.round(mr.y),h:Math.round(mr.height)},\n    verticalGapFromMetrics: Math.round(ar.y-(mr.y+mr.height))\n  };\n}');
+```
+
+================================================================================
+[78] mcp__structured_results__record_result  input={"item_id": "CT-18", "verdict": "PASS", "evidence": "After lowering Programming Languages to level 2, metrics.gaps.count=1 and a role=\"alert\" element (metrics
+--------------------------------------------------------------------------------
+{"recorded": "CT-18", "verdict": "PASS", "recorded_count": 6, "total_count": 19, "missing_ids": ["FT-5", "FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "IX-13", "IX-19", "IX-20", "CT-16", "CT-17"], "complete": false}
+
+================================================================================
+[79] browser_click  input={"target": "[data-semtag-id='model.graph.item.prog-lang.set-level-5']", "element": "Programming Languages set level 5 button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.graph.item.prog-lang.set-level-5\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-16-38-037Z.yml)
+
+================================================================================
+[80] browser_evaluate  input={"function": "() => ({\n  gaps:document.querySelector(\"[data-semtag-id='metrics.gaps.count']\").innerText,\n  alertPresent: !!document.querySelector(\"[data-se
+--------------------------------------------------------------------------------
+### Result
+{
+  "gaps": "0",
+  "alertPresent": false,
+  "coverage": "72%",
+  "avg": "3.5",
+  "crit": "3",
+  "nodeLevelDisplay": "Advanced"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({\n  gaps:document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText,\n  alertPresent: !!document.querySelector("[data-semtag-id=\'metrics.gap-alert\']"),\n  coverage:document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText,\n  avg:document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText,\n  crit:document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']").innerText,\n  nodeLevelDisplay:document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.level-value\']").innerText\n})');
+```
+
+================================================================================
+[81] browser_click  input={"target": "[data-semtag-id='model.graph.item.prog-lang.set-level-2']", "element": "Programming Languages set level 2 button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.graph.item.prog-lang.set-level-2\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-16-48-669Z.yml)
+
+================================================================================
+[82] mcp__semantic_hints__semantic_observe  input={"id": "metrics.gap-alert"}
+--------------------------------------------------------------------------------
+{"id":"metrics.gap-alert","role":"observable","name":"Competency Gap Alert 1 competency below recommended level: Programming Languages. Consider increasing training focus or …","state":"metrics.gapAlert","value":"Competency Gap Alert 1 competency below recommended level: Programming Languages. Consider increasing training focus or adjusting expectations."}
+
+================================================================================
+[83] browser_click  input={"target": "[data-semtag-id='model.graph.item.prog-lang.enabled']", "element": "Programming Languages enabled toggle"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.graph.item.prog-lang.enabled\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-16-54-600Z.yml)
+
+================================================================================
+[84] browser_evaluate  input={"function": "() => {\n  const node=document.querySelector(\".react-flow__node[data-id='prog-lang']\");\n  const inner=node.firstElementChild;\n  const toggle=d
+--------------------------------------------------------------------------------
+### Result
+{
+  "gaps": "0",
+  "alertPresent": false,
+  "coverage": "65%",
+  "avg": "3.2",
+  "crit": "5",
+  "toggleState": "checked",
+  "nodeOpacity": "1",
+  "nodeClasses": "competency-node bg-card p-4 min-w-[220px] border-node-critical",
+  "edges": [
+    {
+      "testid": "rf__edge-e1",
+      "opacity": "1",
+      "stroke": "rgb(42, 157, 144)",
+      "dash": ""
+    },
+    {
+      "testid": "rf__edge-e2",
+      "opacity": "1",
+      "stroke": "rgb(220, 40, 40)",
+      "dash": ""
+    },
+    {
+      "testid": "rf__edge-e3",
+      "opacity": "1",
+      "stroke": "rgb(220, 40, 40)",
+      "dash": ""
+    },
+    {
+      "testid": "rf__edge-e4",
+      "opacity": "1",
+      "stroke": "rgb(42, 157, 144)",
+      "dash": ""
+    },
+    {
+      "testid": "rf__edge-e5",
+      "opacity": "1",
+      "stroke": "rgb(13, 162, 231)",
+      "dash": ""
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const node=document.querySelector(".react-flow__node[data-id=\'prog-lang\']");\n  const inner=node.firstElementChild;\n  const toggle=document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.enabled\']");\n  const edges=[...document.querySelectorAll(\'.react-flow__edge\')].map(e=>{\n    const p=e.querySelector(\'path.react-flow__edge-path\');\n    return {testid:e.dataset.testid, opacity:p?getComputedStyle(p).opacity:null, stroke:p?getComputedStyle(p).stroke:null, dash:p?p.style.strokeDasharray:null};\n  });\n  return {\n    gaps:document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText,\n    alertPresent: !!document.querySelector("[data-semtag-id=\'metrics.gap-alert\']"),\n    coverage:document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText,\n    avg:document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText,\n    crit:document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']").innerText,\n    toggleState:toggle.getAttribute(\'data-state\')||toggle.getAttribute(\'aria-checked\'),\n    nodeOpacity:getComputedStyle(inner).opacity,\n    nodeClasses:inner.className,\n    edges\n  };\n}');
+```
+
+================================================================================
+[85] browser_click  input={"target": "[data-semtag-id='model.graph.item.prog-lang.enabled']", "element": "Programming Languages enabled toggle (re-enable)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.graph.item.prog-lang.enabled\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-17-11-702Z.yml)
+
+================================================================================
+[86] browser_evaluate  input={"function": "() => ({\n  gaps:document.querySelector(\"[data-semtag-id='metrics.gaps.count']\").innerText,\n  alertText:(document.querySelector(\"[data-semtag-
+--------------------------------------------------------------------------------
+### Result
+{
+  "gaps": "0",
+  "alertText": "(none)",
+  "coverage": "65%",
+  "avg": "3.2",
+  "crit": "5",
+  "toggleState": "checked"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({\n  gaps:document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText,\n  alertText:(document.querySelector("[data-semtag-id=\'metrics.gap-alert\']")||{innerText:\'(none)\'}).innerText.replace(/\\n+/g,\' | \'),\n  coverage:document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText,\n  avg:document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText,\n  crit:document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']").innerText,\n  toggleState:document.querySelector("[data-semtag-id=\'model.graph.item.prog-lang.enabled\']").getAttribute(\'data-state\')\n})');
+```
+
+================================================================================
+[87] mcp__structured_results__record_result  input={"item_id": "FT-5", "verdict": "FAIL", "issue": "Disabled state is not shown on the node/edges, and a disabled competency cannot be re-enabled (repeated toggles
+--------------------------------------------------------------------------------
+{"recorded": "FT-5", "verdict": "FAIL", "recorded_count": 7, "total_count": 19, "missing_ids": ["FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "IX-13", "IX-19", "IX-20", "CT-16", "CT-17"], "complete": false}
+
+================================================================================
+[88] mcp__structured_results__record_result  input={"item_id": "CT-17", "verdict": "PASS", "evidence": "Lowering enabled high-weight \"Programming Languages\" (weight 90%) to level 2 immediately produced gaps=1 
+--------------------------------------------------------------------------------
+{"recorded": "CT-17", "verdict": "PASS", "recorded_count": 8, "total_count": 19, "missing_ids": ["FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "IX-13", "IX-19", "IX-20", "CT-16"], "complete": false}
+
+================================================================================
+[89] mcp__structured_results__record_result  input={"item_id": "IX-20", "verdict": "FAIL", "issue": "Graph node controls never re-render: they display stale level, weight and enabled state, disagree with the sum
+--------------------------------------------------------------------------------
+{"recorded": "IX-20", "verdict": "FAIL", "recorded_count": 9, "total_count": 19, "missing_ids": ["FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "IX-13", "IX-19", "CT-16"], "complete": false}
+
+================================================================================
+[90] browser_evaluate  input={"function": "() => {\n  const m=document.querySelector(\"[data-semtag-id='model.metrics']\");\n  const bars=[...m.querySelectorAll('[role=progressbar],.progres
+--------------------------------------------------------------------------------
+### Result
+{
+  "coverage": "65%",
+  "bars": [
+    {
+      "cls": "relative w-full overflow-hidden rounded-full bg-secondary mt-2 h-2",
+      "aria": null,
+      "innerStyle": "translateX(-34.8571%)"
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const m=document.querySelector("[data-semtag-id=\'model.metrics\']");\n  const bars=[...m.querySelectorAll(\'[role=progressbar],.progress,[class*=progress]\')].map(b=>({\n    cls:b.className, aria:b.getAttribute(\'aria-valuenow\'),\n    innerStyle:b.firstElementChild?b.firstElementChild.style.transform||b.firstElementChild.style.width:null\n  }));\n  return {coverage:document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText, bars};\n}');
+```
+
+================================================================================
+[91] browser_click  input={"target": "[data-semtag-id='model.graph.item.sys-design.set-level-5']", "element": "System Design set level 5 button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.graph.item.sys-design.set-level-5\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-18-00-292Z.yml)
+
+================================================================================
+[92] browser_evaluate  input={"function": "() => {\n  const m=document.querySelector(\"[data-semtag-id='model.metrics']\");\n  const bar=m.querySelector('[class*=progress], .relative.w-full
+--------------------------------------------------------------------------------
+### Result
+{
+  "coverage": "75%",
+  "avg": "3.7",
+  "barTransform": "translateX(-24.5455%)",
+  "url": "http://localhost:7097/"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const m=document.querySelector("[data-semtag-id=\'model.metrics\']");\n  const bar=m.querySelector(\'[class*=progress], .relative.w-full.overflow-hidden\');\n  return {\n    coverage:document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText,\n    avg:document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText,\n    barTransform: bar&&bar.firstElementChild?bar.firstElementChild.style.transform:null,\n    url:location.href\n  };\n}');
+```
+
+================================================================================
+[93] mcp__structured_results__record_result  input={"item_id": "IX-13", "verdict": "PASS", "evidence": "All three edit types updated the coverage number and its progress bar in place (URL unchanged, no reload): 
+--------------------------------------------------------------------------------
+{"recorded": "IX-13", "verdict": "PASS", "recorded_count": 10, "total_count": 19, "missing_ids": ["FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "IX-19", "CT-16"], "complete": false}
+
+================================================================================
+[94] browser_evaluate  input={"function": "() => {\n  const el=document.querySelector(\"[data-semtag-id='metrics.coverage']\");\n  const key=Object.keys(el).find(k=>k.startsWith('__reactFib
+--------------------------------------------------------------------------------
+### Result
+{
+  "depth": 15,
+  "jobTitle": "Software Engineer",
+  "comps": [
+    {
+      "id": "prog-lang",
+      "n": "Programming Languages",
+      "lvl": 4,
+      "w": 0.9,
+      "en": true,
+      "cat": "technical"
+    },
+    {
+      "id": "sys-design",
+      "n": "System Design",
+      "lvl": 5,
+      "w": 0.8,
+      "en": true,
+      "cat": "technical"
+    },
+    {
+      "id": "problem-solve",
+      "n": "Problem Solving",
+      "lvl": 4,
+      "w": 0.9,
+      "en": true,
+      "cat": "behavioral"
+    },
+    {
+      "id": "collab",
+      "n": "Collaboration",
+      "lvl": 3,
+      "w": 0.7,
+      "en": true,
+      "cat": "behavioral"
+    },
+    {
+      "id": "code-review",
+      "n": "Code Review",
+      "lvl": 3,
+      "w": 0.6,
+      "en": true,
+      "cat": "technical"
+    },
+    {
+      "id": "agile",
+      "n": "Agile Methodology",
+      "lvl": 3,
+      "w": 0.5,
+      "en": true,
+      "cat": "domain"
+    }
+  ],
+  "rels": []
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el=document.querySelector("[data-semtag-id=\'metrics.coverage\']");\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], found=[], d=0;\n  while(f&&d<60){\n    let h=f.memoizedState;\n    let hi=0;\n    while(h&&hi<30){\n      const s=h.memoizedState;\n      if(s&&typeof s===\'object\'&&Array.isArray(s.competencies)){\n        found.push({depth:d, jobTitle:s.jobTitle, comps:s.competencies.map(c=>({id:c.id,n:c.name,lvl:c.level,w:c.weight,en:c.enabled,req:c.requiredLevel||c.recommendedLevel,cat:c.category})), rels:(s.relationships||[]).map(r=>({s:r.source,t:r.target,w:r.weight,type:r.type}))});\n      }\n      h=h.next; hi++;\n    }\n    if(found.length) break;\n    f=f.return; d++;\n  }\n  return found[0]||\'not found\';\n}');
+```
+
+================================================================================
+[95] browser_click  input={"target": "[data-semtag-id='model.graph.item.code-review.set-level-5']", "element": "Code Review set level 5 button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.graph.item.code-review.set-level-5\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-18-57-835Z.yml)
+
+================================================================================
+[96] browser_evaluate  input={"function": "() => {\n  const el=document.querySelector(\"[data-semtag-id='metrics.coverage']\");\n  const key=Object.keys(el).find(k=>k.startsWith('__reactFib
+--------------------------------------------------------------------------------
+### Result
+{
+  "state": [
+    "prog-lang:L4 W0.9 on",
+    "sys-design:L3 W0.8 on",
+    "problem-solve:L4 W0.9 on",
+    "collab:L3 W0.7 on",
+    "code-review:L5 W0.6 on",
+    "agile:L3 W0.5 on"
+  ],
+  "coverage": "74%",
+  "avg": "3.7"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el=document.querySelector("[data-semtag-id=\'metrics.coverage\']");\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], res=null, d=0;\n  while(f&&d<60){\n    let h=f.memoizedState, hi=0;\n    while(h&&hi<30){\n      const s=h.memoizedState;\n      if(s&&typeof s===\'object\'&&Array.isArray(s.competencies)){\n        res=s.competencies.map(c=>`${c.id}:L${c.level} W${c.weight} ${c.enabled?\'on\':\'OFF\'}`);\n        break;\n      }\n      h=h.next; hi++;\n    }\n    if(res) break; f=f.return; d++;\n  }\n  return {state:res, coverage:el.innerText, avg:document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText};\n}');
+```
+
+================================================================================
+[97] browser_evaluate  input={"function": "() => {\n  const nodes=[...document.querySelectorAll('.react-flow__node')].map(n=>{\n    const inner=n.firstElementChild;\n    return {id:n.getAtt
+--------------------------------------------------------------------------------
+### Result
+{
+  "nodes": [
+    {
+      "id": "prog-lang",
+      "critical": true,
+      "gap": false,
+      "cls": "border-node-critical"
+    },
+    {
+      "id": "sys-design",
+      "critical": true,
+      "gap": false,
+      "cls": "border-node-critical"
+    },
+    {
+      "id": "code-review",
+      "critical": false,
+      "gap": false,
+      "cls": "competency-node bg-card p-4 min-w-[220px]"
+    },
+    {
+      "id": "problem-solve",
+      "critical": true,
+      "gap": false,
+      "cls": "border-node-critical"
+    },
+    {
+      "id": "collab",
+      "critical": false,
+      "gap": false,
+      "cls": "competency-node bg-card p-4 min-w-[220px]"
+    },
+    {
+      "id": "agile",
+      "critical": false,
+      "gap": false,
+      "cls": "competency-node bg-card p-4 min-w-[220px]"
+    }
+  ],
+  "critCount": "3",
+  "critPanelText": "3 | competencies | Programming Languages | Problem Solving | System Design"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const nodes=[...document.querySelectorAll(\'.react-flow__node\')].map(n=>{\n    const inner=n.firstElementChild;\n    return {id:n.getAttribute(\'data-id\'), critical:/Critical/.test(n.innerText), gap:/Gap/.test(n.innerText), cls:inner.className.replace(\'competency-node bg-card p-4 min-w-[220px] \',\'\')};\n  });\n  const crit=document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']");\n  // find critical path summary text nearby\n  const panel=crit.closest(\'div\').parentElement;\n  return {nodes, critCount:crit.innerText, critPanelText:panel?panel.innerText.replace(/\\n+/g,\' | \').slice(0,300):null};\n}');
+```
+
+================================================================================
+[98] browser_drag  input={"startTarget": "[data-semtag-id='model.graph.item.prog-lang.weight'] [role='slider']", "startElement": "Programming Languages weight slider thumb", "endTarget"
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.graph.item.prog-lang.weight\'] [role=\'slider\']').dragTo(page.locator('[data-semtag-id=\'model.graph.item.prog-lang.weight\']'));
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-19-29-105Z.yml)
+
+================================================================================
+[99] browser_evaluate  input={"function": "() => {\n  const crit=document.querySelector(\"[data-semtag-id='metrics.critical-path.count']\");\n  const panel=crit.closest('div').parentElement
+--------------------------------------------------------------------------------
+### Result
+{
+  "critCount": "5",
+  "critPanelText": "5 | competencies | Problem Solving | System Design | Programming Languages | +2",
+  "highlighted": [
+    "prog-lang",
+    "sys-design",
+    "problem-solve"
+  ],
+  "coverage": "67%",
+  "state": [
+    "prog-lang:L4 W0.55 on",
+    "sys-design:L3 W0.8 on",
+    "problem-solve:L4 W0.9 on",
+    "collab:L3 W0.7 on",
+    "code-review:L3 W0.6 on",
+    "agile:L3 W0.5 on"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const crit=document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']");\n  const panel=crit.closest(\'div\').parentElement;\n  const highlighted=[...document.querySelectorAll(\'.react-flow__node\')].filter(n=>n.firstElementChild.className.includes(\'border-node-critical\')).map(n=>n.getAttribute(\'data-id\'));\n  const el=document.querySelector("[data-semtag-id=\'metrics.coverage\']");\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], st=null, d=0;\n  while(f&&d<60){let h=f.memoizedState,hi=0;\n    while(h&&hi<30){const s=h.memoizedState;\n      if(s&&typeof s===\'object\'&&Array.isArray(s.competencies)){st=s.competencies.map(c=>`${c.id}:L${c.level} W${c.weight} ${c.enabled?\'on\':\'OFF\'}`);break;}\n      h=h.next;hi++;}\n    if(st)break; f=f.return;d++;}\n  return {critCount:crit.innerText, critPanelText:panel.innerText.replace(/\\n+/g,\' | \').slice(0,300), highlighted, coverage:el.innerText, state:st};\n}');
+```
+
+================================================================================
+[100] browser_evaluate  input={"function": "() => {\n  const el=document.querySelector(\"[data-semtag-id='metrics.critical-path.count']\");\n  const key=Object.keys(el).find(k=>k.startsWith(
+--------------------------------------------------------------------------------
+### Result
+"not found"
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el=document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']");\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], res=null, d=0;\n  while(f&&d<60){\n    const p=f.memoizedProps;\n    if(p&&typeof p===\'object\'){\n      for(const k in p){const v=p[k];\n        if(v&&typeof v===\'object\'&&(Array.isArray(v.criticalPath))){res={from:\'props.\'+k, criticalPath:v.criticalPath, gaps:v.riskGaps||v.gaps, coverage:v.coverage};}\n      }\n    }\n    let h=f.memoizedState,hi=0;\n    while(h&&hi<30){const s=h.memoizedState;\n      if(s&&typeof s===\'object\'&&Array.isArray(s.criticalPath)){res={from:\'hook\', criticalPath:s.criticalPath, gaps:s.riskGaps||s.gaps, coverage:s.coverage};}\n      h=h.next;hi++;}\n    if(res)break; f=f.return;d++;\n  }\n  return res||\'not found\';\n}');
+```
+
+================================================================================
+[101] mcp__structured_results__record_result  input={"item_id": "CT-16", "verdict": "FAIL", "issue": "Critical-path summary and graph highlighting disagree after a weight change; graph highlighting does not recal
+--------------------------------------------------------------------------------
+{"recorded": "CT-16", "verdict": "FAIL", "recorded_count": 11, "total_count": 19, "missing_ids": ["FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "IX-19"], "complete": false}
+
+================================================================================
+[102] browser_evaluate  input={"function": "() => {\n  const list=document.querySelector(\"[data-semtag-id='templates.list']\");\n  const items=[...list.querySelectorAll(\"[data-semtag-id^='
+--------------------------------------------------------------------------------
+### Result
+{
+  "listText": "Software Engineer | Current | Engineering | 6 competencies | 5 connections | Apply | Programming | Coding | Software | Development | Product Manager | Product | 6 competencies | 5 connections | Apply | Product | Management | Strategy | Roadmap | HR Manager | Human Resources | 6 competencies | 5 connections | Apply | Hr | Human Resources | Recruitment | Talent | Data Scientist | Analytics | 6 competencies | 5 connections | Apply | Data | Machine Learning | Analytics | Statistics | Sales Manager | Sales | 6 competencies | 5 connections | Apply | Sales | Revenue | Business Development | Customer",
+  "itemCount": 5
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const list=document.querySelector("[data-semtag-id=\'templates.list\']");\n  const items=[...list.querySelectorAll("[data-semtag-id^=\'templates.list.item.\']")].filter(n=>n.getAttribute(\'data-semtag-id\').split(\'.\').length===4);\n  return {listText:list.innerText.replace(/\\n+/g,\' | \').slice(0,1200), itemCount:items.length};\n}');
+```
+
+================================================================================
+[103] mcp__structured_results__record_result  input={"item_id": "FT-6", "verdict": "PASS", "evidence": "Template library lists 5 job-role templates, each showing role, department, competency count, relationship c
+--------------------------------------------------------------------------------
+{"recorded": "FT-6", "verdict": "PASS", "recorded_count": 12, "total_count": 19, "missing_ids": ["FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "IX-19"], "complete": false}
+
+================================================================================
+[104] browser_click  input={"target": "[data-semtag-id='templates.list.item.hr-manager.apply']", "element": "Apply HR Manager template"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'templates.list.item.hr-manager.apply\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-20-16-427Z.yml)
+
+================================================================================
+[105] browser_evaluate  input={"function": "() => {\n  const q=s=>{const e=document.querySelector(s);return e?e.innerText:null;};\n  const nodes=[...document.querySelectorAll('.react-flow__n
+--------------------------------------------------------------------------------
+### Result
+{
+  "title": "HR Manager",
+  "dept": "Human Resources",
+  "count": "6 competencies",
+  "coverage": "71%",
+  "avg": "3.5",
+  "crit": "3",
+  "nodes": [
+    "prog-lang",
+    "sys-design",
+    "code-review",
+    "problem-solve",
+    "collab",
+    "agile"
+  ],
+  "edgeLabels": [
+    "80%",
+    "70%",
+    "90%",
+    "60%",
+    "50%"
+  ],
+  "nodeNames": [
+    "Programming Languages",
+    "System Design",
+    "Code Review",
+    "Problem Solving",
+    "Collaboration",
+    "Agile Methodology"
+  ],
+  "adjustments": "Category Adjustments | Technical | 0 competencies | Level Change | 0 | Weight Change | 0% | Behavioral | 1 competencies | Level Change | 0 | Weight Change | 0% | Leadership | 2 competencies | Level Change | 0 | Weight Change | 0% | Domain | 3 competencies | Level Change | 0 | Weight Change | 0%",
+  "currentBadge": [
+    "templates.list.item.hr-manager.current"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const q=s=>{const e=document.querySelector(s);return e?e.innerText:null;};\n  const nodes=[...document.querySelectorAll(\'.react-flow__node\')].map(n=>n.getAttribute(\'data-id\'));\n  const edgeLabels=[...document.querySelectorAll(\'.react-flow__edge\')].map(e=>{const t=e.querySelector(\'text\');return t?t.textContent:null;});\n  const adj=document.querySelector("[data-semtag-id=\'simulation.adjustments\']");\n  return {\n    title:q("[data-semtag-id=\'model.title\']"),\n    dept:q("[data-semtag-id=\'model.department\']"),\n    count:q("[data-semtag-id=\'model.competency-count\']"),\n    coverage:q("[data-semtag-id=\'metrics.coverage\']"),\n    avg:q("[data-semtag-id=\'metrics.avg-level\']"),\n    crit:q("[data-semtag-id=\'metrics.critical-path.count\']"),\n    nodes, edgeLabels,\n    nodeNames:[...document.querySelectorAll(\'.react-flow__node\')].map(n=>n.innerText.split(\'\\n\')[0]),\n    adjustments: adj?adj.innerText.replace(/\\n+/g,\' | \').slice(0,300):null,\n    currentBadge:[...document.querySelectorAll("[data-semtag-id$=\'.current\']")].map(n=>n.getAttribute(\'data-semtag-id\'))\n  };\n}');
+```
+
+================================================================================
+[106] browser_evaluate  input={"function": "() => {\n  const el=document.querySelector(\"[data-semtag-id='metrics.coverage']\");\n  const key=Object.keys(el).find(k=>k.startsWith('__reactFib
+--------------------------------------------------------------------------------
+### Result
+{
+  "title": "HR Manager",
+  "comps": [
+    "talent-acq/Talent Acquisition",
+    "emp-relations/Employee Relations",
+    "hr-compliance/HR Compliance",
+    "leadership/Leadership",
+    "perf-mgmt/Performance Management",
+    "org-dev/Organizational Development"
+  ],
+  "rels": 0
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el=document.querySelector("[data-semtag-id=\'metrics.coverage\']");\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], st=null, d=0;\n  while(f&&d<60){let h=f.memoizedState,hi=0;\n    while(h&&hi<30){const s=h.memoizedState;\n      if(s&&typeof s===\'object\'&&Array.isArray(s.competencies)){st={title:s.jobTitle, comps:s.competencies.map(c=>c.id+\'/\'+c.name), rels:(s.relationships||[]).length};break;}\n      h=h.next;hi++;}\n    if(st)break; f=f.return;d++;}\n  return st||\'not found\';\n}');
+```
+
+================================================================================
+[107] mcp__structured_results__record_result  input={"item_id": "FT-7", "verdict": "FAIL", "issue": "Applying a template does not replace the competency graph; the graph keeps showing the previous model's compete
+--------------------------------------------------------------------------------
+{"recorded": "FT-7", "verdict": "FAIL", "recorded_count": 13, "total_count": 19, "missing_ids": ["FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "IX-19"], "complete": false}
+
+================================================================================
+[108] browser_evaluate  input={"function": "() => {\n  const p=document.querySelector(\"[data-semtag-id='simulation.panel']\");\n  return {panelText:p.innerText.replace(/\\n+/g,' | ').slice(
+--------------------------------------------------------------------------------
+### Result
+{
+  "panelText": "Scenario Simulation | Simulate different HR scenarios and see their impact on the competency model | Recruitment | Training | Promotion | Recruitment Simulation | Simulate candidate profiles and hiring decisions | Category Adjustments | Technical | 0 competencies | Level Change | 0 | Weight Change | 0% | Behavioral | 1 competencies | Level Change | 0 | Weight Change | 0% | Leadership | 2 competencies | Level Change | 0 | Weight Change | 0% | Domain | 3 competencies | Level Change | 0 | Weight Change | 0% | Run Simulation | Reset"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const p=document.querySelector("[data-semtag-id=\'simulation.panel\']");\n  return {panelText:p.innerText.replace(/\\n+/g,\' | \').slice(0,700)};\n}');
+```
+
+================================================================================
+[109] browser_click  input={"target": "[data-semtag-id='simulation.scenario.training']", "element": "Training scenario tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.scenario.training\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-20-53-722Z.yml)
+
+================================================================================
+[110] browser_evaluate  input={"function": "() => {\n  const p=document.querySelector(\"[data-semtag-id='simulation.panel']\");\n  return {active:document.querySelector(\"[data-semtag-id='si
+--------------------------------------------------------------------------------
+### Result
+{
+  "active": "Training Simulation",
+  "panelText": "Scenario Simulation | Simulate different HR scenarios and see their impact on the competency model | Recruitment | Training | Promotion | Training Simulation | Model the impact of training programs | Category Adjustments | Technical | 0 competencies | Level Change | 0 | Weight Change | 0% | Behavioral | 1 competencies | Level Change | 0 | Weight Change | 0% | Leadership | 2 competencies | Level Change | 0 | Weight Change | 0% | Domain | 3 competencies | Level Change | +1 | Weight Change | 0% | Run Simulation | Reset"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const p=document.querySelector("[data-semtag-id=\'simulation.panel\']");\n  return {active:document.querySelector("[data-semtag-id=\'simulation.active-scenario\']").innerText, panelText:p.innerText.replace(/\\n+/g,\' | \').slice(0,700)};\n}');
+```
+
+================================================================================
+[111] browser_click  input={"target": "[data-semtag-id='simulation.scenario.promotion']", "element": "Promotion scenario tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.scenario.promotion\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-21-01-126Z.yml)
+
+================================================================================
+[112] browser_evaluate  input={"function": "() => {\n  const p=document.querySelector(\"[data-semtag-id='simulation.panel']\");\n  return {active:document.querySelector(\"[data-semtag-id='si
+--------------------------------------------------------------------------------
+### Result
+{
+  "active": "Promotion Simulation",
+  "panelText": "Scenario Simulation | Simulate different HR scenarios and see their impact on the competency model | Recruitment | Training | Promotion | Promotion Simulation | Assess readiness for role advancement | Category Adjustments | Technical | 0 competencies | Level Change | 0 | Weight Change | 0% | Behavioral | 1 competencies | Level Change | 0 | Weight Change | +10% | Leadership | 2 competencies | Level Change | 0 | Weight Change | +20% | Domain | 3 competencies | Level Change | 0 | Weight Change | 0% | Run Simulation | Reset"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const p=document.querySelector("[data-semtag-id=\'simulation.panel\']");\n  return {active:document.querySelector("[data-semtag-id=\'simulation.active-scenario\']").innerText, panelText:p.innerText.replace(/\\n+/g,\' | \').slice(0,700)};\n}');
+```
+
+================================================================================
+[113] browser_click  input={"target": "[data-semtag-id='simulation.scenario.recruitment']", "element": "Recruitment scenario tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.scenario.recruitment\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-21-07-844Z.yml)
+
+================================================================================
+[114] browser_evaluate  input={"function": "() => {\n  const p=document.querySelector(\"[data-semtag-id='simulation.panel']\");\n  return {active:document.querySelector(\"[data-semtag-id='si
+--------------------------------------------------------------------------------
+### Result
+{
+  "active": "Recruitment Simulation",
+  "panelText": "Scenario Simulation | Simulate different HR scenarios and see their impact on the competency model | Recruitment | Training | Promotion | Recruitment Simulation | Simulate candidate profiles and hiring decisions | Category Adjustments | Technical | 0 competencies | Level Change | 0 | Weight Change | 0% | Behavioral | 1 competencies | Level Change | 0 | Weight Change | +10% | Leadership | 2 competencies | Level Change | -2 | Weight Change | -10% | Domain | 3 competencies | Level Change | -1 | Weight Change | 0% | Run Simulation | Reset"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const p=document.querySelector("[data-semtag-id=\'simulation.panel\']");\n  return {active:document.querySelector("[data-semtag-id=\'simulation.active-scenario\']").innerText, panelText:p.innerText.replace(/\\n+/g,\' | \').slice(0,700)};\n}');
+```
+
+================================================================================
+[115] mcp__structured_results__record_result  input={"item_id": "FT-9", "verdict": "PASS", "evidence": "Switching tabs updated both the active scenario heading/description and the category adjustments: Recruitmen
+--------------------------------------------------------------------------------
+{"recorded": "FT-9", "verdict": "PASS", "recorded_count": 14, "total_count": 19, "missing_ids": ["FT-8", "FT-10", "FT-11", "CS-12", "IX-19"], "complete": false}
+
+================================================================================
+[116] browser_evaluate  input={"function": "() => {\n  const ids=['technical','behavioral','leadership','domain'];\n  const out={};\n  ids.forEach(c=>{\n    ['level','weight'].forEach(k=>{\n
+--------------------------------------------------------------------------------
+### Result
+{
+  "technical.level": {
+    "now": "2",
+    "min": "0",
+    "max": "4"
+  },
+  "technical.level.display": "0",
+  "technical.weight": {
+    "now": "30",
+    "min": "0",
+    "max": "60"
+  },
+  "technical.weight.display": "0%",
+  "behavioral.level": {
+    "now": "2",
+    "min": "0",
+    "max": "4"
+  },
+  "behavioral.level.display": "0",
+  "behavioral.weight": {
+    "now": "40",
+    "min": "0",
+    "max": "60"
+  },
+  "behavioral.weight.display": "+10%",
+  "leadership.level": {
+    "now": "0",
+    "min": "0",
+    "max": "4"
+  },
+  "leadership.level.display": "-2",
+  "leadership.weight": {
+    "now": "20",
+    "min": "0",
+    "max": "60"
+  },
+  "leadership.weight.display": "-10%",
+  "domain.level": {
+    "now": "1",
+    "min": "0",
+    "max": "4"
+  },
+  "domain.level.display": "-1",
+  "domain.weight": {
+    "now": "30",
+    "min": "0",
+    "max": "60"
+  },
+  "domain.weight.display": "0%",
+  "metrics": {
+    "cov": "71%",
+    "avg": "3.5",
+    "crit": "3",
+    "gaps": "0"
+  }
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const ids=[\'technical\',\'behavioral\',\'leadership\',\'domain\'];\n  const out={};\n  ids.forEach(c=>{\n    [\'level\',\'weight\'].forEach(k=>{\n      const root=document.querySelector(`[data-semtag-id=\'simulation.adjustments.item.${c}.${k}\']`);\n      const t=root&&root.querySelector(\'[role=slider]\');\n      out[c+\'.\'+k]=t?{now:t.getAttribute(\'aria-valuenow\'),min:t.getAttribute(\'aria-valuemin\'),max:t.getAttribute(\'aria-valuemax\')}:null;\n      const v=document.querySelector(`[data-semtag-id=\'simulation.adjustments.item.${c}.${k}-value\']`);\n      out[c+\'.\'+k+\'.display\']=v?v.innerText:null;\n    });\n  });\n  out.metrics={cov:document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText,\n    avg:document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText,\n    crit:document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']").innerText,\n    gaps:document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText};\n  return out;\n}');
+```
+
+================================================================================
+[117] browser_click  input={"target": "[data-semtag-id='simulation.adjustments.item.technical.level'] [role='slider']", "element": "Technical level adjustment slider thumb"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.adjustments.item.technical.level\'] [role=\'slider\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-21-48-123Z.yml)
+
+================================================================================
+[118] browser_press_key  input={"key": "ArrowRight"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+// Press ArrowRight
+await page.keyboard.press('ArrowRight');
+```
+
+================================================================================
+[119] browser_evaluate  input={"function": "() => ({\n  now:document.querySelector(\"[data-semtag-id='simulation.adjustments.item.technical.level'] [role=slider]\").getAttribute('aria-valuen
+--------------------------------------------------------------------------------
+### Result
+{
+  "now": "2",
+  "display": "0",
+  "focused": "slider"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({\n  now:document.querySelector("[data-semtag-id=\'simulation.adjustments.item.technical.level\'] [role=slider]").getAttribute(\'aria-valuenow\'),\n  display:document.querySelector("[data-semtag-id=\'simulation.adjustments.item.technical.level-value\']").innerText,\n  focused:document.activeElement.getAttribute(\'role\')\n})');
+```
+
+================================================================================
+[120] browser_evaluate  input={"function": "() => {\n  const root=document.querySelector(\"[data-semtag-id='simulation.adjustments.item.technical.level']\");\n  const thumb=root.querySelecto
+--------------------------------------------------------------------------------
+### Result
+{
+  "track": {
+    "x": 901,
+    "w": 155,
+    "y": 620
+  },
+  "thumb": {
+    "x": 969,
+    "y": 614
+  },
+  "valueLabel": {
+    "x": 1049,
+    "y": 600,
+    "w": 7
+  }
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const root=document.querySelector("[data-semtag-id=\'simulation.adjustments.item.technical.level\']");\n  const thumb=root.querySelector(\'[role=slider]\');\n  const val=document.querySelector("[data-semtag-id=\'simulation.adjustments.item.technical.level-value\']");\n  const r=root.getBoundingClientRect(), t=thumb.getBoundingClientRect(), v=val.getBoundingClientRect();\n  return {track:{x:Math.round(r.x),w:Math.round(r.width),y:Math.round(r.y)}, thumb:{x:Math.round(t.x),y:Math.round(t.y)}, valueLabel:{x:Math.round(v.x),y:Math.round(v.y),w:Math.round(v.width)}};\n}');
+```
+
+================================================================================
+[121] browser_drag  input={"startTarget": "[data-semtag-id='simulation.adjustments.item.technical.level'] [role='slider']", "startElement": "Technical level adjustment thumb", "endTarget
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.adjustments.item.technical.level\'] [role=\'slider\']').dragTo(page.locator('[data-semtag-id=\'simulation.adjustments.item.technical.level-value\']'));
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-22-07-515Z.yml)
+
+================================================================================
+[122] browser_evaluate  input={"function": "() => ({\n  now:document.querySelector(\"[data-semtag-id='simulation.adjustments.item.technical.level'] [role=slider]\").getAttribute('aria-valuen
+--------------------------------------------------------------------------------
+### Result
+{
+  "now": "2",
+  "display": "0",
+  "metrics": {
+    "cov": "71%",
+    "avg": "3.5"
+  }
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({\n  now:document.querySelector("[data-semtag-id=\'simulation.adjustments.item.technical.level\'] [role=slider]").getAttribute(\'aria-valuenow\'),\n  display:document.querySelector("[data-semtag-id=\'simulation.adjustments.item.technical.level-value\']").innerText,\n  metrics:{cov:document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText,\n    avg:document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText}\n})');
+```
+
+================================================================================
+[123] browser_drag  input={"startTarget": "[data-semtag-id='simulation.adjustments.item.leadership.level'] [role='slider']", "startElement": "Leadership level adjustment thumb (-2)", "en
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.adjustments.item.leadership.level\'] [role=\'slider\']').dragTo(page.locator('[data-semtag-id=\'simulation.adjustments.item.leadership.level-value\']'));
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-22-22-598Z.yml)
+
+================================================================================
+[124] browser_evaluate  input={"function": "() => ({\n  leadershipNow:document.querySelector(\"[data-semtag-id='simulation.adjustments.item.leadership.level'] [role=slider]\").getAttribute('
+--------------------------------------------------------------------------------
+### Result
+{
+  "leadershipNow": "4",
+  "leadershipDisplay": "+2",
+  "technicalDisplay": "0"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({\n  leadershipNow:document.querySelector("[data-semtag-id=\'simulation.adjustments.item.leadership.level\'] [role=slider]").getAttribute(\'aria-valuenow\'),\n  leadershipDisplay:document.querySelector("[data-semtag-id=\'simulation.adjustments.item.leadership.level-value\']").innerText,\n  technicalDisplay:document.querySelector("[data-semtag-id=\'simulation.adjustments.item.technical.level-value\']").innerText\n})');
+```
+
+================================================================================
+[125] browser_evaluate  input={"function": "() => {\n  const el=document.querySelector(\"[data-semtag-id='metrics.coverage']\");\n  const key=Object.keys(el).find(k=>k.startsWith('__reactFib
+--------------------------------------------------------------------------------
+### Result
+{
+  "pre": [
+    {
+      "id": "talent-acq",
+      "cat": "domain",
+      "L": 4,
+      "W": 0.9,
+      "en": true
+    },
+    {
+      "id": "emp-relations",
+      "cat": "behavioral",
+      "L": 4,
+      "W": 0.85,
+      "en": true
+    },
+    {
+      "id": "hr-compliance",
+      "cat": "domain",
+      "L": 3,
+      "W": 0.8,
+      "en": true
+    },
+    {
+      "id": "leadership",
+      "cat": "leadership",
+      "L": 3,
+      "W": 0.75,
+      "en": true
+    },
+    {
+      "id": "perf-mgmt",
+      "cat": "domain",
+      "L": 4,
+      "W": 0.8,
+      "en": true
+    },
+    {
+      "id": "org-dev",
+      "cat": "leadership",
+      "L": 3,
+      "W": 0.7,
+      "en": true
+    }
+  ],
+  "metrics": {
+    "cov": "71%",
+    "avg": "3.5",
+    "crit": "3",
+    "gaps": "0"
+  }
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el=document.querySelector("[data-semtag-id=\'metrics.coverage\']");\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], st=null, d=0;\n  while(f&&d<60){let h=f.memoizedState,hi=0;\n    while(h&&hi<30){const s=h.memoizedState;\n      if(s&&typeof s===\'object\'&&Array.isArray(s.competencies)){st=s.competencies.map(c=>({id:c.id,cat:c.category,L:c.level,W:c.weight,en:c.enabled}));break;}\n      h=h.next;hi++;}\n    if(st)break; f=f.return;d++;}\n  return {pre:st, metrics:{cov:el.innerText, avg:document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText, crit:document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']").innerText, gaps:document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText}};\n}');
+```
+
+================================================================================
+[126] browser_click  input={"target": "[data-semtag-id='simulation.run']", "element": "Run Simulation button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.run\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-22-42-545Z.yml)
+
+================================================================================
+[127] browser_evaluate  input={"function": "() => {\n  const el=document.querySelector(\"[data-semtag-id='metrics.coverage']\");\n  const key=Object.keys(el).find(k=>k.startsWith('__reactFib
+--------------------------------------------------------------------------------
+### Result
+{
+  "post": [
+    {
+      "id": "talent-acq",
+      "cat": "domain",
+      "L": 3,
+      "W": 0.9,
+      "en": true
+    },
+    {
+      "id": "emp-relations",
+      "cat": "behavioral",
+      "L": 4,
+      "W": 0.95,
+      "en": true
+    },
+    {
+      "id": "hr-compliance",
+      "cat": "domain",
+      "L": 2,
+      "W": 0.8,
+      "en": true
+    },
+    {
+      "id": "leadership",
+      "cat": "leadership",
+      "L": 5,
+      "W": 0.65,
+      "en": true
+    },
+    {
+      "id": "perf-mgmt",
+      "cat": "domain",
+      "L": 3,
+      "W": 0.8,
+      "en": true
+    },
+    {
+      "id": "org-dev",
+      "cat": "leadership",
+      "L": 5,
+      "W": 0.6,
+      "en": true
+    }
+  ],
+  "metrics": {
+    "cov": "71%",
+    "avg": "3.7",
+    "crit": "3",
+    "gaps": "1"
+  }
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el=document.querySelector("[data-semtag-id=\'metrics.coverage\']");\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], st=null, d=0;\n  while(f&&d<60){let h=f.memoizedState,hi=0;\n    while(h&&hi<30){const s=h.memoizedState;\n      if(s&&typeof s===\'object\'&&Array.isArray(s.competencies)){st=s.competencies.map(c=>({id:c.id,cat:c.category,L:c.level,W:+c.weight.toFixed(3),en:c.enabled}));break;}\n      h=h.next;hi++;}\n    if(st)break; f=f.return;d++;}\n  return {post:st, metrics:{cov:el.innerText, avg:document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText, crit:document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']").innerText, gaps:document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText}};\n}');
+```
+
+================================================================================
+[128] browser_click  input={"target": "[data-semtag-id='simulation.reset']", "element": "Reset button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.reset\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-22-57-876Z.yml)
+
+================================================================================
+[129] browser_evaluate  input={"function": "() => {\n  const el=document.querySelector(\"[data-semtag-id='metrics.coverage']\");\n  const key=Object.keys(el).find(k=>k.startsWith('__reactFib
+--------------------------------------------------------------------------------
+### Result
+{
+  "state": {
+    "title": "Software Engineer",
+    "comps": [
+      "prog-lang:L4 W0.9",
+      "sys-design:L3 W0.8",
+      "problem-solve:L4 W0.9",
+      "collab:L3 W0.7",
+      "code-review:L3 W0.6",
+      "agile:L3 W0.5"
+    ]
+  },
+  "metrics": {
+    "cov": "68%",
+    "avg": "3.3",
+    "gaps": "0"
+  }
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el=document.querySelector("[data-semtag-id=\'metrics.coverage\']");\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], st=null, d=0;\n  while(f&&d<60){let h=f.memoizedState,hi=0;\n    while(h&&hi<30){const s=h.memoizedState;\n      if(s&&typeof s===\'object\'&&Array.isArray(s.competencies)){st={title:s.jobTitle, comps:s.competencies.map(c=>`${c.id}:L${c.level} W${+c.weight.toFixed(2)}`)};break;}\n      h=h.next;hi++;}\n    if(st)break; f=f.return;d++;}\n  return {state:st, metrics:{cov:el.innerText, avg:document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText, gaps:document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText}};\n}');
+```
+
+================================================================================
+[130] browser_evaluate  input={"function": "() => {\n  const out={};\n  ['technical','behavioral','domain','leadership'].forEach(c=>{\n    ['level','weight'].forEach(k=>{\n      const root=d
+--------------------------------------------------------------------------------
+### Result
+{
+  "technical.level": {
+    "now": "2",
+    "disp": "0",
+    "trackX": 901,
+    "trackW": 155,
+    "valX": 1049,
+    "disabled": false
+  },
+  "technical.weight": {
+    "now": "30",
+    "disp": "0%",
+    "trackX": 1072,
+    "trackW": 155,
+    "valX": 1210,
+    "disabled": false
+  },
+  "behavioral.level": {
+    "now": "2",
+    "disp": "0",
+    "trackX": 901,
+    "trackW": 155,
+    "valX": 1049,
+    "disabled": false
+  },
+  "behavioral.weight": {
+    "now": "30",
+    "disp": "0%",
+    "trackX": 1072,
+    "trackW": 155,
+    "valX": 1210,
+    "disabled": false
+  },
+  "domain.level": {
+    "now": "2",
+    "disp": "0",
+    "trackX": 901,
+    "trackW": 155,
+    "valX": 1049,
+    "disabled": false
+  },
+  "domain.weight": {
+    "now": "30",
+    "disp": "0%",
+    "trackX": 1072,
+    "trackW": 155,
+    "valX": 1210,
+    "disabled": false
+  },
+  "leadership.level": {
+    "now": "2",
+    "disp": "0",
+    "trackX": 901,
+    "trackW": 155,
+    "valX": 1049,
+    "disabled": false
+  },
+  "leadership.weight": {
+    "now": "30",
+    "disp": "0%",
+    "trackX": 1072,
+    "trackW": 155,
+    "valX": 1210,
+    "disabled": false
+  },
+  "panel": "Scenario Simulation | Simulate different HR scenarios and see their impact on the competency model | Recruitment | Training | Promotion | Recruitment Simulation | Simulate candidate profiles and hiring decisions | Category Adjustments | Technical | 3 competenc"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const out={};\n  [\'technical\',\'behavioral\',\'domain\',\'leadership\'].forEach(c=>{\n    [\'level\',\'weight\'].forEach(k=>{\n      const root=document.querySelector(`[data-semtag-id=\'simulation.adjustments.item.${c}.${k}\']`);\n      if(!root){out[c+\'.\'+k]=\'absent\';return;}\n      const t=root.querySelector(\'[role=slider]\');\n      const v=document.querySelector(`[data-semtag-id=\'simulation.adjustments.item.${c}.${k}-value\']`);\n      const vr=v.getBoundingClientRect(), rr=root.getBoundingClientRect();\n      out[c+\'.\'+k]={now:t.getAttribute(\'aria-valuenow\'), disp:v.innerText, trackX:Math.round(rr.x), trackW:Math.round(rr.width), valX:Math.round(vr.x), disabled:t.getAttribute(\'data-disabled\')!==null||root.getAttribute(\'data-disabled\')!==null};\n    });\n  });\n  out.panel=document.querySelector("[data-semtag-id=\'simulation.panel\']").innerText.replace(/\\n+/g,\' | \').slice(0,260);\n  return out;\n}');
+```
+
+================================================================================
+[131] browser_drag  input={"startTarget": "[data-semtag-id='simulation.adjustments.item.technical.level'] [role='slider']", "startElement": "Technical level adjustment thumb", "endTarget
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.adjustments.item.technical.level\'] [role=\'slider\']').dragTo(page.locator('[data-semtag-id=\'simulation.adjustments.item.technical.level-value\']'));
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-23-46-853Z.yml)
+
+================================================================================
+[132] browser_drag  input={"startTarget": "[data-semtag-id='simulation.adjustments.item.technical.weight'] [role='slider']", "startElement": "Technical weight adjustment thumb", "endTarg
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.adjustments.item.technical.weight\'] [role=\'slider\']').dragTo(page.locator('[data-semtag-id=\'simulation.adjustments.item.technical.weight-value\']'));
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-23-50-831Z.yml)
+
+================================================================================
+[133] browser_evaluate  input={"function": "() => ({\n  lvl:document.querySelector(\"[data-semtag-id='simulation.adjustments.item.technical.level-value']\").innerText,\n  wgt:document.queryS
+--------------------------------------------------------------------------------
+### Result
+{
+  "lvl": "+2",
+  "wgt": "+25%"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({\n  lvl:document.querySelector("[data-semtag-id=\'simulation.adjustments.item.technical.level-value\']").innerText,\n  wgt:document.querySelector("[data-semtag-id=\'simulation.adjustments.item.technical.weight-value\']").innerText\n})');
+```
+
+================================================================================
+[134] browser_click  input={"target": "[data-semtag-id='simulation.run']", "element": "Run Simulation button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.run\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-23-58-151Z.yml)
+
+================================================================================
+[135] browser_evaluate  input={"function": "() => {\n  const el=document.querySelector(\"[data-semtag-id='metrics.coverage']\");\n  const key=Object.keys(el).find(k=>k.startsWith('__reactFib
+--------------------------------------------------------------------------------
+### Result
+{
+  "afterRun1": [
+    "prog-lang(technical):L5 W1",
+    "sys-design(technical):L5 W1",
+    "problem-solve(behavioral):L4 W0.9",
+    "collab(behavioral):L3 W0.7",
+    "code-review(technical):L5 W0.85",
+    "agile(domain):L3 W0.5"
+  ],
+  "cov": "87%"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el=document.querySelector("[data-semtag-id=\'metrics.coverage\']");\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], st=null, d=0;\n  while(f&&d<60){let h=f.memoizedState,hi=0;\n    while(h&&hi<30){const s=h.memoizedState;\n      if(s&&typeof s===\'object\'&&Array.isArray(s.competencies)){st=s.competencies.map(c=>`${c.id}(${c.category}):L${c.level} W${+c.weight.toFixed(3)}`);break;}\n      h=h.next;hi++;}\n    if(st)break; f=f.return;d++;}\n  return {afterRun1:st, cov:el.innerText};\n}');
+```
+
+================================================================================
+[136] browser_evaluate  input={"function": "() => {\n  const item=document.querySelector(\"[data-semtag-id='simulation.adjustments.item.technical']\");\n  const root=item.closest('[data-semt
+--------------------------------------------------------------------------------
+### Result
+[]
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const item=document.querySelector("[data-semtag-id=\'simulation.adjustments.item.technical\']");\n  const root=item.closest(\'[data-semtag-id]\')===item?item:item;\n  const container=item.parentElement;\n  return [...container.querySelectorAll(\'*\')].map(n=>{const r=n.getBoundingClientRect();\n    return {tag:n.tagName, id:n.getAttribute(\'data-semtag-id\'), txt:(n.textContent||\'\').trim().slice(0,16), x:Math.round(r.x), y:Math.round(r.y), w:Math.round(r.width)};\n  }).filter(o=>o.w>0&&o.w<200&&o.y>560&&o.y<660).slice(0,20);\n}');
+```
+
+================================================================================
+[137] browser_evaluate  input={"function": "() => {\n  const lvl=document.querySelector(\"[data-semtag-id='simulation.adjustments.item.technical.level']\");\n  const r=lvl.getBoundingClientR
+--------------------------------------------------------------------------------
+### Result
+{
+  "trackRect": {
+    "x": 901,
+    "y": 250,
+    "w": 155
+  },
+  "siblings": [
+    {
+      "id": null,
+      "txt": "",
+      "x": 901,
+      "y": 230,
+      "w": 155
+    },
+    {
+      "id": null,
+      "txt": "",
+      "x": 901,
+      "y": 230,
+      "w": 155
+    },
+    {
+      "id": null,
+      "txt": "Level Change",
+      "x": 901,
+      "y": 230,
+      "w": 74
+    },
+    {
+      "id": "simulation.adjustments.item.technical.level-value",
+      "txt": "+2",
+      "x": 1042,
+      "y": 230,
+      "w": 14
+    },
+    {
+      "id": "simulation.adjustments.item.technical.level",
+      "txt": "",
+      "x": 901,
+      "y": 250,
+      "w": 155
+    },
+    {
+      "id": null,
+      "txt": "",
+      "x": 901,
+      "y": 250,
+      "w": 155
+    },
+    {
+      "id": null,
+      "txt": "",
+      "x": 901,
+      "y": 250,
+      "w": 155
+    },
+    {
+      "id": null,
+      "txt": "",
+      "x": 1036,
+      "y": 244,
+      "w": 20
+    },
+    {
+      "id": null,
+      "txt": "",
+      "x": 1036,
+      "y": 244,
+      "w": 20
+    },
+    {
+      "id": null,
+      "txt": "",
+      "x": 1072,
+      "y": 230,
+      "w": 155
+    },
+    {
+      "id": null,
+      "txt": "",
+      "x": 1072,
+      "y": 230,
+      "w": 155
+    },
+    {
+      "id": null,
+      "txt": "Weight Change",
+      "x": 1072,
+      "y": 230,
+      "w": 83
+    },
+    {
+      "id": "simulation.adjustments.item.technical.weight-value",
+      "txt": "+25%",
+      "x": 1196,
+      "y": 230,
+      "w": 31
+    },
+    {
+      "id": "simulation.adjustments.item.technical.weight",
+      "txt": "",
+      "x": 1072,
+      "y": 250,
+      "w": 155
+    },
+    {
+      "id": null,
+      "txt": "",
+      "x": 1072,
+      "y": 250,
+      "w": 155
+    },
+    {
+      "id": null,
+      "txt": "",
+      "x": 1072,
+      "y": 250,
+      "w": 142
+    },
+    {
+      "id": null,
+      "txt": "",
+      "x": 1196,
+      "y": 244,
+      "w": 20
+    },
+    {
+      "id": null,
+      "txt": "",
+      "x": 1196,
+      "y": 244,
+      "w": 20
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const lvl=document.querySelector("[data-semtag-id=\'simulation.adjustments.item.technical.level\']");\n  const r=lvl.getBoundingClientRect();\n  const row=lvl.parentElement.parentElement;\n  return {trackRect:{x:Math.round(r.x),y:Math.round(r.y),w:Math.round(r.width)},\n    siblings:[...row.querySelectorAll(\'*\')].map(n=>{const b=n.getBoundingClientRect();\n      return {id:n.getAttribute(\'data-semtag-id\'), txt:(n.childElementCount===0?n.textContent:\'\').trim().slice(0,16), x:Math.round(b.x), y:Math.round(b.y), w:Math.round(b.width)};\n    }).filter(o=>o.w>0&&o.w<160).slice(0,18)};\n}');
+```
+
+================================================================================
+[138] browser_drag  input={"startTarget": "[data-semtag-id='simulation.adjustments.item.technical.level'] [role='slider']", "startElement": "Technical level adjustment thumb", "endTarget
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.adjustments.item.technical.level\'] [role=\'slider\']').dragTo(page.locator('[data-semtag-id=\'simulation.adjustments.item.technical\']'));
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-24-37-429Z.yml)
+
+================================================================================
+[139] browser_drag  input={"startTarget": "[data-semtag-id='simulation.adjustments.item.technical.weight'] [role='slider']", "startElement": "Technical weight adjustment thumb", "endTarg
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.adjustments.item.technical.weight\'] [role=\'slider\']').dragTo(page.locator('[data-semtag-id=\'simulation.adjustments.item.technical.level-value\']'));
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-24-41-780Z.yml)
+
+================================================================================
+[140] browser_evaluate  input={"function": "() => ({\n  lvl:document.querySelector(\"[data-semtag-id='simulation.adjustments.item.technical.level-value']\").innerText,\n  wgt:document.queryS
+--------------------------------------------------------------------------------
+### Result
+{
+  "lvl": "-1",
+  "wgt": "-30%"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({\n  lvl:document.querySelector("[data-semtag-id=\'simulation.adjustments.item.technical.level-value\']").innerText,\n  wgt:document.querySelector("[data-semtag-id=\'simulation.adjustments.item.technical.weight-value\']").innerText\n})');
+```
+
+================================================================================
+[141] browser_evaluate  input={"function": "async () => {\n  const btn=document.querySelector(\"[data-semtag-id='simulation.run']\");\n  const readState=()=>{\n    const el=document.querySel
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "run": 1,
+    "state": [
+      "prog-lang:L4 W0.7",
+      "sys-design:L4 W0.7",
+      "problem-solve:L4 W0.9",
+      "collab:L3 W0.7",
+      "code-review:L4 W0.55",
+      "agile:L3 W0.5"
+    ]
+  },
+  {
+    "run": 2,
+    "state": [
+      "prog-lang:L4 W0.7",
+      "sys-design:L4 W0.7",
+      "problem-solve:L4 W0.9",
+      "collab:L3 W0.7",
+      "code-review:L4 W0.55",
+      "agile:L3 W0.5"
+    ]
+  },
+  {
+    "run": 3,
+    "state": [
+      "prog-lang:L4 W0.7",
+      "sys-design:L4 W0.7",
+      "problem-solve:L4 W0.9",
+      "collab:L3 W0.7",
+      "code-review:L4 W0.55",
+      "agile:L3 W0.5"
+    ]
+  },
+  {
+    "run": 4,
+    "state": [
+      "prog-lang:L3 W0.4",
+      "sys-design:L3 W0.4",
+      "problem-solve:L4 W0.9",
+      "collab:L3 W0.7",
+      "code-review:L3 W0.25",
+      "agile:L3 W0.5"
+    ]
+  },
+  {
+    "run": 5,
+    "state": [
+      "prog-lang:L3 W0.4",
+      "sys-design:L3 W0.4",
+      "problem-solve:L4 W0.9",
+      "collab:L3 W0.7",
+      "code-review:L3 W0.25",
+      "agile:L3 W0.5"
+    ]
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('async () => {\n  const btn=document.querySelector("[data-semtag-id=\'simulation.run\']");\n  const readState=()=>{\n    const el=document.querySelector("[data-semtag-id=\'metrics.coverage\']");\n    const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n    let f=el[key], st=null, d=0;\n    while(f&&d<60){let h=f.memoizedState,hi=0;\n      while(h&&hi<30){const s=h.memoizedState;\n        if(s&&typeof s===\'object\'&&Array.isArray(s.competencies)){st=s.competencies.map(c=>`${c.id}:L${c.level} W${+c.weight.toFixed(3)}`);break;}\n        h=h.next;hi++;}\n      if(st)break; f=f.return;d++;}\n    return st;\n  };\n  const log=[];\n  for(let i=0;i<5;i++){\n    btn.click();\n    await new Promise(r=>setTimeout(r,350));\n    log.push({run:i+1, state:readState()});\n  }\n  return log;\n}');
+```
+
+================================================================================
+[142] browser_evaluate  input={"function": "async () => {\n  const btn=document.querySelector(\"[data-semtag-id='simulation.run']\");\n  for(let i=0;i<5;i++){ btn.click(); await new Promise(
+--------------------------------------------------------------------------------
+### Result
+{
+  "final": [
+    "prog-lang:L1 W0.1",
+    "sys-design:L1 W0.1",
+    "problem-solve:L4 W0.9",
+    "collab:L3 W0.7",
+    "code-review:L1 W0.1",
+    "agile:L3 W0.5"
+  ],
+  "cov": "63%"
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {\n  const btn=document.querySelector("[data-semtag-id=\'simulation.run\']");\n  for(let i=0;i<5;i++){ btn.click(); await new Promise(r=>setTimeout(r,700)); }\n  await new Promise(r=>setTimeout(r,600));\n  const el=document.querySelector("[data-semtag-id=\'metrics.coverage\']");\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], st=null, d=0;\n  while(f&&d<60){let h=f.memoizedState,hi=0;\n    while(h&&hi<30){const s=h.memoizedState;\n      if(s&&typeof s===\'object\'&&Array.isArray(s.competencies)){st=s.competencies.map(c=>`${c.id}:L${c.level} W${+c.weight.toFixed(3)}`);break;}\n      h=h.next;hi++;}\n    if(st)break; f=f.return;d++;}\n  return {final:st, cov:el.innerText};\n}');
+```
+
+================================================================================
+[143] mcp__structured_results__record_result  input={"item_id": "CS-12", "verdict": "PASS", "evidence": "Direct edits are bounded by design: level control offers only buttons 1-5, and the competency weight slider
+--------------------------------------------------------------------------------
+{"recorded": "CS-12", "verdict": "PASS", "recorded_count": 15, "total_count": 19, "missing_ids": ["FT-8", "FT-10", "FT-11", "IX-19"], "complete": false}
+
+================================================================================
+[144] mcp__structured_results__record_result  input={"item_id": "FT-10", "verdict": "PASS", "evidence": "Category-level adjustments are selectable via per-category Level Change and Weight Change sliders (dragged 
+--------------------------------------------------------------------------------
+{"recorded": "FT-10", "verdict": "PASS", "recorded_count": 16, "total_count": 19, "missing_ids": ["FT-8", "FT-11", "IX-19"], "complete": false}
+
+================================================================================
+[145] browser_navigate  input={"url": "http://localhost:7097/"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.goto('http://localhost:7097/');
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-25-36-714Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-28T07-25-34-917Z.log#L1-L3
+
+================================================================================
+[146] browser_click  input={"target": "[data-semtag-id='jobs.grid.item.software-engineer']", "element": "Software Engineer model card"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.grid.item.software-engineer\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-25-40-186Z.yml)
+
+================================================================================
+[147] browser_evaluate  input={"function": "() => ({\n  activeScenario:document.querySelector(\"[data-semtag-id='simulation.active-scenario']\").innerText,\n  panel:document.querySelector(\"
+--------------------------------------------------------------------------------
+### Result
+{
+  "activeScenario": "Recruitment Simulation",
+  "panel": "Scenario Simulation | Simulate different HR scenarios and see their impact on the competency model | Recruitment | Training | Promotion | Recruitment Simulation | Simulate candidate profiles and hiring decisions | Category Adjustments | Technical | 3 competencies | Level Change | 0 | Weight Change | 0% | Behavioral | 2 competencies | Level Change | 0 | Weight Change | 0% | Leadership | 0 competencies | Level Change | 0 | Weight Change | 0% | Domain | 1 competencies | Level Change | 0 | Weight Change | 0% | Run Simulation | Reset",
+  "metrics": {
+    "cov": "68%",
+    "avg": "3.3",
+    "crit": "3",
+    "gaps": "0"
+  }
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({\n  activeScenario:document.querySelector("[data-semtag-id=\'simulation.active-scenario\']").innerText,\n  panel:document.querySelector("[data-semtag-id=\'simulation.panel\']").innerText.replace(/\\n+/g,\' | \').slice(0,600),\n  metrics:{cov:document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText,\n    avg:document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText,\n    crit:document.querySelector("[data-semtag-id=\'metrics.critical-path.count\']").innerText,\n    gaps:document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText}\n})');
+```
+
+================================================================================
+[148] browser_click  input={"target": "[data-semtag-id='simulation.run']", "element": "Run Simulation button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'simulation.run\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-25-51-128Z.yml)
+
+================================================================================
+[149] browser_evaluate  input={"function": "async () => {\n  await new Promise(r=>setTimeout(r,900));\n  const el=document.querySelector(\"[data-semtag-id='metrics.coverage']\");\n  const ke
+--------------------------------------------------------------------------------
+### Result
+{
+  "state": [
+    "prog-lang:L4 W0.9",
+    "sys-design:L3 W0.8",
+    "problem-solve:L4 W0.9",
+    "collab:L3 W0.7",
+    "code-review:L3 W0.6",
+    "agile:L3 W0.5"
+  ],
+  "cov": "68%",
+  "avg": "3.3",
+  "gaps": "0",
+  "adjustments": "Category Adjustments | Technical | 3 competencies | Level Change | 0 | Weight Change | 0% | Behavioral | 2 competencies | Level Change | 0 | Weight Change | 0% | Leadership | 0 competencies | Level Change | 0 | Weight Change | 0% | Domain | 1 competencies | Level Change | 0 | Weight Change | 0%"
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {\n  await new Promise(r=>setTimeout(r,900));\n  const el=document.querySelector("[data-semtag-id=\'metrics.coverage\']");\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], st=null, d=0;\n  while(f&&d<60){let h=f.memoizedState,hi=0;\n    while(h&&hi<30){const s=h.memoizedState;\n      if(s&&typeof s===\'object\'&&Array.isArray(s.competencies)){st=s.competencies.map(c=>`${c.id}:L${c.level} W${+c.weight.toFixed(3)}`);break;}\n      h=h.next;hi++;}\n    if(st)break; f=f.return;d++;}\n  return {state:st, cov:el.innerText, avg:document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText,\n    gaps:document.querySelector("[data-semtag-id=\'metrics.gaps.count\']").innerText,\n    adjustments:document.querySelector("[data-semtag-id=\'simulation.adjustments\']").innerText.replace(/\\n+/g,\' | \').slice(0,300)};\n}');
+```
+
+================================================================================
+[150] mcp__structured_results__record_result  input={"item_id": "IX-19", "verdict": "FAIL", "issue": "The initially selected Recruitment scenario is not initialized with its default adjustments, so running it wit
+--------------------------------------------------------------------------------
+{"recorded": "IX-19", "verdict": "FAIL", "recorded_count": 17, "total_count": 19, "missing_ids": ["FT-8", "FT-11"], "complete": false}
+
+================================================================================
+[151] browser_click  input={"target": "[data-semtag-id='model.graph.item.collab.set-level-5']", "element": "Collaboration set level 5 button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.graph.item.collab.set-level-5\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-26-12-020Z.yml)
+
+================================================================================
+[152] browser_click  input={"target": "[data-semtag-id='templates.save-current']", "element": "Save Current as template button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'templates.save-current\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-26-15-174Z.yml)
+
+================================================================================
+[153] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7097/","screen":"home","navigation":[{"id":"nav.models","name":"Models","target":"models.page"},{"id":"nav.analytics","name":"Analytics","target":"analytics.page"},{"id":"model.back","name":"","target":"models.page"},{"id":"simulation.scenario.recruitment","name":"Recruitment","state":"simulation.scenario","target":"simulation.recruitment"},{"id":"simulation.scenario.training","name":"Training","state":"simulation.scenario","target":"simulation.training"},{"id":"simulation.scenario.promotion","name":"Promotion","state":"simulation.scenario","target":"simulation.promotion"}],"action":[{"id":"model.export","name":"Export","action":"export-model"},{"id":"model.share","name":"Share","action":"share-model"},{"id":"model.save","name":"Save","action":"save-model"},{"id":"simulation.run","name":"Run Simulation","action":"run-simulation"},{"id":"simulation.reset","name":"Reset","action":"reset-model"},{"id":"templates.save-current","name":"Save Current","action":"save-as-template"}],"observable":[{"id":"model.title","name":"Software Engineer","state":"model.jobTitle","value":"Software Engineer"},{"id":"model.department","name":"Engineering","state":"model.department","value":"Engineering"},{"id":"model.competency-count","name":"6 competencies","state":"model.competencyCount","value":"6 competencies"},{"id":"metrics.coverage","name":"75%","state":"metrics.coverage","value":"75%"},{"id":"metrics.avg-level","name":"3.7","state":"metrics.avgLevel","value":"3.7"},{"id":"metrics.critical-path.count","name":"3","state":"metrics.criticalPathCount","value":"3"},{"id":"metrics.gaps.count","name":"0","state":"metrics.gapCount","value":"0"},{"id":"simulation.active-scenario","name":"Recruitment Simulation","state":"simulation.scenario","value":"Recruitment Simulation"}],"region":[{"id":"model.metrics","name":""},{"id":"simulation.panel","name":""}],"collections":[{"id":"model.graph","idPattern":"model.graph.item.{key}[.{control}]","item":{"role":"observable","state":"competency.name"},"itemControls":{"enabled":{"role":"toggle","name":"","action":"toggle-competency","state":"competency.enabled","value":true},"level-value":{"role":"observable","state":"competency.level"},"set-level-1":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"set-level-2":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"set-level-3":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"set-level-4":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"set-level-5":{"role":"action","name":"","action":"set-competency-level","state":"competency.level"},"weight-value":{"role":"observable","state":"competency.weight"},"weight":{"role":"slider","state":"competency.weight","value":""}},"fields":["key","value","level-value.value","weight-value.value"],"items":[["prog-lang","Programming Languages","Advanced","90%"],["sys-design","System Design","Intermediate","80%"],["code-review","Code Review","Intermediate","60%"],["problem-solve","Problem Solving","Advanced","90%"],["collab","Collaboration","Intermediate","70%"],["agile","Agile Methodology","Intermediate","50%"]]},{"id":"simulation.adjustments","idPattern":"simulation.adjustments.item.{key}[.{control}]","item":{"role":"observable","state":"simulation.category"},"itemControls":{"level-value":{"role":"observable","value":"0"},"level":{"role":"slider","value":""},"weight-value":{"role":"observable","value":"0%"},"weight":{"role":"slider","value":""}},"fields":["key","name","value","level-value.state","level.state","weight-value.state","weight.state"],"items":[["technical","technical","Technical","simulation.technical.levelDelta","simulation.technical.levelDelta","simulation.technical.weightDelta","simulation.technical.weightDelta"],["behavioral","behavioral","Behavioral","simulation.behavioral.levelDelta","simulation.behavioral.levelDelta","simulation.behavioral.weightDelta","simulation.behavioral.weightDelta"],["leadership","leadership","Leadership","simulation.leadership.levelDelta","simulation.leadership.levelDelta","simulation.leadership.weightDelta","simulation.leadership.weightDelta"],["domain","domain","Domain","simulation.domain.levelDelta","simulation.domain.levelDelta","simulation.domain.weightDelta","simulation.domain.weightDelta"]]},{"id":"templates.list","idPattern":"templates.list.item.{key}[.{control}]","item":{"role":"observable","state":"template.jobTitle"},"itemControls":{"current":{"role":"observable","state":"template.current","value":"Current"},"apply":{"role":"action","name":"Apply","action":"apply-template"}},"fields":["key","value","current","apply.enabled"],"items":[["software-engineer","Software Engineer",true,false],["product-manager","Product Manager",null,null],["hr-manager","HR Manager",null,null],["data-scientist","Data Scientist",null,null],["sales-manager","Sales Manager",null,null]]}]}
+
+================================================================================
+[154] browser_evaluate  input={"function": "() => {\n  const dialogs=[...document.querySelectorAll('[role=dialog],[role=alertdialog],dialog,[data-state=open]')].map(d=>({role:d.getAttribute(
+--------------------------------------------------------------------------------
+### Result
+{
+  "dialogs": [],
+  "toasts": [],
+  "localStorageKeys": [],
+  "ls": {},
+  "myTemplatesText": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const dialogs=[...document.querySelectorAll(\'[role=dialog],[role=alertdialog],dialog,[data-state=open]\')].map(d=>({role:d.getAttribute(\'role\'),txt:(d.innerText||\'\').slice(0,120)}));\n  const toasts=[...document.querySelectorAll(\'[class*=toast],[role=status],li[data-sonner-toast]\')].map(t=>t.innerText.slice(0,150));\n  const ls={}; for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i); ls[k]=(localStorage.getItem(k)||\'\').slice(0,200);}\n  return {dialogs, toasts, localStorageKeys:Object.keys(ls), ls, myTemplatesText:/My Templates/i.test(document.body.innerText)};\n}');
+```
+
+================================================================================
+[155] mcp__structured_results__record_result  input={"item_id": "FT-8", "verdict": "FAIL", "issue": "Saving the current model as a custom template is not implemented; no name/description prompt and no My Template
+--------------------------------------------------------------------------------
+{"recorded": "FT-8", "verdict": "FAIL", "recorded_count": 18, "total_count": 19, "missing_ids": ["FT-11"], "complete": false}
+
+================================================================================
+[156] browser_click  input={"target": "[data-semtag-id='model.save']", "element": "Save model button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.save\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-26-38-336Z.yml)
+
+================================================================================
+[157] browser_evaluate  input={"function": "() => {\n  const ls={}; for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i); ls[k]=(localStorage.getItem(k)||'').slice(0,150);}\n  
+--------------------------------------------------------------------------------
+### Result
+{
+  "localStorage": {},
+  "sessionStorageLen": 0,
+  "toasts": [
+    "Model Saved\nYour changes have been saved successfully."
+  ],
+  "coverage": "75%"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const ls={}; for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i); ls[k]=(localStorage.getItem(k)||\'\').slice(0,150);}\n  const toasts=[...document.querySelectorAll(\'[class*=toast],[role=status],li[data-sonner-toast]\')].map(t=>t.innerText.slice(0,120));\n  return {localStorage:ls, sessionStorageLen:sessionStorage.length, toasts, coverage:document.querySelector("[data-semtag-id=\'metrics.coverage\']").innerText};\n}');
+```
+
+================================================================================
+[158] browser_click  input={"target": "[data-semtag-id='model.back']", "element": "Back to models list"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'model.back\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-26-47-509Z.yml)
+
+================================================================================
+[159] browser_click  input={"target": "[data-semtag-id='jobs.grid.item.software-engineer']", "element": "Software Engineer model card"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.grid.item.software-engineer\']').click();
+```
+### Page
+- Page URL: http://localhost:7097/
+- Page Title: CompetencyHub - Job Competency Modeling System
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-28T07-26-50-630Z.yml)
+
+================================================================================
+[160] browser_evaluate  input={"function": "() => {\n  const el=document.querySelector(\"[data-semtag-id='metrics.coverage']\");\n  const key=Object.keys(el).find(k=>k.startsWith('__reactFib
+--------------------------------------------------------------------------------
+### Result
+{
+  "coverage": "68%",
+  "avg": "3.3",
+  "state": [
+    "prog-lang:L4 W0.9 on",
+    "sys-design:L3 W0.8 on",
+    "problem-solve:L4 W0.9 on",
+    "collab:L3 W0.7 on",
+    "code-review:L3 W0.6 on",
+    "agile:L3 W0.5 on"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el=document.querySelector("[data-semtag-id=\'metrics.coverage\']");\n  const key=Object.keys(el).find(k=>k.startsWith(\'__reactFiber$\'));\n  let f=el[key], st=null, d=0;\n  while(f&&d<60){let h=f.memoizedState,hi=0;\n    while(h&&hi<30){const s=h.memoizedState;\n      if(s&&typeof s===\'object\'&&Array.isArray(s.competencies)){st=s.competencies.map(c=>`${c.id}:L${c.level} W${+c.weight.toFixed(2)} ${c.enabled?\'on\':\'OFF\'}`);break;}\n      h=h.next;hi++;}\n    if(st)break; f=f.return;d++;}\n  return {coverage:el.innerText, avg:document.querySelector("[data-semtag-id=\'metrics.avg-level\']").innerText, state:st};\n}');
+```
+
+================================================================================
+[161] mcp__structured_results__record_result  input={"item_id": "FT-11", "verdict": "FAIL", "issue": "Saved model edits are not persisted; leaving and reopening the model discards all changes despite a \"Model Sa
+--------------------------------------------------------------------------------
+{"recorded": "FT-11", "verdict": "FAIL", "recorded_count": 19, "total_count": 19, "missing_ids": [], "complete": true}
+
+================================================================================
+[162] mcp__structured_results__get_result_progress
+--------------------------------------------------------------------------------
+{"recorded_count": 19, "total_count": 19, "missing_ids": [], "complete": true, "results": [{"item_id": "FT-1", "verdict": "PASS", "issue": null, "actual": null, "evidence": "\"ENGINEER\" (uppercase) -> Software Engineer only; keyword \"recruitment\" -> HR Manager; description-only fragment \"roadmap\" -> Product Manager; \"manager\" -> 3 models, + Sales department filter -> Sales Manager only; \"zzzqqq\" -> empty grid with \"No jobs found\" empty state."}, {"item_id": "FT-2", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Clicking Software Engineer card opened detail editor: model.title=\"Software Engineer\", model.department=\"Engineering\", model.competency-count=\"6 competencies\", metrics coverage 68%, avgLevel 3.3, criticalPath 3, gaps 0, and model.graph with the 6 matching competencies (Programming Languages, System Design, Code Review, Problem Solving, Collaboration, Agile Methodology)."}, {"item_id": "FT-3", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Dragged \"Programming Languages\" node from translate(0px,0px) to translate(622.479px,69.3153px); other 5 nodes unchanged. All 5 edges still present with unchanged weight labels (80%,70%,90%,60%,50%) and arrowclosed markers; edges e1/e2 sourced from prog-lang re-routed to start at the node's new handle position (x≈792), so relationships stayed attached to the correct competencies."}, {"item_id": "FT-4", "verdict": "FAIL", "issue": "No way to edit a competency relationship's weight; relationship weights are read-only and never update", "actual": "The detail editor exposes no control for relationship/edge weights: no edge is clickable for editing (clicking edge e1 opened nothing), the ReactFlow instance wires only onNodesChange/onEdgesChange (no onEdgeClick/onEdgeUpdate/edgesUpdatable), and no semantic element or DOM control matches edge/relationship/link/connection. The 5 edge weight labels (80%, 70%, 90%, 60%, 50%) stayed fixed through every interaction, including competency-weight changes. Only per-competency weight sliders exist, which are a different quantity.", "evidence": null}, {"item_id": "FT-5", "verdict": "FAIL", "issue": "Disabled state is not shown on the node/edges, and a disabled competency cannot be re-enabled (repeated toggles do not act on current state)", "actual": "Disabling \"Programming Languages\" correctly excluded it from analysis (coverage 66%→65%, avg 3.3→3.2, gap alert cleared), but the UI showed no disabled state: the toggle kept data-state=\"checked\", the node wrapper kept opacity 1 and unchanged classes (competency-node ... border-node-critical), and all 5 edges kept opacity 1 with unchanged stroke/dash. Clicking the same toggle a second time to re-enable had no effect — coverage stayed 65%, avg 3.2, gaps 0, toggle still \"checked\" — so the competency remained disabled and could not be restored.", "evidence": "Exclusion math verified: enabled weights .8,.6,.9,.7,.5 → coverage 11.4/5/3.5=65%, avg (3+3+4+3+3)/5=3.2."}, {"item_id": "FT-6", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Template library lists 5 job-role templates, each showing role, department, competency count, relationship count and representative keywords: Software Engineer/Engineering/6 competencies/5 connections/Programming,Coding,Software,Development; Product Manager/Product/6/5/Product,Management,Strategy,Roadmap; HR Manager/Human Resources/6/5/Hr,Human Resources,Recruitment,Talent; Data Scientist/Analytics/6/5/Data,Machine Learning,Analytics,Statistics; Sales Manager/Sales/6/5/Sales,Revenue,Business Development,Customer. Current model marked \"Current\" with its Apply disabled."}, {"item_id": "FT-7", "verdict": "FAIL", "issue": "Applying a template does not replace the competency graph; the graph keeps showing the previous model's competencies and relationships", "actual": "Applying the \"HR Manager\" template updated the title to \"HR Manager\", department \"Human Resources\", metrics (coverage 71%, avg 3.5, critical 3), the \"Current\" badge, and the scenario category adjustments (Technical 0 / Behavioral 1 / Leadership 2 / Domain 3). However the graph still rendered the Software Engineer nodes — Programming Languages, System Design, Code Review, Problem Solving, Collaboration, Agile Methodology (node ids prog-lang, sys-design, code-review, problem-solve, collab, agile) — with the unchanged edge weights 80%, 70%, 90%, 60%, 50%. Underlying state confirms the model is HR Manager with competencies talent-acq, emp-relations, hr-compliance, leadership, perf-mgmt, org-dev, so the graph contradicts the applied template.", "evidence": null}, {"item_id": "FT-8", "verdict": "FAIL", "issue": "Saving the current model as a custom template is not implemented; no name/description prompt and no My Templates collection", "actual": "After editing the model (Collaboration → level 5, coverage 75%), clicking \"Save Current\" (templates.save-current) produced no visible response: no dialog or alertdialog element, no name/description inputs, no toast/status message, and no new semantic elements. The template list still contained only the 5 built-in role templates (Software Engineer, Product Manager, HR Manager, Data Scientist, Sales Manager). The text \"My Templates\" does not appear anywhere in the page, and localStorage remained completely empty, so there is no custom template to retrieve after leaving and returning.", "evidence": null}, {"item_id": "FT-9", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Switching tabs updated both the active scenario heading/description and the category adjustments: Recruitment = \"Simulate candidate profiles and hiring decisions\" (Behavioral +10% weight, Leadership -2 level/-10% weight, Domain -1 level); Training = \"Model the impact of training programs\" (Domain +1 level); Promotion = \"Assess readiness for role advancement\" (Behavioral +10% weight, Leadership +20% weight). Each switch re-rendered simulation.active-scenario accordingly."}, {"item_id": "FT-10", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Category-level adjustments are selectable via per-category Level Change and Weight Change sliders (dragged Leadership level -2→+2, Technical level→+2 and weight→+25%, displays updated). Running the simulation applied them per category: leadership competencies L3→5, domain L4→3/L3→2, behavioral weight 0.85→0.95, leadership weights 0.75→0.65 and 0.70→0.60, with outputs updating (avg level 3.5→3.7, risk gaps 0→1; later run coverage 68%→87%). Reset restored the model to its original state: Software Engineer with prog-lang L4 W0.9, sys-design L3 W0.8, problem-solve L4 W0.9, collab L3 W0.7, code-review L3 W0.6, agile L3 W0.5 and metrics back to coverage 68%, avg 3.3, gaps 0."}, {"item_id": "FT-11", "verdict": "FAIL", "issue": "Saved model edits are not persisted; leaving and reopening the model discards all changes despite a \"Model Saved\" confirmation", "actual": "Edited Collaboration to level 5 (coverage rose 68%→75%, avg 3.3→3.7) and clicked Save, which showed the toast \"Model Saved — Your changes have been saved successfully.\" However nothing was written to storage (localStorage and sessionStorage both empty). After clicking back to the model list and reopening Software Engineer, the model was fully reverted to defaults: collab back to L3 (state prog-lang L4 W0.9, sys-design L3 W0.8, problem-solve L4 W0.9, collab L3 W0.7, code-review L3 W0.6, agile L3 W0.5, all enabled) with coverage 68% and avg 3.3. Since nothing is persisted, a page reload cannot restore the edits either.", "evidence": null}, {"item_id": "CS-12", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Direct edits are bounded by design: level control offers only buttons 1-5, and the competency weight slider reports aria-valuemin=10 / aria-valuemax=100. Simulation clamping verified: with Technical +2 level / +25% weight, prog-lang went L4→5 (not 6) and W0.9→1.0 (not 1.15), sys-design W0.8→1.0 (not 1.05). With Technical -1 level / -30% weight run repeatedly, technical competencies bottomed out at L1 and W0.1 (10%) and stayed there across further runs (prog-lang, sys-design, code-review all L1 W0.1), never going below 1 or below 10%."}, {"item_id": "IX-13", "verdict": "PASS", "issue": null, "actual": null, "evidence": "All three edit types updated the coverage number and its progress bar in place (URL unchanged, no reload): level change (Programming Languages 4→2) coverage 66%→60%; weight change (slider drag) 68%→67%→66%; enabled change (disable Programming Languages) 66%→65% with bar translateX(-34.857%) = 65.14%; further level change (System Design →5) coverage →75% with bar translateX(-24.545%) = 75.45%. Bar fill tracked the displayed percentage each time."}, {"item_id": "IX-19", "verdict": "FAIL", "issue": "The initially selected Recruitment scenario is not initialized with its default adjustments, so running it without first switching tabs does nothing", "actual": "On a fresh load of the Software Engineer model, the pre-selected \"Recruitment Simulation\" tab showed every category adjustment as Level Change 0 / Weight Change 0% (Technical, Behavioral, Leadership, Domain). Clicking Run Simulation without switching tabs left the model completely unchanged: competencies stayed prog-lang L4 W0.9, sys-design L3 W0.8, problem-solve L4 W0.9, collab L3 W0.7, code-review L3 W0.6, agile L3 W0.5 and outputs stayed coverage 68%, avg 3.3, gaps 0. Recruitment's real defaults only appear after navigating to another tab and back (Behavioral +10% weight, Leadership -2 level/-10% weight, Domain -1 level), and only then does running it change outputs.", "evidence": null}, {"item_id": "IX-20", "verdict": "FAIL", "issue": "Graph node controls never re-render: they display stale level, weight and enabled state, disagree with the summary analysis, and subsequent edits do not start from the current state", "actual": "After setting Programming Languages to level 2 (summary avg fell 3.3→3.0, gaps 0→1) the node still displayed \"Level: Advanced\" and showed no Gap indicator even though the summary alert named it as the gap competency. After dragging its weight slider (coverage 68%→67%→66%, matching model weights 0.55 then ~0.15) the node still displayed \"Weight 90%\" with aria-valuenow=90 and the thumb pinned at x=749 (the 90% position), so the next drag started from the stale 90% position rather than the current value. After disabling it, the toggle still read data-state=\"checked\", and clicking it again failed to re-enable (coverage remained 65%).", "evidence": null}, {"item_id": "CT-15", "verdict": "PASS", "issue": null, "actual": null, "evidence": "React Flow graph: 6 competency nodes each showing name, description, category, Level and Weight; 5 directed edges (prog-lang→code-review 80%, prog-lang→sys-design 70%, problem-solve→sys-design 90%, collab→code-review 60%, agile→collab 50%) each with arrowclosed markers, visible % weight labels and type-distinguishing stroke colors. Zoom-in button changed scale 0.7358→0.8829; genuine pane drag panned viewport (0,37.7)→(-382,265.7) with node positions unchanged; node drag rearranged layout."}, {"item_id": "CT-16", "verdict": "FAIL", "issue": "Critical-path summary and graph highlighting disagree after a weight change; graph highlighting does not recalculate, and the listed path is not a valid path through the edges", "actual": "Before the change: summary \"3 competencies: Programming Languages, Problem Solving, System Design\" and 3 nodes highlighted (border-node-critical) — consistent. After lowering Programming Languages' weight 0.9→0.55, the summary immediately became \"5 competencies: Problem Solving, System Design, Programming Languages, +2\" but the graph still highlighted only the same 3 nodes (prog-lang, sys-design, problem-solve), so summary (5) and highlighting (3) disagree. The listed sequence is also not a valid directed path: edges are prog-lang→sys-design and problem-solve→sys-design, with no edge from Programming Languages to Problem Solving.", "evidence": null}, {"item_id": "CT-17", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Lowering enabled high-weight \"Programming Languages\" (weight 90%) to level 2 immediately produced gaps=1 and alert \"1 competency below recommended level: Programming Languages...\". Raising it to level 5 immediately cleared it (gaps=0, alert element removed, coverage 72%, avg 3.5). Re-lowering to level 2 re-created the same named alert, and disabling the competency also cleared it (gaps=0, alert removed)."}, {"item_id": "CT-18", "verdict": "PASS", "issue": null, "actual": null, "evidence": "After lowering Programming Languages to level 2, metrics.gaps.count=1 and a role=\"alert\" element (metrics.gap-alert) rendered inside the model.metrics region, full-width (1248px), with a lucide-triangle-alert warning icon plus text: \"Competency Gap Alert — 1 competency below recommended level: Programming Languages. Consider increasing training focus or adjusting expectations.\" — names the affected competency and suggests corrective action."}]}
+
+
+# accessibility snapshots seen by the agent: 0
+# screenshots seen by the agent: 0

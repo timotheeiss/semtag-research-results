@@ -1,0 +1,102 @@
+=== injection: WebTestBench_0063 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0063
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+The current working directory is the app itself: `data/WebTestBench/web_applications_hinted/WebTestBench_0063`. Let me inspect it.
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the HeroSection:
+[tool] Edit
+[tool] Edit
+Now the listing (filters, selects with options, grid):
+[tool] Edit
+Now the HeritageCard (grid items):
+[tool] Edit
+[tool] Edit
+Now PanoramaViewer:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now HeritageOverlay:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now HeritageDetail:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now Footer and NotFound:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Read
+[tool] Edit
+Now run the validator:
+[tool] Bash
+Validator passes cleanly. Now checking what it can't see (runtime id uniqueness) and running the project's own checks:
+[tool] Bash
+[tool] Bash
+Dependencies aren't installed. Installing and building:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Done. Semantic hints are injected across the whole app (WebTestBench_0063, a Chinese intangible-heritage showcase), validated, and the project builds clean.
+
+## What was annotated (59 hinted elements)
+
+**Every screen covered:**
+- **Header** (all pages): `nav.logo`, `nav.home`, `nav.panorama`, `nav.categories`, `nav.explore` — all `navigation` with targets `home.page` / `panorama.view` / `home.categories`
+- **Home hero**: `hero.explore`, `hero.browse`, plus `hero.stats` collection with 4 observable items keyed by domain slugs (`world-heritage`, `national-projects`, …)
+- **Heritage listing** (home + panorama views): `listing.filters` region; `listing.search` input; three `select` triggers (`listing.filter.category`, `listing.filter.province`, `listing.sort`) each with `data-semtag-options` built from the same data source that renders the menu, `.option.<value>` ids on every item, and `data-semtag-controls="listing.grid"`; `listing.results` count observable; both clear-filter actions; `listing.grid` collection
+- **Heritage cards**: folded rows — item id on the title (`listing.grid.item.<slug>`), per-item `.category`, `.region` observables and `.open` navigation
+- **Panorama view**: `panorama.viewer` region, `panorama.hotspots` collection with `panorama.hotspots.item.<slug>` action buttons, zoom in/out actions, both loading-status observables
+- **Hotspot overlay**: `panorama.overlay` region with `.close`, `.title`, `.category`, `.detail`, `.continue`
+- **Heritage detail**: breadcrumbs, `detail.title/category/region/year/description` observables (shared state keys `heritage.*` link them to the card fields), gallery thumbnails, back/browse navigation, plus the not-found branch
+- **Footer & 404**: two footer link collections keyed `craft/performance/folk/art` and `about/guide/contact/copyright`; `notfound.home`
+
+**Id namespaces:** `nav`, `hero`, `listing`, `panorama`, `detail`, `footer`, `notfound`. Heritage slugs from `heritageData.ts` (verified duplicate-free) key both `listing.grid` and `panorama.hotspots`, scoped by prefix so ids stay unique when both render together.
+
+## Verification
+- **Validator**: 0 errors, 0 warnings, 0 info. Manually confirmed each collection container is a DOM ancestor of its items and template-literal ids are runtime-unique.
+- **Build & type-check**: `vite build` ✓, `tsc --noEmit` ✓. ESLint reports 4 errors, all pre-existing (`v as any` in the original listing code, empty interfaces in stock shadcn `ui/` files, `require()` in `tailwind.config.ts`) — untouched.
+
+## Deliberate gaps
+- **Detail gallery thumbnails not folded**: images have no stable domain key, so they use slot ids `detail.gallery.thumb.1–3` (fixed positions in the data, not `.item.` folding), with a literal `selected` state on the active one since selection isn't readable as text.
+- **Left unhinted**: decorative hero background/scroll indicator, card description text (redundant with detail page), duplicate meta text in the overlay, and the drag/wheel panorama gestures (not addressable via id-based interaction).
+
+The only non-attribute code changes: replacing index keys with stable keys in the hero-stats and footer-link arrays (identical rendered output).
+
+--- WebTestBench_0063: ok in 358.1s
+    turns=60 cost=$2.1540517500000007 tool_calls=58 skill_invoked=True
+    hinted_elements=59 files=9 validator_errors=0 warnings=0

@@ -1,0 +1,141 @@
+=== injection: WebTestBench_0005 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0005
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Now let me check the validator's rules, whether `NavLink` is used, and confirm the shared UI components spread props.
+[tool] Read
+[tool] Grep
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ResumeCard.tsx** (per-item ids keyed by `resume.id`):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ResumeEditor.tsx** (header, tabs, panels, preview toggle):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ContactForm.tsx and SummaryForm.tsx:**
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ExperienceForm.tsx** (collection keyed by `exp.id`):
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**EducationForm.tsx:**
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**SkillsForm.tsx:**
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**TemplateSelector.tsx and SectionManager.tsx:**
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the Classic and Minimal templates — let me read them:
+[tool] Read
+[tool] Read
+[tool] Bash
+Finally **NotFound.tsx**, then run the validator and the project checks:
+[tool] Edit
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Let me verify my diffs only added attributes, and restore the two `tsbuildinfo` files that my `tsc` run deleted:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Everything checks out. Note: `git diff` reveals this app had an older, differently-named hint injection committed at HEAD; the working tree I received was un-hinted, and my injection now replaces the old scheme. Final state: validator-clean, type-checks, and builds.
+
+## Summary
+
+**Screens & components annotated** (14 files, 165 hinted elements):
+
+- **Dashboard** — `dashboard.create` (+ `.empty` suffix for the empty-state duplicate), `dashboard.search` (input, `controls=dashboard.resumes`), `dashboard.sort` (select with `data-semtag-options` + `dashboard.sort.option.*`), `dashboard.resumes` collection, `dashboard.empty-message`.
+- **ResumeCard** — items keyed by `resume.id`: title `dashboard.resumes.item.<id>` (navigation → `editor.screen`), `.updated`, `.template` observables, `.menu`/`.rename`/`.duplicate`/`.delete` actions, and scoped rename/delete dialog regions with `.title`, `.cancel`, `.save`/`.confirm`.
+- **Editor shell** — `editor.back`, `editor.title` / `editor.title.input` (mutually exclusive), `editor.preview.toggle` (toggle, `controls=editor.preview`), `editor.tabs` collection with `editor.tabs.item.<tab>` navigation, one region per tab panel (`editor.contact` … `editor.sections`), `editor.preview` region.
+- **Forms** — Contact inputs (`editor.contact.*` ↔ state `contact.*`), Summary textarea + char counter, Experience/Education as collections keyed by entry id with per-item inputs and `.move-up`/`.move-down`/`.remove`, Skills (add-region, level selects with options, chip collection), TemplateSelector (`editor.template.item.<style>` as `option` with literal `selected` state), SectionManager (`editor.sections.item.<type>` with `.title`, `.visible`, move actions; state keys `section.<type>.title|visible`).
+- **Preview** (all 3 templates) — shared `preview.*` namespace: contact observables, section headings (state `section.<type>.title`), `preview.experience.list` / `preview.education.list` / `preview.skills.list` collections, per-item observables. Same state keys as the editor inputs, so the agent can connect a field edit to its preview rendering.
+- **NotFound** — `notfound.message`, `notfound.home`.
+
+**Validator:** 0 errors. 15 warnings, all `duplicate-id` across the three preview templates — intentional: `ResumePreview` renders exactly one template (a `switch`), so `preview.*` ids are unique at runtime, and sharing them keeps agent selectors stable when the template changes. ClassicTemplate renders skills as one joined string, so it has `preview.skills.text` instead of a foldable list — the one collection that can't fold there.
+
+**Known limitation:** dropdown/select/dialog content is Radix-portaled, so those per-item controls won't sit under the `dashboard.resumes` collection ancestor in the DOM and won't fold into its block — but only one is ever open, so the snapshot cost is one expanded entry. Left unhinted: decorative icons, layout wrappers, the app logo, and the unused `NavLink.tsx`.
+
+**Project checks:** `tsc --noEmit` ✓, `vite build` ✓. `npm run lint` reports 4 errors/8 warnings, all pre-existing in files I didn't change (shadcn `ui/*`, `tailwind.config.ts`, `ResumeContext.tsx`, and a `prefer-const` already present in `Dashboard.tsx`). No behavior, copy, or styling was modified — only attributes were added.
+
+--- WebTestBench_0005: ok in 586.4s
+    turns=106 cost=$3.426299 tool_calls=104 skill_invoked=True
+    hinted_elements=165 files=14 validator_errors=0 warnings=15

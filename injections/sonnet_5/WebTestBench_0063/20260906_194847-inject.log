@@ -1,0 +1,127 @@
+=== injection: WebTestBench_0063 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0063
+model:  claude-sonnet-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+Now let me explore the app structure under `src/`.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+This is a React/TS app (heritage sites listing). Let me read the key app-level files (pages, main components, data model) to understand every screen.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Read
+[tool] Grep
+[tool] Grep
+Now I have a full picture of the app (React SPA: Index/home with hero+panorama toggle, HeritageDetail, NotFound; shared Header/Footer; filterable listing grid; panorama hotspot viewer with overlay). Let me start applying hints, beginning with `Header.tsx`.
+[tool] Edit
+Now `HeroSection.tsx`:
+[tool] Edit
+Now `HeritageListing.tsx` — the biggest one (filters, selects, search, grid collection):
+[tool] Edit
+[tool] Edit
+Now `HeritageCard.tsx` (collection items — folded under `listing.grid`):
+[tool] Edit
+Now `HeritageOverlay.tsx`:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now `PanoramaViewer.tsx`:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the zoom buttons and hotspot-loading status text:
+[tool] Edit
+[tool] Edit
+Now `pages/HeritageDetail.tsx`:
+[tool] Edit
+[tool] Edit
+Now the image gallery (main image + thumbnails) in HeritageDetail:
+[tool] Read
+[tool] Edit
+[tool] Edit
+Now the content side: category badge, title, meta info, description, action buttons.
+[tool] Read
+[tool] Edit
+Now the two action buttons at the bottom of the detail page:
+[tool] Read
+[tool] Edit
+Now `pages/NotFound.tsx`:
+[tool] Edit
+All screens are now hinted. Let's run the validator.
+[tool] Bash
+Now let's run the project's own checks (typecheck/lint/build) to confirm nothing else broke.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Dependencies installed. Now let's typecheck, lint, and build:
+[tool] Bash
+Type-check passes cleanly. Now lint and build:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Confirmed: the `as any` lint error is pre-existing in the original app source (just at a different line number now due to added attributes), not something I introduced. Let's confirm the other lint errors are also pre-existing:
+[tool] Bash
+Confirmed: all 11 lint problems (4 errors, 7 warnings) are pre-existing in the original, unmodified source — identical to what's reported in the hinted copy. My changes introduced zero new lint issues. Now let's confirm the production build still succeeds:
+[tool] Bash
+Build succeeds (the CSS `@import` warning is a pre-existing style-ordering issue unrelated to my changes, not a build failure). Let's clean up the installed `node_modules` since it wasn't part of the deliverable, then do a final review pass of the diffs.
+[tool] Bash
+[tool] Bash
+All 44 hinted elements check out with distinct id namespaces, no collisions across any single page render. Everything validates clean and builds/lints/typechecks with zero new issues.
+
+## Summary
+
+I injected `data-semtag-*` hints across every screen of this heritage-culture SPA (`WebTestBench_0063`, in `web_applications_hinted/`), following the spec in `hint-design.md`.
+
+**Screens covered:**
+- **Home (`/`, hero view)** — `Header.tsx`, `HeroSection.tsx`
+- **Home (`/`, panorama view, `?view=panorama`)** — `Header.tsx`, `PanoramaViewer.tsx` (+ `HeritageOverlay.tsx` when a hotspot is clicked)
+- **Heritage listing** (rendered on both home views) — `HeritageListing.tsx`, `HeritageCard.tsx`
+- **Heritage detail (`/heritage/:id`)** — `HeritageDetail.tsx` (including its "item not found" branch)
+- **404 page** — `NotFound.tsx`
+- `Footer.tsx` and the unused `NavLink.tsx` were deliberately left unhinted (see below).
+
+**Id namespaces introduced:** `header.*`, `hero.*`, `listing.*` (with `listing.grid` as the folded collection), `overlay.*`, `panorama.*` (with `panorama.hotspots` as the folded collection), `detail.*`, `notfound.*`.
+
+**Collections folded properly (container + `.item.<slug>` keys):**
+- `listing.grid` → `listing.grid.item.<heritage-id>` (title link, title observable, category observable) in `HeritageCard.tsx`
+- `panorama.hotspots` → `panorama.hotspots.item.<heritage-id>` (hotspot buttons) in `PanoramaViewer.tsx`
+
+**Collection I could not fold, and why:** the detail-page image thumbnails (`item.images.map`) have no stable domain key — images are a plain string array with no slug/id, only position. Per §7 rule 2, folding requires a stable key, never an array index, so I gave each thumbnail its own non-collection id (`detail.gallery.thumbnail.0/1/2`, `role="action"`, `controls="detail.gallery.image"`) instead of forcing a `.item.<index>` pattern that the linter (correctly) would flag.
+
+**Deliberately left unhinted:** `Footer.tsx` — its links duplicate the already-hinted "categories" navigation and are decorative per the coverage rule; and marketing stat numbers in `HeroSection.tsx` (constant, non-interactive figures).
+
+**Validation:**
+- `validate-semtags.mjs src` → 44 hinted elements, **0 errors, 0 warnings**.
+- Manually confirmed both collection containers are true DOM ancestors of their items, and that all template-literal ids (`item.id`, thumbnail `index`) stay unique at runtime and page-wide.
+- `tsc --noEmit`, `npm run build` → clean/succeed.
+- `npm run lint` → 4 errors / 7 warnings, but I verified by diffing against the un-hinted original (`web_applications/WebTestBench_0063`) that every one of these pre-exists in the source and is unrelated to my changes (an `as any` cast, two empty-interface shadcn components, and several fast-refresh warnings in shared UI primitives).
+
+No behavior, styling, copy, or business logic was changed — only `data-semtag-*` attributes were added, all on native elements or shadcn components that already spread `...props` to their DOM root, so no component prop-widening was needed.
+
+--- WebTestBench_0063: ok in 541.6s
+    turns=69 cost=$4.480136749999999 tool_calls=67 skill_invoked=True
+    hinted_elements=44 files=8 validator_errors=0 warnings=0

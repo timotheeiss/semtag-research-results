@@ -1,0 +1,64 @@
+# Test Result
+
+## Functionality
+- [X] FT-1: Employers can publish a job listing with a title, industry, employment type, location, valid salary range, description, and required skills; the new listing appears in the employer dashboard and the job-seeker listing.
+
+- [X] FT-2: Employers can delete one of their posted jobs only after confirming the action; the job and its applications are then removed from the employer dashboard and the job-seeker listing.
+
+- [X] FT-3: The employer dashboard lists all active jobs posted by the current employer and shows accurate active-job and total-application counts.
+
+- [X] FT-4: The employer dashboard lets the employer open each posted job's application list and view the applications associated with that job.
+
+- [X] FT-5: Job seekers can browse the complete list of available jobs see an accurate result count and open any listing to view its details.
+
+- [X] FT-6: Job seekers can filter listings by industry, location, and employment type individually or in combination; clearing the criteria restores the full list.
+
+- [X] FT-7: Keyword search matches job titles, company names, and required skills without case sensitivity and immediately updates the visible results and count.
+
+- [X] FT-8: On a job details page, a job seeker can submit an application with a name, syntactically valid email address, optional phone number, and message and receives a clear success confirmation.
+
+- [ ] FT-18: Employers can edit the details of a published job and the updated information is reflected in both employer and job-seeker views.
+  - Bug Report:
+    - Issue: No edit feature found for job listings
+    - Actual: Employer dashboard shows only two controls per job: toggle-applications and delete-job. No edit button, link, or option is available to modify job details. Job detail page navigation not available from dashboard.
+
+
+## Constraint
+- [ ] CS-9: A job application cannot be submitted when the required name email or message is missing or when the email syntax is invalid; the invalid field is identified to the user.
+  - Bug Report:
+    - Issue: Invalid field not identified to user
+    - Actual: Browser's HTML5 validation silently prevents form submission with invalid email ("invalid-email" without '@'), but no visual error message or indication is displayed to the user identifying which field is invalid or what the error is. Email field validity shows false with message "Please include an '@' in the email address", but this is not shown to the user.
+
+- [ ] CS-10: A job cannot be published until its title, industry, employment type, location, description, salary range, and at least one required skill are provided; the salary values must be non-negative with the minimum no greater than the maximum, and invalid data produces clear feedback.
+  - Bug Report:
+    - Issue: Invalid salary range accepted without validation
+    - Actual: Job posted successfully with minimum salary (100000) greater than maximum salary (50000). No validation error or feedback was displayed to the user. Job appears on dashboard with ID job-1787751510945 and is available for job seekers.
+
+- [ ] CS-11: A job seeker cannot submit another application for the same job using an email address already used for that job; the existing application remains unchanged.
+  - Bug Report:
+    - Issue: Duplicate application accepted instead of rejected
+    - Actual: Second application for Marketing Manager job was submitted using the same email address (john.smith@email.com) as the first application. Both applications are now visible in the employer dashboard: app-1787751535238 (new message) and app-1787751374679 (original message). Expected: duplicate application should have been rejected.
+
+
+## Interaction
+- [X] IX-13: A successfully submitted application produces visible confirmation and appears exactly once under the matching job in the employer dashboard with the submitted information.
+
+- [X] IX-14: Changing search or filter criteria immediately refreshes the matching jobs and result count including the no-results state; clearing all criteria restores the full list.
+
+- [ ] IX-19: Published jobs, submitted applications, and job deletions remain in effect after the page is reloaded.
+  - Bug Report:
+    - Issue: New data not persisted after page reload
+    - Actual: After page reload: (1) QA Test Job posted during testing (job-1787751510945) is no longer in job seeker listing (9 jobs before reload → 8 after). (2) Applications submitted during testing disappeared from Marketing Manager job (showed 2 applications before → 0 after reload). (3) Total application count reset from 5 to 3. Only pre-existing baseline data persisted; newly created jobs and applications lost.
+
+
+## Content
+- [X] CT-15: Every job card displays the job title, company, industry, employment type, location, salary range, posting date, and required skills.
+
+- [X] CT-16: A job details page displays information matching the selected listing: title, company, industry, employment type, location, salary range, posting date, full description, and required skills.
+
+- [ ] CT-17: For each application, the employer can view the applicant's name, email address, optional phone number, message, and submission date as a distinct record.
+  - Bug Report:
+    - Issue: Phone number and submission date not displayed
+    - Actual: Application details shown for app-3 (Product Designer): name (James Wilson), email (james.w@email.com), and message displayed. Missing fields: phone number (not displayed even though optional field exists) and submission date (completely absent). Employer cannot view complete application record.
+
+- [X] CT-20: Newly published jobs and newly submitted applications display an accurate submission date relative to the user's current date.

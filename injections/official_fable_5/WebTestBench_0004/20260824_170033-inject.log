@@ -1,0 +1,135 @@
+=== injection: WebTestBench_0004 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0004
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+The working app is `web_applications_hinted/WebTestBench_0004`. Let me inspect its source.
+[tool] Bash
+[tool] Grep
+[tool] ToolSearch
+[tool] Read
+[tool] TodoWrite
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+I now have the full picture. Let me check the Layout and confirm the shared UI primitives pass through `data-*` props.
+[tool] Read
+[tool] Bash
+All primitives spread props through, so no component widening is needed. Now injecting hints.
+[tool] TodoWrite
+**Navbar** — desktop/mobile nav links (`.mobile` suffix for the drawer copies), logo, menu toggle:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**Index (Dashboard) page** — hero, details dialog, stats, quick links, previews:
+[tool] Edit
+[tool] Edit
+Now the edit dialog:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the stats cards, quick actions, and previews on Index:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the saved-checklists and favorites previews on Index:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**VenueCard / VendorCard** — thread a collection id prop so ids stay unique when the same item appears on Venues/Vendors and Favorites:
+[tool] Edit
+[tool] Edit
+**SearchAndFilter** — add namespace/controls props; filter chip groups become foldable collections:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**Venues page** — filter region, results count, grid collection, and card prefixes:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**Vendors page** — mirrored:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**Favorites page**:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**Checklists page** — category filter chips, checklist grid, per-card controls, nested task lists:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**NotFound page**, then validate:
+[tool] Edit
+[tool] TodoWrite
+[tool] Bash
+Validator is clean. Now run the project's own checks:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Dependencies aren't installed in this copy. Installing so I can build:
+[tool] Bash
+[tool] Bash
+Type-check passed silently and the build succeeded. Let me confirm the lint errors are pre-existing (they're in files I didn't touch):
+[tool] Bash
+[tool] TodoWrite
+Done. Semantic hints are injected across all six screens of the "Ever After" wedding-planner app (`web_applications_hinted/WebTestBench_0004`), attribute-only changes plus two prop-threading extensions for id scoping.
+
+## Screens & components annotated
+- **Navbar** (all pages): logo, 5 desktop nav links, mobile drawer copies suffixed `.mobile`, hamburger as `toggle` with `open`/`closed` state controlling `nav.menu.mobile`.
+- **Dashboard (Index)**: hero couple/countdown observables, "Get Started" action opening `home.details.dialog`, the dialog's 5 inputs + save/cancel, 4 stat observables (state keys `wedding.date/budget/guestCount` shared with the inputs that edit them), 3 quick-link navigations with saved-count observables, saved-checklists preview collection, favorites preview collection.
+- **Venues / Vendors**: filter region, search input (+ conditional clear), filter-chip groups as foldable collections of toggles with `selected`/`not-selected` state and `data-semtag-controls` pointing at the grid, results count, empty-state observable, card grid as `collection`.
+- **Favorites**: empty-state + browse navigations, per-section counts, two card collections.
+- **Checklists**: category chips (`checklists.filters.item.<cat>` incl. `all`), card grid, per-card expand toggle, saved-status badge, progress observable, save action, and each expanded card's tasks as a nested collection of checkboxes (`checklists.tasks.<clId>.item.<taskId>`).
+- **NotFound**: message observable + home navigation.
+
+## Id namespaces
+`nav.*`, `home.*`, `venues.*`, `vendors.*`, `favorites.*`, `checklists.*` (+ `checklists.tasks.*`), `notfound.*`. Targets: `dashboard/venues/vendors/favorites/checklists.page`.
+
+## Shared-component handling (§8)
+`VenueCard`/`VendorCard` gained an optional `semtagCollection` prop and `SearchAndFilter` gained `semtagPrefix`/`semtagControls`; each call site supplies its own namespace (`venues.grid` vs `favorites.venues`, etc.), and **no attribute is emitted when the prop is absent** — no behavior change, all UI primitives already spread props. All collection containers are verified DOM ancestors of their items; item keys are stable domain ids (`v1`, `vn2`, `cl1-1`, filter values), never indices. Desktop/mobile nav duplication is the only cross-layout case, handled with `.mobile`.
+
+## Deliberately unhinted
+Vendor specialty badges, footer, decorative icons/images, layout wrappers, and the setup-less hero heading (so `home.hero.couple` stays statically unique).
+
+## Verification
+- `validate-semtags.mjs src`: **63 hinted elements, 0 errors, 0 warnings**.
+- `vite build`: ✅ succeeds; `tsc --noEmit`: ✅ clean.
+- `eslint`: 3 errors remain, all **pre-existing** in untouched stock files (`ui/command.tsx`, `ui/textarea.tsx`, `tailwind.config.ts`) — reproduced identically on the pristine copy in `web_applications/WebTestBench_0004`.
+
+--- WebTestBench_0004: ok in 566.1s
+    turns=88 cost=$3.4922910000000003 tool_calls=86 skill_invoked=True
+    hinted_elements=67 files=10 validator_errors=0 warnings=0

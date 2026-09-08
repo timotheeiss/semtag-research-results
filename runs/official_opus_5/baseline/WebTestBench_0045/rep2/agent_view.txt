@@ -1,0 +1,2134 @@
+# Transcript: /home/ubuntu/.claude/projects/-home-ubuntu-semantic-hints-project-WebTestBench-claude-code-cwd/5ae19659-f923-4cc7-b9ff-a68feba26503.jsonl
+# total tool calls: 111
+
+================================================================================
+[01] ToolSearch  input={"query": "select:mcp__playwright__browser_navigate,mcp__playwright__browser_snapshot,mcp__playwright__browser_click,mcp__playwright__browser_type,mcp__playwrig
+--------------------------------------------------------------------------------
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_navigate"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_snapshot"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_click"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_type"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_fill_form"}
+
+================================================================================
+[02] ToolSearch  input={"query": "select:mcp__playwright__browser_evaluate,mcp__playwright__browser_hover,mcp__playwright__browser_select_option,mcp__structured_results__record_result
+--------------------------------------------------------------------------------
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_evaluate"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_hover"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_select_option"}
+{"type": "tool_reference", "tool_name": "mcp__structured_results__record_result"}
+{"type": "tool_reference", "tool_name": "mcp__structured_results__get_result_progress"}
+
+================================================================================
+[03] browser_navigate  input={"url": "http://localhost:6045/"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.goto('http://localhost:6045/');
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-37-57-283Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-27T13-37-55-882Z.log#L1-L3
+
+================================================================================
+[04] browser_snapshot
+--------------------------------------------------------------------------------
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 2 warnings
+### Snapshot
+```yaml
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - img [ref=e8]
+          - generic [ref=e11]:
+            - heading "My Tasks" [level=1] [ref=e12]
+            - paragraph [ref=e13]: 5 active, 2 completed
+        - button "Add Task" [ref=e14] [cursor=pointer]:
+          - img
+          - generic [ref=e15]: Add Task
+    - main [ref=e16]:
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - button "Active 5" [ref=e20] [cursor=pointer]:
+            - img
+            - text: Active
+            - generic [ref=e21]: "5"
+          - button "Completed 2" [ref=e22] [cursor=pointer]:
+            - img
+            - text: Completed
+            - generic [ref=e23]: "2"
+        - generic [ref=e24]:
+          - generic [ref=e25]:
+            - img [ref=e26]
+            - text: Sort by
+          - combobox [ref=e29] [cursor=pointer]:
+            - generic: Priority
+            - img [ref=e30]
+      - generic [ref=e32]:
+        - img
+        - generic [ref=e33]:
+          - button [ref=e35] [cursor=pointer]
+          - generic [ref=e36]:
+            - generic [ref=e37]:
+              - heading "Review project proposal" [level=3] [ref=e38]
+              - generic [ref=e39]:
+                - img [ref=e40]
+                - text: High
+            - paragraph [ref=e42]: Go through the Q1 marketing proposal and provide feedback to the team.
+            - generic [ref=e43]:
+              - img [ref=e44]
+              - generic [ref=e46]: Aug 29
+          - generic [ref=e47]:
+            - button [ref=e49] [cursor=pointer]:
+              - img
+            - button [ref=e50] [cursor=pointer]:
+              - img
+        - generic [ref=e51]:
+          - button [disabled] [ref=e53]
+  
+…[truncated]
+
+================================================================================
+[05] browser_evaluate  input={"function": "() => {\n  const sel = document.querySelectorAll('select');\n  const out = [...sel].map(s => ({name: s.name||s.id, value: s.value, opts: [...s.opt
+--------------------------------------------------------------------------------
+### Result
+{
+  "selects": [],
+  "svgCount": 29,
+  "dashed": [
+    {
+      "tag": "path",
+      "dash": "6px, 4px",
+      "cls": "transition-all duration-200 stroke-warning/50",
+      "parentCls": "pointer-events-auto cursor-pointer"
+    },
+    {
+      "tag": "path",
+      "dash": "6px, 4px",
+      "cls": "transition-all duration-200 stroke-warning/50",
+      "parentCls": "pointer-events-auto cursor-pointer"
+    },
+    {
+      "tag": "path",
+      "dash": "6px, 4px",
+      "cls": "transition-all duration-200 stroke-warning/50",
+      "parentCls": "pointer-events-auto cursor-pointer"
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const sel = document.querySelectorAll(\'select\');\n  const out = [...sel].map(s => ({name: s.name||s.id, value: s.value, opts: [...s.options].map(o=>o.value+\'|\'+o.text)}));\n  // also check for svg dashed lines\n  const svgs = document.querySelectorAll(\'svg\');\n  const dashed = [...document.querySelectorAll(\'path,line\')].filter(p=>{\n    const d = getComputedStyle(p).strokeDasharray; return d && d!==\'none\' && d!==\'\';\n  }).map(p=>({tag:p.tagName, dash:getComputedStyle(p).strokeDasharray, cls:p.getAttribute(\'class\'), parentCls: p.parentElement?.getAttribute(\'class\')}));\n  return {selects: out, svgCount: svgs.length, dashed: dashed.slice(0,10)};\n}');
+```
+
+================================================================================
+[06] mcp__structured_results__record_result  input={"item_id": "FT-1", "verdict": "PASS", "evidence": "Sort by = Priority; active list order: Review project proposal (High), Complete tax filing (High), Submit fi
+--------------------------------------------------------------------------------
+{"recorded": "FT-1", "verdict": "PASS", "recorded_count": 1, "total_count": 19, "missing_ids": ["FT-2", "FT-3", "FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "CS-13", "CS-14", "CS-17", "CS-22", "IX-18", "IX-20", "CT-21"], "complete": false}
+
+================================================================================
+[07] browser_click  input={"target": "e29", "element": "Sort by combobox"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.getByRole('combobox').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-38-15-967Z.yml)
+
+================================================================================
+[08] browser_snapshot  input={"target": "e29"}
+--------------------------------------------------------------------------------
+### Error
+Error: Ref e29 not found in the current page snapshot. Try capturing new snapshot.
+
+================================================================================
+[09] browser_evaluate  input={"function": "() => [...document.querySelectorAll('[role=option]')].map(o=>o.textContent)"}
+--------------------------------------------------------------------------------
+### Result
+[
+  "Priority",
+  "Deadline",
+  "Date Created"
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => [...document.querySelectorAll(\'[role=option]\')].map(o=>o.textContent)');
+```
+
+================================================================================
+[10] browser_click  input={"target": "[role=option]:nth-of-type(2)", "element": "Deadline option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[role=option]:nth-of-type(2)').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-38-23-158Z.yml)
+
+================================================================================
+[11] browser_evaluate  input={"function": "() => {\n  const sortVal = document.querySelector('[role=combobox]')?.textContent;\n  const titles = [...document.querySelectorAll('h3')].map(h=>{
+--------------------------------------------------------------------------------
+### Result
+{
+  "sortVal": "Deadline",
+  "titles": [
+    "Buy groceries :: Buy groceriesLowMilk, eggs, bread, vegetables, and coffee.Tomorrow",
+    "Review project proposal :: Review project proposalHighGo through the Q1 marketing proposal and provide feedback to the team.Aug 29",
+    "Submit final report :: Submit final reportHighCompile findings and submit the quarterly report.Sep 12 prerequisites incomplete",
+    "Schedule dentist appointment :: Schedule dentist appointmentMediumCall Dr. Smith's office for annual checkup.Sep 3",
+    "Complete tax filing :: Complete tax filingHighGather all documents and submit through the online portal.Sep 10Prerequisite \"Review project proposal\" incomplete"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const sortVal = document.querySelector(\'[role=combobox]\')?.textContent;\n  const titles = [...document.querySelectorAll(\'h3\')].map(h=>{\n    const card = h.closest(\'[class*="rounded"]\') || h.parentElement.parentElement;\n    return h.textContent + \' :: \' + (card?.textContent||\'\').replace(/\\s+/g,\' \').slice(0,160);\n  });\n  return {sortVal, titles};\n}');
+```
+
+================================================================================
+[12] browser_click  input={"target": "e14", "element": "Add Task button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.getByRole('button', { name: 'Add Task' }).click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-38-33-881Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-27T13-37-55-882Z.log#L4
+
+================================================================================
+[13] browser_snapshot
+--------------------------------------------------------------------------------
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 3 warnings
+### Snapshot
+```yaml
+- generic:
+  - generic:
+    - list
+    - region "Notifications alt+T"
+    - generic:
+      - banner:
+        - generic:
+          - generic:
+            - generic:
+              - img
+            - generic:
+              - heading [level=1]: My Tasks
+              - paragraph: 5 active, 2 completed
+          - button:
+            - img
+            - generic: Add Task
+      - main:
+        - generic:
+          - generic:
+            - generic:
+              - button:
+                - img
+                - text: Active
+                - generic: "5"
+              - button:
+                - img
+                - text: Completed
+                - generic: "2"
+            - generic:
+              - generic:
+                - img
+                - text: Sort by
+              - combobox:
+                - generic: Deadline
+                - img
+        - generic:
+          - img
+          - generic:
+            - button
+            - generic:
+              - generic:
+                - heading [level=3]: Buy groceries
+                - generic:
+                  - img
+                  - text: Low
+              - paragraph: Milk, eggs, bread, vegetables, and coffee.
+              - generic:
+                - img
+                - generic: Tomorrow
+            - generic:
+              - generic:
+                - button:
+                  - img
+              - button:
+                - img
+          - generic:
+            - button
+            - generic:
+              - generic:
+                - heading [level=3]: Review project proposal
+                - generic:
+                  - img
+                  - text: High
+              - paragraph: Go through the Q1 marketing proposal and provide feedback to the team.
+              - generic:
+                - img
+                - generic: Aug 29
+            - generic:
+              - gen
+…[truncated]
+
+================================================================================
+[14] browser_type  input={"target": "e151", "text": "   "}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.getByRole('textbox', { name: 'Title *' }).fill('   ');
+```
+
+================================================================================
+[15] browser_evaluate  input={"function": "() => {\n  const btns=[...document.querySelectorAll('[role=dialog] button')].map(b=>({t:b.textContent.trim(), d:b.disabled}));\n  return btns;\n}"
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "t": "Medium Priority",
+    "d": false
+  },
+  {
+    "t": "",
+    "d": false
+  },
+  {
+    "t": "",
+    "d": false
+  },
+  {
+    "t": "",
+    "d": false
+  },
+  {
+    "t": "",
+    "d": false
+  },
+  {
+    "t": "",
+    "d": false
+  },
+  {
+    "t": "",
+    "d": false
+  },
+  {
+    "t": "",
+    "d": false
+  },
+  {
+    "t": "Cancel",
+    "d": false
+  },
+  {
+    "t": "Create Task",
+    "d": true
+  },
+  {
+    "t": "Close",
+    "d": false
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const btns=[...document.querySelectorAll(\'[role=dialog] button\')].map(b=>({t:b.textContent.trim(), d:b.disabled}));\n  return btns;\n}');
+```
+
+================================================================================
+[16] mcp__structured_results__record_result  input={"item_id": "CS-14", "verdict": "PASS", "evidence": "With empty title, \"Create Task\" button disabled=true; after typing whitespace-only \"   \" it remained di
+--------------------------------------------------------------------------------
+{"recorded": "CS-14", "verdict": "PASS", "recorded_count": 2, "total_count": 19, "missing_ids": ["FT-2", "FT-3", "FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "CS-13", "CS-17", "CS-22", "IX-18", "IX-20", "CT-21"], "complete": false}
+
+================================================================================
+[17] browser_fill_form  input={"fields": [{"target": "e151", "name": "Title", "type": "textbox", "value": "QA NoDeadline Task"}]}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.getByRole('textbox', { name: 'Title *' }).fill('QA NoDeadline Task');
+```
+
+================================================================================
+[18] browser_click  input={"target": "[role=dialog] button:has-text(\\\"Create Task\\\")", "element": "Create Task button"}
+--------------------------------------------------------------------------------
+### Error
+Error: browserBackend.callTool: Error: "has-text" engine expects a single string
+    at Object.matches (<anonymous>:5571:13)
+    at <anonymous>:5433:21
+    at SelectorEvaluatorImpl._cached (<anonymous>:5235:20)
+    at SelectorEvaluatorImpl._callMatches (<anonymous>:5432:17)
+    at SelectorEvaluatorImpl._matchesEngine (<anonymous>:5419:19)
+    at <anonymous>:5346:50
+    at Array.filter (<anonymous>)
+    at <anonymous>:5346:31
+    at SelectorEvaluatorImpl._cached (<anonymous>:5235:20)
+    at SelectorEvaluatorImpl._querySimple (<anonymous>:5326:17)
+
+================================================================================
+[19] browser_click  input={"target": "[role=dialog] button:text-is('Create Task')", "element": "Create Task button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[role=dialog] button:text-is(\'Create Task\')').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 3 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-38-56-528Z.yml)
+
+================================================================================
+[20] browser_evaluate  input={"function": "() => {\n  const header = document.querySelector('header p')?.textContent;\n  const sortVal = document.querySelector('[role=combobox]')?.textConte
+--------------------------------------------------------------------------------
+### Result
+{
+  "header": "6 active, 2 completed",
+  "sortVal": "Deadline",
+  "tabs": [
+    "Active6",
+    "Completed2"
+  ],
+  "titles": [
+    "Buy groceries",
+    "Review project proposal",
+    "Submit final report",
+    "Schedule dentist appointment",
+    "Complete tax filing",
+    "QA NoDeadline Task"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const header = document.querySelector(\'header p\')?.textContent;\n  const sortVal = document.querySelector(\'[role=combobox]\')?.textContent;\n  const titles = [...document.querySelectorAll(\'h3\')].map(h=>h.textContent);\n  const tabs = [...document.querySelectorAll(\'main button\')].slice(0,2).map(b=>b.textContent.replace(/\\s+/g,\' \'));\n  return {header, sortVal, tabs, titles};\n}');
+```
+
+================================================================================
+[21] mcp__structured_results__record_result  input={"item_id": "FT-4", "verdict": "PASS", "evidence": "Created \"QA NoDeadline Task\"; header changed \"5 active, 2 completed\" -> \"6 active, 2 completed\", Activ
+--------------------------------------------------------------------------------
+{"recorded": "FT-4", "verdict": "PASS", "recorded_count": 3, "total_count": 19, "missing_ids": ["FT-2", "FT-3", "FT-5", "FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "CS-13", "CS-17", "CS-22", "IX-18", "IX-20", "CT-21"], "complete": false}
+
+================================================================================
+[22] mcp__structured_results__record_result  input={"item_id": "FT-2", "verdict": "PASS", "evidence": "Sort by = Deadline gives: Buy groceries (Tomorrow/Aug 28), Review project proposal (Aug 29), Submit final re
+--------------------------------------------------------------------------------
+{"recorded": "FT-2", "verdict": "PASS", "recorded_count": 4, "total_count": 19, "missing_ids": ["FT-3", "FT-5", "FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "CS-13", "CS-17", "CS-22", "IX-18", "IX-20", "CT-21"], "complete": false}
+
+================================================================================
+[23] browser_click  input={"target": "e14", "element": "Add Task button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.getByRole('button', { name: 'Add Task' }).click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-39-14-252Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-27T13-37-55-882Z.log#L5
+
+================================================================================
+[24] browser_evaluate  input={"function": "() => {\n  const d=document.querySelector('[role=dialog]');\n  const inputs=[...d.querySelectorAll('input,textarea')].map((el,i)=>({i,type:el.type
+--------------------------------------------------------------------------------
+### Result
+{
+  "inputs": [
+    {
+      "i": 0,
+      "type": "text",
+      "name": "",
+      "ph": "What needs to be done?",
+      "aria": null,
+      "id": "title",
+      "val": ""
+    },
+    {
+      "i": 1,
+      "type": "textarea",
+      "name": "",
+      "ph": "Add more details (optional)",
+      "aria": null,
+      "id": "description",
+      "val": ""
+    },
+    {
+      "i": 2,
+      "type": "date",
+      "name": "",
+      "ph": "",
+      "aria": null,
+      "id": "deadline",
+      "val": ""
+    },
+    {
+      "i": 3,
+      "type": "checkbox",
+      "name": "",
+      "ph": "",
+      "aria": null,
+      "id": "",
+      "val": "on"
+    },
+    {
+      "i": 4,
+      "type": "checkbox",
+      "name": "",
+      "ph": "",
+      "aria": null,
+      "id": "",
+      "val": "on"
+    },
+    {
+      "i": 5,
+      "type": "checkbox",
+      "name": "",
+      "ph": "",
+      "aria": null,
+      "id": "",
+      "val": "on"
+    },
+    {
+      "i": 6,
+      "type": "checkbox",
+      "name": "",
+      "ph": "",
+      "aria": null,
+      "id": "",
+      "val": "on"
+    },
+    {
+      "i": 7,
+      "type": "checkbox",
+      "name": "",
+      "ph": "",
+      "aria": null,
+      "id": "",
+      "val": "on"
+    },
+    {
+      "i": 8,
+      "type": "checkbox",
+      "name": "",
+      "ph": "",
+      "aria": null,
+      "id": "",
+      "val": "on"
+    },
+    {
+      "i": 9,
+      "type": "checkbox",
+      "name": "",
+      "ph": "",
+      "aria": null,
+      "id": "",
+      "val": "on"
+    },
+    {
+      "i": 10,
+      "type": "checkbox",
+      "name": "",
+      "ph": "",
+      "aria": null,
+      "id": "",
+      "val": "on"
+    }
+  ],
+  "combo": [
+    "Medium Priority"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const d=document.querySelector(\'[role=dialog]\');\n  const inputs=[...d.querySelectorAll(\'input,textarea\')].map((el,i)=>({i,type:el.type,name:el.name,ph:el.placeholder,aria:el.getAttribute(\'aria-label\'),id:el.id,val:el.value}));\n  const combo=[...d.querySelectorAll(\'[role=combobox]\')].map(c=>c.textContent);\n  return {inputs, combo};\n}');
+```
+
+================================================================================
+[25] browser_fill_form  input={"fields": [{"target": "#title", "name": "Title", "type": "textbox", "value": "QA Full Task"}, {"target": "#description", "name": "Description", "type": "textbo
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('#title').fill('QA Full Task');
+await page.locator('#description').fill('QA description text');
+await page.locator('#deadline').fill('2026-09-05');
+```
+
+================================================================================
+[26] browser_click  input={"target": "[role=dialog] [role=combobox]", "element": "Priority combobox"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[role=dialog] [role=combobox]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-39-25-786Z.yml)
+
+================================================================================
+[27] browser_evaluate  input={"function": "() => [...document.querySelectorAll('[role=option]')].map((o,i)=>i+':'+o.textContent)"}
+--------------------------------------------------------------------------------
+### Result
+[
+  "0:High Priority",
+  "1:Medium Priority",
+  "2:Low Priority"
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => [...document.querySelectorAll(\'[role=option]\')].map((o,i)=>i+\':\'+o.textContent)');
+```
+
+================================================================================
+[28] browser_click  input={"target": "[role=option]:text-is('High Priority')", "element": "High Priority option"}
+--------------------------------------------------------------------------------
+### Error
+Error: "[role=option]:text-is('High Priority')" does not match any elements.
+
+================================================================================
+[29] browser_snapshot
+--------------------------------------------------------------------------------
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 4 warnings
+### Snapshot
+```yaml
+- generic:
+  - generic:
+    - list
+    - region "Notifications alt+T"
+    - generic:
+      - banner:
+        - generic:
+          - generic:
+            - generic:
+              - img
+            - generic:
+              - heading [level=1]: My Tasks
+              - paragraph: 6 active, 2 completed
+          - button:
+            - img
+            - generic: Add Task
+      - main:
+        - generic:
+          - generic:
+            - generic:
+              - button:
+                - img
+                - text: Active
+                - generic: "6"
+              - button:
+                - img
+                - text: Completed
+                - generic: "2"
+            - generic:
+              - generic:
+                - img
+                - text: Sort by
+              - combobox:
+                - generic: Deadline
+                - img
+        - generic:
+          - img
+          - generic:
+            - button
+            - generic:
+              - generic:
+                - heading [level=3]: Buy groceries
+                - generic:
+                  - img
+                  - text: Low
+              - paragraph: Milk, eggs, bread, vegetables, and coffee.
+              - generic:
+                - img
+                - generic: Tomorrow
+            - generic:
+              - generic:
+                - button:
+                  - img
+              - button:
+                - img
+          - generic:
+            - button
+            - generic:
+              - generic:
+                - heading [level=3]: Review project proposal
+                - generic:
+                  - img
+                  - text: High
+              - paragraph: Go through the Q1 marketing proposal and provide feedback to the team.
+              - generic:
+                - img
+                - generic: Aug 29
+            - generic:
+              - gen
+…[truncated]
+
+================================================================================
+[30] browser_click  input={"target": "e317", "element": "High Priority option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.getByRole('option', { name: 'High Priority' }).click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-39-36-679Z.yml)
+
+================================================================================
+[31] browser_evaluate  input={"function": "() => {\n  const d=document.querySelector('[role=dialog]');\n  const rows=[...d.querySelectorAll('input[type=checkbox]')].map((c,i)=>({i, label:c.
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "i": 0,
+    "label": "QA NoDeadline Task",
+    "checked": false,
+    "disabled": false
+  },
+  {
+    "i": 1,
+    "label": "Review project proposal",
+    "checked": false,
+    "disabled": false
+  },
+  {
+    "i": 2,
+    "label": "Schedule dentist appointment",
+    "checked": false,
+    "disabled": false
+  },
+  {
+    "i": 3,
+    "label": "Buy groceries",
+    "checked": false,
+    "disabled": false
+  },
+  {
+    "i": 4,
+    "label": "Complete tax filing",
+    "checked": false,
+    "disabled": false
+  },
+  {
+    "i": 5,
+    "label": "Organize deskCompleted",
+    "checked": false,
+    "disabled": false
+  },
+  {
+    "i": 6,
+    "label": "Reply to client emailsCompleted",
+    "checked": false,
+    "disabled": false
+  },
+  {
+    "i": 7,
+    "label": "Submit final report",
+    "checked": false,
+    "disabled": false
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const d=document.querySelector(\'[role=dialog]\');\n  const rows=[...d.querySelectorAll(\'input[type=checkbox]\')].map((c,i)=>({i, label:c.closest(\'label,div\')?.textContent.replace(/\\s+/g,\' \').trim(), checked:c.checked, disabled:c.disabled}));\n  return rows;\n}');
+```
+
+================================================================================
+[32] browser_click  input={"target": "[role=dialog] input[type=checkbox]:nth-of-type(1) >> nth=3", "element": "Buy groceries prerequisite checkbox"}
+--------------------------------------------------------------------------------
+### Error
+TimeoutError: browserBackend.callTool: Timeout 5000ms exceeded.
+Call log:
+[2m  - waiting for locator('[role=dialog] input[type=checkbox]:nth-of-type(1)').nth(3)[22m
+[2m    - locator resolved to <input value="on" tabindex="-1" type="checkbox" aria-hidden="true"/>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is visible, enabled and stable[22m
+[2m      - scrolling into view if needed[22m
+[2m      - done scrolling[22m
+[2m      - <div dir="ltr" class="relative overflow-hidden max-h-[calc(90vh-120px)]">…</div> intercepts pointer events[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is visible, enabled and stable[22m
+[2m      - scrolling into view if needed[22m
+[2m      - done scrolling[22m
+[2m      - <div dir="ltr" class="relative overflow-hidden max-h-[calc(90vh-120px)]">…</div> intercepts pointer events[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    9 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is visible, enabled and stable[22m
+[2m      - scrolling into view if needed[22m
+[2m      - done scrolling[22m
+[2m      - <div dir="ltr" class="relative overflow-hidden max-h-[calc(90vh-120px)]">…</div> intercepts pointer events[22m
+[2m    - retrying click action[22m
+[2m      - waiting 500ms[22m
+
+================================================================================
+[33] browser_click  input={"target": "[role=dialog] label:has-text('Buy groceries')", "element": "Buy groceries prerequisite row"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[role=dialog] label:has-text(\'Buy groceries\')').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-39-52-696Z.yml)
+
+================================================================================
+[34] browser_evaluate  input={"function": "() => {\n  const d=document.querySelector('[role=dialog]');\n  const rows=[...d.querySelectorAll('input[type=checkbox]')].map((c)=>({label:c.close
+--------------------------------------------------------------------------------
+### Result
+{
+  "rows": [
+    {
+      "label": "QA NoDeadline Task",
+      "checked": false
+    },
+    {
+      "label": "Review project proposal",
+      "checked": false
+    },
+    {
+      "label": "Schedule dentist appointment",
+      "checked": false
+    },
+    {
+      "label": "Buy groceries",
+      "checked": true
+    },
+    {
+      "label": "Complete tax filing",
+      "checked": false
+    },
+    {
+      "label": "Organize deskCompleted",
+      "checked": false
+    },
+    {
+      "label": "Reply to client emailsCompleted",
+      "checked": false
+    },
+    {
+      "label": "Submit final report",
+      "checked": false
+    }
+  ],
+  "combo": [
+    "High Priority"
+  ],
+  "title": "QA Full Task",
+  "desc": "QA description text",
+  "dl": "2026-09-05"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const d=document.querySelector(\'[role=dialog]\');\n  const rows=[...d.querySelectorAll(\'input[type=checkbox]\')].map((c)=>({label:c.closest(\'label,div\')?.textContent.replace(/\\s+/g,\' \').trim(), checked:c.checked}));\n  const combo=[...d.querySelectorAll(\'[role=combobox]\')].map(c=>c.textContent);\n  return {rows, combo, title:d.querySelector(\'#title\').value, desc:d.querySelector(\'#description\').value, dl:d.querySelector(\'#deadline\').value};\n}');
+```
+
+================================================================================
+[35] browser_click  input={"target": "[role=dialog] button:text-is('Create Task')", "element": "Create Task button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[role=dialog] button:text-is(\'Create Task\')').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-40-00-328Z.yml)
+
+================================================================================
+[36] browser_evaluate  input={"function": "() => {\n  const header = document.querySelector('header p')?.textContent;\n  const cards = [...document.querySelectorAll('h3')].map(h=>{\n    let
+--------------------------------------------------------------------------------
+### Result
+{
+  "header": "7 active, 2 completed",
+  "cards": [
+    "Buy groceriesLowMilk, eggs, bread, vegetables, and coffee.Tomorrow",
+    "Review project proposalHighGo through the Q1 marketing proposal and provide feedback to the team.Aug 29",
+    "Submit final reportHighCompile findings and submit the quarterly report.Sep 12 prerequisites incomplete",
+    "Schedule dentist appointmentMediumCall Dr. Smith's office for annual checkup.Sep 3",
+    "QA Full TaskHighQA description textSep 5Prerequisite \"Buy groceries\" incomplete",
+    "Complete tax filingHighGather all documents and submit through the online portal.Sep 10Prerequisite \"Review project proposal\" incomplete",
+    "QA NoDeadline TaskMedium"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const header = document.querySelector(\'header p\')?.textContent;\n  const cards = [...document.querySelectorAll(\'h3\')].map(h=>{\n    let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n    return (c||h.parentElement).textContent.replace(/\\s+/g,\' \').trim();\n  });\n  return {header, cards};\n}');
+```
+
+================================================================================
+[37] mcp__structured_results__record_result  input={"item_id": "FT-5", "verdict": "PASS", "evidence": "Created \"QA Full Task\" with description, deadline 2026-09-05, High priority, prerequisite \"Buy groceries\
+--------------------------------------------------------------------------------
+{"recorded": "FT-5", "verdict": "PASS", "recorded_count": 5, "total_count": 19, "missing_ids": ["FT-3", "FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "CS-13", "CS-17", "CS-22", "IX-18", "IX-20", "CT-21"], "complete": false}
+
+================================================================================
+[38] browser_evaluate  input={"function": "() => {\n  return [...document.querySelectorAll('h3')].map(h=>{\n    let c=h.parentElement; while(c && !c.className.includes('rounded')) c=c.paren
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "title": "Buy groceries",
+    "blocked": false,
+    "btns": [
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "flex-shrink-0 mt-0.5 w-5 h-5 rounded-full border-2 flex item"
+      },
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      },
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      }
+    ]
+  },
+  {
+    "title": "Review project proposal",
+    "blocked": false,
+    "btns": [
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "flex-shrink-0 mt-0.5 w-5 h-5 rounded-full border-2 flex item"
+      },
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      },
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      }
+    ]
+  },
+  {
+    "title": "Submit final report",
+    "blocked": true,
+    "btns": [
+      {
+        "label": "icon",
+        "disabled": true,
+        "cls": "flex-shrink-0 mt-0.5 w-5 h-5 rounded-full border-2 flex item"
+      },
+      {
+        "label": "icon",
+        "disabled": true,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      },
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      }
+    ]
+  },
+  {
+    "title": "Schedule dentist appointment",
+    "blocked": false,
+    "btns": [
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "flex-shrink-0 mt-0.5 w-5 h-5 rounded-full border-2 flex item"
+      },
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      },
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      }
+    ]
+  },
+  {
+    "title": "QA Full Task",
+    "blocked": true,
+    "btns": [
+      {
+        "label": "icon",
+        "disabled": true,
+        "cls": "flex-shrink-0 mt-0.5 w-5 h-5 rounded-full border-2 flex item"
+      },
+      {
+        "label": "icon",
+        "disabled": true,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      },
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      }
+    ]
+  },
+  {
+    "title": "Complete tax filing",
+    "blocked": true,
+    "btns": [
+      {
+        "label": "icon",
+        "disabled": true,
+        "cls": "flex-shrink-0 mt-0.5 w-5 h-5 rounded-full border-2 flex item"
+      },
+      {
+        "label": "icon",
+        "disabled": true,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      },
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      }
+    ]
+  },
+  {
+    "title": "QA NoDeadline Task",
+    "blocked": false,
+    "btns": [
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "flex-shrink-0 mt-0.5 w-5 h-5 rounded-full border-2 flex item"
+      },
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      },
+      {
+        "label": "icon",
+        "disabled": false,
+        "cls": "inline-flex items-center justify-center gap-2 whitespace-now"
+      }
+    ]
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  return [...document.querySelectorAll(\'h3\')].map(h=>{\n    let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n    c=c||h.parentElement;\n    const btns=[...c.querySelectorAll(\'button\')].map(b=>({\n      label:(b.getAttribute(\'aria-label\')||b.getAttribute(\'title\')||b.textContent.trim()||\'icon\'),\n      disabled:b.disabled,\n      cls:b.className.slice(0,60)\n    }));\n    return {title:h.textContent, blocked: c.textContent.includes(\'incomplete\'), btns};\n  });\n}');
+```
+
+================================================================================
+[39] browser_click  input={"target": "h3:text-is('Complete tax filing')", "element": "Complete tax filing title"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('h3:text-is(\'Complete tax filing\')').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-40-29-182Z.yml)
+
+================================================================================
+[40] browser_evaluate  input={"function": "() => ({dialogs: document.querySelectorAll('[role=dialog]').length})"}
+--------------------------------------------------------------------------------
+### Result
+{
+  "dialogs": 0
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({dialogs: document.querySelectorAll(\'[role=dialog]\').length})');
+```
+
+================================================================================
+[41] mcp__structured_results__record_result  input={"item_id": "FT-3", "verdict": "FAIL", "issue": "Blocked task cannot be edited at all; description and priority are not modifiable", "actual": "For blocked task
+--------------------------------------------------------------------------------
+{"recorded": "FT-3", "verdict": "FAIL", "recorded_count": 6, "total_count": 19, "missing_ids": ["FT-6", "FT-7", "FT-8", "FT-9", "FT-10", "FT-11", "CS-12", "CS-13", "CS-17", "CS-22", "IX-18", "IX-20", "CT-21"], "complete": false}
+
+================================================================================
+[42] mcp__structured_results__record_result  input={"item_id": "FT-10", "verdict": "PASS", "evidence": "Blocked tasks show an amber prerequisite warning row and their complete (circle) button has disabled=true; 
+--------------------------------------------------------------------------------
+{"recorded": "FT-10", "verdict": "PASS", "recorded_count": 7, "total_count": 19, "missing_ids": ["FT-6", "FT-7", "FT-8", "FT-9", "FT-11", "CS-12", "CS-13", "CS-17", "CS-22", "IX-18", "IX-20", "CT-21"], "complete": false}
+
+================================================================================
+[43] mcp__structured_results__record_result  input={"item_id": "FT-11", "verdict": "PASS", "evidence": "Single incomplete prereq: 'Prerequisite \"Review project proposal\" incomplete' (Complete tax filing) and '
+--------------------------------------------------------------------------------
+{"recorded": "FT-11", "verdict": "PASS", "recorded_count": 8, "total_count": 19, "missing_ids": ["FT-6", "FT-7", "FT-8", "FT-9", "CS-12", "CS-13", "CS-17", "CS-22", "IX-18", "IX-20", "CT-21"], "complete": false}
+
+================================================================================
+[44] browser_hover  input={"target": "div:has-text('Prerequisite \\\"Review project proposal\\\" incomplete') >> nth=-1", "element": "Prerequisite warning on Complete tax filing"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('div:has-text(\'Prerequisite \\"Review project proposal\\" incomplete\')').last().hover();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-40-49-005Z.yml)
+
+================================================================================
+[45] browser_evaluate  input={"function": "() => {\n  const tips=[...document.querySelectorAll('[role=tooltip],[data-radix-popper-content-wrapper]')].map(t=>t.textContent.replace(/\\s+/g,' 
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": 2,
+  "tips": [
+    "Dependency ChainReview project proposalpendingDependency ChainReview project proposalpending",
+    "Dependency ChainReview project proposalpending"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const tips=[...document.querySelectorAll(\'[role=tooltip],[data-radix-popper-content-wrapper]\')].map(t=>t.textContent.replace(/\\s+/g,\' \').trim());\n  return {count:tips.length, tips};\n}');
+```
+
+================================================================================
+[46] browser_hover  input={"target": "div:text-is('2 prerequisites incomplete')", "element": "2 prerequisites incomplete warning"}
+--------------------------------------------------------------------------------
+### Error
+Error: "div:text-is('2 prerequisites incomplete')" does not match any elements.
+
+================================================================================
+[47] browser_evaluate  input={"function": "() => {\n  const el=[...document.querySelectorAll('span,div')].find(e=>e.textContent.trim()==='2 prerequisites incomplete');\n  el.setAttribute('d
+--------------------------------------------------------------------------------
+### Result
+"DIV|mt-3 flex flex-wrap items-center gap-2"
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const el=[...document.querySelectorAll(\'span,div\')].find(e=>e.textContent.trim()===\'2 prerequisites incomplete\');\n  el.setAttribute(\'data-qa\',\'multiwarn\');\n  return el.tagName+\'|\'+el.className;\n}');
+```
+
+================================================================================
+[48] browser_hover  input={"target": "[data-qa=multiwarn]", "element": "2 prerequisites incomplete warning badge"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=multiwarn]').hover();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-41-04-102Z.yml)
+
+================================================================================
+[49] browser_evaluate  input={"function": "() => [...document.querySelectorAll('[role=tooltip]')].map(t=>t.textContent.replace(/\\s+/g,' ').trim())"}
+--------------------------------------------------------------------------------
+### Result
+[
+  "Dependency ChainReview project proposalpending"
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => [...document.querySelectorAll(\'[role=tooltip]\')].map(t=>t.textContent.replace(/\\s+/g,\' \').trim())');
+```
+
+================================================================================
+[50] browser_hover  input={"target": "h1", "element": "Page heading (to clear tooltip)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('h1').hover();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-41-11-496Z.yml)
+
+================================================================================
+[51] browser_hover  input={"target": "[data-qa=multiwarn]", "element": "2 prerequisites incomplete warning badge"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=multiwarn]').hover();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-41-13-747Z.yml)
+
+================================================================================
+[52] browser_evaluate  input={"function": "() => [...document.querySelectorAll('[role=tooltip]')].map(t=>t.textContent.replace(/\\s+/g,' ').trim())"}
+--------------------------------------------------------------------------------
+### Result
+[]
+### Ran Playwright code
+```js
+await page.evaluate('() => [...document.querySelectorAll(\'[role=tooltip]\')].map(t=>t.textContent.replace(/\\s+/g,\' \').trim())');
+```
+
+================================================================================
+[53] browser_evaluate  input={"function": "() => {\n  const w=document.querySelector('[data-qa=multiwarn]');\n  const kids=[...w.children].map((c,i)=>({i,tag:c.tagName,cls:c.className,txt:c
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "i": 0,
+    "tag": "DIV",
+    "cls": "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-warning/10 border border-warning/30 text-warning text-xs font-medium cursor-help",
+    "txt": "2 prerequisites incomplete"
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const w=document.querySelector(\'[data-qa=multiwarn]\');\n  const kids=[...w.children].map((c,i)=>({i,tag:c.tagName,cls:c.className,txt:c.textContent.replace(/\\s+/g,\' \').trim()}));\n  w.children[0]?.setAttribute(\'data-qa\',\'multibadge\');\n  return kids;\n}');
+```
+
+================================================================================
+[54] browser_hover  input={"target": "[data-qa=multibadge]", "element": "2 prerequisites incomplete badge"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=multibadge]').hover();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-41-23-843Z.yml)
+
+================================================================================
+[55] browser_evaluate  input={"function": "() => [...document.querySelectorAll('[role=tooltip]')].map(t=>t.textContent.replace(/\\s+/g,' ').trim())"}
+--------------------------------------------------------------------------------
+### Result
+[
+  "Dependency ChainReview project proposalpendingComplete tax filingpending"
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => [...document.querySelectorAll(\'[role=tooltip]\')].map(t=>t.textContent.replace(/\\s+/g,\' \').trim())');
+```
+
+================================================================================
+[56] mcp__structured_results__record_result  input={"item_id": "IX-20", "verdict": "PASS", "evidence": "Hovering the warning badge shows a tooltip: single-prereq case -> \"Dependency Chain / Review project propo
+--------------------------------------------------------------------------------
+{"recorded": "IX-20", "verdict": "PASS", "recorded_count": 9, "total_count": 19, "missing_ids": ["FT-6", "FT-7", "FT-8", "FT-9", "CS-12", "CS-13", "CS-17", "CS-22", "IX-18", "CT-21"], "complete": false}
+
+================================================================================
+[57] browser_evaluate  input={"function": "() => {\n  const groups=[...document.querySelectorAll('g.pointer-events-auto, .pointer-events-auto')].filter(g=>g.querySelector('path'));\n  group
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "i": 0,
+    "tag": "g",
+    "paths": 2,
+    "box": {
+      "x": 640,
+      "y": 20.5,
+      "width": 0,
+      "height": 12,
+      "top": 20.5,
+      "right": 640,
+      "bottom": 32.5,
+      "left": 640
+    }
+  },
+  {
+    "i": 1,
+    "tag": "g",
+    "paths": 2,
+    "box": {
+      "x": 640,
+      "y": 32.5,
+      "width": 0,
+      "height": 585,
+      "top": 32.5,
+      "right": 640,
+      "bottom": 617.5,
+      "left": 640
+    }
+  },
+  {
+    "i": 2,
+    "tag": "g",
+    "paths": 2,
+    "box": {
+      "x": 640,
+      "y": -100.25,
+      "width": 0,
+      "height": 412.25,
+      "top": -100.25,
+      "right": 640,
+      "bottom": 312,
+      "left": 640
+    }
+  },
+  {
+    "i": 3,
+    "tag": "g",
+    "paths": 2,
+    "box": {
+      "x": 640,
+      "y": 20.5,
+      "width": 0,
+      "height": 450.25,
+      "top": 20.5,
+      "right": 640,
+      "bottom": 470.75,
+      "left": 640
+    }
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const groups=[...document.querySelectorAll(\'g.pointer-events-auto, .pointer-events-auto\')].filter(g=>g.querySelector(\'path\'));\n  groups.forEach((g,i)=>g.setAttribute(\'data-qa\',\'conn\'+i));\n  return groups.map((g,i)=>({i, tag:g.tagName, paths:g.querySelectorAll(\'path\').length, box:g.getBoundingClientRect()}));\n}');
+```
+
+================================================================================
+[58] browser_hover  input={"target": "[data-qa=conn3]", "element": "Dashed dependency connection line"}
+--------------------------------------------------------------------------------
+### Error
+TimeoutError: browserBackend.callTool: Timeout 5000ms exceeded.
+Call log:
+[2m  - waiting for locator('[data-qa=conn3]')[22m
+[2m    - locator resolved to <g data-qa="conn3" data-state="closed" class="pointer-events-auto cursor-pointer">…</g>[22m
+[2m  - attempting hover action[22m
+[2m    2 × waiting for element to be visible and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying hover action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying hover action[22m
+[2m      - waiting 100ms[22m
+[2m    10 × waiting for element to be visible and stable[22m
+[2m       - element is not visible[22m
+[2m     - retrying hover action[22m
+[2m       - waiting 500ms[22m
+
+================================================================================
+[59] ToolSearch  input={"query": "mouse move coordinate xy", "max_results": 6}
+--------------------------------------------------------------------------------
+{"type": "tool_reference", "tool_name": "mcp__claude_ai_Gmail__label_message"}
+{"type": "tool_reference", "tool_name": "mcp__claude_ai_Gmail__label_thread"}
+
+================================================================================
+[60] browser_evaluate  input={"function": "() => {\n  const g=document.querySelector('[data-qa=conn3]');\n  const ev=(t)=>g.dispatchEvent(new PointerEvent(t,{bubbles:true,cancelable:true,po
+--------------------------------------------------------------------------------
+### Result
+{
+  "state": "closed"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const g=document.querySelector(\'[data-qa=conn3]\');\n  const ev=(t)=>g.dispatchEvent(new PointerEvent(t,{bubbles:true,cancelable:true,pointerType:\'mouse\',clientX:640,clientY:200}));\n  ev(\'pointerover\'); ev(\'pointerenter\'); ev(\'pointermove\');\n  g.dispatchEvent(new MouseEvent(\'mouseover\',{bubbles:true,clientX:640,clientY:200}));\n  return {state:g.getAttribute(\'data-state\')};\n}');
+```
+
+================================================================================
+[61] browser_evaluate  input={"function": "async () => {\n  await new Promise(r=>setTimeout(r,900));\n  const g=document.querySelector('[data-qa=conn3]');\n  return {state:g.getAttribute('d
+--------------------------------------------------------------------------------
+### Result
+{
+  "state": "delayed-open",
+  "tips": [
+    "Dependency ChainComplete tax filingpendingReview project proposalpending"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {\n  await new Promise(r=>setTimeout(r,900));\n  const g=document.querySelector(\'[data-qa=conn3]\');\n  return {state:g.getAttribute(\'data-state\'), tips:[...document.querySelectorAll(\'[role=tooltip]\')].map(t=>t.textContent.replace(/\\s+/g,\' \').trim())};\n}');
+```
+
+================================================================================
+[62] mcp__structured_results__record_result  input={"item_id": "IX-18", "verdict": "PASS", "evidence": "Dashed SVG connectors (stroke-dasharray 6px,4px) are Radix tooltip triggers. Hovering one opens tooltip \"D
+--------------------------------------------------------------------------------
+{"recorded": "IX-18", "verdict": "PASS", "recorded_count": 10, "total_count": 19, "missing_ids": ["FT-6", "FT-7", "FT-8", "FT-9", "CS-12", "CS-13", "CS-17", "CS-22", "CT-21"], "complete": false}
+
+================================================================================
+[63] browser_evaluate  input={"function": "() => {\n  const h=[...document.querySelectorAll('h3')].find(x=>x.textContent==='Review project proposal');\n  let c=h.parentElement; while(c && !
+--------------------------------------------------------------------------------
+### Result
+3
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const h=[...document.querySelectorAll(\'h3\')].find(x=>x.textContent===\'Review project proposal\');\n  let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n  const btns=[...c.querySelectorAll(\'button\')];\n  btns[1].setAttribute(\'data-qa\',\'editRPP\');\n  return btns.length;\n}');
+```
+
+================================================================================
+[64] browser_click  input={"target": "[data-qa=editRPP]", "element": "Edit button on Review project proposal"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=editRPP]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 5 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-42-29-207Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-27T13-37-55-882Z.log#L6
+
+================================================================================
+[65] browser_evaluate  input={"function": "() => {\n  const d=document.querySelector('[role=dialog]');\n  const rows=[...d.querySelectorAll('input[type=checkbox]')].map(c=>{\n    const row=
+--------------------------------------------------------------------------------
+### Result
+{
+  "heading": "Edit Task",
+  "title": "Review project proposal",
+  "rows": [
+    {
+      "label": "QA Full Task",
+      "checked": false,
+      "disabled": false,
+      "aria": null,
+      "cls": "flex items-center gap-3 p-2 rounded-md cursor-pointer transition-colors hover:bg",
+      "title": null
+    },
+    {
+      "label": "QA NoDeadline Task",
+      "checked": false,
+      "disabled": false,
+      "aria": null,
+      "cls": "flex items-center gap-3 p-2 rounded-md cursor-pointer transition-colors hover:bg",
+      "title": null
+    },
+    {
+      "label": "Schedule dentist appointment",
+      "checked": false,
+      "disabled": false,
+      "aria": null,
+      "cls": "flex items-center gap-3 p-2 rounded-md cursor-pointer transition-colors hover:bg",
+      "title": null
+    },
+    {
+      "label": "Buy groceries",
+      "checked": false,
+      "disabled": false,
+      "aria": null,
+      "cls": "flex items-center gap-3 p-2 rounded-md cursor-pointer transition-colors hover:bg",
+      "title": null
+    },
+    {
+      "label": "Organize deskCompleted",
+      "checked": false,
+      "disabled": false,
+      "aria": null,
+      "cls": "flex items-center gap-3 p-2 rounded-md cursor-pointer transition-colors hover:bg",
+      "title": null
+    },
+    {
+      "label": "Reply to client emailsCompleted",
+      "checked": false,
+      "disabled": false,
+      "aria": null,
+      "cls": "flex items-center gap-3 p-2 rounded-md cursor-pointer transition-colors hover:bg",
+      "title": null
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const d=document.querySelector(\'[role=dialog]\');\n  const rows=[...d.querySelectorAll(\'input[type=checkbox]\')].map(c=>{\n    const row=c.closest(\'label\')||c.parentElement;\n    return {label:row.textContent.replace(/\\s+/g,\' \').trim(), checked:c.checked, disabled:c.disabled, aria:row.getAttribute(\'aria-disabled\'), cls:row.className.slice(0,80), title:row.getAttribute(\'title\')};\n  });\n  return {heading:d.querySelector(\'h2\')?.textContent, title:d.querySelector(\'#title\')?.value, rows};\n}');
+```
+
+================================================================================
+[66] browser_click  input={"target": "[role=dialog] button:text-is('Cancel')", "element": "Cancel button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[role=dialog] button:text-is(\'Cancel\')').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 5 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-42-48-104Z.yml)
+
+================================================================================
+[67] browser_evaluate  input={"function": "() => {\n  const h=[...document.querySelectorAll('h3')].find(x=>x.textContent==='QA NoDeadline Task');\n  let c=h.parentElement; while(c && !c.cla
+--------------------------------------------------------------------------------
+### Result
+"ok"
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const h=[...document.querySelectorAll(\'h3\')].find(x=>x.textContent===\'QA NoDeadline Task\');\n  let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n  const btns=[...c.querySelectorAll(\'button\')];\n  btns[1].setAttribute(\'data-qa\',\'editND\');\n  btns[2].setAttribute(\'data-qa\',\'delND\');\n  return \'ok\';\n}');
+```
+
+================================================================================
+[68] browser_click  input={"target": "[data-qa=editND]", "element": "Edit button on QA NoDeadline Task"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=editND]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 6 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-42-55-099Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-27T13-37-55-882Z.log#L7
+
+================================================================================
+[69] browser_fill_form  input={"fields": [{"target": "[role=dialog] #title", "name": "Title", "type": "textbox", "value": "QA Edited Task"}, {"target": "[role=dialog] #description", "name": 
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[role=dialog] #title').fill('QA Edited Task');
+await page.locator('[role=dialog] #description').fill('Edited description');
+await page.locator('[role=dialog] #deadline').fill('2026-09-20');
+```
+
+================================================================================
+[70] browser_click  input={"target": "[role=dialog] [role=combobox]", "element": "Priority combobox in edit dialog"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[role=dialog] [role=combobox]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 6 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-43-02-263Z.yml)
+
+================================================================================
+[71] browser_click  input={"target": "[role=option]:has-text('Low Priority')", "element": "Low Priority option"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[role=option]:has-text(\'Low Priority\')').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 6 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-43-05-130Z.yml)
+
+================================================================================
+[72] browser_click  input={"target": "[role=dialog] label:has-text('QA Full Task')", "element": "QA Full Task prerequisite checkbox"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[role=dialog] label:has-text(\'QA Full Task\')').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 6 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-43-08-631Z.yml)
+
+================================================================================
+[73] browser_evaluate  input={"function": "() => {\n  const d=document.querySelector('[role=dialog]');\n  return {\n    title:d.querySelector('#title').value, desc:d.querySelector('#descrip
+--------------------------------------------------------------------------------
+### Result
+{
+  "title": "QA Edited Task",
+  "desc": "Edited description",
+  "dl": "2026-09-20",
+  "prio": [
+    "Low Priority"
+  ],
+  "checked": [
+    "QA Full Task"
+  ],
+  "btns": [
+    "Low Priority",
+    "Cancel",
+    "Save Changes",
+    "Close"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const d=document.querySelector(\'[role=dialog]\');\n  return {\n    title:d.querySelector(\'#title\').value, desc:d.querySelector(\'#description\').value, dl:d.querySelector(\'#deadline\').value,\n    prio:[...d.querySelectorAll(\'[role=combobox]\')].map(c=>c.textContent),\n    checked:[...d.querySelectorAll(\'input[type=checkbox]\')].filter(c=>c.checked).map(c=>(c.closest(\'label\')||c.parentElement).textContent.trim()),\n    btns:[...d.querySelectorAll(\'button\')].map(b=>b.textContent.trim()).filter(t=>t)\n  };\n}');
+```
+
+================================================================================
+[74] browser_click  input={"target": "[role=dialog] button:text-is('Save Changes')", "element": "Save Changes button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[role=dialog] button:text-is(\'Save Changes\')').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 6 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-43-16-108Z.yml)
+
+================================================================================
+[75] browser_evaluate  input={"function": "() => {\n  const header=document.querySelector('header p').textContent;\n  const cards=[...document.querySelectorAll('h3')].map(h=>{\n    let c=h.
+--------------------------------------------------------------------------------
+### Result
+{
+  "header": "7 active, 2 completed",
+  "cards": [
+    "Buy groceriesLowMilk, eggs, bread, vegetables, and coffee.Tomorrow",
+    "Review project proposalHighGo through the Q1 marketing proposal and provide feedback to the team.Aug 29",
+    "Submit final reportHighCompile findings and submit the quarterly report.Sep 12 prerequisites incomplete",
+    "Schedule dentist appointmentMediumCall Dr. Smith's office for annual checkup.Sep 3",
+    "QA Full TaskHighQA description textSep 5Prerequisite \"Buy groceries\" incomplete",
+    "Complete tax filingHighGather all documents and submit through the online portal.Sep 10Prerequisite \"Review project proposal\" incomplete",
+    "QA Edited TaskLowEdited descriptionSep 20Prerequisite \"QA Full Task\" incomplete"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const header=document.querySelector(\'header p\').textContent;\n  const cards=[...document.querySelectorAll(\'h3\')].map(h=>{\n    let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n    return c.textContent.replace(/\\s+/g,\' \').trim();\n  });\n  return {header, cards};\n}');
+```
+
+================================================================================
+[76] browser_evaluate  input={"function": "() => {\n  const h=[...document.querySelectorAll('h3')].find(x=>x.textContent==='Buy groceries');\n  let c=h.parentElement; while(c && !c.classNam
+--------------------------------------------------------------------------------
+### Result
+"ok"
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const h=[...document.querySelectorAll(\'h3\')].find(x=>x.textContent===\'Buy groceries\');\n  let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n  [...c.querySelectorAll(\'button\')][1].setAttribute(\'data-qa\',\'editBG\');\n  return \'ok\';\n}');
+```
+
+================================================================================
+[77] browser_click  input={"target": "[data-qa=editBG]", "element": "Edit button on Buy groceries"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=editBG]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 7 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-43-29-055Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-27T13-37-55-882Z.log#L8
+
+================================================================================
+[78] browser_evaluate  input={"function": "() => {\n  const d=document.querySelector('[role=dialog]');\n  return {\n    title:d.querySelector('#title').value,\n    options:[...d.querySelect
+--------------------------------------------------------------------------------
+### Result
+{
+  "title": "Buy groceries",
+  "options": [
+    "Review project proposal",
+    "Schedule dentist appointment",
+    "Complete tax filing",
+    "Organize deskCompleted",
+    "Reply to client emailsCompleted",
+    "Submit final report"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const d=document.querySelector(\'[role=dialog]\');\n  return {\n    title:d.querySelector(\'#title\').value,\n    options:[...d.querySelectorAll(\'input[type=checkbox]\')].map(c=>(c.closest(\'label\')||c.parentElement).textContent.replace(/\\s+/g,\' \').trim())\n  };\n}');
+```
+
+================================================================================
+[79] mcp__structured_results__record_result  input={"item_id": "CS-13", "verdict": "PASS", "evidence": "Chain QA Edited Task -> QA Full Task -> Buy groceries. Editing \"Buy groceries\" offers only: Review projec
+--------------------------------------------------------------------------------
+{"recorded": "CS-13", "verdict": "PASS", "recorded_count": 11, "total_count": 19, "missing_ids": ["FT-6", "FT-7", "FT-8", "FT-9", "CS-12", "CS-17", "CS-22", "CT-21"], "complete": false}
+
+================================================================================
+[80] mcp__structured_results__record_result  input={"item_id": "FT-9", "verdict": "PASS", "evidence": "Assigned \"QA Full Task\" as prerequisite of \"QA NoDeadline Task\" via edit; saved card shows 'Prerequisite
+--------------------------------------------------------------------------------
+{"recorded": "FT-9", "verdict": "PASS", "recorded_count": 12, "total_count": 19, "missing_ids": ["FT-6", "FT-7", "FT-8", "CS-12", "CS-17", "CS-22", "CT-21"], "complete": false}
+
+================================================================================
+[81] browser_click  input={"target": "[role=dialog] button:text-is('Cancel')", "element": "Cancel button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[role=dialog] button:text-is(\'Cancel\')').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 7 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-43-48-771Z.yml)
+
+================================================================================
+[82] browser_evaluate  input={"function": "() => {\n  const h=[...document.querySelectorAll('h3')].find(x=>x.textContent==='Schedule dentist appointment');\n  let c=h.parentElement; while(c
+--------------------------------------------------------------------------------
+### Result
+"ok"
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const h=[...document.querySelectorAll(\'h3\')].find(x=>x.textContent===\'Schedule dentist appointment\');\n  let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n  [...c.querySelectorAll(\'button\')][2].setAttribute(\'data-qa\',\'delSDA\');\n  return \'ok\';\n}');
+```
+
+================================================================================
+[83] browser_click  input={"target": "[data-qa=delSDA]", "element": "Delete button on Schedule dentist appointment"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=delSDA]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 7 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-43-55-281Z.yml)
+
+================================================================================
+[84] browser_evaluate  input={"function": "() => {\n  const dlg=[...document.querySelectorAll('[role=dialog],[role=alertdialog]')].map(d=>d.textContent.replace(/\\s+/g,' ').trim());\n  retu
+--------------------------------------------------------------------------------
+### Result
+{
+  "dlg": [],
+  "header": "6 active, 2 completed",
+  "titles": [
+    "Buy groceries",
+    "Review project proposal",
+    "Submit final report",
+    "QA Full Task",
+    "Complete tax filing",
+    "QA Edited Task"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const dlg=[...document.querySelectorAll(\'[role=dialog],[role=alertdialog]\')].map(d=>d.textContent.replace(/\\s+/g,\' \').trim());\n  return {dlg, header:document.querySelector(\'header p\').textContent, titles:[...document.querySelectorAll(\'h3\')].map(h=>h.textContent)};\n}');
+```
+
+================================================================================
+[85] mcp__structured_results__record_result  input={"item_id": "FT-6", "verdict": "PASS", "evidence": "Edited unblocked task: title QA NoDeadline Task->\"QA Edited Task\", description->\"Edited description\", de
+--------------------------------------------------------------------------------
+{"recorded": "FT-6", "verdict": "PASS", "recorded_count": 13, "total_count": 19, "missing_ids": ["FT-7", "FT-8", "CS-12", "CS-17", "CS-22", "CT-21"], "complete": false}
+
+================================================================================
+[86] browser_evaluate  input={"function": "() => {\n  const tabs=[...document.querySelectorAll('main button')].slice(0,2);\n  tabs[0].setAttribute('data-qa','tabActive'); tabs[1].setAttribu
+--------------------------------------------------------------------------------
+### Result
+[
+  "Active6",
+  "Completed2"
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const tabs=[...document.querySelectorAll(\'main button\')].slice(0,2);\n  tabs[0].setAttribute(\'data-qa\',\'tabActive\'); tabs[1].setAttribute(\'data-qa\',\'tabCompleted\');\n  return tabs.map(t=>t.textContent.replace(/\\s+/g,\' \'));\n}');
+```
+
+================================================================================
+[87] browser_click  input={"target": "[data-qa=tabCompleted]", "element": "Completed tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=tabCompleted]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 7 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-44-10-004Z.yml)
+
+================================================================================
+[88] browser_evaluate  input={"function": "() => {\n  const cards=[...document.querySelectorAll('h3')].map(h=>{\n    let c=h.parentElement; while(c && !c.className.includes('rounded')) c=c.
+--------------------------------------------------------------------------------
+### Result
+{
+  "header": "6 active, 2 completed",
+  "cards": [
+    {
+      "title": "Reply to client emails",
+      "hCls": "font-medium leading-snug transition-colors duration-200 line-through text-muted-foreground",
+      "lineThrough": "line-through",
+      "text": "Reply to client emailsMediumRespond to pending inquiries from last week.Tomorrow"
+    },
+    {
+      "title": "Organize desk",
+      "hCls": "font-medium leading-snug transition-colors duration-200 line-through text-muted-foreground",
+      "lineThrough": "line-through",
+      "text": "Organize deskLow"
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const cards=[...document.querySelectorAll(\'h3\')].map(h=>{\n    let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n    return {title:h.textContent, hCls:h.className, lineThrough:getComputedStyle(h).textDecorationLine, text:c.textContent.replace(/\\s+/g,\' \').trim()};\n  });\n  return {header:document.querySelector(\'header p\').textContent, cards};\n}');
+```
+
+================================================================================
+[89] mcp__structured_results__record_result  input={"item_id": "FT-8", "verdict": "PASS", "evidence": "Active tab (badge 6) lists only the 6 incomplete tasks; Completed tab (badge 2) lists only \"Reply to client
+--------------------------------------------------------------------------------
+{"recorded": "FT-8", "verdict": "PASS", "recorded_count": 14, "total_count": 19, "missing_ids": ["FT-7", "CS-12", "CS-17", "CS-22", "CT-21"], "complete": false}
+
+================================================================================
+[90] mcp__structured_results__record_result  input={"item_id": "CT-21", "verdict": "PASS", "evidence": "Every card shows title + priority badge (e.g. \"Buy groceries / Low\"). Description and deadline render onl
+--------------------------------------------------------------------------------
+{"recorded": "CT-21", "verdict": "PASS", "recorded_count": 15, "total_count": 19, "missing_ids": ["FT-7", "CS-12", "CS-17", "CS-22"], "complete": false}
+
+================================================================================
+[91] browser_click  input={"target": "[data-qa=tabActive]", "element": "Active tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=tabActive]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 7 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-44-29-344Z.yml)
+
+================================================================================
+[92] browser_evaluate  input={"function": "() => {\n  const h=[...document.querySelectorAll('h3')].find(x=>x.textContent==='Buy groceries');\n  let c=h.parentElement; while(c && !c.classNam
+--------------------------------------------------------------------------------
+### Result
+{
+  "qaFullCompleteDisabled": true,
+  "qaFullEditDisabled": true
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const h=[...document.querySelectorAll(\'h3\')].find(x=>x.textContent===\'Buy groceries\');\n  let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n  [...c.querySelectorAll(\'button\')][0].setAttribute(\'data-qa\',\'completeBG\');\n  // also record QA Full Task complete btn state before\n  const h2=[...document.querySelectorAll(\'h3\')].find(x=>x.textContent===\'QA Full Task\');\n  let c2=h2.parentElement; while(c2 && !c2.className.includes(\'rounded\')) c2=c2.parentElement;\n  return {qaFullCompleteDisabled:[...c2.querySelectorAll(\'button\')][0].disabled, qaFullEditDisabled:[...c2.querySelectorAll(\'button\')][1].disabled};\n}');
+```
+
+================================================================================
+[93] browser_click  input={"target": "[data-qa=completeBG]", "element": "Complete circle button on Buy groceries"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=completeBG]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 7 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-44-37-258Z.yml)
+
+================================================================================
+[94] browser_evaluate  input={"function": "() => {\n  const header=document.querySelector('header p').textContent;\n  const tabs=[...document.querySelectorAll('[data-qa=tabActive],[data-qa=
+--------------------------------------------------------------------------------
+### Result
+{
+  "header": "5 active, 3 completed",
+  "tabs": [
+    "Active5",
+    "Completed3"
+  ],
+  "cards": [
+    {
+      "title": "Review project proposal",
+      "completeDisabled": false,
+      "editDisabled": false,
+      "text": "Review project proposalHighGo through the Q1 marketing proposal and provide feedback to the team.Aug 29"
+    },
+    {
+      "title": "Submit final report",
+      "completeDisabled": true,
+      "editDisabled": true,
+      "text": "Submit final reportHighCompile findings and submit the quarterly report.Sep 12 prerequisites incomplete"
+    },
+    {
+      "title": "QA Full Task",
+      "completeDisabled": false,
+      "editDisabled": false,
+      "text": "QA Full TaskHighQA description textSep 51 prerequisite completed"
+    },
+    {
+      "title": "Complete tax filing",
+      "completeDisabled": true,
+      "editDisabled": true,
+      "text": "Complete tax filingHighGather all documents and submit through the online portal.Sep 10Prerequisite \"Review project proposal\" incomplete"
+    },
+    {
+      "title": "QA Edited Task",
+      "completeDisabled": true,
+      "editDisabled": true,
+      "text": "QA Edited TaskLowEdited descriptionSep 20Prerequisite \"QA Full Task\" incomplete"
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const header=document.querySelector(\'header p\').textContent;\n  const tabs=[...document.querySelectorAll(\'[data-qa=tabActive],[data-qa=tabCompleted]\')].map(t=>t.textContent.replace(/\\s+/g,\' \'));\n  const cards=[...document.querySelectorAll(\'h3\')].map(h=>{\n    let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n    const b=[...c.querySelectorAll(\'button\')];\n    return {title:h.textContent, completeDisabled:b[0].disabled, editDisabled:b[1].disabled, text:c.textContent.replace(/\\s+/g,\' \').trim()};\n  });\n  return {header, tabs, cards};\n}');
+```
+
+================================================================================
+[95] browser_click  input={"target": "[data-qa=tabCompleted]", "element": "Completed tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=tabCompleted]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 7 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-44-48-005Z.yml)
+
+================================================================================
+[96] browser_evaluate  input={"function": "() => ({titles:[...document.querySelectorAll('h3')].map(h=>h.textContent), header:document.querySelector('header p').textContent})"}
+--------------------------------------------------------------------------------
+### Result
+{
+  "titles": [
+    "Buy groceries",
+    "Reply to client emails",
+    "Organize desk"
+  ],
+  "header": "5 active, 3 completed"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({titles:[...document.querySelectorAll(\'h3\')].map(h=>h.textContent), header:document.querySelector(\'header p\').textContent})');
+```
+
+================================================================================
+[97] mcp__structured_results__record_result  input={"item_id": "FT-7", "verdict": "PASS", "evidence": "Completed \"Buy groceries\": it disappeared from Active list, appears in Completed list; counts moved from \
+--------------------------------------------------------------------------------
+{"recorded": "FT-7", "verdict": "PASS", "recorded_count": 16, "total_count": 19, "missing_ids": ["CS-12", "CS-17", "CS-22"], "complete": false}
+
+================================================================================
+[98] mcp__structured_results__record_result  input={"item_id": "CS-12", "verdict": "PASS", "evidence": "\"QA Full Task\" complete button disabled=true while prereq \"Buy groceries\" incomplete. After completing 
+--------------------------------------------------------------------------------
+{"recorded": "CS-12", "verdict": "PASS", "recorded_count": 17, "total_count": 19, "missing_ids": ["CS-17", "CS-22"], "complete": false}
+
+================================================================================
+[99] browser_evaluate  input={"function": "() => {\n  const h=[...document.querySelectorAll('h3')].find(x=>x.textContent==='Organize desk');\n  let c=h.parentElement; while(c && !c.classNam
+--------------------------------------------------------------------------------
+### Result
+{
+  "buyGroceriesCard": "Buy groceriesLowMilk, eggs, bread, vegetables, and coffee.Tomorrow",
+  "btnCount": 3
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const h=[...document.querySelectorAll(\'h3\')].find(x=>x.textContent===\'Organize desk\');\n  let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n  const b=[...c.querySelectorAll(\'button\')];\n  b[0].setAttribute(\'data-qa\',\'reopenOD\');\n  const bg=[...document.querySelectorAll(\'h3\')].find(x=>x.textContent===\'Buy groceries\');\n  let cbg=bg.parentElement; while(cbg && !cbg.className.includes(\'rounded\')) cbg=cbg.parentElement;\n  return {buyGroceriesCard:cbg.textContent.replace(/\\s+/g,\' \').trim(), btnCount:b.length};\n}');
+```
+
+================================================================================
+[100] browser_click  input={"target": "[data-qa=reopenOD]", "element": "Reopen circle button on Organize desk"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=reopenOD]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 7 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-45-07-223Z.yml)
+
+================================================================================
+[101] browser_evaluate  input={"function": "() => ({header:document.querySelector('header p').textContent, completedTitles:[...document.querySelectorAll('h3')].map(h=>h.textContent)})"}
+--------------------------------------------------------------------------------
+### Result
+{
+  "header": "6 active, 2 completed",
+  "completedTitles": [
+    "Buy groceries",
+    "Reply to client emails"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({header:document.querySelector(\'header p\').textContent, completedTitles:[...document.querySelectorAll(\'h3\')].map(h=>h.textContent)})');
+```
+
+================================================================================
+[102] mcp__structured_results__record_result  input={"item_id": "CS-17", "verdict": "PASS", "evidence": "\"Buy groceries\" stayed in the Completed view with all data intact (\"Buy groceries / Low / Milk, eggs, br
+--------------------------------------------------------------------------------
+{"recorded": "CS-17", "verdict": "PASS", "recorded_count": 18, "total_count": 19, "missing_ids": ["CS-22"], "complete": false}
+
+================================================================================
+[103] browser_click  input={"target": "[data-qa=tabActive]", "element": "Active tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=tabActive]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 7 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-45-20-968Z.yml)
+
+================================================================================
+[104] browser_evaluate  input={"function": "() => {\n  const h=[...document.querySelectorAll('h3')].find(x=>x.textContent==='QA Full Task');\n  let c=h.parentElement; while(c && !c.className
+--------------------------------------------------------------------------------
+### Result
+{
+  "disabled": false,
+  "text": "QA Full TaskHighQA description textSep 51 prerequisite completed"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const h=[...document.querySelectorAll(\'h3\')].find(x=>x.textContent===\'QA Full Task\');\n  let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n  const b=[...c.querySelectorAll(\'button\')][0];\n  b.setAttribute(\'data-qa\',\'completeQFT\');\n  return {disabled:b.disabled, text:c.textContent.replace(/\\s+/g,\' \').trim()};\n}');
+```
+
+================================================================================
+[105] browser_click  input={"target": "[data-qa=completeQFT]", "element": "Complete button on QA Full Task"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=completeQFT]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 7 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-45-29-422Z.yml)
+
+================================================================================
+[106] browser_click  input={"target": "[data-qa=tabCompleted]", "element": "Completed tab"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=tabCompleted]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 7 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-45-32-967Z.yml)
+
+================================================================================
+[107] browser_evaluate  input={"function": "() => {\n  const out=[...document.querySelectorAll('h3')].map(h=>{\n    let c=h.parentElement; while(c && !c.className.includes('rounded')) c=c.pa
+--------------------------------------------------------------------------------
+### Result
+{
+  "header": "5 active, 3 completed",
+  "out": [
+    {
+      "title": "Buy groceries",
+      "reopenDisabled": false,
+      "text": "Buy groceriesLowMilk, eggs, bread, vegetables, and coffee.Tomorrow"
+    },
+    {
+      "title": "Reply to client emails",
+      "reopenDisabled": false,
+      "text": "Reply to client emailsMediumRespond to pending inquiries from last week.Tomorrow"
+    },
+    {
+      "title": "QA Full Task",
+      "reopenDisabled": false,
+      "text": "QA Full TaskHighQA description textSep 51 prerequisite completed"
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const out=[...document.querySelectorAll(\'h3\')].map(h=>{\n    let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n    const b=[...c.querySelectorAll(\'button\')];\n    if(h.textContent===\'Buy groceries\') b[0].setAttribute(\'data-qa\',\'reopenBG\');\n    return {title:h.textContent, reopenDisabled:b[0].disabled, text:c.textContent.replace(/\\s+/g,\' \').trim()};\n  });\n  return {header:document.querySelector(\'header p\').textContent, out};\n}');
+```
+
+================================================================================
+[108] browser_click  input={"target": "[data-qa=reopenBG]", "element": "Reopen button on Buy groceries (prerequisite of completed QA Full Task)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-qa=reopenBG]').click();
+```
+### Page
+- Page URL: http://localhost:6045/
+- Page Title: My Tasks - Simple To-Do List
+- Console: 0 errors, 7 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T13-45-40-396Z.yml)
+
+================================================================================
+[109] browser_evaluate  input={"function": "() => {\n  const completed=[...document.querySelectorAll('h3')].map(h=>{\n    let c=h.parentElement; while(c && !c.className.includes('rounded')) 
+--------------------------------------------------------------------------------
+### Result
+{
+  "header": "6 active, 2 completed",
+  "completedView": [
+    {
+      "title": "Reply to client emails",
+      "text": "Reply to client emailsMediumRespond to pending inquiries from last week.Tomorrow"
+    },
+    {
+      "title": "QA Full Task",
+      "text": "QA Full TaskHighQA description textSep 5Prerequisite \"Buy groceries\" incomplete"
+    }
+  ],
+  "toasts": []
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {\n  const completed=[...document.querySelectorAll(\'h3\')].map(h=>{\n    let c=h.parentElement; while(c && !c.className.includes(\'rounded\')) c=c.parentElement;\n    return {title:h.textContent, text:c.textContent.replace(/\\s+/g,\' \').trim()};\n  });\n  const toasts=[...document.querySelectorAll(\'[data-sonner-toast],li\')].map(t=>t.textContent.replace(/\\s+/g,\' \').trim()).filter(Boolean);\n  return {header:document.querySelector(\'header p\').textContent, completedView:completed, toasts};\n}');
+```
+
+================================================================================
+[110] mcp__structured_results__record_result  input={"item_id": "CS-22", "verdict": "FAIL", "issue": "Reopening a prerequisite leaves the dependent task simultaneously completed and blocked", "actual": "Setup: \"
+--------------------------------------------------------------------------------
+{"recorded": "CS-22", "verdict": "FAIL", "recorded_count": 19, "total_count": 19, "missing_ids": [], "complete": true}
+
+================================================================================
+[111] mcp__structured_results__get_result_progress
+--------------------------------------------------------------------------------
+{"recorded_count": 19, "total_count": 19, "missing_ids": [], "complete": true, "results": [{"item_id": "FT-1", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Sort by = Priority; active list order: Review project proposal (High), Complete tax filing (High), Submit final report (High), Schedule dentist appointment (Medium), Buy groceries (Low) — High before Medium before Low."}, {"item_id": "FT-2", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Sort by = Deadline gives: Buy groceries (Tomorrow/Aug 28), Review project proposal (Aug 29), Submit final report (Sep 1), Schedule dentist (Sep 3), Complete tax filing (Sep 10), then QA NoDeadline Task (no deadline) last."}, {"item_id": "FT-3", "verdict": "FAIL", "issue": "Blocked task cannot be edited at all; description and priority are not modifiable", "actual": "For blocked tasks (\"Complete tax filing\", \"Submit final report\", \"QA Full Task\") the edit button has disabled=true, so no edit dialog can be opened. Clicking the card/title also opens no dialog (document.querySelectorAll('[role=dialog]').length === 0). There is no way to change the blocked task's description or priority, whereas the spec requires those two fields to remain editable while title and deadline are locked.", "evidence": null}, {"item_id": "FT-4", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Created \"QA NoDeadline Task\"; header changed \"5 active, 2 completed\" -> \"6 active, 2 completed\", Active tab badge 5->6, task present in active list."}, {"item_id": "FT-5", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Created \"QA Full Task\" with description, deadline 2026-09-05, High priority, prerequisite \"Buy groceries\". Card shows: \"QA Full Task | High | QA description text | Sep 5 | Prerequisite \\\"Buy groceries\\\" incomplete\"."}, {"item_id": "FT-6", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Edited unblocked task: title QA NoDeadline Task->\"QA Edited Task\", description->\"Edited description\", deadline->Sep 20, priority Medium->Low, prerequisite->QA Full Task; all retained after Save Changes. Deleted \"Schedule dentist appointment\": removed from list, active count 7->6."}, {"item_id": "FT-7", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Completed \"Buy groceries\": it disappeared from Active list, appears in Completed list; counts moved from \"6 active, 2 completed\" to \"5 active, 3 completed\" (tab badges Active 5 / Completed 3)."}, {"item_id": "FT-8", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Active tab (badge 6) lists only the 6 incomplete tasks; Completed tab (badge 2) lists only \"Reply to client emails\" and \"Organize desk\". Header \"6 active, 2 completed\" matches both badges."}, {"item_id": "FT-9", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Assigned \"QA Full Task\" as prerequisite of \"QA NoDeadline Task\" via edit; saved card shows 'Prerequisite \"QA Full Task\" incomplete'. Also \"Submit final report\" holds 2 prerequisites and displays \"2 prerequisites incomplete\"."}, {"item_id": "FT-10", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Blocked tasks show an amber prerequisite warning row and their complete (circle) button has disabled=true; unblocked tasks have it enabled."}, {"item_id": "FT-11", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Single incomplete prereq: 'Prerequisite \"Review project proposal\" incomplete' (Complete tax filing) and 'Prerequisite \"Buy groceries\" incomplete' (QA Full Task). Multiple: \"2 prerequisites incomplete\" (Submit final report)."}, {"item_id": "CS-12", "verdict": "PASS", "issue": null, "actual": null, "evidence": "\"QA Full Task\" complete button disabled=true while prereq \"Buy groceries\" incomplete. After completing \"Buy groceries\", its complete button became disabled=false and the card label changed to \"1 prerequisite completed\". Still-blocked tasks (Submit final report, Complete tax filing, QA Edited Task) remain disabled=true."}, {"item_id": "CS-13", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Chain QA Edited Task -> QA Full Task -> Buy groceries. Editing \"Buy groceries\" offers only: Review project proposal, Schedule dentist appointment, Complete tax filing, Organize desk, Reply to client emails, Submit final report — itself, direct dependent (QA Full Task) and indirect dependent (QA Edited Task) are omitted. Editing \"Review project proposal\" likewise omitted its dependents Complete tax filing and Submit final report."}, {"item_id": "CS-14", "verdict": "PASS", "issue": null, "actual": null, "evidence": "With empty title, \"Create Task\" button disabled=true; after typing whitespace-only \"   \" it remained disabled=true. Active count stayed 5."}, {"item_id": "CS-17", "verdict": "PASS", "issue": null, "actual": null, "evidence": "\"Buy groceries\" stayed in the Completed view with all data intact (\"Buy groceries / Low / Milk, eggs, bread... / Tomorrow\"). Reopening \"Organize desk\" from the completed view moved it back to Active (counts 5a/3c -> 6a/2c), confirming completed tasks persist until reopened or deleted."}, {"item_id": "CS-22", "verdict": "FAIL", "issue": "Reopening a prerequisite leaves the dependent task simultaneously completed and blocked", "actual": "Setup: \"Buy groceries\" completed, then dependent \"QA Full Task\" completed (counts 4 active, 4 completed state). Reopening \"Buy groceries\" from the Completed view was allowed with no warning, confirmation or toast. Result: counts \"6 active, 2 completed\"; the Completed view still lists \"QA Full Task\" and its card now reads 'QA Full Task | High | QA description text | Sep 5 | Prerequisite \"Buy groceries\" incomplete' — it is completed and blocked at the same time. The system neither prevented the reopen nor returned the dependent to an incomplete state.", "evidence": null}, {"item_id": "IX-18", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Dashed SVG connectors (stroke-dasharray 6px,4px) are Radix tooltip triggers. Hovering one opens tooltip \"Dependency Chain / Complete tax filing pending / Review project proposal pending\" (data-state -> delayed-open)."}, {"item_id": "IX-20", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Hovering the warning badge shows a tooltip: single-prereq case -> \"Dependency Chain / Review project proposal / pending\"; multi-prereq case (Submit final report) -> \"Dependency Chain / Review project proposal pending / Complete tax filing pending\"."}, {"item_id": "CT-21", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Every card shows title + priority badge (e.g. \"Buy groceries / Low\"). Description and deadline render only when supplied (\"Organize desk / Low\" has neither; \"QA Full Task / High / QA description text / Sep 5\"). Blocked cards add the amber prerequisite warning. Completed tasks render with line-through + text-muted-foreground."}]}
+
+
+# accessibility snapshots seen by the agent: 4
+# screenshots seen by the agent: 0

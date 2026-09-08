@@ -1,0 +1,223 @@
+=== injection: WebTestBench_0023 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0023
+model:  claude-opus-5   max_turns: 150
+
+I'll start by invoking the skill to get its procedure.
+[tool] Skill
+I'll start by reading the spec, as the skill requires.
+[tool] Read
+[tool] Bash
+The project root has no `src/`. Let me find the actual app.
+[tool] Bash
+[tool] Bash
+The actual cwd is a specific app directory. Let me inspect it.
+[tool] Bash
+A React marketplace app with 11 pages. Let me check current state and read the core files.
+[tool] Bash
+[tool] Bash
+No existing hints — clean slate. Let me read the core structure files.
+[tool] Read
+[tool] Read
+[tool] Read
+Now the shared components — ProductCard is the key one for collection folding.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Noting `FilterSidebar` renders `FilterContent` twice (desktop + mobile) — a §8 uniqueness case. Now the pages.
+[tool] Read
+[tool] Read
+[tool] Read
+Now the remaining pages.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Let me verify the shadcn primitives forward props, and locate the validator.
+[tool] Bash
+[tool] Bash
+I have the full picture. Let me plan the id namespaces, then edit. Starting with the shared `ProductCard` — threading a required `collectionId` (§8) so ids are compile-time guaranteed.
+[tool] Bash
+Confirmed: `FilterSidebar` is instantiated twice on Index (each rendering two copies internally). Now editing.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now `SearchBar` and `SortDropdown` (building options from the same source that renders them, per §3).
+[tool] Edit
+[tool] Edit
+Now `FilterSidebar` — threading a `scope` so its four in-DOM copies get distinct ids.
+[tool] Edit
+[tool] Edit
+Now the `FilterContent` body — parameterized by scope, with the category/condition lists as proper folding collections.
+[tool] Edit
+Now the two render surfaces of `FilterSidebar`, giving the sheet copy its own namespace.
+[tool] Edit
+Now the shared `Header`, with `.mobile` suffixes for the drawer copies (§8).
+[tool] Edit
+[tool] Edit
+Now the mobile drawer half of the Header.
+[tool] Edit
+Shared components done. Now the Index page — hero, stats, category collection, and the products grid.
+[tool] Edit
+[tool] Edit
+Now the category quick-links collection and the browse section.
+[tool] Edit
+[tool] Edit
+Now wiring the two `FilterSidebar` scopes and the products grid collection.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Index done. Now Categories, Cart, and MyListings — the three remaining collections.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now MyListings, including its per-item delete dialogs.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now ProductDetail — the largest observable surface.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the ProductDetail action block and message dialog.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the forms: CreateListing (with selects built from shared sources), Login, Register.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now Login and Register.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Finally About and NotFound.
+[tool] Edit
+[tool] Edit
+All screens annotated. Now running the skill's validator.
+[tool] Bash
+Validator is clean. Now the project's own checks, plus the things the validator explicitly cannot see.
+[tool] Bash
+[tool] Bash
+`node_modules` is gitignored, so installing is safe. Running install now.
+[tool] Bash
+While install runs, let me tighten one naming choice — the portaled delete dialog reads too much like a collection item.
+[tool] Bash
+[tool] Bash
+Now the project's own checks.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Lint reports 3 errors — all in files I didn't touch. Let me confirm they're pre-existing by checking against the unmodified baseline.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+All three error files are stock scaffolding I never touched. Let me confirm none of my edited files contribute any lint problems.
+[tool] Bash
+Now the critical part the validator explicitly cannot check: runtime id uniqueness and real DOM ancestry. Let me verify against an actual render.
+[tool] Bash
+[tool] Bash
+No Playwright/jsdom available. I'll render the public routes to static HTML via Vite SSR — that empirically tests the riskiest surface (Index's four filter copies) — and read the code for the auth-gated pages.
+[tool] Write
+[tool] Bash
+[tool] Write
+[tool] Bash
+Node can't resolve deps from `/tmp`. Rebuilding inside the project.
+[tool] Bash
+The scanner flags the *first* item as fine but later siblings as orphans — a classic stack-desync bug in my hand-rolled parser, not a real defect. Let me use a real HTML parser instead.
+[tool] Bash
+[tool] Bash
+[tool] Write
+[tool] Bash
+[tool] Write
+[tool] Bash
+All public routes clean — notably Index: **136 hinted elements, 136 unique ids, 6 folding collections**, confirming the four-copy filter namespacing works. Now let me cover the three auth-gated screens too.
+[tool] Bash
+[tool] Bash
+Now a harness that seeds an authenticated session and a populated cart, so the gated screens render for real.
+[tool] Write
+[tool] Write
+[tool] Write
+I'll build and run the auth-gated check now.
+[tool] Bash
+[tool] Bash
+[tool] Edit
+[tool] Bash
+All three gated screens render clean with real data — `my-listings.items` folds over prod-1/prod-5, `cart.items` over prod-2/prod-4. Now cleaning up every temporary artifact.
+[tool] Bash
+[tool] Bash
+No `semtag` leftovers. Now re-running the full check suite on the cleaned tree.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Done. The app now contains only attribute changes plus two prop additions.
+
+## Screens & components annotated (all 11 screens)
+
+**Shared components:** `Header` (all 7 authed/public pages), `ProductCard`, `FilterSidebar`, `SortDropdown`, `SearchBar`.
+
+**Pages:** Index, ProductDetail, Categories, Cart, MyListings, CreateListing, Login, Register, About, NotFound.
+
+## Id namespaces introduced
+
+| Namespace | Covers |
+|---|---|
+| `nav.*` | Header — desktop links, cart badge, account menu, mobile drawer (`.mobile` suffixes) |
+| `home.*` | Hero CTAs, 4 stats observables, `home.categories` collection |
+| `products.*` | `products.grid` collection, count, empty state |
+| `filters.*` | Sidebar + sort + search |
+| `search.query` | Search input |
+| `product.*` | Detail page — gallery, attributes, seller, add-to-cart, message dialog |
+| `cart.*` | `cart.items` collection, total, checkout |
+| `my-listings.*` | `my-listings.items` collection, `my-listings.delete-dialog.<id>` |
+| `categories.*` | `categories.grid` collection |
+| `listing.*` | Create-listing form |
+| `login.*` / `register.*` / `about.*` / `not-found.*` | Auth + static pages |
+
+## The one real hazard, and how it's handled
+
+`FilterSidebar` renders its control set **twice internally** (desktop panel + mobile sheet) and Index mounts it **twice** — up to 4 DOM copies of the same controls. I threaded a **required** `scope` prop and parameterized the inner `FilterContent` with `idPrefix`, producing four disjoint namespaces: `filters.*`, `filters.sheet.*`, `filters.mobile.*`, `filters.mobile.sheet.*`. `ProductCard` likewise takes a required `collectionId`. Both are required rather than optional-with-default so TypeScript prevents a half-formed id from ever compiling.
+
+## Collections that fold
+
+`home.categories`, `products.grid`, `categories.grid`, `cart.items`, `my-listings.items`, and the four filter `categories`/`conditions` groups — each verified at runtime with ≥2 items under a genuine `role="collection"` DOM ancestor.
+
+**Deliberately not folded:** the product-detail gallery thumbnails and create-listing photo slots. These are backed by array position with no stable domain key, so keying them would violate the spec's ban on index-keyed items. They use flat positional ids (`product.gallery.thumb-1`, `listing.photo-1.remove`) instead.
+
+**Left unhinted:** decorative icons, layout wrappers, and `src/components/ui/*` shadcn primitives (hints live at the call sites that carry meaning).
+
+## Verification
+
+- **Skill validator:** 148 hinted elements, 74 files, **0 errors / 0 warnings**
+- **Runtime DOM check** (the validator can't see ancestry or template-literal ids): I built SSR bundles and parsed the real output with `node-html-parser`, checking vocabulary, page-wide id uniqueness, collection ancestry, and ≥2-item folding. All 8 public routes clean — Index alone renders **136 hinted elements with 136 unique ids**, empirically confirming the four-copy filter namespacing. The 3 auth-gated screens returned `null` under SSR, so I ran a second pass in jsdom with a seeded session and cart: `/my-listings` 25/25 unique, `/cart` 22/22, `/create-listing` 20/20 — **AUTH ROUTES CLEAN**.
+- **`tsc --noEmit`** exit 0 · **`npm run build`** succeeded
+- **`npm run lint`**: 3 errors, all pre-existing in files I never touched (`ui/textarea.tsx`, `ui/command.tsx`, `tailwind.config.ts`). Zero problems in any edited file.
+
+Two notes on process. First, my initial runtime checker used a hand-rolled regex tag-stack and reported 85 orphaned collection items; that was a bug in my scanner (treating a non-void tag as void pops the parent, so only the first sibling validates), not in the injection — I replaced it with a real HTML parser rather than "fixing" correct code. Second, all verification scaffolding is gone: the five harness files, three build dirs, the `dist/` output, and the `--no-save` dev packages are removed, and `package.json`/`package-lock.json` are untouched.
+
+--- WebTestBench_0023: ok in 1182.7s
+    turns=130 cost=$8.761084749999998 tool_calls=127 skill_invoked=True
+    hinted_elements=149 files=15 validator_errors=0 warnings=0

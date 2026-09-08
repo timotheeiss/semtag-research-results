@@ -1,0 +1,1464 @@
+# Transcript: /home/ubuntu/.claude/projects/-home-ubuntu-semantic-hints-project-WebTestBench-claude-code-cwd/af28001e-b7aa-4703-aaa8-61a1f5ac5955.jsonl
+# total tool calls: 116
+
+================================================================================
+[01] ToolSearch  input={"query": "select:mcp__semantic_hints__semantic_snapshot,mcp__semantic_hints__semantic_observe,mcp__structured_results__record_result,mcp__structured_results__g
+--------------------------------------------------------------------------------
+{"type": "tool_reference", "tool_name": "mcp__semantic_hints__semantic_snapshot"}
+{"type": "tool_reference", "tool_name": "mcp__semantic_hints__semantic_observe"}
+{"type": "tool_reference", "tool_name": "mcp__structured_results__record_result"}
+{"type": "tool_reference", "tool_name": "mcp__structured_results__get_result_progress"}
+
+================================================================================
+[02] ToolSearch  input={"query": "select:mcp__playwright__browser_navigate,mcp__playwright__browser_click,mcp__playwright__browser_type,mcp__playwright__browser_fill_form,mcp__playwri
+--------------------------------------------------------------------------------
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_navigate"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_click"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_type"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_fill_form"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_select_option"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_snapshot"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_evaluate"}
+{"type": "tool_reference", "tool_name": "mcp__playwright__browser_handle_dialog"}
+
+================================================================================
+[03] mcp__semantic_hints__semantic_snapshot  input={"url": "http://localhost:7003/"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7003/","screen":"home","navigation":[{"id":"nav.logo","name":"JobBoard","target":"jobs.page"},{"id":"nav.find-jobs","name":"Find Jobs","target":"jobs.page"},{"id":"nav.employer","name":"Employer","target":"employer.dashboard"},{"id":"nav.post-job","name":"Post a Job","target":"employer.post-job"}],"input":[{"id":"jobs.filters.search","name":"Search jobs, companies, or skills...","state":"filters.search","controls":"jobs.list","value":""}],"select":[{"id":"jobs.filters.industry","name":"Industry","state":"filters.industry","controls":"jobs.list","options":[{"value":"all","label":"All Industries"},{"value":"Technology","label":"Technology"},{"value":"Healthcare","label":"Healthcare"},{"value":"Finance","label":"Finance"},{"value":"Marketing","label":"Marketing"},{"value":"Education","label":"Education"},{"value":"Design","label":"Design"},{"value":"Sales","label":"Sales"},{"value":"Engineering","label":"Engineering"}],"value":"Industry"},{"id":"jobs.filters.location","name":"Location","state":"filters.location","controls":"jobs.list","options":[{"value":"all","label":"All Locations"},{"value":"San Francisco, CA","label":"San Francisco, CA"},{"value":"New York, NY","label":"New York, NY"},{"value":"Austin, TX","label":"Austin, TX"},{"value":"Chicago, IL","label":"Chicago, IL"},{"value":"Seattle, WA","label":"Seattle, WA"},{"value":"Boston, MA","label":"Boston, MA"},{"value":"Remote","label":"Remote"}],"value":"Location"},{"id":"jobs.filters.type","name":"Job Type","state":"filters.employment-type","controls":"jobs.list","options":[{"value":"all","label":"All Types"},{"value":"full-time","label":"Full-time"},{"value":"part-time","label":"Part-time"},{"value":"contract","label":"Contract"},{"value":"remote","label":"Remote"}],"value":"Job Type"}],"observable":[{"id":"jobs.hero.active-count","name":"8+ Active Jobs","state":"jobs.count","value":"8+ Active Jobs"},{"id":"jobs.results.count","name":"Showing 8 jobs","state":"jobs.results.count","value":"Showing 8 jobs"}],"region":[{"id":"nav.menu","name":""},{"id":"jobs.filters","name":""}],"collections":[{"id":"jobs.list","idPattern":"jobs.list.item.{key}[.{control}]","item":{"role":"navigation","target":"job.detail"},"itemControls":{"salary":{"role":"observable","state":"job.salary"}},"fields":["key","name","salary.value"],"items":[["job-1","Technology Full-time Senior Frontend Developer TechCorp Solutions San Francisco, CA $140k - $180k Jan 15 React TypeScrip…","$140k - $180k"],["job-2","Design Remote Product Designer TechCorp Solutions Remote $100k - $140k Jan 18 Figma UI/UX Prototyping User Research","$100k - $140k"],["job-3","Healthcare Full-time Registered Nurse HealthPlus Medical New York, NY $75k - $95k Jan 20 Patient Care Clinical Assessmen…","$75k - $95k"],["job-4","Marketing Full-time Marketing Manager BrandForward Agency Austin, TX $85k - $110k Jan 22 Digital Marketing Analytics SEO…","$85k - $110k"],["job-5","Finance Full-time Data Analyst FinanceFirst Chicago, IL $70k - $95k Jan 25 SQL Python Tableau Statistics","$70k - $95k"],["job-6","Marketing Part-time Part-Time Content Writer ContentHub Remote $25 - $45/hr Jan 28 Writing SEO Research Editing","$25 - $45/hr"],["job-7","Technology Contract DevOps Engineer (Contract) CloudScale Inc Seattle, WA $80 - $100/hr Jan 30 Kubernetes AWS Terraform …","$80 - $100/hr"],["job-8","Education Full-time Elementary School Teacher Bright Futures Academy Boston, MA $50k - $70k Feb 1 Curriculum Development…","$50k - $70k"]]}]}
+
+================================================================================
+[04] browser_evaluate  input={"function": "() => Array.from(document.querySelectorAll(\"[data-semtag-id^='jobs.list.item.']\")).slice(0,3).map(e=>e.innerText)"}
+--------------------------------------------------------------------------------
+### Result
+[
+  "Technology\nFull-time\nSenior Frontend Developer\nTechCorp Solutions\nSan Francisco, CA\n$140k - $180k\nJan 15\nReact\nTypeScript\nCSS\nNode.js",
+  "$140k - $180k",
+  "Design\nRemote\nProduct Designer\nTechCorp Solutions\nRemote\n$100k - $140k\nJan 18\nFigma\nUI/UX\nPrototyping\nUser Research"
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => Array.from(document.querySelectorAll("[data-semtag-id^=\'jobs.list.item.\']")).slice(0,3).map(e=>e.innerText)');
+```
+### Page
+- Page URL: http://localhost:7003/
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Events
+- New console entries: .playwright-mcp/console-2026-08-27T22-21-19-500Z.log#L1-L3
+
+================================================================================
+[05] mcp__structured_results__record_result  input={"item_id": "CT-15", "verdict": "PASS", "evidence": "Card job-1 text: Technology / Full-time / Senior Frontend Developer / TechCorp Solutions / San Francisco, C
+--------------------------------------------------------------------------------
+{"recorded": "CT-15", "verdict": "PASS", "recorded_count": 1, "total_count": 19, "missing_ids": ["FT-1", "FT-2", "FT-3", "FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "FT-18", "CS-9", "CS-10", "CS-11", "IX-13", "IX-14", "IX-19", "CT-16", "CT-17", "CT-20"], "complete": false}
+
+================================================================================
+[06] browser_click  input={"target": "[data-semtag-id='jobs.list.item.job-1']", "element": "Job card 1 - Senior Frontend Developer"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.list.item.job-1\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/jobs/job-1
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-21-26-565Z.yml)
+
+================================================================================
+[07] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7003/jobs/job-1","screen":"job-1","navigation":[{"id":"nav.logo","name":"JobBoard","target":"jobs.page"},{"id":"nav.find-jobs","name":"Find Jobs","target":"jobs.page"},{"id":"nav.employer","name":"Employer","target":"employer.dashboard"},{"id":"nav.post-job","name":"Post a Job","target":"employer.post-job"},{"id":"job.detail.back","name":"Back to all jobs","target":"jobs.page"}],"action":[{"id":"application.form.submit","name":"Submit Application","action":"submit-application"}],"input":[{"id":"application.form.name","name":"Full Name *","state":"application.name","value":""},{"id":"application.form.email","name":"Email *","state":"application.email","value":""},{"id":"application.form.phone","name":"Phone","state":"application.phone","value":""},{"id":"application.form.message","name":"Cover Letter / Message *","state":"application.message","value":""}],"observable":[{"id":"job.detail.industry","name":"Technology","state":"job.industry","value":"Technology"},{"id":"job.detail.type","name":"Full-time","state":"job.employment-type","value":"Full-time"},{"id":"job.detail.title","name":"Senior Frontend Developer","state":"job.title","value":"Senior Frontend Developer"},{"id":"job.detail.company","name":"TechCorp Solutions","state":"job.company","value":"TechCorp Solutions"},{"id":"job.detail.location","name":"San Francisco, CA","state":"job.location","value":"San Francisco, CA"},{"id":"job.detail.salary","name":"$140k - $180k","state":"job.salary","value":"$140k - $180k"},{"id":"job.detail.posted","name":"Posted Jan 15","state":"job.posted-date","value":"Posted Jan 15"}],"region":[{"id":"nav.menu","name":""},{"id":"job.detail.description","name":""},{"id":"application.form","name":""}],"collections":[{"id":"job.detail.skills","idPattern":"job.detail.skills.item.{key}[.{control}]","item":{"role":"observable","state":"job.skill"},"fields":["key","value"],"items":[["react","React"],["typescript","TypeScript"],["css","CSS"],["node-js","Node.js"]]}]}
+
+================================================================================
+[08] browser_evaluate  input={"function": "() => document.querySelector(\"[data-semtag-id='job.detail.description']\").innerText.slice(0,300)"}
+--------------------------------------------------------------------------------
+### Result
+"We're looking for an experienced Frontend Developer to join our growing team. You'll be working on cutting-edge web applications using React and TypeScript.\n\nResponsibilities:\nBuild and maintain responsive web applications\nCollaborate with designers and backend engineers\nWrite clean, maintainable co"
+### Ran Playwright code
+```js
+await page.evaluate('() => document.querySelector("[data-semtag-id=\'job.detail.description\']").innerText.slice(0,300)');
+```
+
+================================================================================
+[09] mcp__structured_results__record_result  input={"item_id": "CT-16", "verdict": "PASS", "evidence": "/jobs/job-1 shows title Senior Frontend Developer, TechCorp Solutions, Technology, Full-time, San Francisco
+--------------------------------------------------------------------------------
+{"recorded": "CT-16", "verdict": "PASS", "recorded_count": 2, "total_count": 19, "missing_ids": ["FT-1", "FT-2", "FT-3", "FT-4", "FT-5", "FT-6", "FT-7", "FT-8", "FT-18", "CS-9", "CS-10", "CS-11", "IX-13", "IX-14", "IX-19", "CT-17", "CT-20"], "complete": false}
+
+================================================================================
+[10] mcp__structured_results__record_result  input={"item_id": "FT-5", "verdict": "PASS", "evidence": "Home lists 8 job cards, results count reads \"Showing 8 jobs\"; clicking card job-1 navigated to /jobs/job-1
+--------------------------------------------------------------------------------
+{"recorded": "FT-5", "verdict": "PASS", "recorded_count": 3, "total_count": 19, "missing_ids": ["FT-1", "FT-2", "FT-3", "FT-4", "FT-6", "FT-7", "FT-8", "FT-18", "CS-9", "CS-10", "CS-11", "IX-13", "IX-14", "IX-19", "CT-17", "CT-20"], "complete": false}
+
+================================================================================
+[11] browser_click  input={"target": "[data-semtag-id='application.form.submit']", "element": "Submit Application (empty form)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'application.form.submit\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/jobs/job-1
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-21-38-202Z.yml)
+
+================================================================================
+[12] mcp__semantic_hints__semantic_snapshot  input={"scope": "application.form"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7003/jobs/job-1","screen":"job-1","action":[{"id":"application.form.submit","name":"Submit Application","action":"submit-application"}],"input":[{"id":"application.form.name","name":"Full Name *","state":"application.name","value":""},{"id":"application.form.email","name":"Email *","state":"application.email","value":""},{"id":"application.form.phone","name":"Phone","state":"application.phone","value":""},{"id":"application.form.message","name":"Cover Letter / Message *","state":"application.message","value":""}],"region":[{"id":"application.form","name":""}]}
+
+================================================================================
+[13] browser_evaluate  input={"function": "() => document.querySelector(\"[data-semtag-id='application.form']\").innerText"}
+--------------------------------------------------------------------------------
+### Result
+"Full Name *\nEmail *\nPhone\nCover Letter / Message *\nSubmit Application"
+### Ran Playwright code
+```js
+await page.evaluate('() => document.querySelector("[data-semtag-id=\'application.form\']").innerText');
+```
+
+================================================================================
+[14] browser_evaluate  input={"function": "() => Array.from(document.querySelectorAll(\"[data-semtag-id^='application.form.'][data-semtag-role='input']\")).map(e=>({id:e.getAttribute('data-
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "id": "application.form.name",
+    "required": true,
+    "type": "text",
+    "valid": false,
+    "msg": "Please fill out this field."
+  },
+  {
+    "id": "application.form.email",
+    "required": true,
+    "type": "email",
+    "valid": false,
+    "msg": "Please fill out this field."
+  },
+  {
+    "id": "application.form.phone",
+    "required": false,
+    "type": "tel",
+    "valid": true,
+    "msg": ""
+  },
+  {
+    "id": "application.form.message",
+    "required": true,
+    "type": "textarea",
+    "valid": false,
+    "msg": "Please fill out this field."
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => Array.from(document.querySelectorAll("[data-semtag-id^=\'application.form.\'][data-semtag-role=\'input\']")).map(e=>({id:e.getAttribute(\'data-semtag-id\'),required:e.required,type:e.type||e.tagName,valid:e.checkValidity?e.checkValidity():null,msg:e.validationMessage}))');
+```
+
+================================================================================
+[15] browser_fill_form  input={"fields": [{"target": "[data-semtag-id='application.form.name']", "name": "Full Name", "type": "textbox", "value": "Test Invalid"}, {"target": "[data-semtag-id
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'application.form.name\']').fill('Test Invalid');
+await page.locator('[data-semtag-id=\'application.form.email\']').fill('notanemail');
+await page.locator('[data-semtag-id=\'application.form.message\']').fill('Testing invalid email');
+```
+
+================================================================================
+[16] browser_click  input={"target": "[data-semtag-id='application.form.submit']", "element": "Submit Application (invalid email)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'application.form.submit\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/jobs/job-1
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-21-53-365Z.yml)
+
+================================================================================
+[17] browser_evaluate  input={"function": "() => ({formText: document.querySelector(\"[data-semtag-id='application.form']\").innerText, emailValid: document.querySelector(\"[data-semtag-id=
+--------------------------------------------------------------------------------
+### Result
+{
+  "formText": "Full Name *\nEmail *\nPhone\nCover Letter / Message *\nSubmit Application",
+  "emailValid": false,
+  "emailMsg": "Please include an '@' in the email address. 'notanemail' is missing an '@'.",
+  "bodyHasSuccess": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({formText: document.querySelector("[data-semtag-id=\'application.form\']").innerText, emailValid: document.querySelector("[data-semtag-id=\'application.form.email\']").checkValidity(), emailMsg: document.querySelector("[data-semtag-id=\'application.form.email\']").validationMessage, bodyHasSuccess: /success|thank|received|submitted/i.test(document.body.innerText)})');
+```
+
+================================================================================
+[18] mcp__structured_results__record_result  input={"item_id": "CS-9", "verdict": "PASS", "evidence": "Empty submit blocked: name/email/message are required and reported \"Please fill out this field.\"; with ema
+--------------------------------------------------------------------------------
+{"recorded": "CS-9", "verdict": "PASS", "recorded_count": 4, "total_count": 19, "missing_ids": ["FT-1", "FT-2", "FT-3", "FT-4", "FT-6", "FT-7", "FT-8", "FT-18", "CS-10", "CS-11", "IX-13", "IX-14", "IX-19", "CT-17", "CT-20"], "complete": false}
+
+================================================================================
+[19] browser_fill_form  input={"fields": [{"target": "[data-semtag-id='application.form.name']", "name": "Full Name", "type": "textbox", "value": "Alice Tester"}, {"target": "[data-semtag-id
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'application.form.name\']').fill('Alice Tester');
+await page.locator('[data-semtag-id=\'application.form.email\']').fill('alice.tester@example.com');
+await page.locator('[data-semtag-id=\'application.form.phone\']').fill('555-0101');
+await page.locator('[data-semtag-id=\'application.form.message\']').fill('I am very interested in this frontend role.');
+```
+
+================================================================================
+[20] browser_click  input={"target": "[data-semtag-id='application.form.submit']", "element": "Submit Application (valid)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'application.form.submit\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/jobs/job-1
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-22-05-922Z.yml)
+
+================================================================================
+[21] mcp__semantic_hints__semantic_snapshot  input={"scope": "application.form"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7003/jobs/job-1","screen":"job-1","action":[{"id":"application.form.submit","name":"Submit Application","action":"submit-application"}],"input":[{"id":"application.form.name","name":"Full Name *","state":"application.name","value":""},{"id":"application.form.email","name":"Email *","state":"application.email","value":""},{"id":"application.form.phone","name":"Phone","state":"application.phone","value":""},{"id":"application.form.message","name":"Cover Letter / Message *","state":"application.message","value":""}],"region":[{"id":"application.form","name":""}]}
+
+================================================================================
+[22] browser_evaluate  input={"function": "() => document.body.innerText.slice(0,1200)"}
+--------------------------------------------------------------------------------
+### Result
+"Application submitted!\nYour application for Senior Frontend Developer at TechCorp Solutions has been sent.\nJobBoard\nFind Jobs\nEmployer\nPost a Job\nBack to all jobs\nTechnology\nFull-time\nSenior Frontend Developer\nTechCorp Solutions\nSan Francisco, CA\n$140k - $180k\nPosted Jan 15\nJob Description\n\nWe're looking for an experienced Frontend Developer to join our growing team. You'll be working on cutting-edge web applications using React and TypeScript.\n\nResponsibilities:\nBuild and maintain responsive web applications\nCollaborate with designers and backend engineers\nWrite clean, maintainable code with comprehensive tests\nMentor junior developers\nRequirements:\n5+ years of experience with React\nStrong TypeScript skills\nExperience with state management (Redux, Zustand)\nExcellent communication skills\nRequired Skills\nReact\nTypeScript\nCSS\nNode.js\nApply for this position\n\nFill out the form below to submit your application\n\nFull Name *\nEmail *\nPhone\nCover Letter / Message *\nSubmit Application"
+### Ran Playwright code
+```js
+await page.evaluate('() => document.body.innerText.slice(0,1200)');
+```
+
+================================================================================
+[23] mcp__structured_results__record_result  input={"item_id": "FT-8", "verdict": "PASS", "evidence": "Submitted Alice Tester / alice.tester@example.com / 555-0101 / message on job-1; page showed \"Application s
+--------------------------------------------------------------------------------
+{"recorded": "FT-8", "verdict": "PASS", "recorded_count": 5, "total_count": 19, "missing_ids": ["FT-1", "FT-2", "FT-3", "FT-4", "FT-6", "FT-7", "FT-18", "CS-10", "CS-11", "IX-13", "IX-14", "IX-19", "CT-17", "CT-20"], "complete": false}
+
+================================================================================
+[24] browser_fill_form  input={"fields": [{"target": "[data-semtag-id='application.form.name']", "name": "Full Name", "type": "textbox", "value": "Alice Duplicate"}, {"target": "[data-semtag
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'application.form.name\']').fill('Alice Duplicate');
+await page.locator('[data-semtag-id=\'application.form.email\']').fill('ALICE.TESTER@example.com');
+await page.locator('[data-semtag-id=\'application.form.message\']').fill('Duplicate attempt');
+```
+
+================================================================================
+[25] browser_type  input={"target": "[data-semtag-id='application.form.email']", "text": "alice.tester@example.com"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'application.form.email\']').fill('alice.tester@example.com');
+```
+
+================================================================================
+[26] browser_click  input={"target": "[data-semtag-id='application.form.submit']", "element": "Submit Application (duplicate email)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'application.form.submit\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/jobs/job-1
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-22-21-336Z.yml)
+
+================================================================================
+[27] browser_evaluate  input={"function": "() => document.body.innerText.slice(0,400)"}
+--------------------------------------------------------------------------------
+### Result
+"Application submitted!\nYour application for Senior Frontend Developer at TechCorp Solutions has been sent.\nJobBoard\nFind Jobs\nEmployer\nPost a Job\nBack to all jobs\nTechnology\nFull-time\nSenior Frontend Developer\nTechCorp Solutions\nSan Francisco, CA\n$140k - $180k\nPosted Jan 15\nJob Description\n\nWe're looking for an experienced Frontend Developer to join our growing team. You'll be working on cutting-e"
+### Ran Playwright code
+```js
+await page.evaluate('() => document.body.innerText.slice(0,400)');
+```
+
+================================================================================
+[28] browser_click  input={"target": "[data-semtag-id='nav.employer']", "element": "Employer nav link"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'nav.employer\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/dashboard
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-22-26-902Z.yml)
+
+================================================================================
+[29] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7003/employer/dashboard","screen":"dashboard","navigation":[{"id":"nav.logo","name":"JobBoard","target":"jobs.page"},{"id":"nav.find-jobs","name":"Find Jobs","target":"jobs.page"},{"id":"nav.employer","name":"Employer","target":"employer.dashboard"},{"id":"nav.post-job","name":"Post a Job","target":"employer.post-job"},{"id":"dashboard.post-job","name":"Post New Job","target":"employer.post-job"}],"observable":[{"id":"dashboard.stats.active-jobs","name":"5","state":"employer.jobs.count","value":"5"},{"id":"dashboard.stats.applications","name":"5","state":"employer.applications.count","value":"5"}],"region":[{"id":"nav.menu","name":""}],"collections":[{"id":"dashboard.jobs","idPattern":"dashboard.jobs.item.{key}[.{control}]","item":{"role":"observable","state":"job.title"},"itemControls":{"applications":{"role":"action","action":"toggle-applications","state":"closed"},"delete":{"role":"action","name":"","action":"delete-job"}},"fields":["key","value","applications.name"],"items":[["job-1","Senior Frontend Developer","4"],["job-2","Product Designer","1"],["job-4","Marketing Manager","0"],["job-6","Part-Time Content Writer","0"],["job-7","DevOps Engineer (Contract)","0"]]}]}
+
+================================================================================
+[30] browser_click  input={"target": "[data-semtag-id='dashboard.jobs.item.job-1.applications']", "element": "Toggle applications for job-1"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.jobs.item.job-1.applications\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/dashboard
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-22-31-594Z.yml)
+
+================================================================================
+[31] mcp__semantic_hints__semantic_snapshot  input={"scope": "[data-semtag-id='dashboard.jobs.item.job-1']"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7003/employer/dashboard","screen":"dashboard","observable":[{"id":"dashboard.jobs.item.job-1","name":"Senior Frontend Developer","state":"job.title","value":"Senior Frontend Developer"}]}
+
+================================================================================
+[32] browser_evaluate  input={"function": "() => document.body.innerText.slice(0,2500)"}
+--------------------------------------------------------------------------------
+### Result
+"JobBoard\nFind Jobs\nEmployer\nPost a Job\nEmployer Dashboard\n\nWelcome back, Sarah Chen\n\nPost New Job\n\n5\n\nActive Jobs\n\n5\n\nTotal Applications\n\nYour Job Listings\n\nManage your posted jobs and view applications\n\nTechnology\nFull-time\nSenior Frontend Developer\n\nSan Francisco, CA · $140k - $180k · Posted Jan 15\n\n4\nApplications (4)\nAlice Duplicate\nalice.tester@example.com\nYesterday\n\nDuplicate attempt\n\nAlice Tester\nalice.tester@example.com\n555-0101\nYesterday\n\nI am very interested in this frontend role.\n\nAlex Johnson\nalex.j@email.com\n555-0101\nJan 20\n\nI have 6 years of React experience and would love to contribute to your team. My recent work includes building a real-time collaboration platform.\n\nMaria Garcia\nmaria.g@email.com\n555-0102\nJan 22\n\nExperienced frontend developer with a passion for clean code and user experience. Previously worked at a Fortune 500 company.\n\nDesign\nRemote\nProduct Designer\n\nRemote · $100k - $140k · Posted Jan 18\n\n1\nMarketing\nFull-time\nMarketing Manager\n\nAustin, TX · $85k - $110k · Posted Jan 22\n\n0\nMarketing\nPart-time\nPart-Time Content Writer\n\nRemote · $25 - $45/hr · Posted Jan 28\n\n0\nTechnology\nContract\nDevOps Engineer (Contract)\n\nSeattle, WA · $80 - $100/hr · Posted Jan 30\n\n0"
+### Ran Playwright code
+```js
+await page.evaluate('() => document.body.innerText.slice(0,2500)');
+```
+
+================================================================================
+[33] browser_evaluate  input={"function": "() => { const out={}; for (const k of Object.keys(localStorage)) { const v = localStorage.getItem(k); out[k] = v.length>2000? v.slice(0,2000): v; 
+--------------------------------------------------------------------------------
+### Result
+{
+  "now": "Thu Aug 27 2026 22:22:44 GMT+0000 (Coordinated Universal Time)",
+  "keys": {}
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => { const out={}; for (const k of Object.keys(localStorage)) { const v = localStorage.getItem(k); out[k] = v.length>2000? v.slice(0,2000): v; } return {now: new Date().toString(), keys: out}; }');
+```
+
+================================================================================
+[34] mcp__structured_results__record_result  input={"item_id": "CS-11", "verdict": "FAIL", "issue": "Duplicate application with same email accepted for the same job", "actual": "After applying to job-1 as alice.
+--------------------------------------------------------------------------------
+{"recorded": "CS-11", "verdict": "FAIL", "recorded_count": 6, "total_count": 19, "missing_ids": ["FT-1", "FT-2", "FT-3", "FT-4", "FT-6", "FT-7", "FT-18", "CS-10", "IX-13", "IX-14", "IX-19", "CT-17", "CT-20"], "complete": false}
+
+================================================================================
+[35] mcp__structured_results__record_result  input={"item_id": "FT-4", "verdict": "PASS", "evidence": "Clicking dashboard.jobs.item.job-1.applications expanded \"Applications (4)\" listing the applicants (Alice 
+--------------------------------------------------------------------------------
+{"recorded": "FT-4", "verdict": "PASS", "recorded_count": 7, "total_count": 19, "missing_ids": ["FT-1", "FT-2", "FT-3", "FT-6", "FT-7", "FT-18", "CS-10", "IX-13", "IX-14", "IX-19", "CT-17", "CT-20"], "complete": false}
+
+================================================================================
+[36] mcp__structured_results__record_result  input={"item_id": "CT-17", "verdict": "PASS", "evidence": "Each application is a distinct record: \"Alice Tester / alice.tester@example.com / 555-0101 / Yesterday / I
+--------------------------------------------------------------------------------
+{"recorded": "CT-17", "verdict": "PASS", "recorded_count": 8, "total_count": 19, "missing_ids": ["FT-1", "FT-2", "FT-3", "FT-6", "FT-7", "FT-18", "CS-10", "IX-13", "IX-14", "IX-19", "CT-20"], "complete": false}
+
+================================================================================
+[37] mcp__structured_results__record_result  input={"item_id": "FT-3", "verdict": "PASS", "evidence": "Dashboard (Sarah Chen) lists 5 jobs (job-1,2,4,6,7); Active Jobs stat = 5 and Total Applications = 5 which e
+--------------------------------------------------------------------------------
+{"recorded": "FT-3", "verdict": "PASS", "recorded_count": 9, "total_count": 19, "missing_ids": ["FT-1", "FT-2", "FT-6", "FT-7", "FT-18", "CS-10", "IX-13", "IX-14", "IX-19", "CT-20"], "complete": false}
+
+================================================================================
+[38] mcp__structured_results__record_result  input={"item_id": "IX-13", "verdict": "PASS", "evidence": "Submission showed \"Application submitted!\" banner; dashboard job-1 shows exactly one \"Alice Tester / ali
+--------------------------------------------------------------------------------
+{"recorded": "IX-13", "verdict": "PASS", "recorded_count": 10, "total_count": 19, "missing_ids": ["FT-1", "FT-2", "FT-6", "FT-7", "FT-18", "CS-10", "IX-14", "IX-19", "CT-20"], "complete": false}
+
+================================================================================
+[39] browser_click  input={"target": "[data-semtag-id='nav.post-job']", "element": "Post a Job nav link"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'nav.post-job\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-23-03-097Z.yml)
+
+================================================================================
+[40] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7003/employer/post-job","screen":"post-job","navigation":[{"id":"nav.logo","name":"JobBoard","target":"jobs.page"},{"id":"nav.find-jobs","name":"Find Jobs","target":"jobs.page"},{"id":"nav.employer","name":"Employer","target":"employer.dashboard"},{"id":"nav.post-job","name":"Post a Job","target":"employer.post-job"},{"id":"post-job.back","name":"Back to dashboard","target":"employer.dashboard"},{"id":"post-job.form.cancel","name":"Cancel","target":"employer.dashboard"}],"action":[{"id":"post-job.form.skill-add","name":"","action":"add-skill","controls":"post-job.form.skills"},{"id":"post-job.form.submit","name":"Post Job","action":"post-job"}],"input":[{"id":"post-job.form.title","name":"Job Title *","state":"job-form.title","value":""},{"id":"post-job.form.salary-min","name":"Minimum Salary (annual) *","state":"job-form.salary-min","value":""},{"id":"post-job.form.salary-max","name":"Maximum Salary (annual) *","state":"job-form.salary-max","value":""},{"id":"post-job.form.description","name":"Job Description *","state":"job-form.description","value":""},{"id":"post-job.form.skill-input","name":"Add a skill","state":"job-form.skill-input","controls":"post-job.form.skills","value":""}],"select":[{"id":"post-job.form.industry","name":"Select industry","state":"job-form.industry","options":[{"value":"Technology","label":"Technology"},{"value":"Healthcare","label":"Healthcare"},{"value":"Finance","label":"Finance"},{"value":"Marketing","label":"Marketing"},{"value":"Education","label":"Education"},{"value":"Design","label":"Design"},{"value":"Sales","label":"Sales"},{"value":"Engineering","label":"Engineering"}],"value":"Select industry"},{"id":"post-job.form.type","name":"Select type","state":"job-form.employment-type","options":[{"value":"full-time","label":"Full-time"},{"value":"part-time","label":"Part-time"},{"value":"contract","label":"Contract"},{"value":"remote","label":"Remote"}],"value":"Select type"},{"id":"post-job.form.location","name":"Select location","state":"job-form.location","options":[{"value":"San Francisco, CA","label":"San Francisco, CA"},{"value":"New York, NY","label":"New York, NY"},{"value":"Austin, TX","label":"Austin, TX"},{"value":"Chicago, IL","label":"Chicago, IL"},{"value":"Seattle, WA","label":"Seattle, WA"},{"value":"Boston, MA","label":"Boston, MA"},{"value":"Remote","label":"Remote"}],"value":"Select location"}],"region":[{"id":"nav.menu","name":""},{"id":"post-job.form","name":""}]}
+
+================================================================================
+[41] browser_click  input={"target": "[data-semtag-id='post-job.form.submit']", "element": "Post Job (empty form)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.submit\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-23-07-579Z.yml)
+
+================================================================================
+[42] browser_evaluate  input={"function": "() => ({url: location.pathname, text: document.querySelector(\"[data-semtag-id='post-job.form']\").innerText, fields: Array.from(document.querySel
+--------------------------------------------------------------------------------
+### Result
+{
+  "url": "/employer/post-job",
+  "text": "Job Title *\nIndustry *\nSelect industry\nTechnology\nHealthcare\nFinance\nMarketing\nEducation\nDesign\nSales\nEngineering\nEmployment Type *\nSelect type\nFull-time\nPart-time\nContract\nRemote\nLocation *\nSelect location\nSan Francisco, CA\nNew York, NY\nAustin, TX\nChicago, IL\nSeattle, WA\nBoston, MA\nRemote\nMinimum Salary (annual) *\nMaximum Salary (annual) *\nJob Description *\nRequired Skills\nPost Job\nCancel",
+  "fields": [
+    {
+      "id": "post-job.form.title",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field.",
+      "min": ""
+    },
+    {
+      "id": "post-job.form.salary-min",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field.",
+      "min": "0"
+    },
+    {
+      "id": "post-job.form.salary-max",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field.",
+      "min": "0"
+    },
+    {
+      "id": "post-job.form.description",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+    },
+    {
+      "id": "post-job.form.skill-input",
+      "required": false,
+      "valid": true,
+      "msg": "",
+      "min": ""
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({url: location.pathname, text: document.querySelector("[data-semtag-id=\'post-job.form\']").innerText, fields: Array.from(document.querySelectorAll("[data-semtag-id^=\'post-job.form.\']")).filter(e=>e.matches(\'input,select,textarea\')).map(e=>({id:e.getAttribute(\'data-semtag-id\'),required:e.required,valid:e.checkValidity(),msg:e.validationMessage,min:e.min}))})');
+```
+
+================================================================================
+[43] browser_evaluate  input={"function": "() => ['post-job.form.industry','post-job.form.type','post-job.form.location'].map(id=>{const e=document.querySelector(`[data-semtag-id='${id}']`)
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "id": "post-job.form.industry",
+    "tag": "BUTTON"
+  },
+  {
+    "id": "post-job.form.type",
+    "tag": "BUTTON"
+  },
+  {
+    "id": "post-job.form.location",
+    "tag": "BUTTON"
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => [\'post-job.form.industry\',\'post-job.form.type\',\'post-job.form.location\'].map(id=>{const e=document.querySelector(`[data-semtag-id=\'${id}\']`);return {id, tag:e.tagName, required:e.required}})');
+```
+
+================================================================================
+[44] browser_fill_form  input={"fields": [{"target": "[data-semtag-id='post-job.form.title']", "name": "Title", "type": "textbox", "value": "QA Automation Engineer"}, {"target": "[data-semta
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.title\']').fill('QA Automation Engineer');
+await page.locator('[data-semtag-id=\'post-job.form.salary-min\']').fill('150000');
+await page.locator('[data-semtag-id=\'post-job.form.salary-max\']').fill('90000');
+await page.locator('[data-semtag-id=\'post-job.form.description\']').fill('We are hiring a QA automation engineer to build end-to-end test suites.');
+```
+
+================================================================================
+[45] browser_click  input={"target": "[data-semtag-id='post-job.form.industry']", "element": "Industry select trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.industry\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-23-28-214Z.yml)
+
+================================================================================
+[46] browser_click  input={"target": "[data-semtag-id='post-job.form.industry.option.Technology']", "element": "Industry option Technology"}
+--------------------------------------------------------------------------------
+### Error
+Error: "[data-semtag-id='post-job.form.industry.option.Technology']" does not match any elements.
+
+================================================================================
+[47] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7003/employer/post-job","screen":"post-job","navigation":[{"id":"nav.logo","name":"JobBoard","target":"jobs.page"},{"id":"nav.find-jobs","name":"Find Jobs","target":"jobs.page"},{"id":"nav.employer","name":"Employer","target":"employer.dashboard"},{"id":"nav.post-job","name":"Post a Job","target":"employer.post-job"},{"id":"post-job.back","name":"Back to dashboard","target":"employer.dashboard"},{"id":"post-job.form.cancel","name":"Cancel","target":"employer.dashboard"}],"action":[{"id":"post-job.form.skill-add","name":"","action":"add-skill","controls":"post-job.form.skills"},{"id":"post-job.form.submit","name":"Post Job","action":"post-job"}],"option":[{"id":"post-job.form.industry.option.technology","name":"Technology"},{"id":"post-job.form.industry.option.healthcare","name":"Healthcare"},{"id":"post-job.form.industry.option.finance","name":"Finance"},{"id":"post-job.form.industry.option.marketing","name":"Marketing"},{"id":"post-job.form.industry.option.education","name":"Education"},{"id":"post-job.form.industry.option.design","name":"Design"},{"id":"post-job.form.industry.option.sales","name":"Sales"},{"id":"post-job.form.industry.option.engineering","name":"Engineering"}],"input":[{"id":"post-job.form.title","name":"Job Title *","state":"job-form.title","value":"QA Automation Engineer"},{"id":"post-job.form.salary-min","name":"Minimum Salary (annual) *","state":"job-form.salary-min","value":"150000"},{"id":"post-job.form.salary-max","name":"Maximum Salary (annual) *","state":"job-form.salary-max","value":"90000"},{"id":"post-job.form.description","name":"Job Description *","state":"job-form.description","value":"We are hiring a QA automation engineer to build end-to-end test suites."},{"id":"post-job.form.skill-input","name":"Add a skill","state":"job-form.skill-input","controls":"post-job.form.skills","value":""}],"select":[{"id":"post-job.form.industry","name":"Select industry","state":"job-form.industry","options":[{"value":"Technology","label":"Technology"},{"value":"Healthcare","label":"Healthcare"},{"value":"Finance","label":"Finance"},{"value":"Marketing","label":"Marketing"},{"value":"Education","label":"Education"},{"value":"Design","label":"Design"},{"value":"Sales","label":"Sales"},{"value":"Engineering","label":"Engineering"}],"value":"Select industry"},{"id":"post-job.form.type","name":"Select type","state":"job-form.employment-type","options":[{"value":"full-time","label":"Full-time"},{"value":"part-time","label":"Part-time"},{"value":"contract","label":"Contract"},{"value":"remote","label":"Remote"}],"value":"Select type"},{"id":"post-job.form.location","name":"Select location","state":"job-form.location","options":[{"value":"San Francisco, CA","label":"San Francisco, CA"},{"value":"New York, NY","label":"New York, NY"},{"value":"Austin, TX","label":"Austin, TX"},{"value":"Chicago, IL","label":"Chicago, IL"},{"value":"Seattle, WA","label":"Seattle, WA"},{"value":"Boston, MA","label":"Boston, MA"},{"value":"Remote","label":"Remote"}],"value":"Select location"}],"region":[{"id":"nav.menu","name":""},{"id":"post-job.form","name":""}]}
+
+================================================================================
+[48] browser_click  input={"target": "[data-semtag-id='post-job.form.industry.option.technology']", "element": "Industry option Technology"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.industry.option.technology\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-23-34-211Z.yml)
+
+================================================================================
+[49] browser_click  input={"target": "[data-semtag-id='post-job.form.type']", "element": "Employment type select trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.type\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-23-36-288Z.yml)
+
+================================================================================
+[50] browser_click  input={"target": "[data-semtag-id='post-job.form.type.option.full-time']", "element": "Type option Full-time"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.type.option.full-time\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-23-38-600Z.yml)
+
+================================================================================
+[51] browser_click  input={"target": "[data-semtag-id='post-job.form.location']", "element": "Location select trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.location\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-23-40-691Z.yml)
+
+================================================================================
+[52] mcp__semantic_hints__semantic_snapshot  input={"scope": "[role='listbox']"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7003/employer/post-job","screen":"post-job","option":[{"id":"post-job.form.location.option.san-francisco-ca","name":"San Francisco, CA"},{"id":"post-job.form.location.option.new-york-ny","name":"New York, NY"},{"id":"post-job.form.location.option.austin-tx","name":"Austin, TX"},{"id":"post-job.form.location.option.chicago-il","name":"Chicago, IL"},{"id":"post-job.form.location.option.seattle-wa","name":"Seattle, WA"},{"id":"post-job.form.location.option.boston-ma","name":"Boston, MA"},{"id":"post-job.form.location.option.remote","name":"Remote"}]}
+
+================================================================================
+[53] browser_click  input={"target": "[data-semtag-id='post-job.form.location.option.austin-tx']", "element": "Location option Austin, TX"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.location.option.austin-tx\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-23-44-540Z.yml)
+
+================================================================================
+[54] browser_click  input={"target": "[data-semtag-id='post-job.form.submit']", "element": "Post Job (no skills, min>max)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.submit\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-23-47-166Z.yml)
+
+================================================================================
+[55] browser_evaluate  input={"function": "() => ({url: location.pathname, text: document.body.innerText.slice(0,900)})"}
+--------------------------------------------------------------------------------
+### Result
+{
+  "url": "/employer/dashboard",
+  "text": "Job posted successfully!\nYour job listing is now live and visible to job seekers.\nJobBoard\nFind Jobs\nEmployer\nPost a Job\nEmployer Dashboard\n\nWelcome back, Sarah Chen\n\nPost New Job\n\n6\n\nActive Jobs\n\n5\n\nTotal Applications\n\nYour Job Listings\n\nManage your posted jobs and view applications\n\nTechnology\nFull-time\nQA Automation Engineer\n\nAustin, TX · $150k - $90k · Posted Yesterday\n\n0\nTechnology\nFull-time\nSenior Frontend Developer\n\nSan Francisco, CA · $140k - $180k · Posted Jan 15\n\n4\nDesign\nRemote\nProduct Designer\n\nRemote · $100k - $140k · Posted Jan 18\n\n1\nMarketing\nFull-time\nMarketing Manager\n\nAustin, TX · $85k - $110k · Posted Jan 22\n\n0\nMarketing\nPart-time\nPart-Time Content Writer\n\nRemote · $25 - $45/hr · Posted Jan 28\n\n0\nTechnology\nContract\nDevOps Engineer (Contract)\n\nSeattle, WA · $80 - $100/hr · Posted Jan 30\n\n0"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({url: location.pathname, text: document.body.innerText.slice(0,900)})');
+```
+### Page
+- Page URL: http://localhost:7003/employer/dashboard
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+
+================================================================================
+[56] mcp__structured_results__record_result  input={"item_id": "CS-10", "verdict": "FAIL", "issue": "No validation of salary range order or of required skills", "actual": "Submitted a job with Minimum Salary 150
+--------------------------------------------------------------------------------
+{"recorded": "CS-10", "verdict": "FAIL", "recorded_count": 11, "total_count": 19, "missing_ids": ["FT-1", "FT-2", "FT-6", "FT-7", "FT-18", "IX-14", "IX-19", "CT-20"], "complete": false}
+
+================================================================================
+[57] mcp__structured_results__record_result  input={"item_id": "CT-20", "verdict": "FAIL", "issue": "Newly created records show an inaccurate (off-by-one-day) submission date", "actual": "Browser clock is Thu Au
+--------------------------------------------------------------------------------
+{"recorded": "CT-20", "verdict": "FAIL", "recorded_count": 12, "total_count": 19, "missing_ids": ["FT-1", "FT-2", "FT-6", "FT-7", "FT-18", "IX-14", "IX-19"], "complete": false}
+
+================================================================================
+[58] browser_click  input={"target": "[data-semtag-id='dashboard.post-job']", "element": "Post New Job button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.post-job\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-24-01-731Z.yml)
+
+================================================================================
+[59] browser_fill_form  input={"fields": [{"target": "[data-semtag-id='post-job.form.title']", "name": "Title", "type": "textbox", "value": "Cloud Security Specialist"}, {"target": "[data-se
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.title\']').fill('Cloud Security Specialist');
+await page.locator('[data-semtag-id=\'post-job.form.salary-min\']').fill('110000');
+await page.locator('[data-semtag-id=\'post-job.form.salary-max\']').fill('150000');
+await page.locator('[data-semtag-id=\'post-job.form.description\']').fill('Protect our cloud infrastructure, run threat modeling and lead incident response.');
+await page.locator('[data-semtag-id=\'post-job.form.skill-input\']').fill('Zero Trust');
+```
+
+================================================================================
+[60] browser_click  input={"target": "[data-semtag-id='post-job.form.skill-add']", "element": "Add skill button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.skill-add\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-24-08-125Z.yml)
+
+================================================================================
+[61] browser_click  input={"target": "[data-semtag-id='post-job.form.industry']", "element": "Industry select trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.industry\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-24-10-464Z.yml)
+
+================================================================================
+[62] browser_click  input={"target": "[data-semtag-id='post-job.form.industry.option.engineering']", "element": "Industry option Engineering"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.industry.option.engineering\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-24-12-826Z.yml)
+
+================================================================================
+[63] browser_click  input={"target": "[data-semtag-id='post-job.form.type']", "element": "Type select trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.type\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-24-14-912Z.yml)
+
+================================================================================
+[64] browser_click  input={"target": "[data-semtag-id='post-job.form.type.option.contract']", "element": "Type option Contract"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.type.option.contract\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-24-17-064Z.yml)
+
+================================================================================
+[65] browser_click  input={"target": "[data-semtag-id='post-job.form.location']", "element": "Location select trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.location\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-24-19-304Z.yml)
+
+================================================================================
+[66] browser_click  input={"target": "[data-semtag-id='post-job.form.location.option.boston-ma']", "element": "Location option Boston, MA"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.location.option.boston-ma\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-24-21-551Z.yml)
+
+================================================================================
+[67] browser_click  input={"target": "[data-semtag-id='post-job.form.submit']", "element": "Post Job (valid)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'post-job.form.submit\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/post-job
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-24-24-002Z.yml)
+
+================================================================================
+[68] browser_evaluate  input={"function": "() => ({url: location.pathname, text: document.body.innerText.slice(0,700)})"}
+--------------------------------------------------------------------------------
+### Result
+{
+  "url": "/employer/dashboard",
+  "text": "Job posted successfully!\nYour job listing is now live and visible to job seekers.\nJobBoard\nFind Jobs\nEmployer\nPost a Job\nEmployer Dashboard\n\nWelcome back, Sarah Chen\n\nPost New Job\n\n7\n\nActive Jobs\n\n5\n\nTotal Applications\n\nYour Job Listings\n\nManage your posted jobs and view applications\n\nEngineering\nContract\nCloud Security Specialist\n\nBoston, MA · $110000 - $150000/hr · Posted Yesterday\n\n0\nTechnology\nFull-time\nQA Automation Engineer\n\nAustin, TX · $150k - $90k · Posted Yesterday\n\n0\nTechnology\nFull-time\nSenior Frontend Developer\n\nSan Francisco, CA · $140k - $180k · Posted Jan 15\n\n4\nDesign\nRemote\nProduct Designer\n\nRemote · $100k - $140k · Posted Jan 18\n\n1\nMarketing\nFull-time\nMarketing Manager\n\nAus"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({url: location.pathname, text: document.body.innerText.slice(0,700)})');
+```
+### Page
+- Page URL: http://localhost:7003/employer/dashboard
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+
+================================================================================
+[69] browser_click  input={"target": "[data-semtag-id='nav.find-jobs']", "element": "Find Jobs nav link"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'nav.find-jobs\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-24-33-123Z.yml)
+
+================================================================================
+[70] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='jobs.results.count']\").innerText, cards: Array.from(document.querySelectorAll(\"[data-se
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 10 jobs",
+  "cards": [
+    "jobs.list.item.job-1787869464026 :: Engineering | Contract | Cloud Security Specialist | TechCorp Solutions | Boston, MA | $110000 - $150000/hr | Yesterday | Zero Trust",
+    "jobs.list.item.job-1787869427198 :: Technology | Full-time | QA Automation Engineer | TechCorp Solutions | Austin, TX | $150k - $90k | Yesterday",
+    "jobs.list.item.job-1 :: Technology | Full-time | Senior Frontend Developer | TechCorp Solutions | San Francisco, CA | $140k - $180k | Jan 15 | React | TypeScript | CSS | Node.js"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'jobs.results.count\']").innerText, cards: Array.from(document.querySelectorAll("[data-semtag-id^=\'jobs.list.item.\']:not([data-semtag-id*=\'.salary\'])")).map(e=>e.getAttribute(\'data-semtag-id\')+\' :: \'+e.innerText.replace(/\\n/g,\' | \')).slice(0,3)})');
+```
+
+================================================================================
+[71] mcp__structured_results__record_result  input={"item_id": "FT-1", "verdict": "FAIL", "issue": "Published listing displays the salary range incorrectly (annual values labelled \"/hr\", unformatted)", "actual
+--------------------------------------------------------------------------------
+{"recorded": "FT-1", "verdict": "FAIL", "recorded_count": 13, "total_count": 19, "missing_ids": ["FT-2", "FT-6", "FT-7", "FT-18", "IX-14", "IX-19"], "complete": false}
+
+================================================================================
+[72] browser_type  input={"target": "[data-semtag-id='jobs.filters.search']", "text": "FIGMA"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filters.search\']').fill('FIGMA');
+```
+
+================================================================================
+[73] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='jobs.results.count']\").innerText, titles: Array.from(document.querySelectorAll(\"[data-s
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 1 jobs",
+  "titles": [
+    "Product Designer"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'jobs.results.count\']").innerText, titles: Array.from(document.querySelectorAll("[data-semtag-id^=\'jobs.list.item.\']:not([data-semtag-id*=\'.salary\'])")).map(e=>e.innerText.split(\'\\n\')[2])})');
+```
+
+================================================================================
+[74] browser_type  input={"target": "[data-semtag-id='jobs.filters.search']", "text": "healthplus"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filters.search\']').fill('healthplus');
+```
+
+================================================================================
+[75] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='jobs.results.count']\").innerText, titles: Array.from(document.querySelectorAll(\"[data-s
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 1 jobs",
+  "titles": [
+    "Registered Nurse"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'jobs.results.count\']").innerText, titles: Array.from(document.querySelectorAll("[data-semtag-id^=\'jobs.list.item.\']:not([data-semtag-id*=\'.salary\'])")).map(e=>e.innerText.split(\'\\n\')[2])})');
+```
+
+================================================================================
+[76] browser_type  input={"target": "[data-semtag-id='jobs.filters.search']", "text": "ENGINEER"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filters.search\']').fill('ENGINEER');
+```
+
+================================================================================
+[77] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='jobs.results.count']\").innerText, titles: Array.from(document.querySelectorAll(\"[data-s
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 2 jobs",
+  "titles": [
+    "QA Automation Engineer",
+    "DevOps Engineer (Contract)"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'jobs.results.count\']").innerText, titles: Array.from(document.querySelectorAll("[data-semtag-id^=\'jobs.list.item.\']:not([data-semtag-id*=\'.salary\'])")).map(e=>e.innerText.split(\'\\n\')[2])})');
+```
+
+================================================================================
+[78] browser_type  input={"target": "[data-semtag-id='jobs.filters.search']", "text": "zzzznotfound"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filters.search\']').fill('zzzznotfound');
+```
+
+================================================================================
+[79] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='jobs.results.count']\").innerText, n: document.querySelectorAll(\"[data-semtag-id^='jobs.
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 0 jobs",
+  "n": 0,
+  "body": "JobBoard\nFind Jobs\nEmployer\nPost a Job\nFind Your Dream Job Today\n\nDiscover thousands of opportunities from top companies. Your next career move starts here.\n\n10+ Active Jobs\n1,000+ Companies\nGrowing Daily\nIndustry\nLocation\nJob Type\nClear filters\n\nShowing 0 jobs\n\nNo jobs found\n\nTry adjusting your filters or search terms"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'jobs.results.count\']").innerText, n: document.querySelectorAll("[data-semtag-id^=\'jobs.list.item.\']:not([data-semtag-id*=\'.salary\'])").length, body: document.body.innerText.slice(0,600)})');
+```
+
+================================================================================
+[80] mcp__semantic_hints__semantic_snapshot  input={"scope": "jobs.filters"}
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7003/","screen":"home","action":[{"id":"jobs.filters.clear","name":"Clear filters","action":"clear-filters","controls":"jobs.list"}],"input":[{"id":"jobs.filters.search","name":"Search jobs, companies, or skills...","state":"filters.search","controls":"jobs.list","value":"zzzznotfound"}],"select":[{"id":"jobs.filters.industry","name":"Industry","state":"filters.industry","controls":"jobs.list","options":[{"value":"all","label":"All Industries"},{"value":"Technology","label":"Technology"},{"value":"Healthcare","label":"Healthcare"},{"value":"Finance","label":"Finance"},{"value":"Marketing","label":"Marketing"},{"value":"Education","label":"Education"},{"value":"Design","label":"Design"},{"value":"Sales","label":"Sales"},{"value":"Engineering","label":"Engineering"}],"value":"Industry"},{"id":"jobs.filters.location","name":"Location","state":"filters.location","controls":"jobs.list","options":[{"value":"all","label":"All Locations"},{"value":"San Francisco, CA","label":"San Francisco, CA"},{"value":"New York, NY","label":"New York, NY"},{"value":"Austin, TX","label":"Austin, TX"},{"value":"Chicago, IL","label":"Chicago, IL"},{"value":"Seattle, WA","label":"Seattle, WA"},{"value":"Boston, MA","label":"Boston, MA"},{"value":"Remote","label":"Remote"}],"value":"Location"},{"id":"jobs.filters.type","name":"Job Type","state":"filters.employment-type","controls":"jobs.list","options":[{"value":"all","label":"All Types"},{"value":"full-time","label":"Full-time"},{"value":"part-time","label":"Part-time"},{"value":"contract","label":"Contract"},{"value":"remote","label":"Remote"}],"value":"Job Type"}],"region":[{"id":"jobs.filters","name":""}]}
+
+================================================================================
+[81] browser_click  input={"target": "[data-semtag-id='jobs.filters.clear']", "element": "Clear filters button"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filters.clear\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-25-21-476Z.yml)
+
+================================================================================
+[82] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='jobs.results.count']\").innerText, search: document.querySelector(\"[data-semtag-id='jobs
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 10 jobs",
+  "search": "",
+  "n": 10
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'jobs.results.count\']").innerText, search: document.querySelector("[data-semtag-id=\'jobs.filters.search\']").value, n: document.querySelectorAll("[data-semtag-id^=\'jobs.list.item.\']:not([data-semtag-id*=\'.salary\'])").length})');
+```
+
+================================================================================
+[83] mcp__structured_results__record_result  input={"item_id": "FT-7", "verdict": "PASS", "evidence": "\"FIGMA\" -> 1 job (Product Designer, skill match); \"healthplus\" -> 1 job (Registered Nurse, company match
+--------------------------------------------------------------------------------
+{"recorded": "FT-7", "verdict": "PASS", "recorded_count": 14, "total_count": 19, "missing_ids": ["FT-2", "FT-6", "FT-18", "IX-14", "IX-19"], "complete": false}
+
+================================================================================
+[84] mcp__structured_results__record_result  input={"item_id": "IX-14", "verdict": "PASS", "evidence": "Typing updates results live; \"zzzznotfound\" -> \"Showing 0 jobs\" with \"No jobs found / Try adjusting yo
+--------------------------------------------------------------------------------
+{"recorded": "IX-14", "verdict": "PASS", "recorded_count": 15, "total_count": 19, "missing_ids": ["FT-2", "FT-6", "FT-18", "IX-19"], "complete": false}
+
+================================================================================
+[85] browser_click  input={"target": "[data-semtag-id='jobs.filters.industry']", "element": "Industry filter trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filters.industry\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-25-31-337Z.yml)
+
+================================================================================
+[86] browser_click  input={"target": "[data-semtag-id='jobs.filters.industry.option.marketing']", "element": "Industry option Marketing"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filters.industry.option.marketing\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-25-33-627Z.yml)
+
+================================================================================
+[87] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='jobs.results.count']\").innerText, cards: Array.from(document.querySelectorAll(\"[data-se
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 2 jobs",
+  "cards": [
+    "Marketing | Full-time | Marketing Manager | BrandForward Agency | Austin, TX",
+    "Marketing | Part-time | Part-Time Content Writer | ContentHub | Remote"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'jobs.results.count\']").innerText, cards: Array.from(document.querySelectorAll("[data-semtag-id^=\'jobs.list.item.\']:not([data-semtag-id*=\'.salary\'])")).map(e=>e.innerText.split(\'\\n\').slice(0,5).join(\' | \'))})');
+```
+
+================================================================================
+[88] browser_click  input={"target": "[data-semtag-id='jobs.filters.type']", "element": "Job type filter trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filters.type\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-25-38-787Z.yml)
+
+================================================================================
+[89] browser_click  input={"target": "[data-semtag-id='jobs.filters.type.option.part-time']", "element": "Job type option Part-time"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filters.type.option.part-time\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-25-41-455Z.yml)
+
+================================================================================
+[90] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='jobs.results.count']\").innerText, cards: Array.from(document.querySelectorAll(\"[data-se
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 1 jobs",
+  "cards": [
+    "Marketing | Part-time | Part-Time Content Writer | ContentHub | Remote"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'jobs.results.count\']").innerText, cards: Array.from(document.querySelectorAll("[data-semtag-id^=\'jobs.list.item.\']:not([data-semtag-id*=\'.salary\'])")).map(e=>e.innerText.split(\'\\n\').slice(0,5).join(\' | \'))})');
+```
+
+================================================================================
+[91] browser_click  input={"target": "[data-semtag-id='jobs.filters.clear']", "element": "Clear filters"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filters.clear\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-25-47-136Z.yml)
+
+================================================================================
+[92] browser_click  input={"target": "[data-semtag-id='jobs.filters.location']", "element": "Location filter trigger"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filters.location\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-25-49-582Z.yml)
+
+================================================================================
+[93] browser_click  input={"target": "[data-semtag-id='jobs.filters.location.option.boston-ma']", "element": "Location option Boston, MA"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filters.location.option.boston-ma\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-25-51-894Z.yml)
+
+================================================================================
+[94] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='jobs.results.count']\").innerText, cards: Array.from(document.querySelectorAll(\"[data-se
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 2 jobs",
+  "cards": [
+    "Engineering | Contract | Cloud Security Specialist | TechCorp Solutions | Boston, MA",
+    "Education | Full-time | Elementary School Teacher | Bright Futures Academy | Boston, MA"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'jobs.results.count\']").innerText, cards: Array.from(document.querySelectorAll("[data-semtag-id^=\'jobs.list.item.\']:not([data-semtag-id*=\'.salary\'])")).map(e=>e.innerText.split(\'\\n\').slice(0,5).join(\' | \'))})');
+```
+
+================================================================================
+[95] browser_click  input={"target": "[data-semtag-id='jobs.filters.clear']", "element": "Clear filters"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'jobs.filters.clear\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-25-57-575Z.yml)
+
+================================================================================
+[96] mcp__semantic_hints__semantic_observe  input={"id": "jobs.results.count"}
+--------------------------------------------------------------------------------
+{"id":"jobs.results.count","role":"observable","name":"Showing 10 jobs","state":"jobs.results.count","value":"Showing 10 jobs"}
+
+================================================================================
+[97] mcp__structured_results__record_result  input={"item_id": "FT-6", "verdict": "PASS", "evidence": "Industry=Marketing -> 2 jobs (both Marketing); + Type=Part-time -> 1 job (Part-Time Content Writer); Locatio
+--------------------------------------------------------------------------------
+{"recorded": "FT-6", "verdict": "PASS", "recorded_count": 16, "total_count": 19, "missing_ids": ["FT-2", "FT-18", "IX-19"], "complete": false}
+
+================================================================================
+[98] browser_click  input={"target": "[data-semtag-id='nav.employer']", "element": "Employer nav link"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'nav.employer\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/dashboard
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-26-04-307Z.yml)
+
+================================================================================
+[99] browser_evaluate  input={"function": "() => Array.from(document.querySelectorAll('button,a')).map(e=>({t:e.tagName, id:e.getAttribute('data-semtag-id'), label:(e.innerText||e.getAttrib
+--------------------------------------------------------------------------------
+### Result
+[
+  {
+    "t": "A",
+    "id": "dashboard.post-job",
+    "label": "Post New Job",
+    "href": "/employer/post-job"
+  },
+  {
+    "t": "BUTTON",
+    "id": null,
+    "label": "Post New Job",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-1787869464026.applications",
+    "label": "0",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-1787869464026.delete",
+    "label": "",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-1787869427198.applications",
+    "label": "0",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-1787869427198.delete",
+    "label": "",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-1.applications",
+    "label": "4",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-1.delete",
+    "label": "",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-2.applications",
+    "label": "1",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-2.delete",
+    "label": "",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-4.applications",
+    "label": "0",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-4.delete",
+    "label": "",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-6.applications",
+    "label": "0",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-6.delete",
+    "label": "",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-7.applications",
+    "label": "0",
+    "href": null
+  },
+  {
+    "t": "BUTTON",
+    "id": "dashboard.jobs.item.job-7.delete",
+    "label": "",
+    "href": null
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => Array.from(document.querySelectorAll(\'button,a\')).map(e=>({t:e.tagName, id:e.getAttribute(\'data-semtag-id\'), label:(e.innerText||e.getAttribute(\'aria-label\')||\'\').trim().slice(0,40), href:e.getAttribute(\'href\')})).filter(x=>!/^(JobBoard|Find Jobs|Employer|Post a Job)$/.test(x.label))');
+```
+
+================================================================================
+[100] mcp__structured_results__record_result  input={"item_id": "FT-18", "verdict": "FAIL", "issue": "No edit capability for published jobs", "actual": "The employer dashboard exposes only \"Post New Job\", per-j
+--------------------------------------------------------------------------------
+{"recorded": "FT-18", "verdict": "FAIL", "recorded_count": 17, "total_count": 19, "missing_ids": ["FT-2", "IX-19"], "complete": false}
+
+================================================================================
+[101] browser_click  input={"target": "[data-semtag-id='dashboard.jobs.item.job-1787869427198.delete']", "element": "Delete button for QA Automation Engineer"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.jobs.item.job-1787869427198.delete\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/dashboard
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-26-16-432Z.yml)
+
+================================================================================
+[102] mcp__semantic_hints__semantic_snapshot
+--------------------------------------------------------------------------------
+{"url":"http://localhost:7003/employer/dashboard","screen":"dashboard","navigation":[{"id":"nav.logo","name":"JobBoard","target":"jobs.page"},{"id":"nav.find-jobs","name":"Find Jobs","target":"jobs.page"},{"id":"nav.employer","name":"Employer","target":"employer.dashboard"},{"id":"nav.post-job","name":"Post a Job","target":"employer.post-job"},{"id":"dashboard.post-job","name":"Post New Job","target":"employer.post-job"}],"action":[{"id":"dashboard.jobs.item.job-1787869464026.applications","name":"0","action":"toggle-applications","state":"closed"},{"id":"dashboard.jobs.item.job-1787869464026.delete","name":"","action":"delete-job"},{"id":"dashboard.jobs.item.job-1787869427198.applications","name":"0","action":"toggle-applications","state":"closed"},{"id":"dashboard.jobs.item.job-1787869427198.delete","name":"","action":"delete-job"},{"id":"dashboard.jobs.item.job-1.applications","name":"4","action":"toggle-applications","state":"closed"},{"id":"dashboard.jobs.item.job-1.delete","name":"","action":"delete-job"},{"id":"dashboard.jobs.item.job-2.applications","name":"1","action":"toggle-applications","state":"closed"},{"id":"dashboard.jobs.item.job-2.delete","name":"","action":"delete-job"},{"id":"dashboard.jobs.item.job-4.applications","name":"0","action":"toggle-applications","state":"closed"},{"id":"dashboard.jobs.item.job-4.delete","name":"","action":"delete-job"},{"id":"dashboard.jobs.item.job-6.applications","name":"0","action":"toggle-applications","state":"closed"},{"id":"dashboard.jobs.item.job-6.delete","name":"","action":"delete-job"},{"id":"dashboard.jobs.item.job-7.applications","name":"0","action":"toggle-applications","state":"closed"},{"id":"dashboard.jobs.item.job-7.delete","name":"","action":"delete-job"},{"id":"dashboard.jobs.item.job-1787869427198.delete.cancel","name":"Cancel","action":"cancel-delete-job"},{"id":"dashboard.jobs.item.job-1787869427198.delete.confirm","name":"Delete","action":"confirm-delete-job"}],"observable":[{"id":"dashboard.stats.active-jobs","name":"7","state":"employer.jobs.count","value":"7"},{"id":"dashboard.stats.applications","name":"5","state":"employer.applications.count","value":"5"},{"id":"dashboard.jobs.item.job-1787869464026","name":"Cloud Security Specialist","state":"job.title","value":"Cloud Security Specialist"},{"id":"dashboard.jobs.item.job-1787869427198","name":"QA Automation Engineer","state":"job.title","value":"QA Automation Engineer"},{"id":"dashboard.jobs.item.job-1","name":"Senior Frontend Developer","state":"job.title","value":"Senior Frontend Developer"},{"id":"dashboard.jobs.item.job-2","name":"Product Designer","state":"job.title","value":"Product Designer"},{"id":"dashboard.jobs.item.job-4","name":"Marketing Manager","state":"job.title","value":"Marketing Manager"},{"id":"dashboard.jobs.item.job-6","name":"Part-Time Content Writer","state":"job.title","value":"Part-Time Content Writer"},{"id":"dashboard.jobs.item.job-7","name":"DevOps Engineer (Contract)","state":"job.title","value":"DevOps Engineer (Contract)"}],"region":[{"id":"nav.menu","name":""},{"id":"dashboard.jobs.item.job-1787869427198.delete.dialog","name":"Delete this job?"}],"collection":[{"id":"dashboard.jobs","name":""}]}
+
+================================================================================
+[103] browser_click  input={"target": "[data-semtag-id='dashboard.jobs.item.job-1787869427198.delete.cancel']", "element": "Cancel delete"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.jobs.item.job-1787869427198.delete.cancel\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/dashboard
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-26-22-520Z.yml)
+
+================================================================================
+[104] mcp__semantic_hints__semantic_observe  input={"id": "dashboard.stats.active-jobs"}
+--------------------------------------------------------------------------------
+{"id":"dashboard.stats.active-jobs","role":"observable","name":"7","state":"employer.jobs.count","value":"7"}
+
+================================================================================
+[105] browser_click  input={"target": "[data-semtag-id='dashboard.jobs.item.job-2.delete']", "element": "Delete button for Product Designer (job-2)"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.jobs.item.job-2.delete\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/dashboard
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-26-26-285Z.yml)
+
+================================================================================
+[106] browser_click  input={"target": "[data-semtag-id='dashboard.jobs.item.job-2.delete.confirm']", "element": "Confirm delete job-2"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'dashboard.jobs.item.job-2.delete.confirm\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/dashboard
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-26-28-574Z.yml)
+
+================================================================================
+[107] browser_evaluate  input={"function": "() => ({active: document.querySelector(\"[data-semtag-id='dashboard.stats.active-jobs']\").innerText, apps: document.querySelector(\"[data-semtag-
+--------------------------------------------------------------------------------
+### Result
+{
+  "active": "6",
+  "apps": "4",
+  "jobs": [
+    "dashboard.jobs.item.job-1787869464026",
+    "dashboard.jobs.item.job-1787869427198",
+    "dashboard.jobs.item.job-1",
+    "dashboard.jobs.item.job-4",
+    "dashboard.jobs.item.job-6",
+    "dashboard.jobs.item.job-7"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({active: document.querySelector("[data-semtag-id=\'dashboard.stats.active-jobs\']").innerText, apps: document.querySelector("[data-semtag-id=\'dashboard.stats.applications\']").innerText, jobs: Array.from(document.querySelectorAll("[data-semtag-id^=\'dashboard.jobs.item.\']")).map(e=>e.getAttribute(\'data-semtag-id\')).filter(id=>!/\\.(delete|applications)/.test(id))})');
+```
+
+================================================================================
+[108] browser_click  input={"target": "[data-semtag-id='nav.find-jobs']", "element": "Find Jobs nav link"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'nav.find-jobs\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-26-34-178Z.yml)
+
+================================================================================
+[109] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='jobs.results.count']\").innerText, hasJob2: !!document.querySelector(\"[data-semtag-id='j
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 9 jobs",
+  "hasJob2": false,
+  "ids": [
+    "jobs.list.item.job-1787869464026",
+    "jobs.list.item.job-1787869427198",
+    "jobs.list.item.job-1",
+    "jobs.list.item.job-3",
+    "jobs.list.item.job-4",
+    "jobs.list.item.job-5",
+    "jobs.list.item.job-6",
+    "jobs.list.item.job-7",
+    "jobs.list.item.job-8"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'jobs.results.count\']").innerText, hasJob2: !!document.querySelector("[data-semtag-id=\'jobs.list.item.job-2\']"), ids: Array.from(document.querySelectorAll("[data-semtag-id^=\'jobs.list.item.\']:not([data-semtag-id*=\'.salary\'])")).map(e=>e.getAttribute(\'data-semtag-id\'))})');
+```
+
+================================================================================
+[110] mcp__structured_results__record_result  input={"item_id": "FT-2", "verdict": "PASS", "evidence": "Delete opens \"Delete this job?\" dialog; Cancel left the job intact (active jobs stayed 7). Confirming dele
+--------------------------------------------------------------------------------
+{"recorded": "FT-2", "verdict": "PASS", "recorded_count": 18, "total_count": 19, "missing_ids": ["IX-19"], "complete": false}
+
+================================================================================
+[111] browser_navigate  input={"url": "http://localhost:7003/"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.goto('http://localhost:7003/');
+```
+### Page
+- Page URL: http://localhost:7003/
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-26-42-969Z.yml)
+### Events
+- New console entries: .playwright-mcp/console-2026-08-27T22-26-41-738Z.log#L1-L3
+
+================================================================================
+[112] browser_evaluate  input={"function": "() => ({count: document.querySelector(\"[data-semtag-id='jobs.results.count']\").innerText, ids: Array.from(document.querySelectorAll(\"[data-semt
+--------------------------------------------------------------------------------
+### Result
+{
+  "count": "Showing 8 jobs",
+  "ids": [
+    "jobs.list.item.job-1",
+    "jobs.list.item.job-2",
+    "jobs.list.item.job-3",
+    "jobs.list.item.job-4",
+    "jobs.list.item.job-5",
+    "jobs.list.item.job-6",
+    "jobs.list.item.job-7",
+    "jobs.list.item.job-8"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({count: document.querySelector("[data-semtag-id=\'jobs.results.count\']").innerText, ids: Array.from(document.querySelectorAll("[data-semtag-id^=\'jobs.list.item.\']:not([data-semtag-id*=\'.salary\'])")).map(e=>e.getAttribute(\'data-semtag-id\'))})');
+```
+
+================================================================================
+[113] browser_click  input={"target": "[data-semtag-id='nav.employer']", "element": "Employer nav link"}
+--------------------------------------------------------------------------------
+### Ran Playwright code
+```js
+await page.locator('[data-semtag-id=\'nav.employer\']').click();
+```
+### Page
+- Page URL: http://localhost:7003/employer/dashboard
+- Page Title: JobBoard - Find Your Dream Job Today
+- Console: 0 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-mcp/page-2026-08-27T22-26-48-894Z.yml)
+
+================================================================================
+[114] browser_evaluate  input={"function": "() => ({active: document.querySelector(\"[data-semtag-id='dashboard.stats.active-jobs']\").innerText, apps: document.querySelector(\"[data-semtag-
+--------------------------------------------------------------------------------
+### Result
+{
+  "active": "5",
+  "apps": "3",
+  "job1apps": "2"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({active: document.querySelector("[data-semtag-id=\'dashboard.stats.active-jobs\']").innerText, apps: document.querySelector("[data-semtag-id=\'dashboard.stats.applications\']").innerText, job1apps: document.querySelector("[data-semtag-id=\'dashboard.jobs.item.job-1.applications\']").innerText})');
+```
+
+================================================================================
+[115] mcp__structured_results__record_result  input={"item_id": "IX-19", "verdict": "FAIL", "issue": "No persistence — all state resets to seed data on page reload", "actual": "Before reload: 10 jobs incl. 2 newl
+--------------------------------------------------------------------------------
+{"recorded": "IX-19", "verdict": "FAIL", "recorded_count": 19, "total_count": 19, "missing_ids": [], "complete": true}
+
+================================================================================
+[116] mcp__structured_results__get_result_progress
+--------------------------------------------------------------------------------
+{"recorded_count": 19, "total_count": 19, "missing_ids": [], "complete": true, "results": [{"item_id": "FT-1", "verdict": "FAIL", "issue": "Published listing displays the salary range incorrectly (annual values labelled \"/hr\", unformatted)", "actual": "Posted \"Cloud Security Specialist\" (Engineering, Contract, Boston MA, min 110000 / max 150000 annual per the \"Minimum/Maximum Salary (annual)\" fields, description, skill \"Zero Trust\"). The job is created and appears in both the employer dashboard and the job-seeker list (count went 8 -> 10 incl. earlier test job), but its salary renders as \"$110000 - $150000/hr\" instead of an annual range like \"$110k - $150k\".", "evidence": "Job-seeker card: \"Engineering | Contract | Cloud Security Specialist | TechCorp Solutions | Boston, MA | $110000 - $150000/hr | Yesterday | Zero Trust\""}, {"item_id": "FT-2", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Delete opens \"Delete this job?\" dialog; Cancel left the job intact (active jobs stayed 7). Confirming delete on job-2 (Product Designer, 1 application) removed it from the dashboard (active 7->6, total applications 5->4) and from the job-seeker list (\"Showing 9 jobs\", job-2 card gone)."}, {"item_id": "FT-3", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Dashboard (Sarah Chen) lists 5 jobs (job-1,2,4,6,7); Active Jobs stat = 5 and Total Applications = 5 which equals per-job counts 4+1+0+0+0."}, {"item_id": "FT-4", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Clicking dashboard.jobs.item.job-1.applications expanded \"Applications (4)\" listing the applicants (Alice Duplicate, Alice Tester, Alex Johnson, Maria Garcia) belonging to that job."}, {"item_id": "FT-5", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Home lists 8 job cards, results count reads \"Showing 8 jobs\"; clicking card job-1 navigated to /jobs/job-1 detail page."}, {"item_id": "FT-6", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Industry=Marketing -> 2 jobs (both Marketing); + Type=Part-time -> 1 job (Part-Time Content Writer); Location=Boston, MA alone -> 2 Boston jobs; \"Clear filters\" restored \"Showing 10 jobs\"."}, {"item_id": "FT-7", "verdict": "PASS", "issue": null, "actual": null, "evidence": "\"FIGMA\" -> 1 job (Product Designer, skill match); \"healthplus\" -> 1 job (Registered Nurse, company match); \"ENGINEER\" -> 2 jobs (title match). Count label updated immediately each time (\"Showing N jobs\")."}, {"item_id": "FT-8", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Submitted Alice Tester / alice.tester@example.com / 555-0101 / message on job-1; page showed \"Application submitted! Your application for Senior Frontend Developer at TechCorp Solutions has been sent.\" and form fields reset."}, {"item_id": "FT-18", "verdict": "FAIL", "issue": "No edit capability for published jobs", "actual": "The employer dashboard exposes only \"Post New Job\", per-job applications toggle and delete buttons — no edit control exists for any job. The job detail page likewise offers no edit action, so a published job's details cannot be updated.", "evidence": null}, {"item_id": "CS-9", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Empty submit blocked: name/email/message are required and reported \"Please fill out this field.\"; with email=\"notanemail\" submit blocked with \"Please include an '@' in the email address.\" No success message appeared in either case."}, {"item_id": "CS-10", "verdict": "FAIL", "issue": "No validation of salary range order or of required skills", "actual": "Submitted a job with Minimum Salary 150000 > Maximum Salary 90000 and zero required skills. It was published with \"Job posted successfully!\" and appears in the dashboard as \"QA Automation Engineer — Austin, TX · $150k - $90k\". (Empty-form submit is correctly blocked by required-field validation, and salary inputs have min=0, but the min<=max rule and the at-least-one-skill rule are not enforced.)", "evidence": null}, {"item_id": "CS-11", "verdict": "FAIL", "issue": "Duplicate application with same email accepted for the same job", "actual": "After applying to job-1 as alice.tester@example.com, a second submission with the identical email (name \"Alice Duplicate\") was accepted with the same \"Application submitted!\" confirmation. Employer dashboard now shows job-1 with 4 applications including two records for alice.tester@example.com.", "evidence": null}, {"item_id": "IX-13", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Submission showed \"Application submitted!\" banner; dashboard job-1 shows exactly one \"Alice Tester / alice.tester@example.com / 555-0101 / I am very interested in this frontend role.\" record."}, {"item_id": "IX-14", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Typing updates results live; \"zzzznotfound\" -> \"Showing 0 jobs\" with \"No jobs found / Try adjusting your filters or search terms\"; \"Clear filters\" restored search box to empty and \"Showing 10 jobs\" with 10 cards."}, {"item_id": "IX-19", "verdict": "FAIL", "issue": "No persistence — all state resets to seed data on page reload", "actual": "Before reload: 10 jobs incl. 2 newly posted, job-2 deleted, job-1 with 4 applications. After reloading http://localhost:7003/: job-seeker list shows the original \"Showing 8 jobs\" (both new jobs gone, deleted job-2 restored) and the dashboard shows Active Jobs 5 / Total Applications 3 with job-1 back to 2 seed applications (submitted applications lost). No localStorage entries are written.", "evidence": null}, {"item_id": "CT-15", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Card job-1 text: Technology / Full-time / Senior Frontend Developer / TechCorp Solutions / San Francisco, CA / $140k - $180k / Jan 15 / React, TypeScript, CSS, Node.js — all 8 required fields present on every card."}, {"item_id": "CT-16", "verdict": "PASS", "issue": null, "actual": null, "evidence": "/jobs/job-1 shows title Senior Frontend Developer, TechCorp Solutions, Technology, Full-time, San Francisco CA, $140k-$180k, Posted Jan 15, full description text, skills React/TypeScript/CSS/Node.js — all matching the job-1 card."}, {"item_id": "CT-17", "verdict": "PASS", "issue": null, "actual": null, "evidence": "Each application is a distinct record: \"Alice Tester / alice.tester@example.com / 555-0101 / Yesterday / I am very interested in this frontend role.\"; phone omitted when not supplied (Alice Duplicate)."}, {"item_id": "CT-20", "verdict": "FAIL", "issue": "Newly created records show an inaccurate (off-by-one-day) submission date", "actual": "Browser clock is Thu Aug 27 2026 22:22 UTC (matches current date). A job posted just now displays \"Posted Yesterday\" and applications submitted just now display \"Yesterday\" in the employer dashboard instead of Today/Aug 27.", "evidence": null}]}
+
+
+# accessibility snapshots seen by the agent: 0
+# screenshots seen by the agent: 0

@@ -1,0 +1,209 @@
+=== injection: WebTestBench_0006 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0006
+model:  claude-opus-5   max_turns: 150
+
+I'll start by invoking the semtag-inject skill.
+[tool] Skill
+I'll start by reading the spec, then explore the app.
+[tool] Read
+Spec read. Now let me explore the app structure.
+[tool] Bash
+[tool] Bash
+The shell cwd is a specific app directory. Let me confirm.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+A bookkeeping app (React/Vite/shadcn) with 6 pages, no hints yet. Let me read the core files.
+[tool] ToolSearch
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Bash
+Now let me read the validator before editing.
+[tool] Read
+Now I'll inject. Starting with navigation and layout.
+[tool] TodoWrite
+[tool] Edit
+[tool] Edit
+Now StatCard — widening props so hints reach the value element.
+[tool] Edit
+[tool] Edit
+Now the dashboard charts and recent-transactions list.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Dashboard done. Now the Transactions page — filters, table, and dialogs.
+[tool] TodoWrite
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the Transactions page itself.
+[tool] Edit
+[tool] Edit
+Now the table rows.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the summary totals and delete dialog on Transactions.
+[tool] Edit
+[tool] Edit
+Now the TransactionDialog form.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Transactions done. Now Categories — threading a collection prefix into the shared card.
+[tool] TodoWrite
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the CategoryDialog, including the color swatch grid.
+[tool] Edit
+[tool] Edit
+Now the Reports page. First, adding a stable key to the category-breakdown data.
+[tool] TodoWrite
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the Reports daily chart and the two category breakdown lists.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the TaxSummary page.
+[tool] TodoWrite
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the two TaxSummary breakdown tables.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the tax transaction list.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now NotFound, then validation.
+[tool] Edit
+[tool] Bash
+Zero errors. The 4 warnings are at the `<StatCard>` call sites — the role is supplied inside the component. Let me make the role explicit at both ends rather than leave a half-formed hint in the source.
+[tool] Edit
+[tool] Edit
+[tool] Bash
+[tool] Bash
+Clean. Now checking what the linter can't see — DOM ancestry and runtime id uniqueness. I found one real risk in TaxSummary.
+[tool] Read
+`category?.id` is undefined when a category has been deleted but its transactions remain — which this app explicitly allows. Two such rows would collide on `item.undefined`. Exposing the raw `categoryId` instead.
+[tool] Edit
+[tool] Bash
+[tool] Bash
+Now running the validator again plus the project's own checks.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+node_modules isn't installed, so the project's own checks can't run yet. Installing.
+[tool] Bash
+While that installs, let me verify collection ancestry by reading the changed structures.
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Bash
+[tool] Bash
+Install finished. Running the project's checks.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Type-check and build pass. Let me confirm the 3 lint errors are pre-existing.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] TodoWrite
+Semantic hint injection is complete across the whole app.
+
+## Screens & components annotated
+
+| Screen | Route | Components hinted |
+|---|---|---|
+| Dashboard | `/` | `StatCard` ×4, `RecentTransactions`, `MonthlyChart`, `ExpenseChart` |
+| Transactions | `/transactions` | `TransactionFilters`, table, summary, `TransactionDialog`, delete dialog |
+| Categories | `/categories` | Income + expense grids, `CategoryCard`, `CategoryDialog`, delete dialog |
+| Reports | `/reports` | Month select, summary, daily chart, 2 by-category breakdowns |
+| Tax Summary | `/tax-summary` | Year select, print, summary, 2 by-category tables, transaction list |
+| NotFound | `*` | Message + home link |
+| Shared | all | `Sidebar` nav |
+
+## Id namespaces
+
+`nav.main.*` · `dashboard.{stats,recent,chart}.*` · `transactions.{add,filters,list,table,summary,delete-dialog}.*` + `transaction.form.*` · `categories.{add,income,expense,delete-dialog}.*` + `category.form.*` · `reports.{month,summary,chart.daily,income-by-category,expenses-by-category}.*` · `tax.{year,print,summary,income-by-category,expenses-by-category,transactions}.*` · `not-found.*`
+
+The singular/plural split (`transaction.form.*` vs `transactions.*`) keeps modal forms from colliding with the list page behind them when both are mounted.
+
+## Collections (14, all folding)
+
+`nav.main`, `dashboard.stats`, `dashboard.recent`, `transactions.table`, `categories.income`, `categories.expense`, `category.form.colors`, `reports.summary`, `reports.income-by-category`, `reports.expenses-by-category`, `tax.summary`, `tax.income-by-category`, `tax.expenses-by-category`, `tax.transactions`.
+
+All keyed on stable domain ids (`tx-N`, `cat-N`) or semantic slugs — never array index.
+
+## Not folded, by design
+
+- **Select option lists** use the spec's `.option.<value>` shape rather than `.item.`, because Radix portals `SelectContent` outside the trigger's subtree and only mounts it while open. `data-semtag-options` on each trigger is the spec's substitute.
+- **`tax.*-by-category.total` rows** sit inside collection tables but deliberately are not `.item.` ids — they're totals, not members, and folding them would misrepresent the row count.
+
+## Deliberately unhinted
+
+Recharts internals (SVG geometry, legends, tooltips — only the containers carry `region`); decorative icons and colour badges that restate an adjacent labelled control; layout wrappers (`MainLayout`, `App.tsx` routing); page headings and static `<th>` labels; print-only blocks in TaxSummary; and the whole `src/components/ui/*` shadcn library — untouched, since every component there already spreads `...props`, so hints pass through from call sites.
+
+## Notable correctness work
+
+- **`StatCard`** got the one permitted prop-widening (three optional `data-semtag-*` props forwarded to the value `<p>`, not the card root — the root's text would concatenate title + value + subtitle + trend). Attributes are emitted only when the id is present, per §8.
+- **`CategoryCard`** takes a `collectionId` prop, because the same component renders in both the income and expense grids; without it, a category appearing in both would emit duplicate ids.
+- **`TaxSummary`** originally keyed on `category?.id`. The app allows deleting a category while its transactions survive, so two orphaned rows would both emit `…item.undefined`. I exposed the raw `categoryId` from the `summary` memo and keyed all six ids on it. The linter cannot see this — it needed reading the delete flow.
+
+## Verification
+
+- Validator: **128 hinted elements, 73 files, 0 errors / 0 warnings** — also clean under `--strict`
+- `tsc -p tsconfig.app.json --noEmit`: pass
+- `npm run build`: pass (2834 modules, 19.0s)
+- `npm run lint`: 3 errors, all **pre-existing** in files I never touched (`ui/command.tsx`, `ui/textarea.tsx`, `tailwind.config.ts`). Filtering the report to my edited files yields zero findings.
+
+I also manually confirmed the two things the linter states it cannot check: DOM ancestry for every collection container, and runtime uniqueness of every template-literal id.
+
+--- WebTestBench_0006: ok in 894.2s
+    turns=125 cost=$8.249924249999998 tool_calls=122 skill_invoked=True
+    hinted_elements=130 files=14 validator_errors=0 warnings=0

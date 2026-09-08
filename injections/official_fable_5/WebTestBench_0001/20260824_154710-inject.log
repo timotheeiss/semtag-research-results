@@ -1,0 +1,94 @@
+=== injection: WebTestBench_0001 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0001
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Grep
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] ToolSearch
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] TodoWrite
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] TodoWrite
+**RatingStars** — widen props so call sites can attach semtags:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ProductCard** — thread a collection id and hint title/price/buy per item:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**ProductGrid** — collection container plus pass-through:
+[tool] Edit
+**ProductFilters** — search, category/sort selects with options, advanced panel, slider, tags:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**Header** — nav links, search (desktop + mobile), admin, menu toggle:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**Footer** — its own id namespace to avoid colliding with header nav:
+[tool] Bash
+[tool] TodoWrite
+Now the pages. **Index** (home):
+[tool] Bash
+**ProductsPage, CategoryPage, NotFound**:
+[tool] Bash
+**ProductDetailPage**:
+[tool] Bash
+**AdminPage**:
+[tool] Bash
+[tool] TodoWrite
+[tool] Bash
+Validator is clean. Now the project's own checks:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+All checks pass. The one ESLint warning (`react-hooks/exhaustive-deps` in `ProductFilters`) is pre-existing — it's the original search-debounce `useEffect`, which I did not touch.
+[tool] TodoWrite
+Semtag injection complete for the CuratedPicks app (`web_applications_hinted/WebTestBench_0001`). 75 hinted elements, validator clean (0 errors / 0 warnings), `tsc --noEmit` clean, `vite build` succeeds.
+
+## Screens & components annotated
+- **Header/Footer (all screens):** logo, 5 nav links (+ `.mobile` copies with identical `data-semtag-state`), desktop/mobile search (`search.query` / `search.query.mobile`, shared state `search.query`), admin link, mobile-menu toggle (`open`/`closed`), footer links under a separate `footer.*` namespace to stay unique page-wide.
+- **Home (`Index`):** hero CTAs, `home.featured` collection, `home.categories` collection (with per-item product counts), per-category `home.latest.<cat>` collections, view-all links.
+- **Products / Category pages:** result count observable, `products.grid` / `category.grid` collections, full filter bar — search, category & sort selects with `data-semtag-options` built from the same arrays that render their `SelectItem`s, advanced panel region + open/closed toggle, price slider with min/max observables, `filters.tags` toggle collection, clear button. `data-semtag-controls` is threaded per page so filters point at the right grid.
+- **Product detail:** back link, name/price/rating/description/review observables, buy action, `product.tags` and `product.specs` collections, `product.related` collection, not-found branch.
+- **Admin:** add-product action, `admin.form` region with all 9 fields + category select (options from `categories`), featured switch, submit/cancel, `admin.products` collection keyed by product id with per-item price, rating, `.edit` (controls `admin.form`) and `.delete`.
+- **404 page:** return-home link.
+
+## Id namespaces
+`nav.*`, `search.*`, `footer.*`, `home.*`, `products.*`, `category.*`, `filters.*`, `product.*`, `admin.*`, `notfound.*`
+
+## Code changes beyond attributes (all permitted prop-threading, no behavior change)
+- `RatingStars` widened with `React.ComponentProps<'div'>` + spread, so detail/admin pages can mark it observable.
+- Optional props threaded: `ProductCard.semtagCollection`, `ProductGrid.semtagId`, `ProductFilters.semtagControls` — each emits **no** attributes when absent, per spec §8.
+- Filter select options lifted into shared `categoryOptions`/`sortOptions`/`ratingOptions` consts so triggers and menus can't drift (renders identical output).
+
+## Deliberate gaps
+- **Admin spec rows not folded/hinted:** rows are user-entered label/value pairs with no stable domain key (blank on creation), so any id would be index-keyed, which the spec forbids. Only the "Add Spec" button is hinted.
+- `product.specs` items are keyed by slugified spec label — unique for all shipped data; two identical labels on one product would collide (noting since the linter can't see runtime values).
+- Left unhinted: card image links (duplicate the title link), decorative icons, hero copy, category badges, and the footer copyright line.
+
+--- WebTestBench_0001: ok in 424.0s
+    turns=54 cost=$3.0562777499999987 tool_calls=52 skill_invoked=True
+    hinted_elements=81 files=11 validator_errors=0 warnings=0

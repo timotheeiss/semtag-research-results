@@ -1,0 +1,94 @@
+=== injection: WebTestBench_0054 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0054
+model:  claude-fable-5   max_turns: 150
+
+[tool] Skill
+[tool] Read
+[tool] Bash
+[tool] Bash
+The shell's working directory is the actual target app: `data/WebTestBench/web_applications_hinted/WebTestBench_0054`. Let me explore it.
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**2. Shared components — widen props for pass-through (FavoriteButton, EmptyState):**
+[tool] Write
+[tool] Write
+**3. DocumentList — search, filters, sort, and the folded document collection (namespaced `library.*` vs `favorites.*`):**
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**4. DocumentViewer — header, sections collection, related-docs collection:**
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**5. DocumentSection — expand/collapse toggle, content, in-section links (including the locked collapsed variant):**
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**6. KnowledgeGraph — zoom controls, zoom indicator, node collection:**
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+**7. Toast and NotFound:**
+[tool] Edit
+[tool] Edit
+Now run the skill's validator:
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Done. The whole `WebTestBench_0054` directory is untracked in git (a fresh copy), so there's no baseline diff — but every change was one of the attribute edits above; validator, type-check, and build all confirm.
+
+## Summary
+
+**App:** `data/WebTestBench/web_applications_hinted/WebTestBench_0054` — "TechSpecs KB", a single-route React/Vite knowledge base with three tabbed views.
+
+**Screens & components annotated** (31 hinted elements):
+- **Header tabs** (`Index.tsx`): `nav.documents` / `nav.graph` / `nav.favorites` as `navigation` with view targets, plus `nav.favorites.count` observable.
+- **Document / Favorites lists** (`DocumentList.tsx`): search input (`state: search.query`, `controls` the list), module filter chips as toggles (`library.filter.module.*`, literal `selected` state), sort `<select>` with `data-semtag-options` mirroring its three options, empty-state observable, and a folded collection `<ns>.list` with items `<ns>.list.item.<doc-slug>` (navigation → `document.detail`) and per-item `.favorite` toggle controls.
+- **Document viewer** (`DocumentViewer.tsx`): back navigation, title/last-updated/version observables, favorite toggle, `doc.sections` collection, `doc.related` collection with `doc.related.item.<slug>` navigation items.
+- **Sections** (`DocumentSection.tsx`): each header as toggle with live `open`/`closed` state, expanded content observable, cross-doc links `doc.sections.item.<section>.link.<doc>` — the collapsed (non-functional) variant carries literal state `disabled`, describing the app's expand-to-access constraint without encoding test intent.
+- **Knowledge graph** (`KnowledgeGraph.tsx`): zoom-in/out/reset actions sharing state key `graph.zoom` with the zoom-level observable, and SVG node collection `graph.nodes` / `graph.nodes.item.<doc-slug>`.
+- **Toast** (`Toast.tsx`): `app.toast` observable + dismiss action. **NotFound**: home link.
+
+**Id namespaces:** `nav`, `library`, `favorites`, `doc`, `graph`, `app`, `notfound`. The shared `DocumentList` derives its namespace from `showFavoritesOnly`, so the two views never collide (and only one renders at a time via `AnimatePresence mode="wait"`).
+
+**Prop widening (the one permitted code change):** `FavoriteButton` and `EmptyState` now extend `React.ComponentProps` and spread `{...props}` so call sites pass `data-semtag-*` through; `FavoriteButton` additionally emits `data-semtag-state="on|off"` only when a semtag id was supplied.
+
+**Left unhinted:** graph edges and legend (decorative/derivable), document-card metadata rows (slug already identifies items), the graph's drag/wheel pan surface (no discrete control to address).
+
+**Verification:**
+- `validate-semtags.mjs src` — **0 errors, 0 warnings**.
+- `tsc -b` and `npm run build` — pass.
+- `npm run lint` — 3 pre-existing errors, all in untouched shadcn `ui/*` templates and `tailwind.config.ts`; the one warning in a touched file (`documents` useMemo dep in `DocumentList`) predates the injection.
+
+--- WebTestBench_0054: ok in 339.3s
+    turns=56 cost=$1.8262327499999997 tool_calls=54 skill_invoked=True
+    hinted_elements=32 files=8 validator_errors=0 warnings=0

@@ -1,0 +1,184 @@
+=== injection: WebTestBench_0019 ===
+target: /home/ubuntu/semantic-hints-project/WebTestBench/data/WebTestBench/web_applications_hinted/WebTestBench_0019
+model:  claude-opus-5   max_turns: 150
+
+I'll start by invoking the semtag-inject skill.
+[tool] Skill
+I'll start by reading the spec, then explore the codebase.
+[tool] Read
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+Now the pages.
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Read
+[tool] Bash
+[tool] Read
+[tool] Bash
+[tool] Bash
+Now I have the full picture. Let me start injecting, beginning with the shared components.
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the Header:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the Sidebar:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now ThreadCard — the shared collection item component:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now ReplyCard:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now the pages. HomePage:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now CategoryPage:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now ThreadPage:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now NewThreadPage:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now LoginPage and RegisterPage:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now ProfilePage and NotFound:
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+[tool] Edit
+Now let me run the validator:
+[tool] Bash
+[tool] Bash
+[tool] Edit
+[tool] Edit
+Now trimming a couple of `state` keys that carry no information on `navigation` elements:
+[tool] Edit
+[tool] Edit
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Now let me verify at runtime what the linter can't see — DOM ancestry and page-wide id uniqueness.
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Write
+[tool] Bash
+[tool] Bash
+Runtime check is clean on every screen. The last failure is my script's fault (a full page reload drops the in-memory session) — let me redo that step via in-app navigation:
+[tool] Write
+[tool] Bash
+[tool] Bash
+[tool] Bash
+[tool] Bash
+Done. The app is **ThreadHive**, a React/Vite forum SPA.
+
+## Screens and components annotated
+
+| File | What was hinted |
+|---|---|
+| `components/Header.tsx` | logo → home, search field, New Thread / Profile / Logout / Login / Register |
+| `components/Sidebar.tsx` | sort filters (collection of 3 toggles), categories (collection of 6 links), community stats region + 4 observables |
+| `components/ThreadCard.tsx` | per-item: title link, upvote button + count, author, category, timestamp, reply/view counts, pinned marker |
+| `components/ReplyCard.tsx` | per-item: content, upvote button + count, author, timestamp |
+| `components/CategoryBadge.tsx` | prop widening only (pass-through) |
+| `pages/HomePage.tsx` | heading + search summary observables, `home.threads` collection, empty state |
+| `pages/CategoryPage.tsx` | category name/description, `category.threads` collection, empty state, not-found branch |
+| `pages/ThreadPage.tsx` | back, `thread.detail` region, title/content/upvotes/counts/author/category/time, reply form region (textarea + submit), `thread.replies` collection, empty state, not-found branch |
+| `pages/NewThreadPage.tsx` | back, form region, category `select` + 6 `option`s, title input + counter, content textarea, cancel/submit |
+| `pages/LoginPage.tsx` / `RegisterPage.tsx` | logo, form region, each field, submit, cross-link |
+| `pages/ProfilePage.tsx` | back, profile card region, username/joined/reputation/bio, `profile.interests` collection, edit/save/cancel + bio & interests inputs, `profile.threads` collection, empty + not-found branches |
+| `pages/NotFound.tsx` | 404 code, message, back-to-home |
+
+## ID namespaces
+
+`nav.*`, `search.query`, `sidebar.filters.*`, `sidebar.categories.*`, `sidebar.stats.*`, `home.*`, `category.*`, `thread.*` (incl. `thread.reply.*` and `thread.replies.*`), `new-thread.*`, `login.*`, `register.*`, `profile.*`, `not-found.*`.
+
+## Collections — all fold
+
+Verified in a real browser (built app, Playwright) rather than only in source: `sidebar.filters` (3), `sidebar.categories` (6), `home.threads` (8), `category.threads`, `thread.replies`, `profile.interests` (4), `profile.threads`. Every `.item.` id resolves to a `role="collection"` ancestor on every screen, logged in and out. **Nothing failed to fold.**
+
+Two uniqueness hazards handled per §8: `ThreadCard` takes a required `semtagCollection` prop so the same thread in `home.threads`, `category.threads` and `profile.threads` gets a scoped id; interest tags are slugified (`"Open Source"` → `open-source`) so ids stay addressable.
+
+## Deliberately left unhinted
+
+Decorative icons, layout wrappers, `<Label>`s that duplicate their input's accessible name, the demo-accounts hint text on the login page, the `asLink={false}` category badge on CategoryPage (the `<h1>` already carries the name), and all 60+ untouched `components/ui/*` shadcn primitives.
+
+## Checks
+
+- **Validator**: 102 hinted elements, 0 errors / 0 warnings / 0 info.
+- **`tsc --noEmit`**: clean. **`vite build`**: succeeds.
+- **`eslint`**: 1 error + 8 warnings, **all pre-existing** — the error is a `require()` in `tailwind.config.ts` and the warnings are react-refresh notices in `components/ui/*` and `ForumContext.tsx`, none of which I touched (confirmed by diffing against the pristine copy at `../../web_applications/WebTestBench_0019`).
+- A full diff against that pristine copy shows only attribute additions, JSX reformatting, and three documented prop widenings (`CategoryBadge` semtag pass-through, `Header`/`Sidebar` `semtagControls`, `ThreadCard` `semtagCollection`). No copy, styling, or logic changed.
+
+One note: `node_modules/` was absent when I started, so I ran `npm install` to type-check and build. It now matches the pristine tree (`package-lock.json` unmodified); the `dist/` I built has been removed.
+
+--- WebTestBench_0019: ok in 854.8s
+    turns=119 cost=$7.223044500000001 tool_calls=117 skill_invoked=True
+    hinted_elements=107 files=13 validator_errors=0 warnings=0
